@@ -306,3 +306,41 @@ def test_bypass_secret_is_never_printed(monkeypatch, capsys):
     _patch_client(monkeypatch, handler)
     smoke.main(["--base", BASE, "--bypass", "--no-live"])
     assert "do-not-print-me" not in capsys.readouterr().out
+
+
+# ------------------------------------------------------------------ CI wiring (PR #36 review)
+
+REPO = __import__("pathlib").Path(__file__).resolve().parents[3]
+
+
+def _pins(path):
+    out = {}
+    for line in (REPO / path).read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if "==" in line:
+            name, ver = line.split("==", 1)
+            out[name.strip().lower()] = ver.strip()
+    return out
+
+
+def test_smoke_requirements_cover_imports_and_match_backend_pins():
+    smoke_pins = _pins("backend/platform/requirements-smoke.txt")
+    backend_pins = _pins("backend/requirements.txt")
+    assert set(smoke_pins) == {"httpx", "pillow"}  # smoke.py imports httpx and PIL (png_problem)
+    for name, ver in smoke_pins.items():
+        assert backend_pins.get(name) == ver, (name, ver, backend_pins.get(name))
+
+
+def test_workflows_pin_actions_to_full_shas_and_install_smoke_pins():
+    import re
+
+    for wf in ("release-smoke.yml", "deploy-check.yml"):
+        text = (REPO / ".github/workflows" / wf).read_text(encoding="utf-8")
+        uses = re.findall(r"uses:\s*([^\s#]+)", text)
+        assert uses, wf
+        for u in uses:
+            assert re.fullmatch(r"[\w.-]+/[\w.-]+@[0-9a-f]{40}", u), (wf, u)
+        assert "persist-credentials: false" in text, wf
+    rs = (REPO / ".github/workflows/release-smoke.yml").read_text(encoding="utf-8")
+    assert "requirements-smoke.txt" in rs
+    assert "${{ github.event.deployment" not in rs.split("steps:", 1)[1].split("run: |", 1)[1]  # payload only via env

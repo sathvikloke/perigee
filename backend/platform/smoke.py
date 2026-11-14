@@ -227,7 +227,7 @@ def check_access(res: Results, s: Session) -> bool | None:
         if is_protection_redirect(r):
             blocked.append(f"{path} -> {r.status_code} {urlsplit(r.headers.get('location', '')).hostname}")
     return res.add("access (logged-out visitor)", not blocked,
-                   "public" if not blocked else "Vercel Authentication: " + "; ".join(blocked))
+                   "no Vercel login redirect" if not blocked else "Vercel Authentication: " + "; ".join(blocked))
 
 
 def check_frontend(res: Results, s: Session) -> None:
@@ -420,7 +420,12 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     failed = res.failed()
-    note = " Judge access NOT verified (bypass used)." if args.bypass else " Logged-out access verified."
+    if args.bypass:
+        note = " Judge access NOT verified (bypass used)."
+    elif failed:
+        note = " Not redirected to Vercel login, but the app checks above failed."
+    else:
+        note = " Logged-out access verified."
     if args.no_live:
         note += " Live archive path skipped."
     print(f"\nRESULT: {'PASS' if not failed else 'FAIL'} {len(res.rows) - len(failed)}/{len(res.rows)}.{note}")

@@ -1,13 +1,22 @@
 name: release-smoke
 
-# Checks the PUBLIC production URL after Vercel finishes a production deploy,
-# exactly as a logged-out judge reaches it: python -m backend.platform.smoke.
-# It never deploys, never uses a bypass secret, and needs no secrets.
+# Checks the PUBLIC production URL exactly as a logged-out judge reaches it:
+# python -m backend.platform.smoke. It never deploys, never uses a bypass secret,
+# and needs no secrets (Suhrit, PR #36; hardened in review).
 #
-# Setup (Sathvik, once production is public): add a repository VARIABLE
-#   PERIGEE_PUBLIC_URL = https://<production domain>   (not perigee.vercel.app)
+# Setup (owner, once production is public): add a repository VARIABLE
+#   PERIGEE_PUBLIC_URL = https://perigee-liard.vercel.app
+# (the project's registered production domain; never perigee.vercel.app).
 # Until it is set, the automatic run is skipped with a notice.
-# Manual run: Actions > release-smoke > Run workflow, with any deployment URL.
+#
+# Triggers:
+# - deployment_status: fires only when a GitHub Deployment exists for the commit.
+#   GitHub runs this event with GITHUB_SHA/GITHUB_REF = the deployed commit/ref; it
+#   has no default-branch requirement. As of 2026-11-14 this repository has NO
+#   GitHub Deployments (GET /repos/{owner}/{repo}/deployments -> []): Vercel posts
+#   commit statuses only, so this path has never fired here and is unverified.
+# - workflow_dispatch: manual run for any https origin. GitHub only offers it once
+#   this file exists on the default branch (main).
 #
 # Exit 2 from the script = Vercel Authentication blocks logged-out visitors
 # (an access setting, not a code defect); exit 1 = application/config defect.
@@ -36,36 +45,52 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.deployment_status.state == 'success' &&
-       github.event.deployment.environment == 'Production')
+       (github.event.deployment.environment == 'Production' || github.event.deployment.environment == 'production'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
+      # Payload and input values reach scripts only through env, never inline.
       BASE: ${{ github.event_name == 'workflow_dispatch' && inputs.base || vars.PERIGEE_PUBLIC_URL }}
       NO_LIVE: ${{ github.event_name == 'workflow_dispatch' && !inputs.live && '--no-live' || '' }}
+      EVENT: ${{ github.event_name }}
+      DEPLOYED_SHA: ${{ github.event.deployment.sha }}
+      DEPLOYED_ENV: ${{ github.event.deployment.environment }}
+      REPORTED_URL: ${{ github.event.deployment_status.environment_url }}
     steps:
       - name: Skip when no public URL is configured
         if: env.BASE == ''
         run: echo "::notice::PERIGEE_PUBLIC_URL repository variable is not set; release smoke skipped."
-      - uses: actions/checkout@v4
+      # The smoke harness comes from the default branch (reviewed code) for
+      # deployment_status, not from the deployed commit named in the payload.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         if: env.BASE != ''
         with:
-          ref: ${{ github.event.deployment.sha || github.sha }}
-      - uses: actions/setup-python@v5
+          ref: ${{ github.event_name == 'deployment_status' && github.event.repository.default_branch || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         if: env.BASE != ''
         with:
           python-version: "3.12"
-      - name: Install smoke dependency
+      - name: Install smoke dependencies (pinned)
         if: env.BASE != ''
-        run: python -m pip install "httpx==0.28.1"
+        run: python -m pip install -r backend/platform/requirements-smoke.txt
       - name: Smoke check (logged out)
         if: env.BASE != ''
         run: |
           set +e
           python -m backend.platform.smoke --base "$BASE" $NO_LIVE | tee smoke.txt
           code=${PIPESTATUS[0]}
+          harness=$(git rev-parse HEAD)
           {
-            echo "### Release smoke: \`$BASE\`"
-            echo "Commit: \`${{ github.event.deployment.sha || github.sha }}\` (exit $code)"
+            echo "### Release smoke: \`$BASE\` (exit $code)"
+            echo "- Origin tested: \`$BASE\`"
+            echo "- Smoke harness commit: \`$harness\`"
+            if [ "$EVENT" = "deployment_status" ]; then
+              echo "- Deployment reported by the event: commit \`$DEPLOYED_SHA\`, environment \`$DEPLOYED_ENV\`, URL \`$REPORTED_URL\`"
+              echo "- Not verified: that \`$BASE\` was serving that commit when tested."
+            else
+              echo "- Manual run: no deployment commit is known for this origin."
+            fi
             echo '```'
             cat smoke.txt
             echo '```'
