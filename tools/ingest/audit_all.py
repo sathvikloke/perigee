@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import statistics
 import sys
@@ -76,6 +77,41 @@ def frame_input(rec: Dict[str, Any], manifest: Dict[str, Any], tgt: Dict[str, An
         retrieved_at_basis="Download-ledger creation time (manifest.json created_utc); per-file retrieval time not recorded.",
         expected_sha256=rec.get("sha256"),
     )
+
+
+# Wavelengths are compared with a tolerance, not ==: the same code and pinned
+# numpy/astropy give results that differ in the last bits between macOS arm64
+# (where the products were built) and Linux x86-64 (CI, Vercel), up to ~3e-15
+# relative. 1e-9 um is far above that noise and far below any real change
+# (the case check uses 1e-4 um). (Sagar, PR #35.)
+WAVELENGTH_TOL_UM = 1e-9
+
+
+def _as_wavelength(v: Any) -> Optional[float]:
+    """A finite float, or None when ``v`` is not a usable wavelength (bool,
+    non-number, NaN, +/-inf). JSON null is handled by the caller."""
+    if isinstance(v, bool) or not isinstance(v, (int, float)):
+        return None
+    f = float(v)
+    return f if math.isfinite(f) else None
+
+
+def wavelength_differs(committed: Any, rebuilt: Any, tol: float = WAVELENGTH_TOL_UM) -> bool:
+    """True when the committed and freshly rebuilt wavelengths disagree.
+
+    Both null: equal (off-image, no wavelength). One null: differs. Any value
+    that is not a finite number (NaN, inf, strings, booleans) counts as a
+    difference, so it can never pass as equal (abs(nan - x) > tol is False).
+    Otherwise they differ when |a - b| > tol.
+    """
+    if committed is None and rebuilt is None:
+        return False
+    if committed is None or rebuilt is None:
+        return True
+    a, b = _as_wavelength(committed), _as_wavelength(rebuilt)
+    if a is None or b is None:
+        return True
+    return not abs(a - b) <= tol
 
 
 def audit(data_root: Path, targets_path: Path, cases_dir: Path, presets_dir: Optional[Path]) -> Dict[str, Any]:
@@ -152,18 +188,6 @@ def audit(data_root: Path, targets_path: Path, cases_dir: Path, presets_dir: Opt
                 failures.append({"check": "case_frame", **row})
 
     # ---- committed products are not stale
-    # Wavelengths are compared with a tolerance, not ==: the same code and pinned
-    # numpy/astropy give results that differ in the last bits between macOS arm64
-    # (where the products were built) and Linux x86-64 (CI, Vercel), up to ~3e-15
-    # relative. 1e-9 um is far above that noise and far below any real change
-    # (the case check uses 1e-4 um).
-    WAVELENGTH_TOL_UM = 1e-9
-
-    def _wl_differs(a, b) -> bool:
-        if a is None or b is None:
-            return a is not b
-        return abs(float(a) - float(b)) > WAVELENGTH_TOL_UM
-
     product_check = None
     if presets_dir is not None:
         stale, missing = [], []
@@ -176,7 +200,7 @@ def audit(data_root: Path, targets_path: Path, cases_dir: Path, presets_dir: Opt
             diffs = {}
             if c["quality"]["status"] != r["quality"]["status"]:
                 diffs["status"] = [c["quality"]["status"], r["quality"]["status"]]
-            if _wl_differs(c["wavelength_um"], r["wavelength_um"]):
+            if wavelength_differs(c["wavelength_um"], r["wavelength_um"]):
                 diffs["wavelength_um"] = [c["wavelength_um"], r["wavelength_um"]]
             if c["provenance"]["sha256"] != r["provenance"]["sha256"]:
                 diffs["sha256"] = True

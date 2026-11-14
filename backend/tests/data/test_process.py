@@ -160,8 +160,18 @@ def test_missing_variance_with_nothing_wrong_is_unknown_not_clear():
     q = rec["quality"]
     assert q["status"] == "unknown"
     assert q["covered"] is True
-    assert any("no usable VARIANCE map" in n for n in q["notes"])
+    assert any("no usable VARIANCE map (extension missing" in n for n in q["notes"])
     assert not any("not a detection" in n for n in q["notes"])  # the clear-screen note is absent
+
+
+def test_existing_but_unusable_variance_is_flagged_not_unknown():
+    # Policy (PR #35 review): only a MISSING VARIANCE extension gives "unknown".
+    # One that exists but holds no finite positive value marks the pixels invalid.
+    for bad in (np.nan, 0.0, -1.0):
+        var = np.full((syn.NY, syn.NX), bad, dtype=np.float32)
+        q = process_frame(syn.make_fits(variance=var), meta()).record["quality"]
+        assert q["status"] == "flagged", bad
+        assert q["valid_aperture_pixels"] == 0 and q["adverse_aperture_pixels"] == q["screened_pixels"]
 
 
 def test_missing_variance_does_not_hide_a_known_flag():

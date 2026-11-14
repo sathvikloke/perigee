@@ -67,3 +67,23 @@ def test_live_frame_path_with_real_processor_validates(client, harness):
     want = next(x for x in case["frames"] if x["frame_key"] == FRAME_KEY)["wavelength_um"]
     assert f["wavelength_um"] == pytest.approx(want, abs=5e-3)
     assert f["image"]["src"].startswith("data:image/png;base64,")
+
+
+# PR #35 review: a cutout truncated inside a data unit must reach the client as
+# 422 UNSUPPORTED_DATA (contract: corrupt file), not 500 PROCESSING_FAILED.
+
+
+def _post_truncated(client, harness, data: bytes):
+    processor, _ = _adapters.processor_a_adapter()
+    assert processor is not None
+    harness.processor = processor
+    harness.settings = replace(harness.settings, frame_fetch_max_bytes=24 * 2**20, frame_budget_s=40.0)
+    harness.fetch_handler = lambda req: httpx.Response(200, content=data, headers={"content-type": "application/fits"})
+    return post(client, make_token(ra_deg=331.0966687831005, dec_deg=-56.80064917516836))
+
+
+def test_truncated_real_cutout_is_422_unsupported_data(client, harness):
+    fits_bytes = (Path(DATA_ROOT) / RAW_REL).read_bytes()
+    r = _post_truncated(client, harness, fits_bytes[: len(fits_bytes) // 3])
+    assert r.status_code == 422, r.text[:500]
+    assert r.json()["error"]["code"] == "UNSUPPORTED_DATA"

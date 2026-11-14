@@ -560,14 +560,18 @@ def _process(hdul, meta: FrameInput, sha256: str, notes: List[str], limitations:
             adverse_n = int(bad.sum())
             valid_n = int((ap & ~bad).sum())
             # Known problems always win: any adverse or non-finite pixel -> flagged.
-            # Only a screen with nothing wrong found can be "unknown" instead of
-            # "clear", when the evidence behind it is too thin.
+            # That includes a VARIANCE extension that exists but holds non-finite
+            # or non-positive values in the circle: those pixels are invalid, so
+            # the screen is "flagged", not "unknown". Only a screen with nothing
+            # wrong found can be "unknown" instead of "clear", when the evidence
+            # behind it is too thin: no VARIANCE extension at all (missing or
+            # wrong shape), or fewer than MIN_CLEAR_PIXELS usable pixels.
             if adverse_n > 0:
                 status = "flagged"
             elif var is None:
                 status = "unknown"
                 notes.append(
-                    "This file has no usable VARIANCE map, so pixel validity could not be fully "
+                    "This file has no usable VARIANCE map (extension missing or the wrong shape), so pixel validity could not be fully "
                     "checked; the screen is reported as unknown rather than clear."
                 )
             elif valid_n < MIN_CLEAR_PIXELS:
