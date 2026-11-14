@@ -31,6 +31,16 @@ export interface EvidenceFrame {
   quality_flag_names: string[];
   display_scale_mode: "shared" | "per_frame" | null;
   source_url: string;
+  /** How the display image was made (from the FrameRecord). Null when not reported. */
+  processing?: EvidenceProcessing;
+}
+
+export interface EvidenceProcessing {
+  processing_version: string | null;
+  file_sha256: string | null;
+  registration_method: string | null;
+  display_scale_method: string | null;
+  marker_kind: string | null;
 }
 
 export interface EvidenceQuery {
@@ -108,6 +118,13 @@ export function frameToEvidence(frame: FrameRecord, ref: string | null): Evidenc
     quality_flag_names: [...frame.quality.flag_names],
     display_scale_mode: frame.display_scale?.mode ?? null,
     source_url: frame.source_url,
+    processing: {
+      processing_version: frame.provenance?.processing_version ?? null,
+      file_sha256: frame.provenance?.file_sha256 ?? null,
+      registration_method: typeof frame.registration?.method === "string" ? frame.registration.method : null,
+      display_scale_method: typeof frame.display_scale?.method === "string" ? frame.display_scale.method : null,
+      marker_kind: frame.marker?.kind ?? null,
+    },
   };
 }
 
@@ -124,6 +141,32 @@ export function toggleEvidenceFrame(
     : [...card.frames, frameToEvidence(frame, ref)].sort(
         (a, b) => a.mjd - b.mjd || (a.frame_key < b.frame_key ? -1 : a.frame_key > b.frame_key ? 1 : 0),
       );
+  return { ...card, frames, updated_at_utc: now.toISOString() };
+}
+
+/**
+ * Replaces the case-pair frames (any frame carrying one of `pairRefs`) with
+ * the currently compared pair, keeping extra frames the learner added from
+ * the full sequence. Returns the same object when nothing changes.
+ */
+export function attachPair(
+  card: EvidenceCard,
+  pair: { frame: FrameRecord; ref: string }[],
+  pairRefs: string[],
+  now: Date = new Date(),
+): EvidenceCard {
+  const want = pair.map((p) => p.frame.frame_key).sort().join("|");
+  const have = card.frames
+    .filter((f) => f.ref && pairRefs.includes(f.ref))
+    .map((f) => f.frame_key)
+    .sort()
+    .join("|");
+  if (want === have) return card;
+  const pairKeys = new Set(pair.map((p) => p.frame.frame_key));
+  const extras = card.frames.filter((f) => !(f.ref && pairRefs.includes(f.ref)) && !pairKeys.has(f.frame_key));
+  const frames = [...extras, ...pair.map((p) => frameToEvidence(p.frame, p.ref))].sort(
+    (a, b) => a.mjd - b.mjd || (a.frame_key < b.frame_key ? -1 : a.frame_key > b.frame_key ? 1 : 0),
+  );
   return { ...card, frames, updated_at_utc: now.toISOString() };
 }
 

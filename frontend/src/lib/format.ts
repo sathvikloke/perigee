@@ -7,18 +7,16 @@ export function formatUtc(iso: string | null | undefined): string {
   return m ? `${m[1]} ${m[2]} UTC` : iso;
 }
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 /** Short human date, always in UTC so it matches the archive timestamp. */
 export function formatDateShort(iso: string | null | undefined): string {
   if (!iso) return "Unknown date";
   const withZone = /[zZ]|[+-]\d{2}:?\d{2}$/.test(iso) ? iso : `${iso}Z`;
   const d = new Date(withZone);
   if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(d);
+  // Fixed "29 Apr 2026" form (design reference); UTC so it matches the archive.
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 export function formatMicrons(v: number | null | undefined, digits = 4): string {

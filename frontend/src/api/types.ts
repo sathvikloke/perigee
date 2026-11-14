@@ -126,6 +126,12 @@ export interface Registration {
   center_dec_deg?: number;
   fov_arcmin?: number;
   arcsec_per_pixel?: number;
+  /** Processor/API name for the display grid scale. */
+  scale_arcsec_per_px?: number;
+  /** Identical for frames registered to the same sky grid. */
+  grid_id?: string;
+  width?: number;
+  height?: number;
   orientation?: string;
   method?: string;
   [key: string]: unknown;
