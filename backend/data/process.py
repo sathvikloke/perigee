@@ -321,6 +321,16 @@ def _open(fits_bytes: bytes) -> fits.HDUList:
         hdul = fits.open(io.BytesIO(bytes(fits_bytes)), memmap=False, lazy_load_hdus=False)
     except Exception as exc:  # astropy raises OSError/ValueError variants
         raise UnsupportedDataError(f"FITS parse failed: {type(exc).__name__}") from exc
+    # astropy reads headers here but HDU data lazily. A file cut off inside a data
+    # unit would otherwise fail later as a bare TypeError ("buffer is too small"),
+    # which the API reports as PROCESSING_FAILED (500) instead of UNSUPPORTED_DATA
+    # (422). Read every data unit now so a truncated file fails here, typed.
+    try:
+        for hdu in hdul:
+            _ = hdu.data
+    except Exception as exc:
+        hdul.close()
+        raise UnsupportedDataError(f"FITS data unit unreadable (truncated?): {type(exc).__name__}") from exc
     return hdul
 
 

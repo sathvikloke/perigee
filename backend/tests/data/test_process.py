@@ -320,6 +320,56 @@ def test_garbage_bytes_are_unsupported_data(bad):
         process_frame(bad, meta())
 
 
+def _hdu_layout(b: bytes):
+    """(name, header_start, data_start, data_end) for each HDU of a FITS byte string."""
+    from astropy.io import fits
+
+    with fits.open(io.BytesIO(b), memmap=False) as h:
+        out = []
+        for hdu in h:
+            info = hdu.fileinfo()
+            out.append((hdu.name, info["hdrLoc"], info["datLoc"], info["datLoc"] + info["datSpan"]))
+        return out
+
+
+def test_file_cut_off_inside_a_data_unit_is_unsupported_data_not_a_crash():
+    """Headers intact, pixel data short: must raise UnsupportedDataError (API -> 422
+    UNSUPPORTED_DATA), not a bare TypeError from astropy's lazy data read (API -> 500)."""
+    b = syn.make_fits()
+    cuts = []
+    for name, _hdr, dat, end in _hdu_layout(b):
+        if end - dat >= 2 * 2880:
+            cuts.append(dat + 2880)  # one block into this data unit
+    assert cuts, "synthetic file should have a data unit at least two blocks long"
+    for cut in cuts:
+        with pytest.raises(UnsupportedDataError):
+            process_frame(b[:cut], meta())
+
+
+def test_file_cut_at_every_block_never_escapes_untyped_or_reads_clear():
+    """Every 2880-byte cut point. A cut inside a data unit must raise
+    UnsupportedDataError. A cut exactly between extensions leaves a valid but
+    shorter FITS file that the processor cannot tell from one that never had
+    those extensions. It may only read "clear" if FLAGS and VARIANCE both survived,
+    and the wavelength must be null if WCS-WAVE was cut off."""
+    b = syn.make_fits()
+    layout = {name: end for name, _h, _d, end in _hdu_layout(b)}
+    boundaries = set(layout.values())
+    for cut in range(2880, len(b), 2880):
+        if cut in boundaries:
+            try:
+                rec = process_frame(b[:cut], meta()).record
+            except UnsupportedDataError:
+                continue  # e.g. cut before IMAGE: nothing usable
+            if cut < max(layout["FLAGS"], layout["VARIANCE"]):
+                assert rec["quality"]["status"] != "clear", cut
+            if cut < layout["WCS-WAVE"]:
+                assert rec["wavelength_um"] is None, cut
+        else:
+            with pytest.raises(UnsupportedDataError):
+                process_frame(b[:cut], meta())
+
+
 def test_integrity_checks():
     b = syn.make_fits()
     with pytest.raises(IntegrityError):

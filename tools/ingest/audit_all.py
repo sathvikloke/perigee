@@ -152,6 +152,18 @@ def audit(data_root: Path, targets_path: Path, cases_dir: Path, presets_dir: Opt
                 failures.append({"check": "case_frame", **row})
 
     # ---- committed products are not stale
+    # Wavelengths are compared with a tolerance, not ==: the same code and pinned
+    # numpy/astropy give results that differ in the last bits between macOS arm64
+    # (where the products were built) and Linux x86-64 (CI, Vercel), up to ~3e-15
+    # relative. 1e-9 um is far above that noise and far below any real change
+    # (the case check uses 1e-4 um).
+    WAVELENGTH_TOL_UM = 1e-9
+
+    def _wl_differs(a, b) -> bool:
+        if a is None or b is None:
+            return a is not b
+        return abs(float(a) - float(b)) > WAVELENGTH_TOL_UM
+
     product_check = None
     if presets_dir is not None:
         stale, missing = [], []
@@ -164,7 +176,7 @@ def audit(data_root: Path, targets_path: Path, cases_dir: Path, presets_dir: Opt
             diffs = {}
             if c["quality"]["status"] != r["quality"]["status"]:
                 diffs["status"] = [c["quality"]["status"], r["quality"]["status"]]
-            if c["wavelength_um"] != r["wavelength_um"]:
+            if _wl_differs(c["wavelength_um"], r["wavelength_um"]):
                 diffs["wavelength_um"] = [c["wavelength_um"], r["wavelength_um"]]
             if c["provenance"]["sha256"] != r["provenance"]["sha256"]:
                 diffs["sha256"] = True
