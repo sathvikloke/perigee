@@ -76,41 +76,25 @@
   },
   "steps": [
     {
-      "id": "look",
-      "prompt": "Blink A and B. Find Epsilon Indi B at the marker. Does anything look different?",
-      "check": "observation dates",
-      "hint": "Note the dates first: April 29 and September 27, 2026, about five months apart."
-    },
-    {
-      "id": "wavelength",
-      "prompt": "Check the wavelength of each frame at the marker.",
-      "check": "wavelength",
-      "hint": "A is 2.323 µm and B is 2.322 µm. They differ by about 0.001 µm, much less than the 0.06 µm width of each band, so they record nearly the same color of light."
+      "id": "dates_and_wavelength",
+      "prompt": "Blink A and B and find Epsilon Indi B at the marker. Check each frame's date and wavelength.",
+      "check": ["observed_at_utc", "wavelength_um"],
+      "hint": "April 29 and September 27, 2026: five months apart. Wavelengths 2.323 and 2.322 µm differ by about 0.001 µm, far less than each band's 0.06 µm width, so both record nearly the same color of light."
     },
     {
       "id": "quality",
       "prompt": "Open the quality details for A and B.",
-      "check": "quality flags",
+      "check": ["quality.status"],
       "hint": "Both pass the screen: no problem flags near the marker. That makes them usable for a visual comparison. It does not measure how bright the object is."
     },
     {
-      "id": "unfair",
+      "id": "unfair_pair",
       "prompt": "Now blink A and C. They were taken at the same moment. Why does the picture look so different?",
-      "check": "wavelength",
-      "hint": "C records 4.94 µm light, more than twice the wavelength of A. Objects shine differently in different infrared colors, so A versus C tells you about color, not about change over time."
-    },
-    {
-      "id": "release",
-      "prompt": "Look at where each frame came from.",
-      "check": "source and release",
-      "hint": "A comes from Data Release 1 and B from Quick Release 3. Both used pipeline version v27, but quick-release products can be updated later. Note this as a caveat."
-    },
-    {
-      "id": "claim",
-      "prompt": "Write your claim: which pair is a fair test of change over time, what can you conclude, and what can't you?",
-      "check": "evidence card"
+      "check": ["wavelength_um"],
+      "hint": "C records 4.94 µm light, more than twice A's wavelength. Objects shine differently in different infrared colors, so A versus C tells you about color, not change over time."
     }
   ],
+  "claim_prompt": "Which pair is a fair test of change over time? What can you conclude, and what can't you?",
   "evidence_requirements": {
     "min_selected_frames": 2,
     "must_include_refs_any_of": [["A", "B"]],
@@ -132,7 +116,7 @@
   },
   "limitations": [
     "The quality screen checks for problem flags in a small circle around the predicted position. It is not a detection test or a brightness measurement.",
-    "A is from Data Release 1 and B is from Quick Release 3. Quick-release products may be reprocessed later.",
+    "A is from Data Release 1 and B is from Quick Release 3 (both pipeline version v27). Quick-release products may be reprocessed later.",
     "Display images are resampled and contrast-stretched for viewing; they are not used to measure brightness.",
     "The marker is a catalog prediction from SIMBAD/Gaia proper motion, not a position measured by Perigee. Annual parallax and the Ba/Bb orbit are not modeled; both are well under one pixel."
   ],

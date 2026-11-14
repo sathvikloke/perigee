@@ -50,7 +50,7 @@ Maintained by Sathvik. Evidence only: a row is "done" when its behavior was exer
 - Unknown case → 404 JSON.
 
 **Akshobya (frontend)**
-- The case JSON has `opening_question`, `summary`, `background.short` (first screen), `background.details` (collapsible), `steps[].prompt/hint/check`, `conclusion_guide`, `limitations` and `sources`. Render the copy as-is. Send me wording problems; don't rewrite.
+- The case JSON has `opening_question`, `summary`, `background.short` (first screen), `background.details` (collapsible), three `steps[]` (`prompt`, `hint`, and `check`, which lists the FrameRecord fields the step points at), `claim_prompt`, `conclusion_guide`, `limitations` and `sources`. Render the copy as-is. Send me wording problems; don't rewrite.
 - `display_requirements` asks for a shared stretch, a labeled catalog-prediction marker, and a fixed guide line for Barnard's Star.
 
 **Neeraj (QA)**, once Gate 1 exists:

@@ -76,41 +76,25 @@
   },
   "steps": [
     {
-      "id": "controls",
-      "prompt": "Blink the three frames. First watch the smaller stars around the edges. Do they move?",
-      "check": "surrounding stars",
-      "hint": "They should stay in place. If they jumped around, the images would not be lined up and any apparent motion could be a software artifact."
-    },
-    {
-      "id": "target",
-      "prompt": "Now watch the big bright star near the center against the guide line. Which way does it shift from August 2025 to August 2026?",
-      "check": "observation dates",
-      "hint": "Look for a small northward (upward) shift of about 10 arcseconds, less than two pixels, over about one year."
+      "id": "controls_and_target",
+      "prompt": "Blink the three frames. First watch the smaller stars around the edges, then the big bright star against the guide line.",
+      "check": ["observed_at_utc", "wavelength_um"],
+      "hint": "The small stars stay put, so the images are lined up. The bright star's glow shifts slightly north (up), about 10 arcseconds, from August 2025 to August 2026. All three frames are near 2.0 µm, so the change is mainly about time."
     },
     {
       "id": "marker",
       "prompt": "Turn on the marker. What is it?",
-      "check": "marker label",
+      "check": ["marker.kind"],
       "hint": "It is where star catalogs predict Barnard's Star should be on each date. It is a prediction, not a position Perigee measured."
     },
     {
       "id": "flags",
       "prompt": "Open the quality details for the star's position.",
-      "check": "quality flags",
-      "hint": "Every frame is flagged: the star is so bright that the detector saturates at its center. You can see the star's glow shift, but these pixels cannot pin down its exact center or brightness."
-    },
-    {
-      "id": "wavelength",
-      "prompt": "Check the wavelengths.",
-      "check": "wavelength",
-      "hint": "2.006, 2.012 and 2.028 µm: close enough that the change you see is mainly about time, though the star's glow can still look slightly different."
-    },
-    {
-      "id": "claim",
-      "prompt": "Write your claim: what do these images show about Barnard's Star, and what can't they tell you?",
-      "check": "evidence card"
+      "check": ["quality.status", "quality.flag_names"],
+      "hint": "Every frame is flagged: the star is so bright that the detector saturates at its center. You can see its glow shift, but these pixels cannot pin down its exact center or brightness."
     }
   ],
+  "claim_prompt": "What do these images show about Barnard's Star, and what can't they tell you?",
   "evidence_requirements": {
     "min_selected_frames": 2,
     "must_include_refs_any_of": [["A", "C"]],
