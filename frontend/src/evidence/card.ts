@@ -37,6 +37,8 @@ export interface EvidenceFrame {
 
 export interface EvidenceProcessing {
   processing_version: string | null;
+  /** Archive pipeline version of the source file (e.g. "l2b-v27-2026-230"), when the API reports it. */
+  pipeline_version?: string | null;
   file_sha256: string | null;
   registration_method: string | null;
   display_scale_method: string | null;
@@ -120,6 +122,7 @@ export function frameToEvidence(frame: FrameRecord, ref: string | null): Evidenc
     source_url: frame.source_url,
     processing: {
       processing_version: frame.provenance?.processing_version ?? null,
+      pipeline_version: typeof frame.provenance?.pipeline_version === "string" ? frame.provenance.pipeline_version : null,
       file_sha256: frame.provenance?.file_sha256 ?? null,
       registration_method: typeof frame.registration?.method === "string" ? frame.registration.method : null,
       display_scale_method: typeof frame.display_scale?.method === "string" ? frame.display_scale.method : null,
@@ -339,6 +342,53 @@ export function persistStore(storage: StorageLike | null, store: EvidenceStore):
   } catch {
     return false;
   }
+}
+
+/**
+ * In-memory drafts for this page session, keyed like `store.contexts`. When
+ * storage refuses a write (quota, private mode, blocked), leaving a target
+ * and coming back must not lose notes: the session copy wins over an older
+ * or missing stored copy. It never leaves the tab.
+ */
+export type DraftMemory = Map<string, EvidenceCard>;
+export const sessionDrafts: DraftMemory = new Map();
+
+export function resolveDraft(
+  contextKey: string,
+  store: EvidenceStore,
+  memory: DraftMemory = sessionDrafts,
+): { card: EvidenceCard; source: "memory" | "storage" } | null {
+  const id = store.contexts[contextKey];
+  const stored = id ? store.cards.find((c) => c.id === id) : undefined;
+  const mem = memory.get(contextKey);
+  if (mem && (!stored || mem.updated_at_utc >= stored.updated_at_utc)) {
+    // Equal timestamps mean the stored copy is the same save.
+    return { card: mem, source: stored && stored.updated_at_utc === mem.updated_at_utc ? "storage" : "memory" };
+  }
+  return stored ? { card: stored, source: "storage" } : null;
+}
+
+/**
+ * Saved cards plus session drafts the browser refused to store, newest
+ * first. `unsaved` marks a draft that exists only in this tab.
+ */
+export function listCards(
+  store: EvidenceStore,
+  memory: DraftMemory = sessionDrafts,
+): { card: EvidenceCard; unsaved: boolean }[] {
+  const byId = new Map(store.cards.map((c) => [c.id, { card: c, unsaved: false }]));
+  for (const m of memory.values()) {
+    const s = byId.get(m.id);
+    if (s && s.card.updated_at_utc >= m.updated_at_utc) continue;
+    const touched = m.frames.length > 0 || Boolean(m.claim || m.observations || m.uncertainty);
+    if (s || touched) byId.set(m.id, { card: m, unsaved: true });
+  }
+  return [...byId.values()].sort((a, b) => (a.card.updated_at_utc < b.card.updated_at_utc ? 1 : -1));
+}
+
+/** Drops a deleted card's session copy so it cannot reappear. */
+export function forgetDraft(id: string, memory: DraftMemory = sessionDrafts): void {
+  for (const [k, c] of memory) if (c.id === id) memory.delete(k);
 }
 
 export function browserStorage(): StorageLike | null {

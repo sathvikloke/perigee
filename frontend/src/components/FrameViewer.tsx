@@ -1,9 +1,16 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { resolveAssetSrc } from "../api/client";
 import type { FrameRecord } from "../api/types";
 import { markerXY } from "../lib/compare";
 import { QUALITY_LABEL, daysBetween, formatDateShort, formatDuration, formatMicrons } from "../lib/format";
+import { nextPlayableIndex, playAnnouncement, playCadenceMs, playableCount, playbackCaveats } from "../lib/playback";
 import { FrameDetails } from "./FrameDetails";
 import { Plate } from "./Plate";
+
+const PHONE = "(max-width: 560px)";
+const REDUCED = "(prefers-reduced-motion: reduce)";
+const media = (q: string): MediaQueryList | null =>
+  typeof window !== "undefined" && typeof window.matchMedia === "function" ? window.matchMedia(q) : null;
 
 export type SlotStatus = "pending" | "loading" | "ready" | "error";
 
@@ -49,29 +56,74 @@ export function FrameViewer(props: {
     if (pair || slots.length < 2) return;
     setPair([slots[0].key, slots[slots.length - 1].key]);
   }, [slots, pair]);
-  const [blinking, setBlinking] = useState(false);
+  // One motion at a time: the two-frame blink or playing the whole series.
+  // Neither starts on its own; both stop on a hidden tab, printing, crossing
+  // the phone breakpoint, a pair change or any manual step.
+  const [motion, setMotion] = useState<"blink" | "play" | null>(null);
+  const blinking = motion === "blink";
+  const playing = motion === "play";
   const idxRef = useRef(index);
   idxRef.current = index;
+  const slotsRef = useRef(slots);
+  slotsRef.current = slots;
   useEffect(() => {
     if (!blinking || !pair) return;
     const a = slots.findIndex((s) => s.key === pair[0]);
     const b = slots.findIndex((s) => s.key === pair[1]);
     if (a < 0 || b < 0) return;
-    const ms = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? 1500 : 1000;
+    const ms = media(REDUCED)?.matches ? 1500 : 1000;
     const id = window.setInterval(() => onIndexChange(idxRef.current === a ? b : a), ms);
-    const stop = () => setBlinking(false);
-    window.addEventListener("beforeprint", stop);
-    const onVis = () => document.hidden && stop();
-    document.addEventListener("visibilitychange", onVis);
-    return () => {
-      window.clearInterval(id);
-      window.removeEventListener("beforeprint", stop);
-      document.removeEventListener("visibilitychange", onVis);
-    };
+    return () => window.clearInterval(id);
   }, [blinking, pair, slots, onIndexChange]);
 
+  // Series playback reads slots through a ref, so frames that finish loading
+  // join the loop without restarting the timer.
+  useEffect(() => {
+    if (!playing) return;
+    const id = window.setInterval(() => {
+      const next = nextPlayableIndex(slotsRef.current, idxRef.current);
+      if (next < 0) setMotion(null);
+      else onIndexChange(next);
+    }, playCadenceMs(Boolean(media(REDUCED)?.matches)));
+    return () => window.clearInterval(id);
+  }, [playing, onIndexChange]);
+
+  // Warm only the one image that plays next; the series is never prefetched.
+  useEffect(() => {
+    if (!playing) return;
+    const next = slots[nextPlayableIndex(slots, index)]?.frame?.image;
+    if (next && typeof Image !== "undefined") new Image().src = resolveAssetSrc(next.src);
+  }, [playing, index, slots]);
+
+  useEffect(() => {
+    if (!motion) return;
+    const stop = () => setMotion(null);
+    const onVis = () => document.hidden && stop();
+    const phone = media(PHONE);
+    window.addEventListener("beforeprint", stop);
+    document.addEventListener("visibilitychange", onVis);
+    phone?.addEventListener("change", stop);
+    return () => {
+      window.removeEventListener("beforeprint", stop);
+      document.removeEventListener("visibilitychange", onVis);
+      phone?.removeEventListener("change", stop);
+    };
+  }, [motion]);
+
+  const readyCount = playableCount(slots);
+  const togglePlay = () => {
+    if (playing) return setMotion(null);
+    if (readyCount < 2) return;
+    // Start from a ready frame so the first tick never lands on a placeholder.
+    if (!(slot?.status === "ready" && slot.frame)) {
+      const first = nextPlayableIndex(slots, index);
+      if (first >= 0) onIndexChange(first);
+    }
+    setMotion("play");
+  };
+
   const goTo = (i: number) => {
-    setBlinking(false);
+    setMotion(null);
     if (!slots.length) return;
     onIndexChange(Math.min(slots.length - 1, Math.max(0, i)));
   };
@@ -96,14 +148,17 @@ export function FrameViewer(props: {
 
   const slotName = (s: FrameSlot, i: number) =>
     `${s.ref ? `${s.ref} · ` : ""}${formatDateShort(s.observed_at_utc)} (#${i + 1})`;
-  // While blinking, announce once instead of narrating every alternation.
+  // While blinking or playing, announce once instead of narrating every frame.
   const announcement = blinking
     ? "Blinking two frames. Use Pause blink to stop."
+    : playing
+    ? playAnnouncement(readyCount)
     : slot
     ? `Frame ${index + 1} of ${slots.length}. ${formatDateShort(slot.observed_at_utc)}. ${
         frame ? `${formatMicrons(frame.wavelength_um)}. ${QUALITY_LABEL[frame.quality.status]}.` : statusText(slot)
       }`
     : "";
+  const caveats = playing ? playbackCaveats(slots) : [];
   const inEvidence = frame ? props.selectedKeys.has(frame.frame_key) : false;
   const pairIdx = pair ? pair.map((k) => slots.findIndex((s) => s.key === k)) : [-1, -1];
   const pf = pairIdx.map((i) => (i >= 0 ? slots[i].frame : null));
@@ -116,6 +171,16 @@ export function FrameViewer(props: {
       </div>
 
       <div className="stepper" role="group" aria-label="Step through frames in time order">
+        <button
+          type="button"
+          className="play-toggle"
+          aria-pressed={playing}
+          aria-disabled={readyCount < 2}
+          onClick={togglePlay}
+          title={readyCount < 2 ? "Needs at least two processed frames" : undefined}
+        >
+          {playing ? "Ⅱ Pause" : "▷ Play"}
+        </button>
         {/* aria-disabled keeps focus on the button at either end; a disabled
             button would drop keyboard focus to <body> after Home/End. */}
         <button
@@ -152,6 +217,13 @@ export function FrameViewer(props: {
       <p className="visually-hidden" aria-live="polite">
         {announcement}
       </p>
+      {playing && caveats.length > 0 && (
+        <div className="notice play-note">
+          {caveats.map((c) => (
+            <p key={c}>{c}</p>
+          ))}
+        </div>
+      )}
 
       <div className="sequence-body">
         <div className="sequence-stage">
@@ -224,7 +296,7 @@ export function FrameViewer(props: {
                     onChange={(e) => {
                       const next: [string, string] = [...pair] as [string, string];
                       next[side] = e.target.value;
-                      setBlinking(false);
+                      setMotion(null);
                       setPair(next);
                     }}
                   >
@@ -239,7 +311,7 @@ export function FrameViewer(props: {
               <button
                 type="button"
                 aria-pressed={blinking}
-                onClick={() => setBlinking((b) => !b)}
+                onClick={() => setMotion((m) => (m === "blink" ? null : "blink"))}
                 disabled={!pf[0] || !pf[1] || pair[0] === pair[1]}
               >
                 {blinking ? "Ⅱ Pause blink" : "▷ Blink"}
