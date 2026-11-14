@@ -195,12 +195,14 @@ function PresetLoaded(props: {
             <div className="case-steps">
               <h3>Your steps</h3>
               <ol>
-                {caseContent.steps.map((s) => (
+                {caseContent.steps.map((s, i) => (
                   <li key={s.id}>
                     {s.prompt}
                     {s.hint && (
                       <details>
-                        <summary>Hint</summary>
+                        <summary>
+                          Hint<span className="visually-hidden"> for step {i + 1}</span>
+                        </summary>
                         <p>{s.hint}</p>
                       </details>
                     )}
