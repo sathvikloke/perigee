@@ -6,7 +6,11 @@ resolve inside the root are indexed. Each gets an opaque, versioned ID::
 
     <preset_id>--<sanitized relative stem>--<sha256[:12]><ext>
 
-Requests are resolved only by dictionary lookup on that ID, so a caller can
+A processor manifest may also declare alias IDs (``{"assets": {id: path}}``);
+an alias can only point at a file already in the index for the same preset,
+so it never widens the allowlist. Aliases are not content-versioned.
+
+Requests are resolved only by dictionary lookup on an ID, so a caller can
 never name a filesystem path. Serving re-checks the file (still a regular
 file inside the root, same hash) before returning bytes.
 """
@@ -24,7 +28,10 @@ MEDIA_TYPES = {
     ".json": "application/json",
 }
 MAX_ASSET_BYTES = 4 * 1024 * 1024
-ASSET_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*(?:--[A-Za-z0-9_-]+)*\.(?:png|json)$")
+# Canonical IDs use only [A-Za-z0-9_-] plus "--" separators; processor-declared
+# alias IDs (e.g. "epsilon_indi_b.frames.<frame_key>.png") may also use single
+# dots. ".." is always rejected separately.
+ASSET_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:png|json)$")
 _SAFE_PART_RE = re.compile(r"[^A-Za-z0-9_-]+")
 SHARED_GROUP = "shared"
 
@@ -74,6 +81,7 @@ class AssetIndex:
         self.root = Path(root)
         self._by_id: Dict[str, AssetEntry] = {}
         self._by_path: Dict[Path, AssetEntry] = {}
+        self._aliases: Dict[str, AssetEntry] = {}
         self.skipped: List[str] = []
         self._build()
 
@@ -156,9 +164,31 @@ class AssetIndex:
         ]
 
     def get(self, asset_id: str) -> Optional[AssetEntry]:
+        """Canonical (content-versioned) ID or a processor-declared alias."""
         if not is_valid_asset_id(asset_id):
             return None
-        return self._by_id.get(asset_id)
+        return self._by_id.get(asset_id) or self._aliases.get(asset_id)
+
+    def is_canonical(self, asset_id: str) -> bool:
+        return asset_id in self._by_id
+
+    def add_alias(self, alias_id: str, target: Path, preset_id: str) -> Optional[str]:
+        """Register an alias ID declared by a processor manifest (its
+        ``assets`` map). The alias may only point at a file that is already
+        indexed in the same preset; it never widens the allowlist. Returns an
+        error string, or None on success."""
+        if not is_valid_asset_id(alias_id):
+            return "invalid alias id"
+        entry = self.by_path(target)
+        if entry is None:
+            return "alias target is not an indexed asset"
+        if entry.preset_id != preset_id:
+            return "alias target belongs to another preset"
+        existing = self._by_id.get(alias_id) or self._aliases.get(alias_id)
+        if existing is not None and existing != entry:
+            return "alias id already used for another file"
+        self._aliases[alias_id] = entry
+        return None
 
     def by_path(self, path: Path) -> Optional[AssetEntry]:
         """Look up an indexed file by an absolute path (used to rewrite

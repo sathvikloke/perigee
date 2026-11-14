@@ -3,6 +3,7 @@
 import json
 import shutil
 
+import pytest
 from conftest import (
     FIXTURE_PRESETS,
     PRESET_IDS,
@@ -53,14 +54,21 @@ def test_preset_descriptors_preserve_authored_fields_verbatim(real_client):
         assert set(served) - set(target) == {"preset_id", "cases", "frames_available", "frame_count"}
 
 
-def test_preset_case_associations(real_client):
-    presets = {p["id"]: p for p in real_client.get("/api/v1/presets").json()["presets"]}
-    assert presets["barnards_star"]["cases"] == [
-        {"case_id": "moving_neighbor", "title": load_real("cases/moving_neighbor.json")["title"], "available": True}
-    ]
-    assert presets["epsilon_indi_b"]["cases"] == [
-        {"case_id": "fair_comparison", "title": load_real("cases/fair_comparison.json")["title"], "available": True}
-    ]
+def test_preset_case_associations(tmp_path):
+    client = make_client(CatalogStore(build_content_root(tmp_path, with_fixture_presets=False)))
+    presets = {p["id"]: p for p in client.get("/api/v1/presets").json()["presets"]}
+    assert presets["barnards_star"]["cases"] == [{
+        "case_id": "moving_neighbor",
+        "title": load_real("cases/moving_neighbor.json")["title"],
+        "available": True,
+        "frames_available": False,
+    }]
+    assert presets["epsilon_indi_b"]["cases"] == [{
+        "case_id": "fair_comparison",
+        "title": load_real("cases/fair_comparison.json")["title"],
+        "available": True,
+        "frames_available": False,
+    }]
     for pid in ("wise_0855", "rw_aurigae", "r_draconis"):
         assert presets[pid]["cases"] == []
 
@@ -79,7 +87,7 @@ def test_listed_case_without_file_is_marked_unavailable(tmp_path):
     (root / "targets.json").write_text(json.dumps(doc))
     presets = {p["id"]: p for p in make_client(CatalogStore(root)).get("/api/v1/presets").json()["presets"]}
     assert presets["wise_0855"]["cases"] == [
-        {"case_id": "coverage_is_not_detection", "title": None, "available": False}
+        {"case_id": "coverage_is_not_detection", "title": None, "available": False, "frames_available": False}
     ]
 
 
@@ -272,3 +280,22 @@ def test_real_case_frame_metadata_round_trips_through_loader(fixture_root):
             assert frame["frame_key"] == "{}_D{}".format(frame["observation_id"], frame["detector"])
             original = next(f for f in case["frames"] if f["frame_key"] == frame["frame_key"])
             assert frame == original  # nothing added, removed or reworded
+
+
+def test_bundled_generated_products_serve_cleanly(real_client, real_store):
+    """Runs against real processor output once it is merged into
+    backend/content/presets/; skipped while none is bundled."""
+    present = [p for p in PRESET_IDS if (REAL_CONTENT / "presets" / p).is_dir()]
+    if not present:
+        pytest.skip("no generated products under backend/content/presets yet")
+    assert real_store.load_issues == []
+    for preset_id in present:
+        body = real_client.get("/api/v1/presets/{}/frames".format(preset_id)).json()
+        assert body["status"] == "ready", (preset_id, body["warnings"])
+        for frame in body["frames"]:
+            assert frame["frame_key"] == "{}_D{}".format(frame["observation_id"], frame["detector"])
+            for field in ("image", "flag_image"):
+                if frame.get(field):
+                    resp = real_client.get(frame[field]["src"])
+                    assert resp.status_code == 200
+                    assert resp.headers["content-type"] == "image/png"

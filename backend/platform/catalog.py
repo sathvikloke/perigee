@@ -11,18 +11,29 @@ The store never rewords authored content and never synthesizes frames. When
 generated products are absent the preset reports ``frames_available: false``
 with a reason.
 
-Accepted FrameRecord JSON shapes under a preset directory (any depth):
+Processor layout (tools/ingest/ingest.py on codex/parallel-05-processor-a)::
+
+    presets/<preset_id>/<set>/<frame_key>.png         intensity image
+    presets/<preset_id>/<set>/<frame_key>.flags.png   optional flag overlay
+    presets/<preset_id>/<set>/<frame_key>.json        FrameRecord
+    presets/<preset_id>/<set>/frames.json             {"frames": [...], "assets": {id: path}}
+
+``<set>`` is ``frames`` for a preset run and ``case-<case_id>`` for a case
+(cases may use a shared stretch, so their records are kept separate). Records
+directly under ``presets/<preset_id>/`` belong to the default set.
+
+Accepted FrameRecord JSON shapes (any file, any depth):
 
 * one record per file (an object with ``frame_key``, or with
   ``observation_id`` plus ``detector`` or ``frame_id``);
 * a wrapper ``{"frame": {...}}`` as returned by ``POST /api/v1/frame``;
 * a manifest ``{"frames": [{...}, ...]}`` or a bare list of records.
 
-Other JSON files (provenance, audit) are ignored by the frame listing but are
-still servable as allowlisted assets. Relative ``image.src`` / ``flag_image.src``
-values that name an indexed PNG inside the same preset directory are rewritten
-to ``/api/v1/assets/<asset_id>``; anything else unresolvable is dropped with a
-warning rather than handed to the browser as a filesystem path.
+Image references (``image.src`` / ``flag_image.src``) are resolved to an
+indexed PNG of the same preset -- either a relative file path or an asset URL
+whose ID the processor declared in a manifest ``assets`` map -- and rewritten
+to the canonical, content-versioned ``/api/v1/assets/<asset_id>``. Anything
+unresolvable is dropped with a warning rather than handed to the browser.
 """
 
 import copy
@@ -49,6 +60,15 @@ CONTENT_ROOT_ENV = "PERIGEE_CONTENT_ROOT"
 DEFAULT_ASSET_URL_PREFIX = "/api/v1/assets/"
 ID_RE = re.compile(r"^[a-z0-9_]{1,64}$")
 FRAME_IMAGE_FIELDS = ("image", "flag_image")
+CASE_SET_PREFIX = "case-"
+REQUIRED_FRAME_FIELDS = (
+    "frame_id",
+    "observation_id",
+    "collection_id",
+    "observed_at_utc",
+    "mjd",
+    "source_url",
+)
 
 
 class ContentUnavailable(Exception):
@@ -119,14 +139,11 @@ def _sort_key(record: Dict[str, Any]) -> Tuple[int, float, str]:
     return (1, 0.0, record.get("frame_key") or "")
 
 
-REQUIRED_FRAME_FIELDS = (
-    "frame_id",
-    "observation_id",
-    "collection_id",
-    "observed_at_utc",
-    "mjd",
-    "source_url",
-)
+def _set_name(relative_path: str) -> str:
+    """``<preset>/<set>/...`` -> ``<set>``; files directly in the preset dir
+    belong to the default set ``""``."""
+    parts = relative_path.split("/")
+    return parts[1] if len(parts) > 2 else ""
 
 
 class CatalogStore:
@@ -139,10 +156,13 @@ class CatalogStore:
         self._targets_error: Optional[str] = None
         self._targets: Dict[str, Dict[str, Any]] = {}
         self._cases: Dict[str, Dict[str, Any]] = {}
-        self._frames: Dict[str, PresetFramesResponse] = {}
+        self._frames: Dict[Tuple[str, Optional[str]], PresetFramesResponse] = {}
+        self._json_docs: Dict[str, Any] = {}  # asset_id -> parsed JSON (presets only)
+        self._json_errors: Dict[str, str] = {}
         self.assets = AssetIndex(self.presets_root)
         self._load_targets()
         self._load_cases()
+        self._load_product_json()
 
     # -- authored content ---------------------------------------------
     def _load_targets(self) -> None:
@@ -192,6 +212,42 @@ class CatalogStore:
                 continue
             self._cases[case_id] = doc
 
+    # -- generated products -----------------------------------------------
+    def _load_product_json(self) -> None:
+        """Parse every indexed JSON product once and register processor-declared
+        asset aliases (manifest ``assets`` maps)."""
+        for entry in self.assets.entries():
+            if entry.media_type != "application/json":
+                continue
+            data = self.assets.read(entry)
+            if data is None:
+                self._json_errors[entry.asset_id] = "changed or unreadable since indexing"
+                continue
+            try:
+                doc = json.loads(data.decode("utf-8"))
+            except (UnicodeDecodeError, ValueError):
+                self._json_errors[entry.asset_id] = "not valid JSON; skipped"
+                continue
+            self._json_docs[entry.asset_id] = doc
+            aliases = doc.get("assets") if isinstance(doc, dict) else None
+            if not isinstance(aliases, dict):
+                continue
+            for alias_id, rel in aliases.items():
+                if not isinstance(alias_id, str) or not isinstance(rel, str):
+                    continue
+                error = "relative path rejected"
+                if not os.path.isabs(rel) and "\\" not in rel:
+                    # Paths are relative to the presets root (ingest.py), or
+                    # failing that, to the manifest's own directory.
+                    for base in (self.presets_root.resolve(), entry.path.parent):
+                        error = self.assets.add_alias(alias_id, base / rel, entry.preset_id)
+                        if error is None:
+                            break
+                if error is not None:
+                    self.load_issues.append(
+                        "{}: asset alias '{}' not registered ({})".format(entry.relative_path, alias_id, error)
+                    )
+
     def _require_targets(self) -> None:
         if self._targets_doc is None:
             raise ContentUnavailable(self._targets_error or "targets.json unavailable")
@@ -205,23 +261,28 @@ class CatalogStore:
         self._require_targets()
         return is_valid_content_id(preset_id) and preset_id in self._targets
 
-    def _case_associations(self, target: Dict[str, Any]) -> List[CaseAssociation]:
-        tid = target["id"]
+    def case_ids_for_preset(self, preset_id: str) -> List[str]:
+        target = self._targets.get(preset_id) or {}
         ordered: List[str] = []
         for cid in target.get("case_ids") or []:
             if isinstance(cid, str) and cid not in ordered:
                 ordered.append(cid)
         for cid in sorted(self._cases):
-            if self._cases[cid].get("target_id") == tid and cid not in ordered:
+            if self._cases[cid].get("target_id") == preset_id and cid not in ordered:
                 ordered.append(cid)
+        return ordered
+
+    def _case_associations(self, preset_id: str) -> List[CaseAssociation]:
         out = []
-        for cid in ordered:
+        for cid in self.case_ids_for_preset(preset_id):
             case = self._cases.get(cid)
+            frames = self.get_frames(preset_id, cid) if case is not None else None
             out.append(
                 CaseAssociation(
                     case_id=cid,
                     title=case.get("title") if case else None,
                     available=case is not None,
+                    frames_available=bool(frames and frames.frames_available),
                 )
             )
         return out
@@ -236,7 +297,7 @@ class CatalogStore:
             descriptor.update(
                 {
                     "preset_id": tid,
-                    "cases": [c.model_dump() for c in self._case_associations(target)],
+                    "cases": [c.model_dump() for c in self._case_associations(tid)],
                     "frames_available": frames.frames_available if frames else False,
                     "frame_count": frames.frame_count if frames else 0,
                 }
@@ -260,15 +321,35 @@ class CatalogStore:
         return copy.deepcopy(case) if case is not None else None
 
     # -- frames ---------------------------------------------------------
-    def get_frames(self, preset_id: str) -> Optional[PresetFramesResponse]:
+    def get_frames(self, preset_id: str, case_id: Optional[str] = None) -> Optional[PresetFramesResponse]:
+        """Frames for a preset, or for one of its cases. None means the preset
+        (or the case for this preset) is unknown."""
         if not self.has_preset(preset_id):
             return None
-        if preset_id not in self._frames:
-            self._frames[preset_id] = self._build_frames(preset_id)
-        return self._frames[preset_id].model_copy(deep=True)
+        if case_id is not None and (
+            case_id not in self._cases or case_id not in self.case_ids_for_preset(preset_id)
+        ):
+            return None
+        key = (preset_id, case_id)
+        if key not in self._frames:
+            self._frames[key] = self._build_frames(preset_id, case_id)
+        return self._frames[key].model_copy(deep=True)
 
-    def _asset_url(self, entry: AssetEntry) -> str:
-        return self.asset_url_prefix + entry.asset_id
+    def _image_from_entry(self, entry: AssetEntry, base: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        image = dict(base or {})
+        image["src"] = self.asset_url_prefix + entry.asset_id
+        image["asset_id"] = entry.asset_id
+        image.setdefault("media_type", entry.media_type)
+        if image.get("width") is None or image.get("height") is None:
+            data = self.assets.read(entry)
+            dims = png_dimensions(data) if data else None
+            if dims:
+                # Read from the PNG header of the real file, not assumed.
+                if image.get("width") is None:
+                    image["width"] = dims[0]
+                if image.get("height") is None:
+                    image["height"] = dims[1]
+        return image
 
     def _resolve_image(
         self, value: Any, json_dir: Path, preset_id: str, label: str, warnings: List[str]
@@ -284,14 +365,17 @@ class CatalogStore:
         if not isinstance(src, str) or not src:
             warnings.append("{}: image has no src; omitted".format(label))
             return None
-        if src.startswith("data:image/") or src.startswith(self.asset_url_prefix):
+        if src.startswith("data:image/"):
             return value
         if src.startswith("https://") or src.startswith("http://"):
             return value
-        if src.startswith("file:") or os.path.isabs(src) or "\\" in src:
+        if src.startswith(self.asset_url_prefix):
+            entry = self.assets.get(src[len(self.asset_url_prefix):])
+        elif src.startswith("file:") or os.path.isabs(src) or "\\" in src:
             warnings.append("{}: image src is a filesystem path and is never served; omitted".format(label))
             return None
-        entry = self.assets.by_path(json_dir / src)
+        else:
+            entry = self.assets.by_path(json_dir / src)
         if entry is None or entry.preset_id != preset_id or entry.media_type != "image/png":
             warnings.append(
                 "{}: image '{}' is not an allowlisted PNG in this preset; omitted".format(label, src)
@@ -299,28 +383,13 @@ class CatalogStore:
             return None
         return self._image_from_entry(entry, value)
 
-    def _image_from_entry(self, entry: AssetEntry, base: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        image = dict(base or {})
-        image["src"] = self._asset_url(entry)
-        image["asset_id"] = entry.asset_id
-        image.setdefault("media_type", entry.media_type)
-        if image.get("width") is None or image.get("height") is None:
-            data = self.assets.read(entry)
-            dims = png_dimensions(data) if data else None
-            if dims:
-                # Read from the PNG header of the real file, not assumed.
-                if image.get("width") is None:
-                    image["width"] = dims[0]
-                if image.get("height") is None:
-                    image["height"] = dims[1]
-        return image
-
-    def _build_frames(self, preset_id: str) -> PresetFramesResponse:
+    def _build_frames(self, preset_id: str, case_id: Optional[str]) -> PresetFramesResponse:
         source_dir = "backend/content/presets/{}".format(preset_id)
+        wanted_set = CASE_SET_PREFIX + case_id if case_id else None
+        base = {"preset_id": preset_id, "case_id": case_id, "source_dir": source_dir}
         preset_dir = self.presets_root / preset_id
         if not preset_dir.is_dir() or preset_dir.is_symlink():
             return PresetFramesResponse(
-                preset_id=preset_id,
                 status="missing",
                 frames_available=False,
                 frame_count=0,
@@ -329,29 +398,25 @@ class CatalogStore:
                     "No generated products for this preset yet: {}/ is not present. "
                     "Frames come from the processor and are never synthesized by the catalog."
                 ).format(source_dir),
-                source_dir=source_dir,
+                **base,
             )
 
-        warnings: List[str] = [
-            s for s in self.assets.skipped if s.startswith(preset_id + "/")
-        ]
-        records: Dict[str, Dict[str, Any]] = {}
-        pngs_by_stem = {
-            Path(e.relative_path).stem: e
+        warnings: List[str] = [s for s in self.assets.skipped if s.startswith(preset_id + "/")]
+        pngs_by_set_stem = {
+            (_set_name(e.relative_path), Path(e.relative_path).stem): e
             for e in self.assets.for_preset(preset_id, "image/png")
         }
+        # set name -> frame_key -> record
+        by_set: Dict[str, Dict[str, Dict[str, Any]]] = {}
         for entry in self.assets.for_preset(preset_id, "application/json"):
             label = entry.relative_path
-            data = self.assets.read(entry)
-            if data is None:
-                warnings.append("{}: changed or unreadable since indexing".format(label))
+            set_name = _set_name(label)
+            if wanted_set is not None and set_name != wanted_set:
                 continue
-            try:
-                doc = json.loads(data.decode("utf-8"))
-            except (UnicodeDecodeError, ValueError):
-                warnings.append("{}: not valid JSON; skipped".format(label))
+            if entry.asset_id in self._json_errors:
+                warnings.append("{}: {}".format(label, self._json_errors[entry.asset_id]))
                 continue
-            for raw in _extract_records(doc):
+            for raw in _extract_records(self._json_docs.get(entry.asset_id)):
                 record = copy.deepcopy(raw)
                 key = frame_key_for(record)
                 if key is None:
@@ -370,47 +435,61 @@ class CatalogStore:
                         record[field] = self._resolve_image(
                             record[field], entry.path.parent, preset_id, rec_label, warnings
                         )
-                if record.get("image") is None and key in pngs_by_stem:
-                    # A real generated PNG named after the frame_key.
-                    record["image"] = self._image_from_entry(pngs_by_stem[key])
+                if record.get("image") is None and (set_name, key) in pngs_by_set_stem:
+                    # A real generated PNG named after the frame_key in the same set.
+                    record["image"] = self._image_from_entry(pngs_by_set_stem[(set_name, key)])
                 missing = [f for f in REQUIRED_FRAME_FIELDS if record.get(f) is None]
+                bucket = by_set.setdefault(set_name, {})
+                if key in bucket:
+                    if bucket[key] != record:
+                        warnings.append(
+                            "{}: duplicate frame_key {} with different content; first kept".format(label, key)
+                        )
+                    continue
                 if missing:
                     warnings.append(
                         "{}: missing contract fields {} (left absent, not invented)".format(
                             rec_label, ", ".join(missing)
                         )
                     )
-                if key in records:
-                    if records[key] != record:
-                        warnings.append(
-                            "{}: duplicate frame_key {} with different content; first kept".format(label, key)
-                        )
-                    continue
-                records[key] = record
+                bucket[key] = record
 
-        frames = sorted(records.values(), key=_sort_key)
+        # Default listing prefers non-case sets; case-set records fill in only
+        # frame_keys that no preset run produced. A case listing uses its set only.
+        merged: Dict[str, Dict[str, Any]] = {}
+        used_sets: List[str] = []
+        ordered_sets = sorted(by_set, key=lambda s: (s.startswith(CASE_SET_PREFIX), s))
+        for set_name in ordered_sets:
+            added = False
+            for key, record in by_set[set_name].items():
+                if key not in merged:
+                    merged[key] = record
+                    added = True
+            if added:
+                used_sets.append(set_name or ".")
+
+        frames = sorted(merged.values(), key=_sort_key)
         if not frames:
+            where = "{}/{}/".format(source_dir, wanted_set) if wanted_set else source_dir + "/"
             return PresetFramesResponse(
-                preset_id=preset_id,
                 status="missing",
                 frames_available=False,
                 frame_count=0,
                 frames=[],
                 reason=(
-                    "{}/ exists but contains no usable FrameRecord JSON. "
-                    "Frames are never synthesized by the catalog."
-                ).format(source_dir),
+                    "{} contains no usable FrameRecord JSON. Frames are never synthesized by the catalog."
+                ).format(where),
                 warnings=warnings,
-                source_dir=source_dir,
+                **base,
             )
         return PresetFramesResponse(
-            preset_id=preset_id,
             status="partial" if warnings else "ready",
             frames_available=True,
             frame_count=len(frames),
             frames=frames,
+            sets=used_sets,
             warnings=warnings,
-            source_dir=source_dir,
+            **base,
         )
 
 

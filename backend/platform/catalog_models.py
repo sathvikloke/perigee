@@ -39,6 +39,7 @@ class CaseAssociation(BaseModel):
     case_id: str
     title: Optional[str] = None
     available: bool
+    frames_available: bool = False
 
 
 class PresetDescriptor(BaseModel):
@@ -85,16 +86,20 @@ class PresetFramesResponse(BaseModel):
     ``status``: ``ready`` (records found, none skipped), ``partial`` (some
     product files could not be used; see ``warnings``) or ``missing`` (no
     generated products yet). Frames are never synthesized: when ``missing``,
-    ``frames`` is empty and ``reason`` explains why.
+    ``frames`` is empty and ``reason`` explains why. ``case_id`` is set when
+    the listing is restricted to a case's product set; ``sets`` names the
+    processor output sets (subdirectories, "." for the preset root) used.
     """
 
     schema_version: int = SCHEMA_VERSION
     preset_id: str
+    case_id: Optional[str] = None
     status: str
     frames_available: bool
     frame_count: int
     order: str = "mjd_then_frame_key"
     frames: List[Dict[str, Any]]
     reason: Optional[str] = None
+    sets: List[str] = Field(default_factory=list)
     warnings: List[str] = Field(default_factory=list)
     source_dir: str

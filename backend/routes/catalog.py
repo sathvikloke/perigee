@@ -12,7 +12,7 @@ returns HTML or a filesystem path.
 import uuid
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from fastapi.responses import JSONResponse, Response
 
 from backend.platform.catalog import CatalogStore, ContentUnavailable, get_catalog_store
@@ -84,15 +84,30 @@ def get_case(case_id: str, store: CatalogStore = Depends(get_catalog_store)):
     response_model=PresetFramesResponse,
     responses=_ERROR_RESPONSES,
 )
-def get_preset_frames(preset_id: str, store: CatalogStore = Depends(get_catalog_store)):
+def get_preset_frames(
+    preset_id: str,
+    case_id: Optional[str] = Query(
+        None, description="Restrict to the processor's product set for this case (case-<case_id>)."
+    ),
+    store: CatalogStore = Depends(get_catalog_store),
+):
     try:
-        frames = store.get_frames(preset_id)
-        if frames is None:
+        if not store.has_preset(preset_id):
             return error_response(
                 404,
                 "PRESET_NOT_FOUND",
                 "Unknown preset.",
                 details={"available_preset_ids": store.preset_ids()},
+            )
+        frames = store.get_frames(preset_id, case_id)
+        if frames is None:
+            return error_response(
+                404,
+                "CASE_NOT_FOUND",
+                "Unknown case for this preset.",
+                details={"available_case_ids": [
+                    c for c in store.case_ids_for_preset(preset_id) if store.get_case(c) is not None
+                ]},
             )
     except ContentUnavailable as exc:
         return _content_unavailable(exc)
@@ -111,11 +126,18 @@ def get_asset(asset_id: str, store: CatalogStore = Depends(get_catalog_store)):
     data = store.assets.read(entry) if entry is not None else None
     if entry is None or data is None:
         return error_response(404, "ASSET_NOT_FOUND", "Unknown or unavailable asset.")
+    # Canonical IDs embed the content hash, so they are immutable. Processor
+    # alias IDs are not content-versioned; they must revalidate.
+    cache = (
+        "public, max-age=31536000, immutable"
+        if store.assets.is_canonical(asset_id)
+        else "public, max-age=300, must-revalidate"
+    )
     return Response(
         content=data,
         media_type=entry.media_type,
         headers={
-            "Cache-Control": "public, max-age=31536000, immutable",
+            "Cache-Control": cache,
             "ETag": '"{}"'.format(entry.sha256),
             "X-Content-Type-Options": "nosniff",
             "Content-Disposition": "inline",
