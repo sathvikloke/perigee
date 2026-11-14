@@ -2,7 +2,7 @@
   "schema_version": 1,
   "case_id": "moving_neighbor",
   "content_version": "moving_neighbor-2026-11-14b",
-  "status": "proposed_revision_pending_science_owner",
+  "status": "science_owner_approved",
   "title": "Follow a nearby moving star",
   "target_id": "barnards_star",
   "opening_question": "Barnard's Star moves across our sky faster than any other known star. In SPHEREx images taken a year apart, can you see it shift against the stars around it, and in which direction?",
@@ -131,6 +131,7 @@
     {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
   ],
   "verification": {
+    "approval": "Revision accepted by the science owner (Sathvik) on 2026-11-14 and merged into claude/perigee-integration as 2a4273a (PR #22). Science text unchanged by the approval.",
     "checked_by": "science/check_frames.py (science-check-1), science/check_registration.py, science/reviews/acceptance/check_acceptance.py and science/reviews/barnard/check_barnard.py",
     "record": "science/CASE_SELECTION.md#moving_neighbor; science/reviews/barnard/README.md",
     "must_recheck_against_processor_output": false,

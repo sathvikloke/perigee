@@ -80,10 +80,10 @@ Confirmed from the repository:
   - label any development fixture visibly, so it is never mistaken for archive data;
   - never present a catalog prediction as a detection;
   - do no photometry (brightness measurement).
-- **Scientific-meaning decisions went to Sathvik and were not made by agents.** The dispatch log lists five science escalations for him. The corrected Barnard's Star case text is held unmerged in PR #22 until he decides.
-- **API decisions go to their owners.** D1–D3 go to Aditya and Sathvik.
+- **Scientific-meaning decisions went to Sathvik and were not made by agents.** The dispatch log lists five science escalations for him. The revised Barnard's Star (PR #22) and Epsilon Indi B (PR #31) case texts were merged only after Sathvik accepted them on 2026-11-14 (`2a4273a`, `98fae22`).
+- **API review items D1–D3 were settled as implementation choices within the written contract** and are documented in `backend/tests/api/REVIEW.md`. Deployment protection and any rate-limit rule stay owner decisions.
 - **Agents may not change deployment protection, secrets or production promotion.** These are owner actions in `docs/DEPLOYMENT.md`.
-- **The human data owner's work was compared, not overwritten.** Sagar's processor (PR #19) was compared with processor A using the same acceptance checker and tests. Specific pieces were then adopted with attribution.
+- **The human data owner's work was compared, not overwritten.** Sagar's processor (PR #19) was compared with processor A using the same acceptance checker and tests. Specific pieces were then adopted with attribution: the manifest re-download script, the field-registration check and the stricter "unknown" quality rule (processor A 0.1.2).
 - **Agents worked in isolation.** Every agent worked on its own branch and draft PR. Only selected candidates were merged into the integration branch.
 
 Not confirmed from the repository:
@@ -113,7 +113,7 @@ The deployed app contains no AI model and calls no AI service.
 - **The registration was checked against Gaia DR3.** Field stars land a median 0.45 display px from their Gaia DR3 positions, propagated to each frame's epoch.
 - **The Barnard's Star imagery was checked separately** (`science/reviews/barnard/`). The predicted marker moves about 7 display px (about 10″) from frame A to C. Six Gaia field stars stay within 0.77 px.
 - **These checks were written by AI agents too.** Their independence comes from separate code and the original data, not from human authorship. **[TO CONFIRM: any spot checks Sathvik or Sagar did by hand, e.g. the science branch's own independent checks.]**
-- **Known content issue.** The shipped Barnard's Star case text gives the wrong expected motion ("about 2 display pixels"). The correction (PR #22) is waiting for Sathvik's decision.
+- **Barnard's Star case text corrected.** An earlier version gave the wrong expected motion ("about 2 display pixels"). The shipped text now says about 4 display px from A to B and about 7 (about 10″) from A to C on the 6′ grid, matching the review above.
 
 ## Where the acknowledgment appears ("descriptive text and metadata")
 

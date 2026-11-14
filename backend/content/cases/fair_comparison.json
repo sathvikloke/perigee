@@ -2,7 +2,7 @@
   "schema_version": 1,
   "case_id": "fair_comparison",
   "content_version": "fair_comparison-2026-11-14b",
-  "status": "proposed_revision_pending_science_owner",
+  "status": "science_owner_approved",
   "title": "Is this a fair comparison?",
   "target_id": "epsilon_indi_b",
   "opening_question": "Did Epsilon Indi B change between April and September 2026? Blink the pictures and work out what causes each difference you see: time, color of light, or image quality.",
@@ -133,6 +133,7 @@
     {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
   ],
   "verification": {
+    "approval": "Revision accepted by the science owner (Sathvik) on 2026-11-14 and merged into claude/perigee-integration as 98fae22 (PR #31). Science text unchanged by the approval.",
     "checked_by": "science/check_frames.py (science-check-1); science/reviews/acceptance/check_acceptance.py re-run on perigee-processor-a/0.1.1 products (cd4ef49); science/reviews/epsilon/check_epsilon.py; tools/ingest/check_registration.py",
     "record": "science/CASE_SELECTION.md#fair_comparison; science/reviews/epsilon/README.md",
     "must_recheck_against_processor_output": true

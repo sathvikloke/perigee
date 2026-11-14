@@ -23,10 +23,9 @@ Working on a laptop (Vite frontend proxied to the FastAPI backend), using real a
 
 **Not yet verified:**
 
-- **Public URL: TBD (pending production promotion).** The Vercel build succeeds, but every deployment is behind Vercel Authentication, so no public response has been checked. See [deployment notes](docs/DEPLOYMENT.md).
+- **Public URL: TBD (pending production promotion).** The hosted Preview builds and starts: an authenticated check of deployment `bc03f40` returned the app HTML, `/api/v1/health` JSON and the case endpoint. Live search and frames there are off until `PERIGEE_TOKEN_SECRET` is set. Logged-out visitors are redirected to Vercel login, so judge access is not verified. See [deployment notes](docs/DEPLOYMENT.md).
 - This GitHub repository is currently private. A judge-facing link must open without sign-in.
-- Phone and keyboard checks were done locally in headless Chrome (390 and 320 px, axe-core 0 violations); no physical phone or screen reader. Print was checked in print preview. An exported evidence card was inspected by the regression check (`qa/regression/README.md`, N5). "Check your claim against the case guide" has not been exercised end to end.
-- The Barnard's Star case text still gives the wrong expected marker motion ("about 2 display pixels"); the measured value is about 7 display pixels (about 10″). The correction is held for the science owner in PR #22.
+- Phone and keyboard checks were done locally in headless Chrome (390 and 320 px, axe-core 0 violations); no physical phone or screen reader. Print was checked in print preview. An exported evidence card was inspected by the regression check (`qa/regression/README.md`, N5). "Check your claim against the case guide" was exercised in the fresh-user pass (`qa/fresh-pass`, issue #6).
 
 ## Run locally
 
@@ -51,7 +50,7 @@ Tests: `.venv/bin/python -m pytest backend -q` and `cd frontend && npm test`.
 ## Data used
 
 - **NASA SPHEREx Level 2 spectral images** (DR1 and QR3) from [NASA/IPAC IRSA](https://irsa.ipac.caltech.edu/Missions/spherex.html): searched and cut out live, or pre-processed for the presets. See the [IRSA SPHEREx data access guide](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/) and [DR1 overview](https://irsa.ipac.caltech.edu/data/SPHEREx/docs/overview_dr1.html). Raw FITS files are not committed.
-- **[SIMBAD](https://simbad.cds.unistra.fr/)** (CDS, via the Sesame resolver): target positions and proper motions, used for the catalog-prediction marker (labelled "not a detection").
+- **[SIMBAD](https://simbad.cds.unistra.fr/)** (CDS, via the Sesame resolver; the case source links use CDS's official CfA Harvard mirror while the Strasbourg site is offline): target positions and proper motions, used for the catalog-prediction marker (labelled "not a detection").
 - **[ESA Gaia DR3](https://www.cosmos.esa.int/web/gaia/dr3)**: field-star positions used to check image registration (median offset 0.45 display px).
 
 More detail: [data guide](docs/DATA.md) and [source index](docs/REFERENCES.md).

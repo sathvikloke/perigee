@@ -2,9 +2,9 @@
 
 ## Current setup
 
-The Vercel project exists and is connected to `https://github.com/sathvikloke/perigee`. Merging the prompts triggered an automatic deployment of documentation commit `6990cc1b53eb638aca68c44981c397129949f2c7`; Vercel marked that deployment READY. The repository still contains planning and research rather than an implemented application, so this status does not mean Perigee works.
+The Vercel project `perigee` is connected to `https://github.com/sathvikloke/perigee` and builds the implemented app: a React/Vite `web` service and a FastAPI `api` service from `vercel.json`. The app lives on `claude/perigee-integration` (draft PR #27 into `main`). `main` has no app until PR #27 is merged, so production (which builds from `main`) does not serve Perigee yet.
 
-The initial automatic deployment is [visible in the dashboard](https://vercel.com/sathviklokes-projects/perigee/4TqN266NR377fsU193piCY2uz8sP). An unauthenticated check of its deployment URL redirects to the Vercel login page. Suhrit must configure the actual frontend/backend build and judge-facing access before treating any URL as the public app. Later documentation commits may trigger additional builds; inspect the deployed commit and actual behavior rather than relying on the READY label alone.
+Every push to `claude/perigee-integration` builds a Preview. The current state of the hosted Preview, and what still blocks judges, is under **Hosted Preview verification** below.
 
 - Dashboard: https://vercel.com/sathviklokes-projects/perigee
 - Project: `perigee`
@@ -68,11 +68,49 @@ Public access was **not** verified. Every path (`/`, `/api/v1/health`, `/api/v1/
 - `/api/v1/does-not-exist`: `404 application/json` with `{"detail":"Not Found"}`
 - `/deploy-probe.txt`: `200 text/plain`
 
+### Hosted Preview verification (integrated app)
+
+**Authenticated check (Codex, through the connected Vercel fetch tool, 2026-11-14 22:18Z).** No secret values were read or set.
+- Deployment `dpl_Fo2Vz63JvLSM8HpSHRZeu9DYHDZx`, URL `https://perigee-57upr0z5p-sathviklokes-projects.vercel.app`, commit `bc03f40`.
+- `GET /`: `200` HTML with the Perigee Vite assets.
+- `GET /api/v1/health`: `200 application/json`. It reports `status: degraded`, `capabilities.search: false`, `frame: false`, `token_signing: missing`, and the processor-A adapter present.
+- `GET /api/v1/cases/fair_comparison`: `200` JSON with the accepted revised case text and five limitations.
+
+What this shows: hosted routing, Python service startup, the catalog and case endpoints work on Vercel. Live search and frame processing are switched off **only** because `PERIGEE_TOKEN_SECRET` is not configured. That matches the local production-mode check: with `VERCEL_ENV=production` and no secret, health is `degraded` with `token_signing: missing`; with a ≥32-byte secret it is `ok` with `token_signing: env`.
+
+What it does **not** show: logged-out (judge) access, or end-to-end browser behaviour on a hosted URL.
+
+**Logged-out check (coordinator, 2026-11-14 ~22:20Z).** Every path below returns `302` to `vercel.com/sso-api` (Vercel Authentication):
+- `https://perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app/`
+- the same host at `/api/v1/health`
+- `https://perigee-sathviklokes-projects.vercel.app/`
+
+`https://github.com/sathvikloke/perigee` and the app footer link `…/blob/main/docs/AI_USE.md` both return `404` (private repository; `AI_USE.md` is not on `main` yet).
+
+GitHub commit statuses show the Vercel Preview build `success` for integration pushes (for example `ebdc0a0`).
+
+**Signing on hosted Preview (review D3).** Hosted Preview now refuses the public development secret exactly as Production does:
+- `PERIGEE_DEV_MODE=1` on Preview gives `token_signing: dev_mode_refused`;
+- the dev value supplied as `PERIGEE_TOKEN_SECRET` gives `dev_secret_refused`.
+
+A Preview therefore needs a real `PERIGEE_TOKEN_SECRET` for search and frames, just like Production. Local development (`uvicorn` or `vercel dev`, with `PERIGEE_DEV_MODE=1`) is unchanged.
+
+**Never present `https://perigee.vercel.app` as Perigee.** It is an unrelated third-party app.
+
 ### Owner actions (not done by agents)
 
-- Decide the judge-facing access model. Options: disable Vercel Authentication for production only (Project Settings, Deployment Protection, "Standard Protection" protects previews but leaves the production domain public), or generate a protection-bypass secret for automated preview checks. Agents must not change protection settings.
-- Add `PERIGEE_TOKEN_SECRET` (frame-token signing) as a **sensitive** environment variable for Preview and Production. `/api/v1/health` reports only `token_secret_configured: true/false`, never the value.
-- Promote to production only from `main` after verifying the preview.
+1. **Make the code public:** change `sathvikloke/perigee` to public, or publish a public mirror. Then `https://github.com/sathvikloke/perigee` and the footer link `https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md` resolve once PR #27 is merged.
+2. **Merge draft PR #27** (`claude/perigee-integration` → `main`) after review, so production builds the app from `main`.
+3. **Set `PERIGEE_TOKEN_SECRET`** as a sensitive variable for Production, and for Preview if previews should run live search. Use at least 32 random bytes and never the development value. Leave `PERIGEE_DEV_MODE` unset on Vercel. `/api/v1/health` reports only `token_signing` (`env` / `missing` / `too_short` / `dev_secret_refused` / `dev_mode_refused`), never the value.
+4. **Judge-facing access:** turn off Vercel Authentication for **production only** (Project Settings → Deployment Protection; Standard Protection keeps previews protected).
+5. **Optional (review D2):** add a Vercel Firewall rate-limit rule on `/api/v1/frame` and `/api/v1/search` for the judging window. The API has per-request bounds but no global limiter.
+6. **Verify logged out**, in a private window, on the production domain `https://perigee-sathviklokes-projects.vercel.app/` (or the domain Vercel assigns to production):
+   - `/` returns 200 HTML;
+   - `/api/v1/health` returns 200 JSON with `status: ok` and `token_signing: env`;
+   - an unknown `/api/v1/x` returns a JSON 404;
+   - a live search at 330.84, −56.786 returns frames.
+
+   Then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit. `qa/regression/run.sh --live <production base>` automates part of this.
 
 ### Two-project fallback (documented, not created)
 
