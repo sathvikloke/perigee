@@ -67,6 +67,23 @@ Screenshots: `09-timeline-near-filter-320.jpg` (Epsilon), `10-query-timeline-nea
 
 Screenshot: `11-reopen-heading-focus-390.jpg` shows the focus outline on the heading after a keyboard-driven reopen.
 
+### False "not saved" warning after leaving within the save debounce
+
+**Repro (from Codex).** Type in the claim, then click the Perigee home link within 300 ms. My evidence showed the new claim with "not saved on this device; export to keep it", but after a reload the claim was there and the warning was gone.
+
+**Cause.** Home read the store while it rendered. The investigation writes its pending edit in its unmount cleanup, which React runs after Home's render. That first read therefore saw the newer session draft and an older stored copy, and marked the card unsaved.
+
+**Fix.** Home reads the list again in a mount effect. React runs unmount cleanups before mount effects in the same commit, so this read sees the save. A refused write still leaves the stored copy older than the draft, so the warning remains. Changed files: `frontend/src/evidence/savedList.ts` and `Home.tsx`; the save hook is untouched. Test: `frontend/tests/saved-list.test.ts`.
+
+**Browser check.** The edit and the home click were scripted in one tick, well inside the debounce:
+
+| Case | Result |
+|---|---|
+| Normal leave | Row shows "DEBOUNCE-TEST claim B" with no warning; stored claim matches |
+| `localStorage.setItem` forced to throw | Row shows "…claim C (write refused)" with the warning; stored claim stays B |
+
+Screenshot: `13-write-refused-warning.jpg`.
+
 ## Notes
 
 - A reopened coordinate search uses the default result limit (24), because shared links have never carried the limit. The notebook key does not include the limit, so the notes still come back.

@@ -1,4 +1,4 @@
-import { useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import type { PerigeeApi } from "../api/client";
 import type { PresetDescriptor } from "../api/types";
 import {
@@ -12,6 +12,7 @@ import {
   type EvidenceStore,
 } from "../evidence/card";
 import { reopenTarget, savedContextKey, type ReopenTarget } from "../evidence/reopen";
+import { readSavedList } from "../evidence/savedList";
 import { evidenceTitle, type TitleSources } from "../evidence/title";
 import { formatDateShort } from "../lib/format";
 import { routeToSearch, type Route } from "../lib/route";
@@ -114,7 +115,10 @@ function SavedEvidence(props: {
   presets: PresetDescriptor[] | null;
   onOpenRoute: (route: Route, fixtures: boolean) => void;
 }) {
-  const [store, setStore] = useState<EvidenceStore>(() => loadStore(browserStorage()));
+  const [store, setStore] = useState<EvidenceStore>(() => readSavedList(browserStorage()).store);
+  // Read again once mounted: the investigation just left saves its last
+  // edit in its unmount cleanup, after this list first rendered (see savedList.ts).
+  useEffect(() => setStore(readSavedList(browserStorage()).store), []);
   const cards = useMemo(() => listCards(store), [store]);
   const [failed, setFailed] = useState(false);
   const caseIds = useMemo(
