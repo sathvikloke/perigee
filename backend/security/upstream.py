@@ -56,8 +56,16 @@ class UrlNotAllowed(UpstreamError):
     pass
 
 
+def _has_unsafe_chars(url: object) -> bool:
+    # urlsplit silently drops tab/CR/LF and strips leading spaces/controls, while httpx
+    # raises InvalidURL on them, so check the exact string that will be fetched.
+    return not isinstance(url, str) or any(c <= " " or c >= "\x7f" for c in url)
+
+
 def is_allowed_source_url(url: str) -> bool:
     """True for an original SPHEREx DR1/QR3 level-2 FITS URL on IRSA (no query/fragment)."""
+    if _has_unsafe_chars(url):
+        return False
     try:
         parts = urlsplit(url)
     except ValueError:
@@ -77,6 +85,8 @@ def is_allowed_source_url(url: str) -> bool:
 
 
 def _is_allowed_fetch_url(url: str, purpose: str) -> bool:
+    if _has_unsafe_chars(url):
+        return False
     try:
         parts = urlsplit(url)
     except ValueError:
@@ -191,7 +201,7 @@ async def _get_following(client, url, *, purpose, params, max_bytes) -> Upstream
                 )
         except httpx.TimeoutException as exc:
             raise UpstreamTimeout("archive request timed out", reason=type(exc).__name__) from exc
-        except httpx.TransportError as exc:
+        except httpx.RequestError as exc:  # transport errors plus DecodingError (bad gzip)
             raise UpstreamUnavailable(
                 "archive could not be reached", reason=type(exc).__name__
             ) from exc

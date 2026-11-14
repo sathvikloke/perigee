@@ -98,6 +98,9 @@ _PRIORITY = [
 ]
 
 
+MAX_FIELD_ERRORS = 20
+
+
 def _classify(errors: list[dict[str, Any]]) -> tuple[ErrorCode, list[dict[str, Any]]]:
     codes: list[ErrorCode] = []
     fields: list[dict[str, Any]] = []
@@ -141,12 +144,17 @@ def install_error_handlers(app: FastAPI) -> None:
     async def _validation_error(request: Request, exc: RequestValidationError):
         code, fields = _classify(list(exc.errors()))
         status = 400 if code == ErrorCode.INVALID_REQUEST or code == ErrorCode.INVALID_FRAME_TOKEN else 422
+        # Bounded: one entry per failing field let a 4 MB body of unknown keys produce a
+        # ~17 MB error envelope (over Vercel's 4.5 MB response limit).
+        details: dict[str, Any] = {"fields": fields[:MAX_FIELD_ERRORS]}
+        if len(fields) > MAX_FIELD_ERRORS:
+            details["fields_total"] = len(fields)
         return error_response(
             request,
             code,
             _MESSAGES.get(code, "Invalid request."),
             http_status=status,
-            details={"fields": fields},
+            details=details,
         )
 
     @app.exception_handler(StarletteHTTPException)
