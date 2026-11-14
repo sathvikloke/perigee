@@ -5,6 +5,7 @@ import { Home } from "./components/Home";
 import { PresetInvestigation } from "./components/PresetInvestigation";
 import { QueryInvestigation } from "./components/QueryInvestigation";
 import { createFixtureApi } from "./fixtures/devFixture";
+import { focusHeadingIn } from "./lib/headingFocus";
 import { parseRoute, routeToSearch, type Route } from "./lib/route";
 
 /** AI-use disclosure required by the Space Apps submission guide. */
@@ -54,16 +55,12 @@ export function App() {
   };
   const useFixture = () => setFixtures(true);
 
-  // Move focus to the new view's heading so keyboard and screen reader users land in context.
+  // Move focus to the new view's heading so keyboard and screen reader users
+  // land in context. A preset renders its heading only once its frames have
+  // loaded, so focus follows the heading when it mounts.
   const mainRef = useRef<HTMLElement>(null);
   const routeKey = route.view === "preset" ? `preset:${route.presetId}` : route.view;
-  useEffect(() => {
-    const h1 = mainRef.current?.querySelector("h1");
-    if (h1) {
-      h1.setAttribute("tabindex", "-1");
-      h1.focus({ preventScroll: true });
-    }
-  }, [routeKey]);
+  useEffect(() => (mainRef.current ? focusHeadingIn(mainRef.current) : undefined), [routeKey]);
 
   // "My evidence": the notebook on an investigation, or the saved list on the home view.
   const goToEvidence = (e: React.MouseEvent) => {
