@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "case_id": "moving_neighbor",
-  "content_version": "moving_neighbor-2026-11-14a",
-  "status": "science_verified_pending_app_render",
+  "content_version": "moving_neighbor-2026-11-14b",
+  "status": "proposed_revision_pending_science_owner",
   "title": "Follow a nearby moving star",
   "target_id": "barnards_star",
-  "opening_question": "Barnard's Star is known to drift across the sky faster than any other star. Can you see it move in SPHEREx images taken a year apart?",
+  "opening_question": "Barnard's Star moves across our sky faster than any other known star. In SPHEREx images taken a year apart, can you see it shift against the stars around it, and in which direction?",
   "summary": "Blink three SPHEREx images from August 2025, March 2026 and August 2026 on the same sky grid. Use the surrounding stars as a fixed reference and decide what the images show.",
   "background": {
     "short": "Barnard's Star is a small red star about 6 light-years away. Because it is so close and moving fast, its position on the sky shifts by about 10.4 arcseconds per year, mostly northward. That figure comes from star catalogs (Gaia), not from Perigee. Distant background stars barely move, so they make a good reference.",
     "details": [
-      "10.4 arcseconds is roughly the width of a coin seen from 400 meters away, and less than two SPHEREx pixels (about 6.15 arcseconds each). The shift over one year is small but large enough to notice when images share the same sky grid.",
+      "10.4 arcseconds is roughly the width of a coin seen from 400 meters away, and less than two SPHEREx pixels (about 6.15 arcseconds each). On Perigee's display grid (about 1.4 arcseconds per display pixel) that is about 7 display pixels: small, but large enough to notice when the images share the same sky grid.",
       "Barnard's Star is very bright in these images, so the detector saturates at its center (flags such as OVERFLOW and BLOOM). The saturated core cannot be used to pin down the star's exact center.",
       "All three frames record light near 2.0 µm (2.006, 2.012 and 2.028 µm), so the comparison is mostly about time, not color."
     ]
@@ -70,16 +70,17 @@
   ],
   "display_requirements": {
     "grid": "Fixed north-up, east-left grid centered on the preset query_center and identical for all three frames. Do NOT recenter frames on the star; that would erase the motion.",
-    "stretch": "Shared stretch across A, B and C.",
-    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction. It should move north by about 2 display pixels at 5 arcsec/pixel between A and C.",
-    "reference_line": "Recommended: a thin horizontal guide line through the frame A marker position, kept fixed while blinking, so the northward shift is easy to see."
+    "stretch": "Shared stretch across A, B and C. Load the case-moving_neighbor products, not the per-frame preset products (those use a per-frame stretch).",
+    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction. On the shipped grid (256 px over 6 arcmin, 1.406 arcsec per display pixel) it moves north (up) by about 4 display pixels from A to B and about 7 display pixels (about 10 arcseconds, under two SPHEREx pixels) from A to C, drifting less than 1 display pixel west (right).",
+    "reference_line": "Required: a thin horizontal guide line through the frame A marker position, kept fixed while blinking. The shift is about 7 display pixels against a saturated glow tens of pixels wide, so without a fixed line it is easy to miss.",
+    "saturated_core": "All three frames have non-finite (saturated) pixels at the star's center, which are transparent in the image PNG. Do not let them read as a dark hole: show the flag overlay or its legend by default for these frames, or paint non-finite pixels in a distinct labeled color. Read overlay colors from flag_image.legend."
   },
   "steps": [
     {
       "id": "controls_and_target",
       "prompt": "Blink the three frames. First watch the smaller stars around the edges, then the big bright star against the guide line.",
       "check": ["observed_at_utc", "wavelength_um"],
-      "hint": "The small stars stay put, so the images are lined up. The bright star's glow shifts slightly north (up), about 10 arcseconds, from August 2025 to August 2026. All three frames are near 2.0 µm, so the change is mainly about time."
+      "hint": "The small stars stay put, so the images are lined up. The bright star's glow shifts north (up) past the guide line: about halfway (about 4 display pixels) by March 2026, and about 7 display pixels (about 10 arcseconds) by August 2026. All three frames are near 2.0 µm, so the change is mainly about time."
     },
     {
       "id": "marker",
@@ -91,7 +92,7 @@
       "id": "flags",
       "prompt": "Open the quality details for the star's position.",
       "check": ["quality.status", "quality.flag_names"],
-      "hint": "Every frame is flagged: the star is so bright that the detector saturates at its center. You can see its glow shift, but these pixels cannot pin down its exact center or brightness."
+      "hint": "Every frame is flagged: the star is so bright that the detector saturates at its center. The patch in the middle of the star has no usable value; it is not a dark spot on the star. You can see the glow shift, but these pixels cannot pin down its exact center or brightness."
     }
   ],
   "claim_prompt": "What do these images show about Barnard's Star, and what can't they tell you?",
@@ -103,14 +104,16 @@
   },
   "conclusion_guide": {
     "supported": [
-      "With the images lined up on the same sky grid, the surrounding stars stay put while Barnard's Star's glow shifts slightly north between August 2025 and August 2026.",
+      "With the images lined up on the same sky grid, the surrounding stars stay put while Barnard's Star's glow shifts north between August 2025 and August 2026, by about 7 display pixels (about 10 arcseconds, under two SPHEREx pixels).",
       "That shift is consistent with the catalog prediction of about 10 arcseconds per year.",
       "The star's center is saturated and flagged in every frame, so these images show the shift visually but do not measure its speed."
     ],
     "not_supported": [
       "I measured Barnard's Star's proper motion. No centroid measurement was made, and the saturated core would not support one.",
       "Barnard's Star changed in brightness. The center is saturated and no calibrated photometry was done.",
-      "The marker shows where the star was detected. The marker is a catalog prediction."
+      "The marker shows where the star was detected. The marker is a catalog prediction.",
+      "The patch in the middle of the star means it is dark there, or its changing shape means the star changed. Those pixels are saturated and have no usable value.",
+      "The surrounding stars do not move at all. They move too, but far too little to see in these images."
     ],
     "example_claim": "Between August 2025 and August 2026 the background stars stayed in place while Barnard's Star's bright glow shifted a little to the north, which matches what star catalogs predict (about 10 arcseconds per year). I can't measure the exact speed from these images because the star's center is saturated and flagged."
   },
@@ -118,7 +121,8 @@
     "The star's center is saturated (OVERFLOW/BLOOM flags) in all retained frames; no centroid or brightness measurement is supported.",
     "Frames A and B are from Data Release 1 and frame C from Quick Release 3; quick-release products may be reprocessed later.",
     "The marker is a catalog prediction from SIMBAD/Gaia astrometry, not a measured position. Annual parallax (about 0.55 arcsec) is not modeled.",
-    "The visible shift is under two pixels; it depends on correct alignment to a fixed sky grid, which was checked against surrounding stars (see verification)."
+    "The visible shift is under two SPHEREx pixels (about 7 display pixels); it depends on correct alignment to a fixed sky grid, which was checked against Gaia field stars (stable to under 1 display pixel; see verification).",
+    "The glow's center can only be judged by eye: saturated pixels have no value, and a visual estimate of the glow center scatters by about 1 display pixel from frame to frame."
   ],
   "sources": [
     {"label": "SPHEREx data at NASA/IPAC IRSA", "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"},
@@ -127,8 +131,9 @@
     {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
   ],
   "verification": {
-    "checked_by": "science/check_frames.py (science-check-1) and science/check_registration.py",
-    "record": "science/CASE_SELECTION.md#moving_neighbor",
-    "must_recheck_against_processor_output": true
+    "checked_by": "science/check_frames.py (science-check-1), science/check_registration.py, science/reviews/acceptance/check_acceptance.py and science/reviews/barnard/check_barnard.py",
+    "record": "science/CASE_SELECTION.md#moving_neighbor; science/reviews/barnard/README.md",
+    "must_recheck_against_processor_output": false,
+    "processor_recheck": "Rechecked against perigee-processor-a/0.1.0 case-moving_neighbor products (grid f2860f77053de67b): marker 4.19 px A-B, 7.29 px A-C; field stars stable to under 0.8 display px."
   }
 }
