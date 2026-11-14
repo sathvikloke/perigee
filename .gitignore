@@ -30,3 +30,8 @@ build/
 coverage/
 .next/
 .vercel/
+
+# Vercel CLI local state (project link, build output, dev venvs)
+.vercel/
+node_modules/
+frontend/dist/
