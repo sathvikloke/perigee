@@ -57,9 +57,20 @@ function queryCard(ra: number, dec: number, fov = 6, caseId: string | null = nul
 }
 
 describe("evidence card titles", () => {
-  it("uses a newer card's own title when present", () => {
-    const card = { ...presetCard("epsilon_indi_b", "fair_comparison"), title: "My Epsilon Indi B check" };
-    expect(evidenceTitle(card, SOURCES)).toBe("My Epsilon Indi B check");
+  it("combines a newer card's stored title (the case title) with the target name", () => {
+    const card = { ...presetCard("epsilon_indi_b", "fair_comparison"), title: "Is this a fair comparison?" };
+    expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
+    // Case content not loaded (or offline): the stored title still names the case.
+    expect(evidenceTitle(card, { presets: SOURCES.presets })).toBe("Epsilon Indi B · Is this a fair comparison?");
+    expect(evidenceTitle(card, {})).toBe("Is this a fair comparison?");
+  });
+
+  it("does not repeat a free-exploration card's stored title (the target name)", () => {
+    const card = { ...presetCard("wise_0855", null), title: "WISE 0855" };
+    expect(evidenceTitle(card, SOURCES)).toBe("WISE 0855");
+    expect(evidenceTitle(card, {})).toBe("WISE 0855");
+    const named = { ...presetCard("wise_0855", null), title: "WISE 0855 · my own card title" };
+    expect(evidenceTitle(named, SOURCES)).toBe("WISE 0855 · my own card title");
   });
 
   it("ignores an empty or non-string own title", () => {
@@ -70,7 +81,8 @@ describe("evidence card titles", () => {
   });
 
   it("resolves an older card (no title field) from the target and case", () => {
-    const card = presetCard("epsilon_indi_b", "fair_comparison");
+    // A card saved before the title field existed has no `title` key at all.
+    const { title: _omit, ...card } = presetCard("epsilon_indi_b", "fair_comparison");
     expect("title" in card).toBe(false);
     expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
     expect(evidenceTitle(presetCard("wise_0855", null), SOURCES)).toBe("WISE 0855");

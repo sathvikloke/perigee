@@ -1,7 +1,7 @@
-// Human titles for saved evidence cards ("My evidence" on the home view).
-// A card may carry its own `title` (newer cards); older cards only have IDs,
-// so the title is resolved from the target list and case content already
-// served by the API, falling back to the coordinates or the raw ID.
+// Human titles for saved evidence cards ("My evidence" on the home view):
+// "<target> · <case title>", "<target>", or "Coordinate search · RA …, Dec …".
+// Resolved from the target list and case content already served by the API,
+// then the card's own stored `title`, then the raw ID.
 
 import type { EvidenceCard, EvidenceQuery } from "./card";
 
@@ -24,23 +24,18 @@ export function formatPosition(q: Pick<EvidenceQuery, "ra_deg" | "dec_deg">): st
   return `RA\u00a0${deg(q.ra_deg)}, Dec\u00a0${deg(q.dec_deg)}`;
 }
 
-/** The card's own title when it has one (read defensively: older cards have none). */
-function ownTitle(card: EvidenceCard): string | null {
-  const t = "title" in card ? (card as { title?: unknown }).title : null;
-  return typeof t === "string" && t.trim() ? t.trim() : null;
-}
-
 function nonEmpty(s: string | null | undefined): string | null {
   return typeof s === "string" && s.trim() ? s.trim() : null;
 }
 
 export function evidenceTitle(card: EvidenceCard, src: TitleSources = {}): string {
-  const own = ownTitle(card);
-  if (own) return own;
-
+  // A card's stored title (QA-F1) is the case title, else the target name;
+  // older cards have none until reopened. It stands in for the case title
+  // and is combined with the target name so every row reads the same way.
+  const own = nonEmpty(card.title);
   const presets = src.presets ?? [];
   const caseInfo = card.case_id ? src.cases?.[card.case_id] : undefined;
-  const caseTitle = nonEmpty(caseInfo?.title);
+  const caseTitle = nonEmpty(caseInfo?.title) ?? own;
   const targetName = (id: string | null | undefined) =>
     id ? nonEmpty(presets.find((p) => p.id === id)?.display_name) : null;
   const caseTarget =
@@ -49,6 +44,9 @@ export function evidenceTitle(card: EvidenceCard, src: TitleSources = {}): strin
 
   if (card.preset_id) {
     const name = targetName(card.preset_id) ?? caseTarget;
+    // A free-exploration card's stored title is the target name itself; a
+    // title that already names the target is shown as it is.
+    if (name && caseTitle?.includes(name)) return caseTitle;
     const parts = [name, caseTitle].filter(Boolean) as string[];
     return parts.length ? parts.join(SEP) : (card.case_id ?? card.preset_id);
   }
