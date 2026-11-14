@@ -365,6 +365,16 @@ td { color: var(--ink); }
 .saved-list { list-style: none; padding: 0; margin: 0; }
 .saved-list li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); font-size: var(--text-sm); }
 .saved-list li:last-child { border-bottom: 0; }
+.saved-summary { flex: 1 1 18rem; min-width: 0; overflow-wrap: anywhere; }
+.saved-title { font-size: var(--text-md); }
+/* Reopen is the row's main action: a real link drawn as a cobalt control. */
+.saved-list a.reopen {
+  display: inline-flex; align-items: center; min-height: var(--target-min); padding: 9px 16px;
+  border: 1px solid var(--blue); border-radius: var(--radius-sm); background: var(--blue);
+  color: var(--surface); font-weight: 600; text-decoration: none;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+.saved-list a.reopen:hover { background: var(--blue-deep); border-color: var(--blue-deep); }
 
 /* Query form */
 .query-fields { display: grid; gap: var(--space-sm) var(--space-md); grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }

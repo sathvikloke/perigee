@@ -366,7 +366,7 @@ export function CaseBench(props: {
                 </tbody>
               </table>
             </div>
-            {a && <ProcessingNote frame={a} />}
+            {a && <ProcessingNote frame={a} pair />}
             {limitations.length > 0 && (
               <ul className="plain-list">
                 {limitations.map((l) => (
@@ -381,7 +381,8 @@ export function CaseBench(props: {
   );
 }
 
-export function ProcessingNote({ frame }: { frame: FrameRecord }) {
+/** `pair`: the note sits under the case comparison plates, not a timeline frame. */
+export function ProcessingNote({ frame, pair = false }: { frame: FrameRecord; pair?: boolean }) {
   const r = frame.registration;
   const d = frame.display_scale;
   const parts: string[] = [];
@@ -399,6 +400,10 @@ export function ProcessingNote({ frame }: { frame: FrameRecord }) {
     parts.push(
       `${d.mode === "shared" ? "One shared" : "A per-frame"}${typeof d.method === "string" ? ` ${d.method}` : ""} display stretch.`,
     );
+    // The same frame appears in the timeline below with its own stretch (F4).
+    if (pair && d.mode === "shared") {
+      parts.push("The pair shares one stretch so the plates can be compared by eye; the timeline below gives each frame its own.");
+    }
   }
   if (frame.provenance?.processing_version) parts.push(`Processing ${frame.provenance.processing_version}.`);
   parts.push("For visual inspection only.");

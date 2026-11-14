@@ -33,10 +33,11 @@ export function App() {
   }, []);
 
   const navigate = useCallback(
-    (next: Route, replace = false) => {
-      const url = `${window.location.pathname}${routeToSearch(next, fixtureMode)}`;
+    (next: Route, replace = false, fixtures = fixtureMode) => {
+      const url = `${window.location.pathname}${routeToSearch(next, fixtures)}`;
       if (replace) window.history.replaceState(null, "", url);
       else window.history.pushState(null, "", url);
+      if (fixtures !== fixtureMode) setFixtureMode(fixtures);
       setRoute(next);
       if (!replace) window.scrollTo(0, 0);
     },
@@ -166,6 +167,7 @@ export function App() {
             api={api}
             onOpenPreset={(id) => navigate({ view: "preset", presetId: id })}
             onOpenQuery={() => navigate({ view: "query" })}
+            onOpenRoute={(next, fixtures) => navigate(next, false, fixtures)}
             onUseFixture={useFixture}
           />
         )}
