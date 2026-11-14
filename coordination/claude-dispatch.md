@@ -177,4 +177,22 @@ Both cases: `status: science_owner_approved` plus a dated `verification.approval
 
 Not re-run (already recorded, no code change since): the export download (QA-F1, Codex), print preview (24f, 17, QA-F1), keyboard journey (17, QA-F3, Codex). Not covered by anyone: a physical phone, a screen reader, a printed PDF, a public URL.
 
-Not merged, noted: PR #34 (`codex/suhrit-platform`, deployed release smoke check) was opened by a teammate during this batch. It was not reviewed in this task.
+PR #34 was handled in the next round (see below).
+
+## PR #34 (Suhrit, `codex/suhrit-platform` @ `4101680`) — reviewed and integrated
+- **Merged with authorship preserved:** a `--no-ff` merge `d859e62` keeps Suhrit's commit `4101680` intact. The review fixes are separate coordinator commits.
+- **Review findings fixed in `backend/platform/smoke.py`:**
+  1. An empty search, or observations without a frame token, gave a false PASS with no frame checked. Now it is a FAIL, plus a "live /frame not attempted" FAIL. Search and frame payloads are validated, and the frame's data-URL PNG and the preset asset must decode with Pillow.
+  2. Invalid or non-object JSON and network errors or timeouts crashed the run. They are now FAIL rows with exit 1, and an unreachable host gets a clear message.
+  3. The bypass header was set client-wide. It is now attached per request, only to the `--base` origin; absolute off-origin asset srcs are not fetched.
+  4. `--base` is now validated: an https origin (http only for loopback), with no path, query or credentials. `perigee.vercel.app` is refused in case, trailing-dot and port variants, and `myperigee.vercel.app` is no longer wrongly refused.
+- **Tests:** 31 offline tests in `test_platform_smoke.py` (Suhrit's 4 kept and adapted). Suhrit's UTF-8 `conftest.py` fix was kept.
+- **Runs:**
+  - local frontend+API origin: PASS 20/20, including a live Orion search (377 matches) and a frame whose PNG decodes;
+  - logged-out Preview: exit 2;
+  - unreachable host: exit 1;
+  - `https://PERIGEE.vercel.app.` and `https://perigee.vercel.app:443`: refused;
+  - API down behind the frontend: exit 1 with no traceback.
+- **Docs:** `docs/DEPLOYMENT.md` reconciled. Suhrit's `ebdc0a0` status ("deployed responses not verified") is kept as a superseded earlier report, and the current hosted-Preview evidence (Codex's authenticated check of `bc03f40`) is kept as current. His release notes (redeploy after env changes, team access or `--bypass`, recording the production domain, the Hobby-plan preview risk) were kept, and the smoke command was added to owner step 6.
+- **Gate:** all six offline gates pass; backend 330 with raw data (313 passed / 17 skipped without), vitest 121.
+- **Disposition:** PR #34 is fully contained in `claude/perigee-integration`, so GitHub marks it merged on push. No comment was posted on the teammate PR.

@@ -110,7 +110,7 @@ A Preview therefore needs a real `PERIGEE_TOKEN_SECRET` for search and frames, j
    - an unknown `/api/v1/x` returns a JSON 404;
    - a live search at 330.84, −56.786 returns frames.
 
-   Then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit. `qa/regression/run.sh --live <production base>` automates part of this.
+   Run `python -m backend.platform.smoke --base <production origin>` (expect exit 0), then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit.
 
 ### Two-project fallback (documented, not created)
 
@@ -120,7 +120,7 @@ Use this only if Services blocks a deploy for more than 30 minutes. Services bui
 2. A new `perigee-api` project, created by Sathvik only, gets Root Directory `.` with `[tool.vercel] entrypoint = "backend.main:app"` in a root `pyproject.toml`, the FastAPI preset and `PERIGEE_TOKEN_SECRET`.
 3. FastAPI adds `CORSMiddleware` allowing only the frontend production origin, plus the preview pattern if needed. Verify CORS from the deployed frontend. The frontend API client reads `import.meta.env.VITE_API_BASE ?? "/api/v1"`.
 
-## Release smoke check and current status (Suhrit, 2026-11-14)
+## Release smoke check (Suhrit, PR #34; hardened in review)
 
 One command checks a deployment the way a judge reaches it:
 
@@ -128,27 +128,43 @@ One command checks a deployment the way a judge reaches it:
 python -m backend.platform.smoke --base https://<deployment-host>
 ```
 
-It checks, in order: logged-out access; `/` plus three deep links return the SPA; `/api/v1/health` is JSON with `token_signing: "env"`; five presets; Barnard's Star frames; the first image asset is a real PNG; `fair_comparison` case; JSON 404s for unknown `/api` paths and a traversal attempt; and a **non-preset** search (Orion Nebula, 83.822, −5.391), followed by one processed frame. Exit `0` = pass, `1` = app/config defect, `2` = access restricted by Deployment Protection (not a code failure). For a protected preview, add `--bypass` with `VERCEL_AUTOMATION_BYPASS_SECRET` in the environment. That proves the app works, not judge access. `--no-live` skips the archive calls. The script refuses `perigee.vercel.app` (unrelated app).
+It checks, in order:
+- logged-out access;
+- `/` plus three deep links return the SPA;
+- `/api/v1/health` is JSON with `token_signing: "env"` and `status: "ok"`;
+- five presets, and Barnard's Star frames, whose first image asset is a PNG that decodes;
+- the `fair_comparison` case, with its limitations;
+- JSON 404s for unknown `/api` paths and a traversal attempt;
+- a **non-preset** search (Orion Nebula, 83.822, −5.391). It must return at least one observation with a frame token; an empty result is a FAIL, not a skip. One frame from it is then processed, and its image must decode as a PNG.
 
-Status on integration commit `ebdc0a0` (PR #27):
+Exit codes:
+- `0`: pass.
+- `1`: app or config defect. This includes invalid JSON, network errors and timeouts, which are reported as FAIL rows, never a traceback.
+- `2`: access restricted by Deployment Protection. This is not a code failure.
 
-| What | Result |
-|---|---|
-| Vercel build | READY, deployment `6qeSegbawa4qLbyJbmuvmo6VAKyw`, `check` workflow passed |
-| Preview URL | `https://perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app` |
-| Logged-out access | **Restricted**: every path, including `/api/*`, returns `302` to `vercel.com/sso-api`. Smoke exit `2`. |
-| Deployed responses | **Not yet verified.** Needs a team login or bypass secret. |
-| Same commit, local `uvicorn backend.main:app` | All API checks pass. Search `ready`, 377 matches DR1+QR3, 1.6 s. Frame `2025W36_2B_0338_1` 200 in 3.0 s, 18 KB. Asset PNG with `immutable` cache. JSON 404s. `deploy_check --app` ok. |
+Options and safeguards:
+- `--base` must be an https origin with no path. http is accepted only for loopback, for local runs.
+- `perigee.vercel.app` (an unrelated app) is refused in any spelling: case, trailing dot or port.
+- For a protected preview, add `--bypass` with `VERCEL_AUTOMATION_BYPASS_SECRET` in the environment. The header goes **only** to the `--base` origin, never to another host such as an absolute asset URL. A bypassed run proves the app works, not judge access.
+- `--no-live` skips the archive calls.
 
-Owner actions for release (Sathvik; agents do not change these):
+Tests: `backend/tests/platform/test_platform_smoke.py` (31, offline).
 
-1. Set `PERIGEE_TOKEN_SECRET` as a Sensitive env var (≥ 32 bytes, random) for **Preview and Production**. Leave `PERIGEE_DEV_MODE` unset. Redeploy, because env changes apply to new deployments only. Health must then show `token_signing: "env"`. `missing` means search and frame are disabled.
-2. Give Suhrit team access to `sathviklokes-projects`, or run the smoke check yourself with `--bypass`, so the preview is verified before merge.
-3. Merge PR #27 to `main` after the preview passes.
-4. Deployment Protection: switch to **Standard Protection**, which keeps previews protected and leaves production domains public, or turn it off for this project only.
-5. Record the production domain shown on the project's Domains page. That domain, not a preview and not `perigee.vercel.app`, is the judge URL. Then run the smoke check without `--bypass` and record the URL, commit and output here.
+Runs of the merged script (coordinator, integration after `d859e62`):
+- **Local:** Vite serving the frontend, proxying to uvicorn with a throwaway local signing value. **PASS 20/20**: live search `ready` with 377 matches, and a frame `2025W36_2B_0338_1` that returned 200 with a 10 KB PNG that decodes.
+- **Logged-out Preview:** `perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app` gives **exit 2** (Vercel Authentication).
+- **Failure paths:**
+  - `no-such-host.invalid` gives exit 1, "could not be reached".
+  - `https://PERIGEE.vercel.app.` and `https://perigee.vercel.app:443` are refused with exit 1.
+  - With the API stopped behind a live frontend, the run gives exit 1 with FAIL rows and no traceback.
 
-Risk: on a Hobby team, Vercel can block preview builds of private-repo commits authored by non-members. If a teammate's PR shows "blocked" instead of a build, that is an access issue, not a code failure.
+**Earlier report, superseded.** Suhrit's run on `ebdc0a0` (Vercel deployment `6qeSegbawa4qLbyJbmuvmo6VAKyw`, READY): logged out he got exit 2. The same commit run locally passed every API check (search `ready`, 377 matches in 1.6 s; frame `2025W36_2B_0338_1` 200 in 3.0 s, 18 KB). He recorded deployed responses as "not yet verified". That has since changed: Codex's authenticated check of `bc03f40` (see **Hosted Preview verification** above) confirmed the hosted app HTML, health JSON (`token_signing: missing`) and the case endpoint. Judge (logged-out) access is still unverified.
+
+Release details from Suhrit's report, kept alongside the numbered **Owner actions** above:
+- Environment variable changes apply only to new deployments. Redeploy after setting `PERIGEE_TOKEN_SECRET`, then confirm that health shows `token_signing: "env"`.
+- To verify a protected preview before merge, either give Suhrit team access to `sathviklokes-projects`, or have an owner run the smoke check with `--bypass`.
+- Record the production domain shown on the project's Domains page. That domain, not a preview and not `perigee.vercel.app`, is the judge URL. Then run the smoke check **without** `--bypass` and record the URL, commit and output here.
+- Risk: on a Hobby team, Vercel can block preview builds of private-repo commits authored by non-members. A teammate's PR that shows "blocked" instead of a build is an access issue, not a code failure.
 
 ## Configuration and release checks
 
