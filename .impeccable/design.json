@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T17:56:00.835684+00:00",
+  "title": "Design System: Perigee",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool paper",
+        "tonalRamp": [
+          "oklch(15.0% 0.0054 275.0)",
+          "oklch(26.4% 0.0054 275.0)",
+          "oklch(37.9% 0.0054 275.0)",
+          "oklch(49.3% 0.0054 275.0)",
+          "oklch(60.7% 0.0054 275.0)",
+          "oklch(72.1% 0.0054 275.0)",
+          "oklch(83.6% 0.0054 275.0)",
+          "oklch(95.0% 0.0054 275.0)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White paper",
+        "tonalRamp": [
+          "oklch(15.0% 0.0000 0.0)",
+          "oklch(26.4% 0.0000 0.0)",
+          "oklch(37.9% 0.0000 0.0)",
+          "oklch(49.3% 0.0000 0.0)",
+          "oklch(60.7% 0.0000 0.0)",
+          "oklch(72.1% 0.0000 0.0)",
+          "oklch(83.6% 0.0000 0.0)",
+          "oklch(95.0% 0.0000 0.0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Navy ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0549 267.6)",
+          "oklch(26.4% 0.0549 267.6)",
+          "oklch(37.9% 0.0549 267.6)",
+          "oklch(49.3% 0.0549 267.6)",
+          "oklch(60.7% 0.0549 267.6)",
+          "oklch(72.1% 0.0549 267.6)",
+          "oklch(83.6% 0.0549 267.6)",
+          "oklch(95.0% 0.0549 267.6)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate labels",
+        "tonalRamp": [
+          "oklch(15.0% 0.0377 264.2)",
+          "oklch(26.4% 0.0377 264.2)",
+          "oklch(37.9% 0.0377 264.2)",
+          "oklch(49.3% 0.0377 264.2)",
+          "oklch(60.7% 0.0377 264.2)",
+          "oklch(72.1% 0.0377 264.2)",
+          "oklch(83.6% 0.0377 264.2)",
+          "oklch(95.0% 0.0377 264.2)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Paper divider",
+        "tonalRamp": [
+          "oklch(15.0% 0.0185 269.1)",
+          "oklch(26.4% 0.0185 269.1)",
+          "oklch(37.9% 0.0185 269.1)",
+          "oklch(49.3% 0.0185 269.1)",
+          "oklch(60.7% 0.0185 269.1)",
+          "oklch(72.1% 0.0185 269.1)",
+          "oklch(83.6% 0.0185 269.1)",
+          "oklch(95.0% 0.0185 269.1)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(15.0% 0.2365 265.8)",
+          "oklch(26.4% 0.2365 265.8)",
+          "oklch(37.9% 0.2365 265.8)",
+          "oklch(49.3% 0.2365 265.8)",
+          "oklch(60.7% 0.2365 265.8)",
+          "oklch(72.1% 0.2365 265.8)",
+          "oklch(83.6% 0.2365 265.8)",
+          "oklch(95.0% 0.2365 265.8)"
+        ]
+      },
+      "blue-deep": {
+        "role": "primary",
+        "displayName": "Deep cobalt",
+        "tonalRamp": [
+          "oklch(15.0% 0.2006 265.6)",
+          "oklch(26.4% 0.2006 265.6)",
+          "oklch(37.9% 0.2006 265.6)",
+          "oklch(49.3% 0.2006 265.6)",
+          "oklch(60.7% 0.2006 265.6)",
+          "oklch(72.1% 0.2006 265.6)",
+          "oklch(83.6% 0.2006 265.6)",
+          "oklch(95.0% 0.2006 265.6)"
+        ]
+      },
+      "cornflower": {
+        "role": "primary",
+        "displayName": "Cornflower",
+        "tonalRamp": [
+          "oklch(15.0% 0.0238 270.3)",
+          "oklch(26.4% 0.0238 270.3)",
+          "oklch(37.9% 0.0238 270.3)",
+          "oklch(49.3% 0.0238 270.3)",
+          "oklch(60.7% 0.0238 270.3)",
+          "oklch(72.1% 0.0238 270.3)",
+          "oklch(83.6% 0.0238 270.3)",
+          "oklch(95.0% 0.0238 270.3)"
+        ]
+      },
+      "lavender": {
+        "role": "secondary",
+        "displayName": "Lavender notebook",
+        "tonalRamp": [
+          "oklch(15.0% 0.0203 295.2)",
+          "oklch(26.4% 0.0203 295.2)",
+          "oklch(37.9% 0.0203 295.2)",
+          "oklch(49.3% 0.0203 295.2)",
+          "oklch(60.7% 0.0203 295.2)",
+          "oklch(72.1% 0.0203 295.2)",
+          "oklch(83.6% 0.0203 295.2)",
+          "oklch(95.0% 0.0203 295.2)"
+        ]
+      },
+      "lime": {
+        "role": "tertiary",
+        "displayName": "Lime status",
+        "tonalRamp": [
+          "oklch(15.0% 0.0522 119.1)",
+          "oklch(26.4% 0.0522 119.1)",
+          "oklch(37.9% 0.0522 119.1)",
+          "oklch(49.3% 0.0522 119.1)",
+          "oklch(60.7% 0.0522 119.1)",
+          "oklch(72.1% 0.0522 119.1)",
+          "oklch(83.6% 0.0522 119.1)",
+          "oklch(95.0% 0.0522 119.1)"
+        ]
+      },
+      "green": {
+        "role": "tertiary",
+        "displayName": "Status green",
+        "tonalRamp": [
+          "oklch(15.0% 0.0920 132.5)",
+          "oklch(26.4% 0.0920 132.5)",
+          "oklch(37.9% 0.0920 132.5)",
+          "oklch(49.3% 0.0920 132.5)",
+          "oklch(60.7% 0.0920 132.5)",
+          "oklch(72.1% 0.0920 132.5)",
+          "oklch(83.6% 0.0920 132.5)",
+          "oklch(95.0% 0.0920 132.5)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Investigation question",
+        "purpose": "Primary question at the top of the working surface."
+      },
+      "headline": {
+        "displayName": "Section heading",
+        "purpose": "Baseline for target and notebook heading variants."
+      },
+      "title": {
+        "displayName": "Observation title",
+        "purpose": "Names the observation role above its metadata."
+      },
+      "body": {
+        "displayName": "Explanatory body",
+        "purpose": "Plain-language introduction and explanation."
+      },
+      "label": {
+        "displayName": "Readable metadata",
+        "purpose": "Dates, wavelengths, status, controls and hints; minimum 12px on screen."
+      },
+      "eyebrow": {
+        "displayName": "Category label",
+        "purpose": "Uppercase investigation and notebook context."
+      }
+    },
+    "shadows": [
+      {
+        "name": "prediction-legibility",
+        "value": "0 0 0 1px #0004",
+        "purpose": "Thin outline reinforcement around the predicted-position ring."
+      },
+      {
+        "name": "compass-legibility",
+        "value": "0 1px 3px black",
+        "purpose": "Text shadow for directional labels over observations."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "background .16s, border-color .16s",
+        "purpose": "Button hover changes; removed with reduced motion."
+      },
+      {
+        "name": "blink-cadence",
+        "value": "1000ms",
+        "purpose": "User-started fixed-plane comparison; 1500ms with reduced motion, paused initially."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1400px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "stacked",
+        "value": "900px"
+      },
+      {
+        "name": "single-plate",
+        "value": "560px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary evidence action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Exports a completed evidence card in the prototype.",
+      "html": "<button class=\"ds-primary\" type=\"button\">Export evidence card</button>",
+      "css": ".ds-primary{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);min-height:44px;border:1px solid var(--line,#dce1ee);border-radius:var(--radius-sm,10px);font-weight:600;padding:9px 13px;cursor:pointer;transition:background .16s,border-color .16s;display:flex;justify-content:center;align-items:center;width:100%;min-height:48px;font-size:13px;background:var(--blue,#244de8);border-color:var(--blue,#244de8);color:var(--surface,#fff)}.ds-primary:hover{background:var(--blue-deep,#193bb9);border-color:var(--blue-deep,#193bb9)}.ds-primary:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary control",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet control used for the blink interaction.",
+      "html": "<button class=\"ds-secondary\" type=\"button\">Blink pair</button>",
+      "css": ".ds-secondary{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);min-height:44px;border:1px solid var(--line,#dce1ee);border-radius:var(--radius-sm,10px);font-weight:600;padding:9px 13px;cursor:pointer;transition:background .16s,border-color .16s;font-size:12px;background:var(--surface,#fff);color:var(--ink,#17213d)}.ds-secondary:hover{background:#f2f5ff;border-color:#9baad0}.ds-secondary:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Subordinate print action below the primary export.",
+      "html": "<button class=\"ds-text\" type=\"button\">Print / save PDF</button>",
+      "css": ".ds-text{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);min-height:44px;border:1px solid var(--line,#dce1ee);border-radius:var(--radius-sm,10px);font-weight:600;padding:9px 13px;cursor:pointer;transition:background .16s,border-color .16s;font-size:12px;font-weight:500;padding-left:0;border:0;background:transparent;color:var(--muted,#59647a)}.ds-text:hover{background:transparent}.ds-text:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-text{transition:none}}"
+    },
+    {
+      "name": "Comparison switch",
+      "kind": "custom",
+      "refersTo": "comparison-switch",
+      "description": "Selected state identifies the comparison; application code updates pressed state.",
+      "html": "<div class=\"ds-switch\" role=\"group\" aria-label=\"Choose comparison\"><button type=\"button\" aria-pressed=\"true\">A + B<span>Different dates</span></button><button type=\"button\" aria-pressed=\"false\">A + C<span>Different wavelengths</span></button></div>",
+      "css": ".ds-switch{display:flex;padding:3px;background:var(--paper,#f6f7fb);border:1px solid var(--line,#dce1ee);border-radius:12px}.ds-switch button{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);min-height:44px;border:1px solid var(--line,#dce1ee);border-radius:var(--radius-sm,10px);font-weight:600;padding:9px 13px;cursor:pointer;transition:background .16s,border-color .16s;border-color:transparent;background:transparent;color:var(--ink,#17213d);min-height:45px;padding:6px 13px;text-align:left;font-size:12px;line-height:1.25}.ds-switch span{display:block;font-size:12px;font-weight:400;margin-top:3px;color:var(--muted,#59647a)}.ds-switch button[aria-pressed=true]{background:var(--cornflower,#e8eeff);border-color:#c8d4ff;color:var(--blue-deep,#193bb9)}.ds-switch button:hover{border-color:#9baad0}.ds-switch button:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-switch button{transition:none}}"
+    },
+    {
+      "name": "Evidence field",
+      "kind": "input",
+      "refersTo": "evidence-input",
+      "description": "Visible prompt, hint and resizable textarea.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-claim\">What’s your claim?</label><span id=\"ds-hint\">Which pair is a fair test of change over time?</span><textarea id=\"ds-claim\" rows=\"3\" required aria-describedby=\"ds-hint\" placeholder=\"I think these observations…\"></textarea></div>",
+      "css": ".ds-field{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);color:var(--ink,#17213d)}.ds-field label{display:block;font-size:13px;font-weight:700}.ds-field span{display:block;color:var(--muted,#59647a);font-size:12px;margin:4px 0 8px}.ds-field textarea{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);display:block;width:100%;min-height:88px;background:#fcfcfe;border:1px solid #bdc5dc;border-radius:var(--radius-sm,10px);resize:vertical;padding:12px;font-size:12px;line-height:1.5;color:var(--ink,#17213d)}.ds-field textarea::placeholder{color:#758098}.ds-field textarea:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(max-width:900px){.ds-field label{font-size:15px}.ds-field span{font-size:13px}.ds-field textarea{font-size:16px;min-height:100px}}"
+    },
+    {
+      "name": "Page navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Rounded in-page navigation with selected investigation.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Page navigation\"><a class=\"ds-active\" href=\"#investigation\">Investigation</a><a href=\"#notebook\">My evidence</a><a href=\"#sources\">Sources</a></nav>",
+      "css": ".ds-nav{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);display:flex;gap:8px}.ds-nav a{display:flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted,#59647a);text-decoration:none}.ds-nav a:hover{background:var(--paper,#f6f7fb)}.ds-nav .ds-active{background:var(--cornflower,#e8eeff);color:var(--blue-deep,#193bb9)}.ds-nav a:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}@media(max-width:560px){.ds-nav{gap:0}.ds-nav a{font-size:12px;padding:8px 10px}.ds-nav a:first-child,.ds-nav a:last-child{display:none}}"
+    },
+    {
+      "name": "Flag-screen status",
+      "kind": "chip",
+      "refersTo": "quality-tag",
+      "description": "A qualified quality label, not a detection claim.",
+      "html": "<span class=\"ds-quality\"><span aria-hidden=\"true\">✓</span> Flag screen passed</span>",
+      "css": ".ds-quality{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);font-size:12px;padding:4px 7px;background:var(--lime,#eaf4cd);color:var(--green,#355319);border-radius:6px;white-space:nowrap}"
+    },
+    {
+      "name": "Evidence disclosure",
+      "kind": "card",
+      "refersTo": "disclosure",
+      "description": "Native disclosure reveals supporting context.",
+      "html": "<details class=\"ds-disclosure\"><summary>What does “flag screen passed” mean?<span aria-hidden=\"true\">+</span></summary><p>No problem flags were found near the predicted position. This does not prove a detection.</p></details>",
+      "css": ".ds-disclosure{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);background:var(--surface,#fff);color:var(--ink,#17213d);border:1px solid var(--line,#dce1ee);border-radius:var(--radius-md,16px);overflow:hidden}.ds-disclosure summary{display:flex;align-items:center;justify-content:space-between;min-height:57px;padding:14px 18px;font-size:12px;font-weight:650;list-style:none;cursor:pointer}.ds-disclosure summary::-webkit-details-marker{display:none}.ds-disclosure summary span{font-size:20px;font-weight:400;color:var(--muted,#59647a)}.ds-disclosure[open] summary span{transform:rotate(45deg)}.ds-disclosure p{padding:0 18px 18px;margin:0;color:var(--muted,#59647a);font-size:12px;line-height:1.5}.ds-disclosure summary:focus-visible{outline:3px solid var(--blue,#244de8);outline-offset:3px;}"
+    },
+    {
+      "name": "Evidence notebook",
+      "kind": "card",
+      "refersTo": "notebook",
+      "description": "Lavender heading separates reasoning from the observation bench.",
+      "html": "<section class=\"ds-notebook\"><header><p>Make your reasoning visible</p><h2>Evidence notebook</h2></header><div class=\"ds-notebook-body\">A useful answer includes what you saw <em>and</em> what you still can’t tell.</div></section>",
+      "css": ".ds-notebook{font-family:var(--font,ui-sans-serif,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);background:var(--surface,#fff);color:var(--ink,#17213d);border:1px solid #dedbef;border-radius:var(--radius-lg,24px);overflow:hidden}.ds-notebook header{padding:22px 20px;background:var(--lavender,#eeebfa)}.ds-notebook header p{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;font-weight:750;line-height:1.5;margin:0 0 4px;color:#645881}.ds-notebook h2{font-size:21px;letter-spacing:-.45px;line-height:1.3;margin:0}.ds-notebook-body{padding:20px;font-size:12px;line-height:1.6;color:var(--muted,#59647a)}.ds-notebook em{font-style:normal;font-weight:600;color:var(--ink,#17213d)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Classroom Experiment Bench",
+    "overview": "The classroom experiment bench gives learners a calm place to compare observations and make their reasoning visible. Cool paper, rounded white containers and substantial navy headings surround the scientific imagery. Cobalt identifies actions and selection; a lavender notebook distinguishes writing from observation.\n\nThis system is extracted from the interactive local prototype in `design/prototype/`, not a live archive application. Registered sky plates and their adjacent metadata establish the evidence; interface decoration does not supply astronomical content. The prototype’s compact density supports both inspection and writing without hiding uncertainty.",
+    "keyCharacteristics": [
+      "Equal-scale, registered observation plates with nearby metadata.",
+      "Rounded paper surfaces, flat depth and a lavender evidence notebook.",
+      "Plain language, visible keyboard focus and readable scientific labels."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Travels Together Rule",
+        "body": "Keep the image, date, wavelength, quality status and source associated when the selected observation changes.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readable Metadata Rule",
+        "body": "Screen metadata stays at least 12px; notebook text entry becomes 16px at the stacked layout breakpoint.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Surface Rule",
+        "body": "Use borders and background changes for container depth; reserve image-overlay shadows for legibility.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep date and wavelength separate and visible beside each observation.",
+      "Do preserve notes and selected evidence across comparison changes.",
+      "Do use explicit pressed states, text status labels and visible focus.",
+      "Do recompose to one manually selectable plate on narrow phones."
+    ],
+    "donts": [
+      "Don’t use generated sky imagery as observational evidence.",
+      "Don’t turn a catalog prediction or passed flag screen into a detection claim.",
+      "Don’t reduce screen labels below 12px to fit the layout.",
+      "Don’t describe this local prototype as live coordinate search."
+    ]
+  }
+}
