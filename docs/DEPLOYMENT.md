@@ -27,6 +27,61 @@ Then deploy one bounded archive search and one processed frame. Measure cold-sta
 
 If Services blocks progress for more than 30 minutes, coordinate a two-project Vercel fallback with one explicit frontend API origin. Keep the same API contract. Verify CORS from the deployed frontend and record both project URLs. Do not add a persistent worker, database or queue without an actual measured need and coordinated contract change.
 
+## Services configuration (validated 2026-11-14, worker 07)
+
+Checked against the current Vercel docs for [Services](https://vercel.com/docs/services), [Services routing](https://vercel.com/docs/services/routing), the [service config reference](https://vercel.com/docs/services/config-reference), [FastAPI](https://vercel.com/docs/frameworks/backend/fastapi), the [Python runtime](https://vercel.com/docs/functions/runtimes/python) and [Functions limits](https://vercel.com/docs/functions/limitations). The current syntax is the `services` key. The older `experimentalServices`/`routePrefix` model is rejected for projects created on or after 2026-07-06, so it is not used here.
+
+`vercel.json` (repository root) defines two services and orders the public rewrites:
+
+| Request | Rule | Service | Path the service sees |
+|---|---|---|---|
+| `/api`, `/api/...` | first two rewrites | `api` (FastAPI, Python 3.12) | original path, e.g. `/api/v1/health` (Vercel does not strip the prefix) |
+| everything else | `/(.*)` catch-all | `web` (Vite static build of `frontend/`) | files from `frontend/dist`, else `/index.html` (SPA fallback inside the service) |
+
+Routing into a service is final. An unknown `/api/...` path gets FastAPI's own JSON 404 and never falls through to the SPA. A missing static file under `web` gets `index.html`.
+
+Layout rules for the integration branch:
+
+- The backend service root is the repo root (`"root": "./"`) with `"entrypoint": "backend.main:app"`. This keeps package imports (`from backend.x import y`, or relative imports) working, as with `uvicorn backend.main:app` locally. Do **not** use `"root": "backend/"` with `main:app`. That puts `backend/` first on `sys.path`, so the `backend/platform/` package shadows the stdlib `platform` module. This was reproduced locally: `import platform` resolved to `backend/platform/__init__.py`.
+- Vercel resolves Python dependencies and version next to the entrypoint: `backend/requirements.txt` and `backend/.python-version` (`3.12`). The local build log confirmed both. During a build, the Python builder writes `backend/pyproject.toml` and `backend/uv.lock` into the working tree. Do not commit those by accident. If the backend owner adopts `pyproject.toml`/`uv.lock`, they replace `requirements.txt`.
+- Function settings belong inside the service: `services.api.functions["backend/main.py"]`. A top-level `functions`, `buildCommand`, `outputDirectory` or `framework` is invalid in services mode. The `backend/main.py` key was verified with a local `vercel build`: `maxDuration: 60` reached `.vc-config.json`, and `excludeFiles` removed frontend/docs/prompts/research from the bundle.
+- `backend/content/**` (targets.json, cases, presets PNG+JSON) is bundled automatically and read-only, verified with a probe file in a local build. Read it relative to the module (`Path(__file__).parent / "content"`), not the CWD. Raw FITS, `research/`, `prompts/`, `docs/`, venvs and `node_modules` are excluded twice: by `.vercelignore` (deployment source) and by `excludeFiles` (function bundle).
+- The frontend keeps the same-origin API base `/api/v1`. Services needs no `VITE_API_BASE` or CORS.
+
+Python packaging and runtime constraints (Hobby/Pro, Fluid compute):
+
+- Bundle: 500 MB uncompressed for Python (Large Functions beta up to 5 GB). Placeholder bundle measured with `VERCEL_ANALYZE_BUILD_OUTPUT=1`: 10.8 MB, of which `pydantic_core` is 4.8 MB. Astropy + NumPy + Pillow will add tens of MB, which is well within the limit. Re-measure after the real requirements land.
+- Duration: 300 s default and the maximum on Hobby. Pro allows up to 800 s. We set 60 s so a stuck archive fetch fails fast. Raise it only with measured evidence.
+- Memory: 2 GB / 1 vCPU default. Request and response bodies are capped at 4.5 MB, so keep PNG data URLs per frame small.
+- Filesystem writes are temporary scratch space only. The default region is `iad1`.
+
+Local verification without a Vercel login: `npx vercel@65.12.1 build` needs `uv` on PATH and a hand-written `.vercel/project.json` (`projectId`/`orgId` from above, `settings.framework: "services"`). It produces `.vercel/output` with per-service configs. `vercel dev --local` currently fails for the `api` service because its dev sync does not install `backend/requirements.txt` when the service root is `./`. For local development, run `uvicorn backend.main:app` plus `vite` with a `/api` proxy. `python -m backend.platform.deploy_check --app` checks rewrite order, entrypoint layout, raw-FITS hygiene and the JSON 404. The `deploy-check` GitHub workflow runs it without secrets.
+
+### Preview evidence (placeholder shell)
+
+Branch `codex/parallel-07-deployment` contains clearly labeled placeholder `frontend/` and `backend/main.py`. Vercel's Git integration built preview deployments for it, and the commit status was `success` ("Deployment has completed"). Commit `d842dab` built deployment `DvQaAHzpNw9fjEUfFL1QMosmpa6s`. Commit `5f54d60` added service `functions` (`maxDuration`/`excludeFiles`) and built deployment `EURzfquPhs9yQA6yYhpn7prwEgpE`, which shows the in-service `functions` key is accepted by the cloud build. The `deploy-check` workflow passed on `5f54d60`. Preview alias: `https://perigee-git-codex-parallel-07-deployment-sathviklokes-projects.vercel.app`.
+
+Public access was **not** verified. Every path (`/`, `/api/v1/health`, `/api/v1/does-not-exist`, `/deploy-probe.txt`) returns `302` to `vercel.com/sso-api` with "Protected by Vercel Authentication". Preview deployments are behind Deployment Protection, so an unauthenticated agent cannot observe the response bodies. Sathvik or Suhrit must open the URLs while logged in, or use `vercel curl <url>` from an authenticated CLI, and record each status and content type here. Expected results:
+
+- `/` and `/some/client/route`: `200 text/html` with the placeholder page
+- `/api/v1/health`: `200 application/json` with `{"status":"ok","placeholder":true,...}`
+- `/api/v1/does-not-exist`: `404 application/json` with `{"detail":"Not Found"}`
+- `/deploy-probe.txt`: `200 text/plain`
+
+### Owner actions (not done by agents)
+
+- Decide the judge-facing access model. Options: disable Vercel Authentication for production only (Project Settings, Deployment Protection, "Standard Protection" protects previews but leaves the production domain public), or generate a protection-bypass secret for automated preview checks. Agents must not change protection settings.
+- Add `PERIGEE_TOKEN_SECRET` (frame-token signing) as a **sensitive** environment variable for Preview and Production. `/api/v1/health` reports only `token_secret_configured: true/false`, never the value.
+- Promote to production only from `main` after verifying the preview.
+
+### Two-project fallback (documented, not created)
+
+Use this only if Services blocks a deploy for more than 30 minutes. Services built successfully on the first push, so the fallback is not needed now. Steps:
+
+1. The existing `perigee` project gets Root Directory `frontend`, the Vite preset and env `VITE_API_BASE=https://<api-project>.vercel.app/api/v1` (a public origin, not a secret). Remove `services` from `vercel.json`, or move the frontend's own SPA rewrite into `frontend/vercel.json`.
+2. A new `perigee-api` project, created by Sathvik only, gets Root Directory `.` with `[tool.vercel] entrypoint = "backend.main:app"` in a root `pyproject.toml`, the FastAPI preset and `PERIGEE_TOKEN_SECRET`.
+3. FastAPI adds `CORSMiddleware` allowing only the frontend production origin, plus the preview pattern if needed. Verify CORS from the deployed frontend. The frontend API client reads `import.meta.env.VITE_API_BASE ?? "/api/v1"`.
+
 ## Configuration and release checks
 
 Use backend-only environment configuration for the frame-token signing secret. Keep an example configuration containing names and descriptions, never real values. Preview and production environments may differ; test the environment intended for the public demonstration. Use supported Python and package versions, and commit the appropriate dependency lockfiles through their owners.

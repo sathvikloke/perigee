@@ -1,0 +1,22 @@
+# Keep research material, prompts, raw data and local environments out of every
+# Vercel deployment (and therefore out of the Python function bundle).
+research/
+prompts/
+docs/
+qa/
+science/
+tools/
+data/
+downloads/
+**/*.fits
+**/*.fits.gz
+**/*.fit
+**/*.fz
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/node_modules/
+frontend/dist/
+backend/tests/
+.github/

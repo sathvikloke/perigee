@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "web": {
+      "root": "frontend/",
+      "framework": "vite",
+      "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    },
+    "api": {
+      "root": "./",
+      "framework": "fastapi",
+      "entrypoint": "backend.main:app",
+      "functions": {
+        "backend/main.py": {
+          "maxDuration": 60,
+          "excludeFiles": "{frontend/**,docs/**,prompts/**,research/**,qa/**,science/**,tools/**,backend/tests/**,**/*.fits,**/*.fits.gz,**/*.fz,README.md,vercel.json,.vercelignore}"
+        }
+      }
+    }
+  },
+  "rewrites": [
+    { "source": "/api", "destination": { "service": "api" } },
+    { "source": "/api/(.*)", "destination": { "service": "api" } },
+    { "source": "/(.*)", "destination": { "service": "web" } }
+  ]
+}

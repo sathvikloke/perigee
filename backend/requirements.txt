@@ -1,0 +1,2 @@
+# DEPLOYMENT PLACEHOLDER - replaced by worker 03 (backend dependency owner) at integration.
+fastapi==0.128.0

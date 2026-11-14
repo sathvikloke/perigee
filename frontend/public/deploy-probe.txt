@@ -1,0 +1,1 @@
+perigee deployment probe: static asset served from frontend/public
