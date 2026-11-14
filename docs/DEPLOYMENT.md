@@ -2,7 +2,9 @@
 
 ## Current setup
 
-The Vercel project exists. The repository-filtered Vercel project listing returns it for `https://github.com/sathvikloke/perigee`. No deployment exists yet; the repository contains planning and research rather than an implemented application. Creating the project does not make the web app live.
+The Vercel project exists and is connected to `https://github.com/sathvikloke/perigee`. Merging the prompts triggered an automatic deployment of documentation commit `6990cc1b53eb638aca68c44981c397129949f2c7`; Vercel marked that deployment READY. The repository still contains planning and research rather than an implemented application, so this status does not mean Perigee works.
+
+The initial automatic deployment is [visible in the dashboard](https://vercel.com/sathviklokes-projects/perigee/4TqN266NR377fsU193piCY2uz8sP). An unauthenticated check of its deployment URL redirects to the Vercel login page. Suhrit must configure the actual frontend/backend build and judge-facing access before treating any URL as the public app. Later documentation commits may trigger additional builds; inspect the deployed commit and actual behavior rather than relying on the READY label alone.
 
 - Dashboard: https://vercel.com/sathviklokes-projects/perigee
 - Project: `perigee`
