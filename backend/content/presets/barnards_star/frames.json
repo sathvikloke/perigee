@@ -1,0 +1,68 @@
+{
+ "schema_version": 1,
+ "preset_id": "barnards_star",
+ "processing_version": "perigee-processor-b/0.1.0",
+ "ordering": "mjd (MJD-AVG), then frame_key",
+ "frames": [
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "observation_id": "2025W35_1A_0008_1",
+   "detector": 3,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-08-25T00:50:31.845",
+   "mjd": 60912.035090796,
+   "wavelength_um": 2.006236,
+   "quality_status": "flagged",
+   "display_scale_mode": "shared",
+   "record": "presets/barnards_star/frames/2025W35_1A_0008_1_D3.json",
+   "image": "presets/barnards_star/frames/2025W35_1A_0008_1_D3.png",
+   "flag_image": "presets/barnards_star/frames/2025W35_1A_0008_1_D3.flags.png",
+   "cases": [
+    {
+     "case_id": "moving_neighbor",
+     "ref": "A"
+    }
+   ]
+  },
+  {
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "observation_id": "2026W12_1A_0610_2",
+   "detector": 3,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-03-19T09:06:02.748",
+   "mjd": 61118.379198469,
+   "wavelength_um": 2.012266,
+   "quality_status": "flagged",
+   "display_scale_mode": "shared",
+   "record": "presets/barnards_star/frames/2026W12_1A_0610_2_D3.json",
+   "image": "presets/barnards_star/frames/2026W12_1A_0610_2_D3.png",
+   "flag_image": "presets/barnards_star/frames/2026W12_1A_0610_2_D3.flags.png",
+   "cases": [
+    {
+     "case_id": "moving_neighbor",
+     "ref": "B"
+    }
+   ]
+  },
+  {
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "observation_id": "2026W34_1A_0431_1",
+   "detector": 3,
+   "collection_id": "spherex_qr3",
+   "observed_at_utc": "2026-08-19T04:57:42.053",
+   "mjd": 61271.206736722,
+   "wavelength_um": 2.028436,
+   "quality_status": "flagged",
+   "display_scale_mode": "shared",
+   "record": "presets/barnards_star/frames/2026W34_1A_0431_1_D3.json",
+   "image": "presets/barnards_star/frames/2026W34_1A_0431_1_D3.png",
+   "flag_image": "presets/barnards_star/frames/2026W34_1A_0431_1_D3.flags.png",
+   "cases": [
+    {
+     "case_id": "moving_neighbor",
+     "ref": "C"
+    }
+   ]
+  }
+ ]
+}

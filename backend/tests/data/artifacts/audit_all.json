@@ -1,0 +1,148 @@
+{
+ "processor": "perigee-processor-b/0.1.0",
+ "frames_processed": 183,
+ "failures": [],
+ "per_target": {
+  "barnards_star": {
+   "expected": {
+    "total": 34,
+    "clear": 0,
+    "flagged": 34,
+    "not_covered": 0
+   },
+   "observed": {
+    "total": 34,
+    "clear": 0,
+    "flagged": 34,
+    "not_covered": 0,
+    "unknown": 0
+   },
+   "match": true
+  },
+  "epsilon_indi_b": {
+   "expected": {
+    "total": 44,
+    "clear": 29,
+    "flagged": 14,
+    "not_covered": 1
+   },
+   "observed": {
+    "total": 44,
+    "clear": 29,
+    "flagged": 14,
+    "not_covered": 1,
+    "unknown": 0
+   },
+   "match": true
+  },
+  "wise_0855": {
+   "expected": {
+    "total": 34,
+    "clear": 21,
+    "flagged": 13,
+    "not_covered": 0
+   },
+   "observed": {
+    "total": 34,
+    "clear": 21,
+    "flagged": 13,
+    "not_covered": 0,
+    "unknown": 0
+   },
+   "match": true
+  },
+  "rw_aurigae": {
+   "expected": {
+    "total": 35,
+    "clear": 1,
+    "flagged": 32,
+    "not_covered": 2
+   },
+   "observed": {
+    "total": 35,
+    "clear": 1,
+    "flagged": 32,
+    "not_covered": 2,
+    "unknown": 0
+   },
+   "match": true
+  },
+  "r_draconis": {
+   "expected": {
+    "total": 36,
+    "clear": 0,
+    "flagged": 35,
+    "not_covered": 1
+   },
+   "observed": {
+    "total": 36,
+    "clear": 0,
+    "flagged": 35,
+    "not_covered": 1,
+    "unknown": 0
+   },
+   "match": true
+  }
+ },
+ "not_covered_frames": [
+  {
+   "frame_key": "2025W17_4B_0077_2_D1",
+   "observed_at_utc": "2025-04-25T06:16:45.415",
+   "wavelength_um": null,
+   "old_audit_wavelength_um": 0.7391016879470177,
+   "source_pixel": {
+    "x": 29.1857,
+    "y": 29.5932,
+    "convention": "0-based FITS"
+   }
+  },
+  {
+   "frame_key": "2025W27_2A_0331_1_D4",
+   "observed_at_utc": "2025-07-04T22:44:05.480",
+   "wavelength_um": null,
+   "old_audit_wavelength_um": 3.819624535279621,
+   "source_pixel": {
+    "x": 28.3456,
+    "y": -1.9272,
+    "convention": "0-based FITS"
+   }
+  },
+  {
+   "frame_key": "2025W37_1A_0069_1_D2",
+   "observed_at_utc": "2025-09-08T06:46:04.957",
+   "wavelength_um": null,
+   "old_audit_wavelength_um": 1.6615391710573677,
+   "source_pixel": {
+    "x": 28.5485,
+    "y": -5.7096,
+    "convention": "0-based FITS"
+   }
+  },
+  {
+   "frame_key": "2026W37_2A_0287_3_D2",
+   "observed_at_utc": "2026-09-11T21:00:20.029",
+   "wavelength_um": null,
+   "old_audit_wavelength_um": 1.0958928839110447,
+   "source_pixel": {
+    "x": 28.9223,
+    "y": 29.1756,
+    "convention": "0-based FITS"
+   }
+  }
+ ],
+ "max_abs_wavelength_diff_vs_old_manifest_um": 4.975046961064322e-07,
+ "runtime_ms": {
+  "median": 42.4,
+  "p95": 52.0,
+  "max": 77.0,
+  "note": "process_frame wall time incl. FITS parse, resample, PNG encode, base64; single process, Apple laptop"
+ },
+ "size_bytes": {
+  "png_median": 21585,
+  "png_max": 41917,
+  "flag_png_median": 1329,
+  "flag_png_max": 3550,
+  "both_data_urls_chars_median": 30632,
+  "both_data_urls_chars_max": 58364
+ }
+}

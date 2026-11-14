@@ -1,0 +1,68 @@
+{
+ "schema_version": 1,
+ "preset_id": "epsilon_indi_b",
+ "processing_version": "perigee-processor-b/0.1.0",
+ "ordering": "mjd (MJD-AVG), then frame_key",
+ "frames": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "observation_id": "2026W18_1A_0516_1",
+   "detector": 3,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-04-29T12:05:47.874",
+   "mjd": 61159.504026317,
+   "wavelength_um": 2.323168,
+   "quality_status": "clear",
+   "display_scale_mode": "shared",
+   "record": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D3.json",
+   "image": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D3.png",
+   "flag_image": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D3.flags.png",
+   "cases": [
+    {
+     "case_id": "fair_comparison",
+     "ref": "A"
+    }
+   ]
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "observation_id": "2026W18_1A_0516_1",
+   "detector": 6,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-04-29T12:05:47.874",
+   "mjd": 61159.504026317,
+   "wavelength_um": 4.939879,
+   "quality_status": "clear",
+   "display_scale_mode": "per_frame",
+   "record": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D6.json",
+   "image": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D6.png",
+   "flag_image": "presets/epsilon_indi_b/frames/2026W18_1A_0516_1_D6.flags.png",
+   "cases": [
+    {
+     "case_id": "fair_comparison",
+     "ref": "C"
+    }
+   ]
+  },
+  {
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "observation_id": "2026W39_2A_0597_4",
+   "detector": 3,
+   "collection_id": "spherex_qr3",
+   "observed_at_utc": "2026-09-27T07:44:24.312",
+   "mjd": 61310.322503608,
+   "wavelength_um": 2.321953,
+   "quality_status": "clear",
+   "display_scale_mode": "shared",
+   "record": "presets/epsilon_indi_b/frames/2026W39_2A_0597_4_D3.json",
+   "image": "presets/epsilon_indi_b/frames/2026W39_2A_0597_4_D3.png",
+   "flag_image": "presets/epsilon_indi_b/frames/2026W39_2A_0597_4_D3.flags.png",
+   "cases": [
+    {
+     "case_id": "fair_comparison",
+     "ref": "B"
+    }
+   ]
+  }
+ ]
+}

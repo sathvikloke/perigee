@@ -1,0 +1,187 @@
+{
+ "schema_version": 1,
+ "frame_id": "2026W12_1A_0610_2_D3",
+ "frame_key": "2026W12_1A_0610_2_D3",
+ "observation_id": "2026W12_1A_0610_2",
+ "detector": 3,
+ "collection_id": "spherex_dr1",
+ "preset_id": "barnards_star",
+ "observed_at_utc": "2026-03-19T09:06:02.748",
+ "mjd": 61118.379198469,
+ "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+ "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W12_1A/l2b-v27-2026-235/3/level2_2026W12_1A_0610_2D3_spx_l2b-v27-2026-235.fits",
+ "wavelength_um": 2.012266,
+ "bandwidth_um": 0.049328,
+ "wavelength_location": "Catalog-predicted position of Barnard's Star at this observation time",
+ "wavelength_method": "WCS-WAVE (-TAB) bilinear lookup at the checked source pixel; SIP not applied to the spectral WCS; no extrapolation",
+ "image": {
+  "src": "presets/barnards_star/frames/2026W12_1A_0610_2_D3.png",
+  "width": 256,
+  "height": 256,
+  "media_type": "image/png",
+  "encoding": "8-bit grey + alpha; alpha 0 where off-image or non-finite"
+ },
+ "flag_image": {
+  "src": "presets/barnards_star/frames/2026W12_1A_0610_2_D3.flags.png",
+  "width": 256,
+  "height": 256,
+  "media_type": "image/png",
+  "encoding": "RGBA categorical overlay",
+  "legend": [
+   {
+    "rgba": [
+     235,
+     50,
+     50,
+     210
+    ],
+    "meaning": "non-finite source pixel (e.g. saturated), covered"
+   },
+   {
+    "rgba": [
+     255,
+     170,
+     0,
+     120
+    ],
+    "meaning": "any flag other than SOURCE/FULLSAMPLE"
+   },
+   {
+    "rgba": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "meaning": "no adverse flag, or off-image"
+   }
+  ],
+  "adverse_pixel_fraction": 0.1
+ },
+ "registration": {
+  "center_ra_deg": 269.4462585584787,
+  "center_dec_deg": 4.768324486236583,
+  "fov_arcmin": 6.0,
+  "width": 256,
+  "height": 256,
+  "scale_arcsec_per_pixel": 1.40625,
+  "projection": "TAN (gnomonic) tangent at the grid centre, ICRS",
+  "orientation": "north_up_east_left",
+  "pixel_convention": "x right, y down from the top-left image corner; pixel (i, j) spans [i, i+1) x [j, j+1); the grid centre is (width/2, height/2)",
+  "display_wcs": {
+   "ctype": [
+    "RA---TAN",
+    "DEC--TAN"
+   ],
+   "crval": [
+    269.4462585584787,
+    4.768324486236583
+   ],
+   "crpix_fits_1based": [
+    128.5,
+    128.5
+   ],
+   "cdelt_deg": [
+    -0.000390625,
+    0.000390625
+   ],
+   "note": "FITS convention (+y north). PNG row r is FITS row n-1-r."
+  },
+  "method": "Inverse mapping: each display pixel centre -> sky (display TAN) -> source pixel through the frame's TAN-SIP celestial WCS (astropy all_world2pix). Intensity: bilinear over finite neighbours. Flags and non-finite mask: nearest neighbour (bitwise OR over sub-samples if downsampling). Coverage: geometric (source pixel footprint).",
+  "native_scale_arcsec": 6.1527,
+  "native_y_axis_pa_deg": 358.8,
+  "native_parity": "sky (east-left when north-up)",
+  "source_shape": [
+   59,
+   58
+  ],
+  "covered_fraction": 0.9849,
+  "grid_center_source_pixel": {
+   "x": 28.83,
+   "y": 29.3187,
+   "convention": "0-based FITS"
+  },
+  "checked_position_source_pixel": {
+   "x": 28.8519,
+   "y": 29.6767,
+   "convention": "0-based FITS"
+  },
+  "upsampling_factor": 4.375
+ },
+ "quality": {
+  "status": "flagged",
+  "covered": true,
+  "valid_aperture_pixels": 0,
+  "adverse_aperture_pixels": 20,
+  "nonfinite_aperture_pixels": 3,
+  "aperture_pixels": 20,
+  "aperture_radius_native_px": 2.5,
+  "flag_names": [
+   "TRANSIENT",
+   "OVERFLOW",
+   "SUR_ERROR",
+   "NONFUNC",
+   "BLOOM"
+  ],
+  "informational_flag_names": [
+   "SOURCE"
+  ],
+  "flag_pixel_counts": {
+   "TRANSIENT": 16,
+   "OVERFLOW": 5,
+   "SUR_ERROR": 19,
+   "NONFUNC": 2,
+   "SOURCE": 20,
+   "BLOOM": 18
+  },
+  "notes": [
+   "3 non-finite IMAGE/VARIANCE pixel(s) in the screening circle (e.g. saturation); covered, but flagged."
+  ]
+ },
+ "display_scale": {
+  "mode": "shared",
+  "method": "asinh: t = clip((v - lo) / (hi - lo), 0, 1); grey = 255 * asinh(t / 0.1) / asinh(1 / 0.1)",
+  "asinh_softening": 0.1,
+  "lo": -0.135737,
+  "hi": 32.648995,
+  "units": "MJy/sr after subtracting background_offset",
+  "basis": "percentiles 0.5-99.5 of the pooled finite native pixels inside the display grid of 2025W35_1A_0008_1_D3, 2026W12_1A_0610_2_D3, 2026W34_1A_0431_1_D3 (case moving_neighbor)",
+  "background_offset": 0.337412,
+  "background_method": "median of this frame's finite IMAGE pixels (single number; no spatial background model)",
+  "interpolation": "bilinear (display only)"
+ },
+ "marker": {
+  "kind": "catalog_prediction",
+  "x": 128.121,
+  "y": 126.434,
+  "inside_grid": true,
+  "ra_deg": 269.44621107,
+  "dec_deg": 4.76893626,
+  "epoch_mjd": 61118.379198469,
+  "epoch_utc": "2026-03-19T09:06:02.748",
+  "label": "Barnard's Star",
+  "source": "SIMBAD via CDS Sesame",
+  "explanation": "Catalog position propagated with proper motion, parallax distance and radial velocity to this frame's mid-exposure time. A finder aid, not a detection. Annual parallax is not modelled."
+ },
+ "provenance": {
+  "retrieved_at_utc": "2026-11-14T04:27:13.851750+00:00",
+  "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W12_1A/l2b-v27-2026-235/3/level2_2026W12_1A_0610_2D3_spx_l2b-v27-2026-235.fits",
+  "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W12_1A/l2b-v27-2026-235/3/level2_2026W12_1A_0610_2D3_spx_l2b-v27-2026-235.fits?center=269.4462585584787%2C4.768324486236583&size=0.1",
+  "sha256": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5",
+  "bytes": 4083840,
+  "processing_version": "perigee-processor-b/0.1.0",
+  "pipeline_software_version": "7.0.5",
+  "l2_dqa": "Pass",
+  "fine_astrometry_status": 0,
+  "acknowledgments": [
+   "This product uses data from SPHEREx, a NASA mission managed by JPL/Caltech, obtained from the NASA/IPAC Infrared Science Archive (IRSA)."
+  ],
+  "retrieved_at_note": "Creation time of the local download manifest for this cutout batch."
+ },
+ "limitations": [
+  "Display pixels (1.41 arcsec) are resampled from ~6.15 arcsec native pixels; resampling adds no resolution.",
+  "Wavelength is the WCS-WAVE lookup-table value at the checked position only; it varies across the image, and the supplement describes this table as an approximation for visualisation.",
+  "Quality screen = flags and non-finite pixels within 2.5 native pixels of the checked position. Not a detection, photometry or astrometric validation.",
+  "The marker is a catalog prediction, not a measured position."
+ ]
+}
