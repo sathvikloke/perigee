@@ -210,7 +210,8 @@ export function QueryInvestigation(props: {
           fieldRefs.current[key] = el;
         }}
         type="text"
-        inputMode={numeric ? "numeric" : "decimal"}
+        // iOS decimal/numeric keypads have no minus sign; declination is often negative.
+        inputMode={numeric ? "numeric" : key === "dec" ? undefined : "decimal"}
         autoComplete="off"
         spellCheck={false}
         value={input[key]}

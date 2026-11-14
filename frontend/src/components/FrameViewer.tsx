@@ -96,7 +96,10 @@ export function FrameViewer(props: {
 
   const slotName = (s: FrameSlot, i: number) =>
     `${s.ref ? `${s.ref} · ` : ""}${formatDateShort(s.observed_at_utc)} (#${i + 1})`;
-  const announcement = slot
+  // While blinking, announce once instead of narrating every alternation.
+  const announcement = blinking
+    ? "Blinking two frames. Use Pause blink to stop."
+    : slot
     ? `Frame ${index + 1} of ${slots.length}. ${formatDateShort(slot.observed_at_utc)}. ${
         frame ? `${formatMicrons(frame.wavelength_um)}. ${QUALITY_LABEL[frame.quality.status]}.` : statusText(slot)
       }`
@@ -113,7 +116,14 @@ export function FrameViewer(props: {
       </div>
 
       <div className="stepper" role="group" aria-label="Step through frames in time order">
-        <button type="button" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Earlier frame">
+        {/* aria-disabled keeps focus on the button at either end; a disabled
+            button would drop keyboard focus to <body> after Home/End. */}
+        <button
+          type="button"
+          onClick={() => index > 0 && goTo(index - 1)}
+          aria-disabled={index === 0}
+          aria-label="Earlier frame"
+        >
           ← Earlier
         </button>
         <label className="slider">
@@ -129,8 +139,8 @@ export function FrameViewer(props: {
         </label>
         <button
           type="button"
-          onClick={() => goTo(index + 1)}
-          disabled={index === slots.length - 1}
+          onClick={() => index < slots.length - 1 && goTo(index + 1)}
+          aria-disabled={index === slots.length - 1}
           aria-label="Later frame"
         >
           Later →

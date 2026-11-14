@@ -142,7 +142,10 @@ export function App() {
                   navigate({ view: "query" });
                 }}
               >
-                Search<span className="wide-only"> coordinates</span>
+                {/* One text node per breakpoint: an inline span with a leading space
+                    produced "Search  coordinates" in the accessible name. */}
+                <span className="wide-only">Search coordinates</span>
+                <span className="phone-only">Search</span>
               </a>
             </li>
             <li>
