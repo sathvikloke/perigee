@@ -32,6 +32,11 @@ MAX_ASSET_BYTES = 4 * 1024 * 1024
 # alias IDs (e.g. "epsilon_indi_b.frames.<frame_key>.png") may also use single
 # dots. ".." is always rejected separately.
 ASSET_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:png|json)$")
+# Extensionless IDs declared by the perigee-data manifest (PR #19 trial):
+# ``<preset>.<frame_key>.<set>.<image|flags>.v<n>``.
+MANIFEST_ASSET_ID_RE = re.compile(
+    r"^[a-z0-9_]{1,64}\.[A-Za-z0-9_]{1,64}\.[a-z0-9_]{1,64}\.(?:image|flags)\.v[0-9]{1,4}$"
+)
 _SAFE_PART_RE = re.compile(r"[^A-Za-z0-9_-]+")
 SHARED_GROUP = "shared"
 
@@ -65,7 +70,7 @@ def is_valid_asset_id(asset_id: str) -> bool:
         return False
     if ".." in asset_id or "/" in asset_id or "\\" in asset_id or "%" in asset_id:
         return False
-    return bool(ASSET_ID_RE.match(asset_id))
+    return bool(ASSET_ID_RE.match(asset_id) or MANIFEST_ASSET_ID_RE.match(asset_id))
 
 
 def _inside(root: Path, candidate: Path) -> bool:
@@ -172,7 +177,14 @@ class AssetIndex:
     def is_canonical(self, asset_id: str) -> bool:
         return asset_id in self._by_id
 
-    def add_alias(self, alias_id: str, target: Path, preset_id: str) -> Optional[str]:
+    def add_alias(
+        self,
+        alias_id: str,
+        target: Path,
+        preset_id: str,
+        sha256: Optional[str] = None,
+        size: Optional[int] = None,
+    ) -> Optional[str]:
         """Register an alias ID declared by a processor manifest (its
         ``assets`` map). The alias may only point at a file that is already
         indexed in the same preset; it never widens the allowlist. Returns an
@@ -184,6 +196,10 @@ class AssetIndex:
             return "alias target is not an indexed asset"
         if entry.preset_id != preset_id:
             return "alias target belongs to another preset"
+        if sha256 is not None and sha256 != entry.sha256:
+            return "declared sha256 does not match the indexed file"
+        if size is not None and size != entry.size:
+            return "declared byte size does not match the indexed file"
         existing = self._by_id.get(alias_id) or self._aliases.get(alias_id)
         if existing is not None and existing != entry:
             return "alias id already used for another file"

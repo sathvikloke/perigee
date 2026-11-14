@@ -1,8 +1,0 @@
-# Data processor dependencies (backend/data, tools/ingest). Tested with Python 3.12.
-# Integration will merge these into backend/requirements.txt (owned by the API workstream).
-astropy==8.0.2
-numpy==2.5.4
-pillow==13.0.0
-certifi==2026.10.23
-# tests
-pytest==9.2.0

@@ -1,323 +1,450 @@
-"""Bounded IRSA access for SPHEREx: SIA search and allowlisted cutout fetch.
+"""Network side of the data adapter: bounded IRSA metadata search and cutout download.
 
-Network access lives here, separate from the pure FITS processor
-(``process.py``). Everything is bounded: an allowlist of collections and
-hosts, connect/read timeouts, a maximum response size, no redirects to
-other hosts, and a result limit. Parsing is split from transport so unit
-tests can feed local bytes.
+This module talks to the archive. It does not touch pixels; `process.py` does that from bytes.
+Tests swap in a fake `http_get` so nothing here needs the network to be unit tested.
 
-Error codes map onto the public envelope: ``UPSTREAM_UNAVAILABLE``,
-``UPSTREAM_TIMEOUT``, ``UNSUPPORTED_DATA``. IRSA sometimes answers with an
-HTTP 502 HTML "Proxy Error" page; that is an upstream failure, never an empty
-result.
+Archive interface used (official IRSA services):
+  * SIA v2 image search:   https://irsa.ipac.caltech.edu/SIA?COLLECTION=<c>&POS=circle+ra+dec+r
+  * IBE cutout service:    <full-file URL>?center=<ra>,<dec>&size=<deg>
+See https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/
 """
-
 from __future__ import annotations
 
-import math
+import hashlib
+import io
 import re
 import socket
-import ssl
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 import warnings
-from dataclasses import dataclass, field
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
 from datetime import datetime, timezone
-from io import BytesIO
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
+from typing import Callable, Protocol
 
-from astropy.time import Time
+from .errors import DataError, UnsupportedData, UpstreamTimeout, UpstreamUnavailable
+from .timeutil import mjd_to_iso
+from .records import (
+    CollectionOutcome,
+    ObservationDescriptor,
+    SearchQuery,
+    SearchResult,
+)
 
-SIA_ENDPOINT = "https://irsa.ipac.caltech.edu/SIA"
-ALLOWED_COLLECTIONS: Tuple[str, ...] = ("spherex_dr1", "spherex_qr3")
-ALLOWED_HOST = "irsa.ipac.caltech.edu"
-ALLOWED_DATA_PREFIX = "/ibe/data/spherex/"
+ARCHIVE_HOST = "irsa.ipac.caltech.edu"
+SIA_ENDPOINT = f"https://{ARCHIVE_HOST}/SIA"
 
-DEFAULT_TIMEOUT_S = 20.0
-MAX_SIA_BYTES = 8 * 1024 * 1024
-MAX_CUTOUT_BYTES = 12 * 1024 * 1024  # a 6' cutout is ~4 MB (7 extensions)
-MAX_LIMIT = 48
+# Search radius around the field center. A record is returned when its footprint touches this
+# small circle, so every returned exposure covers (or nearly covers) the center. 18 arcsec is
+# about three SPHEREx pixels.
+SEARCH_RADIUS_DEG = 0.005
+SIA_MAXREC = 2000  # archive-side cap per collection; hitting it is reported as overflow
 
-USER_AGENT = "perigee-spherex-viewer/0.1 (+https://github.com/sathvikloke/perigee)"
+SEARCH_TIMEOUT_S = 20.0
+SEARCH_MAX_BYTES = 8 * 1024 * 1024
+CUTOUT_TIMEOUT_S = 25.0
+CUTOUT_MAX_BYTES = 16 * 1024 * 1024  # Level 2 cutouts are ~4 MB, mostly the EPSF table
+# IRSA's SIA service answered ~50% of requests with a fast "502 Proxy Error" during the event
+# (2026-11-14), while cutout downloads were reliable. Searches therefore get more attempts,
+# inside a hard time budget; cutouts get one retry.
+SEARCH_ATTEMPTS = 4
+SEARCH_BUDGET_S = 25.0  # whole search, both collections in parallel
+CUTOUT_ATTEMPTS = 2
+RETRY_BACKOFF_S = 0.5  # waits 0.5 s, 1.0 s, 1.5 s between attempts
 
+# Cutout side length relative to the display field. The display grid is north-up, while
+# SPHEREx detectors sit at any angle, so a square cutout needs ~sqrt(2) times the field to
+# cover the grid corners. 1.5 adds a small margin.
+CUTOUT_FOV_FACTOR = 1.5
 
-class ArchiveError(Exception):
-    def __init__(self, code: str, message: str, retryable: bool, detail: Optional[str] = None):
-        super().__init__(message)
-        self.code = code
-        self.message = message
-        self.retryable = retryable
-        self.detail = detail
-
-
-# Transport: (url, timeout_s, max_bytes) -> (http_status, content_type, body)
-Transport = Callable[[str, float, int], Tuple[int, str, bytes]]
-
-
-class _NoRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D401
-        if not is_allowed_url(newurl, allow_query=True, allow_sia=True):
-            raise ArchiveError("UPSTREAM_UNAVAILABLE", "upstream redirected outside the allowlist", False)
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
-
-
-def _ssl_context() -> ssl.SSLContext:
-    """Verified TLS context; prefers the certifi bundle when installed (some
-    standalone Python builds ship without a usable system CA path)."""
-    try:
-        import certifi
-
-        return ssl.create_default_context(cafile=certifi.where())
-    except ImportError:  # pragma: no cover
-        return ssl.create_default_context()
+# Full-file Level 2 URLs we will ever request. Anything else is refused before any network call.
+_SOURCE_URL_RE = re.compile(
+    r"^https://irsa\.ipac\.caltech\.edu/ibe/data/spherex/(?P<release>dr1|qr3)/level2/"
+    r"[A-Za-z0-9_]+/l2b-[A-Za-z0-9.\-]+/(?P<det>[1-6])/"
+    r"level2_[A-Za-z0-9_]+D(?P=det)_spx_l2b-[A-Za-z0-9.\-]+\.fits$"
+)
+_COLLECTION_RELEASE = {"spherex_dr1": "dr1", "spherex_qr3": "qr3"}
 
 
-def urllib_transport(url: str, timeout_s: float, max_bytes: int) -> Tuple[int, str, bytes]:
-    """Default transport (stdlib). Reads at most ``max_bytes + 1`` bytes."""
-    opener = urllib.request.build_opener(_NoRedirect(), urllib.request.HTTPSHandler(context=_ssl_context()))
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with opener.open(req, timeout=timeout_s) as resp:
-            body = resp.read(max_bytes + 1)
-            return resp.status, resp.headers.get("Content-Type", ""), body
-    except urllib.error.HTTPError as exc:
-        body = exc.read(min(max_bytes, 65536)) if exc.fp else b""
-        return exc.code, exc.headers.get("Content-Type", "") if exc.headers else "", body
-    except (socket.timeout, TimeoutError) as exc:
-        raise ArchiveError("UPSTREAM_TIMEOUT", "archive request timed out", True) from exc
-    except urllib.error.URLError as exc:
-        if isinstance(exc.reason, (socket.timeout, TimeoutError)):
-            raise ArchiveError("UPSTREAM_TIMEOUT", "archive request timed out", True) from exc
-        raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive unreachable", True, type(exc.reason).__name__) from exc
-
-
-# --------------------------------------------------------------------------- URLs
-
-
-def is_allowed_url(url: str, *, allow_query: bool = False, allow_sia: bool = False) -> bool:
-    try:
-        p = urllib.parse.urlsplit(url)
-    except ValueError:
-        return False
-    if p.scheme != "https" or p.hostname != ALLOWED_HOST or p.port not in (None, 443) or p.username or p.password:
-        return False
-    if allow_sia and p.path == "/SIA":
-        return True
-    if not p.path.startswith(ALLOWED_DATA_PREFIX) or not p.path.endswith(".fits") or ".." in p.path:
-        return False
-    return allow_query or not p.query
-
-
-def sia_url(collection: str, ra_deg: float, dec_deg: float, radius_deg: float) -> str:
-    if collection not in ALLOWED_COLLECTIONS:
-        raise ValueError(f"collection {collection!r} not in allowlist")
-    for name, v in (("ra_deg", ra_deg), ("dec_deg", dec_deg), ("radius_deg", radius_deg)):
-        if not isinstance(v, (int, float)) or not math.isfinite(v):
-            raise ValueError(f"{name} must be finite")
-    if not (0 <= ra_deg < 360 and -90 <= dec_deg <= 90 and 0 < radius_deg <= 0.2):
-        raise ValueError("coordinate or radius out of range")
-    pos = f"circle {ra_deg!r} {dec_deg!r} {radius_deg!r}"
-    return SIA_ENDPOINT + "?" + urllib.parse.urlencode({"COLLECTION": collection, "POS": pos})
-
-
-def cutout_url(source_url: str, ra_deg: float, dec_deg: float, size_deg: float = 0.1) -> str:
-    """IRSA IBE cutout of an allowlisted SPHEREx image (same form as the retained ledger)."""
-    if not is_allowed_url(source_url):
-        raise ValueError("source_url not in the SPHEREx allowlist")
-    if not (math.isfinite(size_deg) and 0 < size_deg <= 0.25):
-        raise ValueError("size_deg out of range")
-    q = urllib.parse.urlencode({"center": f"{ra_deg!r},{dec_deg!r}", "size": f"{size_deg!r}"})
-    return f"{source_url}?{q}"
-
-
-# --------------------------------------------------------------------------- parsing
+# --------------------------------------------------------------------------- HTTP layer
 
 
 @dataclass
-class SearchResult:
-    observations: List[Dict[str, Any]]
-    collections_queried: List[str]
-    failures: List[Dict[str, Any]] = field(default_factory=list)
-    total_matches: Optional[int] = None
-    truncated: bool = False
-    queried_at_utc: str = ""
-
-    @property
-    def status(self) -> str:
-        if self.observations:
-            return "partial" if (self.failures or self.truncated) else "ready"
-        if self.failures:
-            # Nothing returned and something failed: caller should map to an error, not "empty".
-            return "error"
-        return "empty"
+class HttpResponse:
+    status: int
+    content_type: str
+    body: bytes
+    url: str
 
 
-_DET_RE = re.compile(r"D(\d)\b")
+class HttpGet(Protocol):
+    def __call__(self, url: str, *, timeout: float, max_bytes: int) -> HttpResponse: ...
 
 
-def _detector(row: Dict[str, Any]) -> Optional[int]:
-    for key in ("energy_bandpassname", "obs_publisher_did"):
-        v = row.get(key)
-        if v:
-            m = re.search(r"D(\d)$", str(v).strip())
-            if m:
-                return int(m.group(1))
-    m = re.search(r"_\d+D(\d)_spx_", str(row.get("access_url") or ""))
-    return int(m.group(1)) if m else None
+class _ArchiveOnlyRedirects(urllib.request.HTTPRedirectHandler):
+    """Follow a redirect only if it stays on https://irsa.ipac.caltech.edu."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D401
+        parsed = urllib.parse.urlparse(newurl)
+        if parsed.scheme != "https" or parsed.hostname != ARCHIVE_HOST:
+            raise UpstreamUnavailable("archive redirected to an unexpected host", details={"status": code})
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
-def _clean(v: Any) -> Any:
+_opener = urllib.request.build_opener(_ArchiveOnlyRedirects())
+
+
+def urllib_get(url: str, *, timeout: float, max_bytes: int) -> HttpResponse:
+    """Default HTTP GET: archive-host only, bounded time and size, typed failures."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme != "https" or parsed.hostname != ARCHIVE_HOST:
+        raise UpstreamUnavailable("refused to contact a non-archive host")
+    req = urllib.request.Request(url, headers={"User-Agent": "perigee-data/0.1 (+https://github.com/sathvikloke/perigee)"})
     try:
-        import numpy as np
+        with _opener.open(req, timeout=timeout) as resp:
+            chunks, total = [], 0
+            while True:
+                chunk = resp.read(1 << 16)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > max_bytes:
+                    raise UpstreamUnavailable("archive response exceeded the size limit", details={"max_bytes": max_bytes})
+                chunks.append(chunk)
+            return HttpResponse(resp.status, resp.headers.get("Content-Type", ""), b"".join(chunks), resp.geturl())
+    except urllib.error.HTTPError as exc:
+        if exc.code >= 500:
+            raise UpstreamUnavailable("archive returned an HTTP error", details={"status": exc.code}) from None
+        raise _non_retryable(exc.code) from None
+    except (socket.timeout, TimeoutError) as exc:
+        raise UpstreamTimeout("archive did not answer in time") from exc
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, (socket.timeout, TimeoutError)):
+            raise UpstreamTimeout("archive did not answer in time") from None
+        raise UpstreamUnavailable("could not reach the archive") from None
 
-        if v is np.ma.masked:
-            return None
-        if isinstance(v, np.generic):
-            v = v.item()
-    except ImportError:  # pragma: no cover
-        pass
-    if isinstance(v, bytes):
-        v = v.decode("utf-8", "replace")
-    if isinstance(v, float) and not math.isfinite(v):
-        return None
-    if isinstance(v, str):
-        v = v.strip()
-        return v or None
-    return v
+
+def _non_retryable(status: int) -> UpstreamUnavailable:
+    err = UpstreamUnavailable("archive rejected the request", details={"status": status})
+    err.retryable = False
+    return err
 
 
-def parse_sia_votable(body: bytes, collection: str) -> List[Dict[str, Any]]:
-    """Parse an SIA v2 VOTable into observation descriptors (no network).
+def _with_retries(
+    fn: Callable[[], HttpResponse],
+    *,
+    attempts: int,
+    backoff_s: float,
+    sleep=time.sleep,
+    deadline: float | None = None,
+    clock=time.monotonic,
+) -> HttpResponse:
+    """Bounded retries for retryable upstream failures. Never retries past `deadline`."""
+    last: DataError | None = None
+    for i in range(attempts):
+        try:
+            resp = fn()
+            if resp.status >= 500:
+                raise UpstreamUnavailable("archive returned an HTTP error", details={"status": resp.status})
+            return resp
+        except (UpstreamUnavailable, UpstreamTimeout) as exc:
+            last = exc
+            wait = backoff_s * (i + 1)
+            if not exc.retryable or i == attempts - 1:
+                break
+            if deadline is not None and clock() + wait >= deadline:
+                break
+            sleep(wait)
+    assert last is not None
+    raise last
 
-    ``observed_at_utc``/``mjd`` here come from ``t_min`` (exposure start, the
-    descriptor-time basis of INTEGRATION_BOARD decision 2); the processed
-    FrameRecord replaces them with mid-exposure ``DATE-AVG``/``MJD-AVG``.
-    """
-    from astropy.io.votable import parse
 
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+# --------------------------------------------------------------------------- search
+
+
+def sia_url(collection_id: str, ra_deg: float, dec_deg: float, radius_deg: float = SEARCH_RADIUS_DEG) -> str:
+    params = {
+        "COLLECTION": collection_id,
+        "POS": f"circle {ra_deg:.8f} {dec_deg:.8f} {radius_deg:g}",
+        "MAXREC": str(SIA_MAXREC),
+    }
+    return SIA_ENDPOINT + "?" + urllib.parse.urlencode(params, quote_via=urllib.parse.quote_plus)
+
+
+def _looks_like_html(body: bytes) -> bool:
     head = body[:512].lstrip().lower()
-    if not (head.startswith(b"<?xml") or head.startswith(b"<votable")):
-        raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive returned a non-VOTable body", True)
+    return head.startswith(b"<!doctype html") or head.startswith(b"<html") or b"<html" in head[:200]
+
+
+def parse_sia_votable(body: bytes, collection_id: str) -> tuple[list[ObservationDescriptor], str]:
+    """Parse an SIA v2 VOTable. Returns (descriptors, query_status).
+
+    query_status is the archive's QUERY_STATUS INFO value: "OK", "OVERFLOW" or "ERROR".
+    """
+    if _looks_like_html(body) or b"VOTABLE" not in body[:4096]:
+        raise UpstreamUnavailable("archive search returned something other than a VOTable")
+    from astropy.io.votable import parse as parse_votable
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         try:
-            vot = parse(BytesIO(body), verify="ignore")
-        except Exception as exc:
-            raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive returned an unparsable VOTable", True,
-                               type(exc).__name__) from exc
-    # IVOA error documents carry INFO name=QUERY_STATUS value=ERROR
+            vot = parse_votable(io.BytesIO(body))
+        except Exception as exc:  # malformed XML from upstream
+            raise UpstreamUnavailable("archive search returned an unreadable VOTable") from exc
+
+    status = "OK"
     for res in vot.resources:
-        for info in getattr(res, "infos", []):
-            if info.name == "QUERY_STATUS" and str(info.value).upper() == "ERROR":
-                raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive reported a query error", True,
-                                   (info.content or "")[:200])
-    tables = [t for res in vot.resources if res.type == "results" for t in res.tables]
-    if not tables:
-        raise ArchiveError("UPSTREAM_UNAVAILABLE", "VOTable has no results table", True)
-    tab = tables[0]
-    names = [f.name for f in tab.fields]
-    out = []
-    for raw in tab.array:
-        row = {n: _clean(raw[n]) for n in names}
-        if row.get("dataproduct_type") not in (None, "image"):
+        for info in res.infos:
+            if info.name == "QUERY_STATUS":
+                status = (info.value or "OK").upper()
+    if status == "ERROR":
+        raise UpstreamUnavailable("archive search reported an error", details={"collection_id": collection_id})
+
+    try:
+        table = vot.get_first_table()
+    except Exception:
+        return [], status
+    names = [f.name for f in table.fields]
+    arr = table.array
+    cols = arr.dtype.names
+
+    def col(name: str):
+        if name not in names:
+            return None
+        return arr[cols[names.index(name)]]
+
+    obs_id, url, t_min, band = col("obs_id"), col("access_url"), col("t_min"), col("energy_bandpassname")
+    did, em_min, em_max, texp = col("obs_publisher_did"), col("em_min"), col("em_max"), col("t_exptime")
+    if obs_id is None or url is None:
+        raise UpstreamUnavailable("archive search table is missing obs_id or access_url")
+
+    out: list[ObservationDescriptor] = []
+    for i in range(len(arr)):
+        source_url = _str(url[i])
+        m = _SOURCE_URL_RE.match(source_url or "")
+        if not m:
+            continue  # not a Level 2 spectral image we know how to cut out
+        det = int(m.group("det"))
+        base = _str(obs_id[i])
+        mjd = _float(t_min[i]) if t_min is not None else None
+        if not base:
             continue
-        url = row.get("access_url")
-        if not url or not is_allowed_url(url):
-            continue
-        obs_id = row.get("obs_id")
-        det = _detector(row)
-        if not obs_id or det is None:
-            continue
-        t_min = row.get("t_min")
-        out.append({
-            "observation_id": obs_id,
-            "detector": det,
-            "frame_key": f"{obs_id}_D{det}",
-            "collection_id": row.get("obs_collection") or collection,
-            "observed_at_utc": (Time(t_min, format="mjd").utc.isot + "Z") if t_min is not None else None,
-            "mjd": t_min,
-            "time_basis": "SIA t_min (exposure start); the processed frame uses mid-exposure MJD-AVG",
-            "source_url": url,
-            "access_estsize_kb": row.get("access_estsize"),
-            "s_region": row.get("s_region"),
-        })
-    return out
+        out.append(
+            ObservationDescriptor(
+                observation_id=base,
+                collection_id=collection_id,
+                observed_at_utc=mjd_to_iso(mjd),
+                mjd=mjd,
+                detector=det,
+                source_url=source_url,
+                publisher_did=_str(did[i]) if did is not None else None,
+                band_min_um=_m_to_um(em_min[i]) if em_min is not None else None,
+                band_max_um=_m_to_um(em_max[i]) if em_max is not None else None,
+                exposure_s=_float(texp[i]) if texp is not None else None,
+            )
+        )
+    return out, status
 
 
-def _sort_key(d: Dict[str, Any]):
-    return (d["mjd"] if d["mjd"] is not None else float("inf"), d["frame_key"])
-
-
-# --------------------------------------------------------------------------- network
-
-
-def search_spherex(
-    ra_deg: float,
-    dec_deg: float,
-    radius_deg: float,
+def search_observations(
+    query: SearchQuery,
     *,
-    collections: Iterable[str] = ALLOWED_COLLECTIONS,
-    limit: int = 24,
-    timeout_s: float = DEFAULT_TIMEOUT_S,
-    transport: Transport = urllib_transport,
+    http_get: HttpGet = urllib_get,
+    sleep=time.sleep,
 ) -> SearchResult:
-    """Query SIA per allowlisted collection; one collection failing yields ``partial``."""
-    if not 1 <= int(limit) <= MAX_LIMIT:
-        raise ValueError(f"limit must be in [1, {MAX_LIMIT}]")
-    cols = list(collections)
-    for c in cols:
-        if c not in ALLOWED_COLLECTIONS:
-            raise ValueError(f"collection {c!r} not in allowlist")
-    obs: List[Dict[str, Any]] = []
-    failures: List[Dict[str, Any]] = []
-    for c in cols:
-        url = sia_url(c, ra_deg, dec_deg, radius_deg)
+    """Bounded metadata search of the allowlisted SPHEREx collections around one position.
+
+    * Returns at most `query.limit` descriptors, spread evenly across the time range found
+      (not just the earliest ones), sorted by observation time with frame_key as tie breaker.
+    * A collection that fails is listed as failed; if every collection fails, raises.
+    * `total_matches` is the number of records found, or None if the archive overflowed.
+    """
+    outcomes: list[CollectionOutcome] = []
+    found: dict[str, ObservationDescriptor] = {}
+    warnings_out: list[str] = []
+    errors: list[DataError] = []
+    overflow = False
+    deadline = time.monotonic() + SEARCH_BUDGET_S
+
+    def one(cid: str):
+        url = sia_url(cid, query.ra_deg, query.dec_deg)
         try:
-            status, ctype, body = transport(url, timeout_s, MAX_SIA_BYTES)
-            if len(body) > MAX_SIA_BYTES:
-                raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive response exceeded the size limit", False)
-            if status != 200:
-                raise ArchiveError("UPSTREAM_UNAVAILABLE", f"archive returned HTTP {status}", status >= 500)
-            if "html" in (ctype or "").lower():
-                raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive returned HTML instead of a VOTable", True)
-            obs.extend(parse_sia_votable(body, c))
-        except ArchiveError as exc:
-            failures.append({"collection_id": c, "code": exc.code, "message": exc.message, "retryable": exc.retryable})
-    # De-duplicate by frame_key, sort by time then key, then bound.
-    seen, uniq = set(), []
-    for d in sorted(obs, key=_sort_key):
-        if d["frame_key"] not in seen:
-            seen.add(d["frame_key"])
-            uniq.append(d)
+            resp = _with_retries(
+                lambda: http_get(url, timeout=SEARCH_TIMEOUT_S, max_bytes=SEARCH_MAX_BYTES),
+                attempts=SEARCH_ATTEMPTS,
+                backoff_s=RETRY_BACKOFF_S,
+                sleep=sleep,
+                deadline=deadline,
+            )
+            return parse_sia_votable(resp.body, cid)
+        except (UpstreamUnavailable, UpstreamTimeout) as exc:
+            return exc
+
+    # Collections are independent, so search them at the same time (at most 2 threads).
+    with ThreadPoolExecutor(max_workers=max(1, len(query.collection_ids))) as pool:
+        results = list(pool.map(one, query.collection_ids))
+
+    for cid, res in zip(query.collection_ids, results):
+        if isinstance(res, DataError):
+            errors.append(res)
+            outcomes.append(CollectionOutcome(cid, "failed", None, res.code))
+            warnings_out.append(f"{cid} could not be searched ({res.code}); its observations are missing from this result.")
+            continue
+        descs, qstatus = res
+        if qstatus == "OVERFLOW":
+            overflow = True
+            warnings_out.append(f"{cid} hit the archive record limit; more observations may exist.")
+            outcomes.append(CollectionOutcome(cid, "overflow", len(descs)))
+        else:
+            outcomes.append(CollectionOutcome(cid, "ok", len(descs)))
+        for d in descs:
+            found.setdefault(d.frame_key, d)
+
+    if len(errors) == len(query.collection_ids):
+        first = errors[0]
+        raise type(first)("no supported collection could be searched", details={"collections": list(query.collection_ids)})
+
+    ordered = sorted(found.values(), key=lambda d: (d.mjd if d.mjd is not None else float("inf"), d.frame_key))
+    total = len(ordered)
+    selected = select_spread(ordered, query.limit)
+    truncated = overflow or total > len(selected)
+    if total > len(selected):
+        warnings_out.append(
+            f"Showing {len(selected)} of {total} observations found, spaced across the full date range."
+        )
+    failed_any = any(o.status == "failed" for o in outcomes)
+
+    if failed_any or overflow:
+        status = "partial"
+    elif total == 0:
+        status = "empty"
+    else:
+        status = "ready"
+    if failed_any and total == 0:
+        # Nothing useful and one collection unknown: do not call that "empty".
+        raise UpstreamUnavailable(
+            "part of the archive could not be searched and the rest returned nothing",
+            details={"collections": [o.collection_id for o in outcomes if o.status == "failed"]},
+        )
+
     return SearchResult(
-        observations=uniq[: int(limit)],
-        collections_queried=cols,
-        failures=failures,
-        total_matches=len(uniq) if not failures else None,
-        truncated=len(uniq) > int(limit),
-        queried_at_utc=datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        query=query,
+        status=status,
+        observations=selected,
+        total_matches=None if overflow else total,
+        truncated=truncated,
+        warnings=warnings_out,
+        collections_queried=outcomes,
+        queried_at_utc=_utc_now(),
     )
 
 
+def select_spread(ordered: list[ObservationDescriptor], limit: int) -> list[ObservationDescriptor]:
+    """Pick `limit` items spread evenly through a time-ordered list (deterministic)."""
+    n = len(ordered)
+    if n <= limit:
+        return list(ordered)
+    if limit == 1:
+        return [ordered[0]]
+    idx = sorted({round(i * (n - 1) / (limit - 1)) for i in range(limit)})
+    return [ordered[i] for i in idx]
+
+
+# --------------------------------------------------------------------------- cutouts
+
+
+@dataclass(frozen=True)
+class CutoutBytes:
+    data: bytes
+    url: str
+    sha256: str
+    retrieved_at_utc: str
+
+
+def validate_source_url(source_url: str, collection_id: str | None = None) -> None:
+    m = _SOURCE_URL_RE.match(source_url or "")
+    if not m:
+        raise UnsupportedData("source is not a supported SPHEREx Level 2 archive file")
+    if collection_id is not None and _COLLECTION_RELEASE.get(collection_id) != m.group("release"):
+        raise UnsupportedData("source file does not belong to the stated collection")
+
+
+def cutout_url(source_url: str, center_ra_deg: float, center_dec_deg: float, size_deg: float) -> str:
+    validate_source_url(source_url)
+    if not (0.0 <= center_ra_deg < 360.0 and -90.0 <= center_dec_deg <= 90.0):
+        raise UnsupportedData("cutout center is outside the sky")
+    if not (0.0 < size_deg <= 0.5):
+        raise UnsupportedData("cutout size outside the supported range")
+    q = urllib.parse.urlencode({"center": f"{center_ra_deg:.8f},{center_dec_deg:.8f}", "size": f"{size_deg:.5f}"})
+    return f"{source_url}?{q}"
+
+
+def cutout_size_deg(fov_arcmin: float) -> float:
+    return fov_arcmin / 60.0 * CUTOUT_FOV_FACTOR
+
+
 def fetch_cutout(
-    source_url: str,
-    ra_deg: float,
-    dec_deg: float,
+    observation: ObservationDescriptor,
+    center_ra_deg: float,
+    center_dec_deg: float,
+    fov_arcmin: float,
     *,
-    size_deg: float = 0.1,
-    timeout_s: float = DEFAULT_TIMEOUT_S,
-    max_bytes: int = MAX_CUTOUT_BYTES,
-    transport: Transport = urllib_transport,
-) -> Tuple[bytes, str, str]:
-    """Download one allowlisted cutout. Returns (fits_bytes, cutout_url, retrieved_at_utc)."""
-    url = cutout_url(source_url, ra_deg, dec_deg, size_deg)
-    status, ctype, body = transport(url, timeout_s, max_bytes)
-    retrieved = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-    if status != 200:
-        raise ArchiveError("UPSTREAM_UNAVAILABLE", f"archive returned HTTP {status}", status >= 500)
-    if len(body) > max_bytes:
-        raise ArchiveError("UNSUPPORTED_DATA", "cutout exceeded the size limit", False)
-    if "html" in (ctype or "").lower() or not body.startswith(b"SIMPLE  ="):
-        raise ArchiveError("UPSTREAM_UNAVAILABLE", "archive did not return FITS data", True)
-    return body, url, retrieved
+    http_get: HttpGet = urllib_get,
+    sleep=time.sleep,
+) -> CutoutBytes:
+    """Download one small cutout and check that it is a FITS file before anyone parses it."""
+    validate_source_url(observation.source_url, observation.collection_id)
+    url = cutout_url(observation.source_url, center_ra_deg, center_dec_deg, cutout_size_deg(fov_arcmin))
+    resp = _with_retries(
+        lambda: http_get(url, timeout=CUTOUT_TIMEOUT_S, max_bytes=CUTOUT_MAX_BYTES),
+        attempts=CUTOUT_ATTEMPTS,
+        backoff_s=RETRY_BACKOFF_S,
+        sleep=sleep,
+    )
+    if resp.status != 200:
+        raise UpstreamUnavailable("archive did not return the cutout", details={"status": resp.status})
+    body = resp.body
+    if _looks_like_html(body):
+        raise UpstreamUnavailable("archive returned a web page instead of a FITS file")
+    if not body.startswith(b"SIMPLE  ="):
+        raise UnsupportedData("archive response is not a FITS file")
+    if len(body) % 2880 != 0:
+        raise UnsupportedData("FITS file is truncated")
+    return CutoutBytes(body, url, hashlib.sha256(body).hexdigest(), _utc_now())
+
+
+# --------------------------------------------------------------------------- helpers
+
+
+def _str(v) -> str | None:
+    if v is None:
+        return None
+    if isinstance(v, bytes):
+        v = v.decode("utf-8", "replace")
+    s = str(v).strip()
+    return s or None
+
+
+def _float(v) -> float | None:
+    import numpy as np
+
+    if v is None or np.ma.is_masked(v):
+        return None
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    if f != f:  # NaN / masked
+        return None
+    return f
+
+
+def _m_to_um(v) -> float | None:
+    f = _float(v)
+    return None if f is None else f * 1e6

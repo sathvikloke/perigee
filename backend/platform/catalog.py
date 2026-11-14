@@ -46,7 +46,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from pydantic import ValidationError
 
-from backend.platform.catalog_assets import AssetEntry, AssetIndex, png_dimensions
+from backend.platform.catalog_assets import SHARED_GROUP, AssetEntry, AssetIndex, png_dimensions
 from backend.platform.catalog_models import (
     CaseAssociation,
     CaseDocument,
@@ -141,8 +141,11 @@ def _sort_key(record: Dict[str, Any]) -> Tuple[int, float, str]:
 
 def _set_name(relative_path: str) -> str:
     """``<preset>/<set>/...`` -> ``<set>``; files directly in the preset dir
-    belong to the default set ``""``."""
+    belong to the default set ``""``. perigee-data layout (PR #19 trial):
+    ``<preset>/sets/<case_id>.json`` -> ``case-<case_id>``."""
     parts = relative_path.split("/")
+    if len(parts) == 3 and parts[1] == "sets" and parts[2].endswith(".json"):
+        return CASE_SET_PREFIX + parts[2][: -len(".json")]
     return parts[1] if len(parts) > 2 else ""
 
 
@@ -233,6 +236,17 @@ class CatalogStore:
             if not isinstance(aliases, dict):
                 continue
             for alias_id, rel in aliases.items():
+                expected: Dict[str, Any] = {}
+                owner = entry.preset_id
+                if isinstance(rel, dict):
+                    # perigee-data manifest (PR #19 trial): {id: {path, sha256, bytes,
+                    # media_type}} at the presets root. The declared hash and size must
+                    # match the indexed file; the owning preset is the ID's first
+                    # segment and must also own the target file.
+                    expected = {"sha256": rel.get("sha256"), "size": rel.get("bytes")}
+                    rel = rel.get("path")
+                    if entry.preset_id == SHARED_GROUP and isinstance(alias_id, str):
+                        owner = alias_id.split(".", 1)[0]
                 if not isinstance(alias_id, str) or not isinstance(rel, str):
                     continue
                 error = "relative path rejected"
@@ -240,7 +254,7 @@ class CatalogStore:
                     # Paths are relative to the presets root (ingest.py), or
                     # failing that, to the manifest's own directory.
                     for base in (self.presets_root.resolve(), entry.path.parent):
-                        error = self.assets.add_alias(alias_id, base / rel, entry.preset_id)
+                        error = self.assets.add_alias(alias_id, base / rel, owner, **expected)
                         if error is None:
                             break
                 if error is not None:

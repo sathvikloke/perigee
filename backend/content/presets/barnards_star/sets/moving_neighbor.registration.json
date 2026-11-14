@@ -1,0 +1,40 @@
+{
+ "set_id": "moving_neighbor",
+ "method": "FFT cross-correlation of the original pixels resampled onto the set grid, field only (target masked within 50 arcsec), parabolic sub-pixel peak",
+ "display_scale_arcsec_per_px": 0.9375,
+ "native_pixel_arcsec": 6.15,
+ "interpretation": "Field shifts well under one native pixel (6.15 arcsec) mean the frames are registered by their WCS. This checks our display geometry only; it is not a proper-motion measurement.",
+ "method_check": "Injected grid offsets of 1.5-6 arcsec on these same files were recovered with the right direction and within ~0.4 arcsec (the method slightly underestimates); see backend/tests/data/test_registration.py.",
+ "pairs": [
+  {
+   "reference": "2025W35_1A_0008_1_D3",
+   "compared": "2026W12_1A_0610_2_D3",
+   "field_shift_px": [
+    0.365,
+    -0.078
+   ],
+   "field_shift_arcsec": 0.35,
+   "correlation_peak_contrast": 14.8,
+   "catalog_marker_shift_px": [
+    0.48,
+    -6.27
+   ],
+   "catalog_marker_shift_arcsec": 5.9
+  },
+  {
+   "reference": "2025W35_1A_0008_1_D3",
+   "compared": "2026W34_1A_0431_1_D3",
+   "field_shift_px": [
+    0.199,
+    -0.424
+   ],
+   "field_shift_arcsec": 0.439,
+   "correlation_peak_contrast": 13.4,
+   "catalog_marker_shift_px": [
+    0.84,
+    -10.91
+   ],
+   "catalog_marker_shift_arcsec": 10.26
+  }
+ ]
+}
