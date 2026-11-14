@@ -133,38 +133,41 @@ export function CaseBench(props: {
               );
             })}
           </div>
-          <button
-            type="button"
-            className="quiet"
-            aria-pressed={blinking}
-            onClick={() => setBlinking((v) => !v)}
-            disabled={!a || !b}
-          >
-            {blinking ? "Ⅱ Pause blink" : "▷ Blink pair"}
-          </button>
-        </div>
-
-        <div className="mobile-frame-control" role="group" aria-label="Visible observation">
-          <button
-            type="button"
-            aria-pressed={visible === "first"}
-            onClick={() => {
-              stopBlink();
-              setVisible("first");
-            }}
-          >
-            Observation {firstRef}
-          </button>
-          <button
-            type="button"
-            aria-pressed={visible === "second"}
-            onClick={() => {
-              stopBlink();
-              setVisible("second");
-            }}
-          >
-            Observation {otherRef}
-          </button>
+          {/* Phones show one plate: the explicit A/B choice and blink share one row
+              so the sky reaches the first screen. Desktop shows only blink here. */}
+          <div className="view-switch">
+            <div className="mobile-frame-control" role="group" aria-label="Visible observation">
+              <button
+                type="button"
+                aria-pressed={visible === "first"}
+                onClick={() => {
+                  stopBlink();
+                  setVisible("first");
+                }}
+              >
+                Observation {firstRef}
+              </button>
+              <button
+                type="button"
+                aria-pressed={visible === "second"}
+                onClick={() => {
+                  stopBlink();
+                  setVisible("second");
+                }}
+              >
+                Observation {otherRef}
+              </button>
+            </div>
+            <button
+              type="button"
+              className="quiet blink-toggle"
+              aria-pressed={blinking}
+              onClick={() => setBlinking((v) => !v)}
+              disabled={!a || !b}
+            >
+              {blinking ? "Ⅱ Pause blink" : "▷ Blink pair"}
+            </button>
+          </div>
         </div>
 
         {missing ? (
