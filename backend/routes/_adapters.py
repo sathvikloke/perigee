@@ -67,6 +67,7 @@ SearchCollection = Callable[..., Awaitable[CollectionResult]]
 
 # Where to look for the processor at runtime (first hit wins).
 PROCESSOR_LOCATIONS: tuple[tuple[str, str], ...] = (
+    ("backend.routes._processor_bridge", "process_frame"),  # integration bridge to backend/data/process.py
     ("backend.data", "process_frame"),
     ("backend.data.processor", "process_frame"),
     ("backend.data.frames", "process_frame"),

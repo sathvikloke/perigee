@@ -77,7 +77,7 @@ def example_processor(fits_bytes: bytes, meta: dict) -> dict:
                 "center_ra_deg": q["ra_deg"],
                 "center_dec_deg": q["dec_deg"],
                 "fov_arcmin": q["fov_arcmin"],
-                "scale_arcsec_per_pixel": q["fov_arcmin"] * 60 / 256,
+                "scale_arcsec_per_px": q["fov_arcmin"] * 60 / 256,
                 "orientation": "north_up_east_left",
                 "projection": "TAN",
                 "method": "bilinear reprojection of the IMAGE HDU onto a fixed north-up TAN grid",

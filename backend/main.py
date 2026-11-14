@@ -48,11 +48,7 @@ app.include_router(health.router, prefix=API_PREFIX, tags=["health"])
 app.include_router(search.router, prefix=API_PREFIX, tags=["search"])
 app.include_router(frames.router, prefix=API_PREFIX, tags=["frame"])
 
-# --- Integration point: catalog/assets routes (worker 08 / Suhrit) -----------------
-# backend/routes/catalog.py will export ``router = APIRouter()`` with paths relative to
-# the prefix (/presets, /presets/{preset_id}/frames, /cases/{case_id}, /assets/{asset_id}).
-# At integration, uncomment:
-#
-#     from backend.routes import catalog
-#     app.include_router(catalog.router, prefix=API_PREFIX, tags=["catalog"])
-# -----------------------------------------------------------------------------------
+# Catalog/assets routes (worker 08, integrated on claude/perigee-integration).
+from backend.routes import catalog  # noqa: E402
+
+app.include_router(catalog.router, prefix=API_PREFIX, tags=["catalog"])

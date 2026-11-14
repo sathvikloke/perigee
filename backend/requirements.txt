@@ -12,3 +12,4 @@ anyio==4.16.0
 astropy==8.0.2
 numpy==2.5.4
 pillow==13.0.0
+certifi==2026.10.23  # processor A: TLS CA bundle on standalone Pythons

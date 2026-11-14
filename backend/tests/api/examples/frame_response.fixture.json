@@ -30,7 +30,7 @@
       "center_ra_deg": 331.0966687831005,
       "center_dec_deg": -56.80064917516836,
       "fov_arcmin": 6.0,
-      "scale_arcsec_per_pixel": 1.40625,
+      "scale_arcsec_per_px": 1.40625,
       "orientation": "north_up_east_left",
       "projection": "TAN",
       "method": "bilinear reprojection of the IMAGE HDU onto a fixed north-up TAN grid",

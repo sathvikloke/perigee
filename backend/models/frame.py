@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
 from .common import SCHEMA_VERSION
 
@@ -36,8 +36,9 @@ class Registration(_Open):
     center_ra_deg: float
     center_dec_deg: float
     fov_arcmin: float
-    scale_arcsec_per_pixel: float | None = Field(
-        description="Display-grid scale. Resampling does not add physical resolution."
+    scale_arcsec_per_px: float | None = Field(
+        validation_alias=AliasChoices("scale_arcsec_per_px", "scale_arcsec_per_pixel"),
+        description="Display-grid scale. Resampling does not add physical resolution.",
     )
     orientation: str = Field(description='e.g. "north_up_east_left".')
     projection: str | None = Field(default=None, description='e.g. "TAN".')

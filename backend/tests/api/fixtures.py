@@ -89,7 +89,7 @@ def fixture_processor(fits_bytes: bytes, meta: dict) -> dict:
                 "center_ra_deg": q["ra_deg"],
                 "center_dec_deg": q["dec_deg"],
                 "fov_arcmin": q["fov_arcmin"],
-                "scale_arcsec_per_pixel": q["fov_arcmin"] * 60 / 8,
+                "scale_arcsec_per_px": q["fov_arcmin"] * 60 / 8,
                 "orientation": "north_up_east_left",
                 "projection": "TAN",
                 "method": "fixture (no resampling)",
