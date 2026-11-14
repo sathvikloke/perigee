@@ -1,0 +1,26 @@
+# Sources
+
+References reviewed for the project plan. Original per-observation URLs are preserved in the research manifests.
+
+- [NASA brown-dwarf results](https://www.nasa.gov/missions/spherex/nasas-spherex-telescope-sees-menagerie-of-brown-dwarfs/)
+- [JPL interstellar-ice results](https://www.jpl.nasa.gov/news/interstellar-glaciers-nasas-spherex-maps-vast-galactic-ice-regions/)
+- [Rubin education products](https://rubinobservatory.org/education/educators/program-guide/our-education-products)
+- [Zooniverse education](https://www.zooniverse.org/get-involved/educate)
+- [Archive access](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/)
+- [Judging and awards guide](https://www.spaceappschallenge.org/resources/judging-awards-guide/)
+- [IRSA spectrophotometry](https://irsa.ipac.caltech.edu/onlinehelp/spherex/spherex/sp.html)
+- [SPXQuery](https://spxquery.readthedocs.io/en/latest/)
+- [SPHEREx timelapse](https://github.com/ShivenKhurana1/spherex-timelapse)
+- [SPHEREx Blink](https://andrei25ciuta.github.io/SPHEREx/results.html)
+- [Driftnet](https://spherex-planet-x.vercel.app/about/)
+- [NASA’s 2026 citizen-science selections](https://science.nasa.gov/get-involved/citizen-science/nasa-selects-19-new-citizen-science-proposals-in-2026/)
+- [Official Planet X and SPHEREx challenge](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/)
+- [2023 winners](https://science.nasa.gov/directorates/smd/2023-nasa-international-space-apps-challenge-announces-10-global-winners/)
+- [2024 winners](https://www.nasa.gov/learning-resources/stem-engagement-at-nasa/nasa-international-space-apps-challenge-announces-2024-global-winners/)
+- [2025 winners](https://www.nasa.gov/learning-resources/stem-engagement-at-nasa/nasa-announces-2025-international-space-apps-challenge-global-winners/)
+- [Relevant outburst study](https://arxiv.org/abs/2602.07129)
+- [NEOWISE quality documentation](https://irsa.ipac.caltech.edu/data/WISE/docs/release/NEOWISE/expsup/sec2_3.html)
+- [Perigee team page](https://www.spaceappschallenge.org/2026/find-a-team/perigee/)
+- [Chicago event](https://www.spaceappschallenge.org/2026/local-events/chicago/)
+- [Project submission guide](https://www.spaceappschallenge.org/resources/project-submission-guide/)
+- [Official Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/)

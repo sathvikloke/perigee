@@ -1,0 +1,32 @@
+# Local datasets and generated output
+.research-venv/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.fits
+*.fit
+*.fits.gz
+*.zip
+*.part
+research/data/
+research/build_data/raw/
+research/build_data/metadata/
+research/build_data/previews/
+research/build_data/reference/*.pdf
+
+# Credentials and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.vercel/

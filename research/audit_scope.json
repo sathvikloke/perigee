@@ -1,0 +1,31 @@
+{
+  "scope": "Three preselected sources; sampled DR1 pixels and DR1+QR3 metadata. Not exhaustive.",
+  "checked_utc": "2026-11-14T02:15:44.899661+00:00",
+  "image_records": 1406,
+  "neowise_rows": 1544,
+  "cutouts_attempted": 36,
+  "cutouts_inspected": 25,
+  "limitations": [
+    "Not an all-sky or statistically representative sample.",
+    "No calibrated SPHEREx spectrum extracted; no source classification or discovery made.",
+    "NEOWISE screening uses stated heuristic thresholds; rejection does not establish absence of astrophysical variability.",
+    "Source association, crowding, saturation corrections, and independent controls remain unvalidated.",
+    "Eleven cutout requests returned HTTP 503; missing downloads were not treated as missing sky coverage.",
+    "Competitor documentation and selected source code reviewed; competitor scientific performance not independently tested."
+  ],
+  "independent_check": "Spectral WCS wavelength for sample_cutout.fits matched direct bilinear interpolation of WCS-WAVE calibration table to <1e-6 micron.",
+  "new_epoch_coverage": [
+    {
+      "target": "WTP16aakapb",
+      "records": 153,
+      "first_utc": "2026-06-30T00:39:39.370",
+      "last_utc": "2026-08-23T11:12:28.022"
+    },
+    {
+      "target": "WTP15aaavof",
+      "records": 149,
+      "first_utc": "2026-07-05T20:48:13.507",
+      "last_utc": "2026-08-23T11:12:28.022"
+    }
+  ]
+}
