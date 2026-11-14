@@ -108,10 +108,10 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 
 ## Needs Sathvik / Sagar before submission (consolidated)
 1. Make GitHub repo `sathvikloke/perigee` public (currently PRIVATE) — judges need no-permission access.
-2. Merge PR #27 → main; Vercel: disable Authentication for production only, set `PERIGEE_TOKEN_SECRET`, keep `PERIGEE_DEV_MODE` unset; logged-out check. Never submit `perigee.vercel.app` (unrelated third party).
+2. Merge PR #27 → main; Vercel: disable Authentication for production only, set `PERIGEE_TOKEN_SECRET` (≥32 bytes, never the dev value; Preview refuses dev mode now), keep `PERIGEE_DEV_MODE` unset; logged-out check per `docs/DEPLOYMENT.md` step 6. Never submit `perigee.vercel.app` (unrelated third party).
 3. Fill `[TO CONFIRM]` items in `docs/AI_USE.md` (idea is team's own; mockup tool; planning-doc tooling; Sagar's PR #19 AI use; human review record). Watermark `.impeccable/mocks` images if used in slides.
-4. Accept/reject case revisions: PR #22 (Barnard) and the upcoming 09 proposal (Epsilon Indi B).
-5. API decisions D1–D3 (`backend/tests/api/REVIEW.md`).
+4. ~~Case revisions #22/#31~~ accepted and merged (`2a4273a`, `98fae22`).
+5. ~~API decisions D1–D3~~ settled as implementation choices (`03bb179`); optional Vercel Firewall rate-limit rule remains an owner choice (D2).
 6. Pitch decisions in `docs/presentation/README.md`.
 - 19:16Z merged 12p; `qa/regression/run.sh` on `fcfa047`: all six offline gates PASS (backend 274/17, 291 with data; vitest 56; audit 183; acceptance 189). README counts updated (`5518359`). 19:17Z launched 18.
 - 19:23Z merged 09 review `a4d2de9` only. Proposed `fair_comparison.json` revision (`b5aff70`, PR #31) awaits Sathvik. Note: current shipped `example_claim` is 382 chars vs 280-char notebook limit (proposal 238). Pitch narration 1:05–2:25 should follow the new ending if accepted.
@@ -146,3 +146,19 @@ Inputs: Sagar's PR #19 @ `cb1f36b` (unchanged since 24c); Codex ran its `backend
 **Already adopted earlier:** `fetch_manifest.py` (`0b6bc6a`), registration check port (24r). A's live path has no `l2b` URL filter, so the `l2b_retry` defect in #19 does not affect us.
 
 PR #19 stays open and uncommented (teammate PR; the coordinator doesn't post there without Sathvik). Sagar remains processor reviewer.
+
+## Fresh-user QA (Neeraj, issue #6, `codex/neeraj-qa` @ `31d98f7`, tested `cc2c3ca`) — triage against current integration
+| # | Finding | Status on current integration | Outcome |
+|---|---|---|---|
+| B1 | No public app (Vercel Authentication on every URL) | Still true. Codex's authenticated check of deployment `dpl_Fo2Vz63JvLSM8HpSHRZeu9DYHDZx` (`bc03f40`): `/` 200 HTML, `/api/v1/health` 200 JSON `degraded` (`token_signing: missing`), `/api/v1/cases/fair_comparison` 200 | Owner action (see `docs/DEPLOYMENT.md` → Owner actions). Hosted routing and startup verified; live search/frames are blocked only by the missing secret |
+| B2 | Private repo; footer `AI_USE.md` link 404 | Still true (logged-out 404 for both) | Owner action: make public or mirror; merge PR #27 |
+| F1 | Exported card has no limitations | Confirmed, then **fixed**: QA-F1 `77fa179`/`dff3e34` | Export carries `case_limitations` (5, verbatim) and `frames[].limitations`, plus `title`; schema stays v1; old cards are normalized and filled in on reopen without touching learner text. Real files in `qa/export-limitations/`. Codex separately verified an actual saved download (titles, 5 case limitations verbatim, 4/5 per-frame, URLs and SHA-256) |
+| F2 | SIMBAD links 404 | Confirmed: the CDS Strasbourg security incident (notice updated 9 Nov 2026) makes every `/simbad/*` path 404, even Vega. Not malformed: the same paths resolve on the official CfA mirror | **Fixed `1b87fe6`**: case sources point to `simbad.cfa.harvard.edu` with SIMBAD (CDS) attribution kept. Checked with curl; the built-in browser blocks the SIMBAD domain under site permissions |
+| F3 | My evidence shows raw id; no reopen | Confirmed; QA-F3 `ededc96` + follow-up | See QA-F3 row below |
+| F4 | Shared vs own stretch confusing | Confirmed (labels differ by design) | QA-F3: one short sentence by the case pair |
+
+## API review leftovers (resolved 2026-11-14, `03bb179`)
+R7 had been fixed in `454d027` (ContextVar request id), with a regression test. D1: an archive OVERFLOW is now `partial` + `collections_capped`, `truncated: true`, `total_matches: null`; a limit subset stays `ready`; mixed case tested. D2: no fake global limiter; bounds documented; a Vercel Firewall rule is an owner option. D3: dev secret and dev fallback refused on hosted Preview as well as Production; local dev unchanged. Details: `backend/tests/api/REVIEW.md`.
+
+## Content metadata and docs (`6f08d56`)
+Both cases: `status: science_owner_approved` plus a dated `verification.approval`; science text unchanged. `docs/DEPLOYMENT.md` rewritten (current setup, hosted Preview evidence, logged-out results, numbered owner actions with target URLs). `docs/AI_USE.md` and README: stale "Barnard fix unmerged / 2-px text shipped" and "D1–D3 owner decisions" corrected; no human attestations added; `[TO CONFIRM]` items left for the team.
