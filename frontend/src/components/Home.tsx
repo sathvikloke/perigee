@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { PerigeeApi } from "../api/client";
 import type { PresetDescriptor } from "../api/types";
-import { browserStorage, loadStore, persistStore, removeCard, type EvidenceCard } from "../evidence/card";
+import { browserStorage, forgetDraft, listCards, loadStore, persistStore, removeCard } from "../evidence/card";
 import { formatDateShort } from "../lib/format";
 import { ErrorBlock, useAsync } from "./common";
 import { downloadEvidence } from "./Notebook";
@@ -92,16 +92,17 @@ function PresetItem({ preset, onOpen }: { preset: PresetDescriptor; onOpen: () =
 }
 
 function SavedEvidence() {
-  const [cards, setCards] = useState<EvidenceCard[]>(() => loadStore(browserStorage()).cards);
+  const [cards, setCards] = useState(() => listCards(loadStore(browserStorage())));
   const [failed, setFailed] = useState(false);
   const remove = (id: string) => {
     if (!window.confirm("Delete this evidence card from this browser? This cannot be undone; export it first to keep a copy.")) {
       return;
     }
     const storage = browserStorage();
+    forgetDraft(id);
     const next = removeCard(loadStore(storage), id);
     setFailed(!persistStore(storage, next));
-    setCards(next.cards);
+    setCards(listCards(next));
   };
   return (
     <section className="card" id="my-evidence" aria-labelledby="saved-h">
@@ -113,11 +114,12 @@ function SavedEvidence() {
         <p className="status">No evidence cards yet. Open a target and write in its notebook.</p>
       ) : (
         <ul className="saved-list">
-          {cards.map((c) => (
+          {cards.map(({ card: c, unsaved }) => (
             <li key={c.id}>
               <span>
                 <strong>{c.case_id ?? c.preset_id ?? "Coordinate search"}</strong>
                 {c.data_origin === "fixture" && <span className="fixture-tag"> · development fixture</span>}
+                {unsaved && <span className="fixture-tag"> · not saved on this device; export to keep it</span>}
                 <span className="muted block">
                   Updated {formatDateShort(c.updated_at_utc)} · {c.frames.length} observation
                   {c.frames.length === 1 ? "" : "s"}

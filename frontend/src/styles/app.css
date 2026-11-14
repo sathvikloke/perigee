@@ -291,6 +291,9 @@ td { color: var(--ink); }
 .stepper .slider { flex: 1 1 8rem; display: flex; }
 .stepper input[type="range"] { width: 100%; min-height: var(--target-min); }
 .counter { font-variant-numeric: tabular-nums; color: var(--muted); font-size: var(--text-xs); }
+/* Play keeps one width so Play ↔ Pause never shifts the slider. */
+.play-toggle { min-width: 6.25rem; font-weight: 650; }
+.play-note p + p { margin-top: 4px; }
 .ref-jump { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
 .pair-picker { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 0; }
 .pair-picker legend { font-weight: 650; font-size: var(--text-xs); padding-inline: 4px; }
@@ -370,6 +373,8 @@ footer.site-footer {
 }
 footer.site-footer a { color: var(--muted); text-decoration: none; }
 .footer-dot { margin: 0 var(--space-sm); }
+footer.site-footer .footer-ai { flex-basis: 100%; margin: 0; }
+footer.site-footer .footer-ai a { text-decoration: underline; text-underline-offset: 3px; }
 
 .card > button.primary { width: auto; display: inline-flex; padding-inline: 20px; }
 
@@ -403,6 +408,10 @@ footer.site-footer a { color: var(--muted); text-decoration: none; }
 }
 
 @media (max-width: 560px) {
+  /* Phones: Play, Earlier and Later share one row; the scrubber and count take the next. */
+  .stepper .slider { order: 1; flex: 1 1 calc(100% - 4rem); }
+  .stepper .counter { order: 1; }
+  .stepper .play-toggle { min-width: 5.5rem; }
   :root { --page-pad: 16px; }
   .topbar { padding: 8px 16px; gap: var(--space-sm); min-height: 60px; }
   .brand { font-size: 25px; }
@@ -462,6 +471,8 @@ footer.site-footer a { color: var(--muted); text-decoration: none; }
   .steps li { gap: 6px; padding: 6px 8px; }
   .step-num { width: 20px; height: 20px; }
   .steps strong { font-size: var(--text-xs); }
+  .stepper button { padding-inline: 10px; }
+  .stepper .play-toggle { min-width: 4.75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

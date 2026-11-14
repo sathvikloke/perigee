@@ -107,7 +107,7 @@ export function Notebook(props: {
       : props.saveState.kind === "restored"
         ? "Restored from this device"
         : props.saveState.kind === "failed"
-          ? "Storage unavailable · export to keep notes"
+          ? "Couldn’t save on this device · export to keep these notes"
           : "Notes stay on this device");
 
   return (

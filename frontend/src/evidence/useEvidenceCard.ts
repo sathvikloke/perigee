@@ -5,6 +5,8 @@ import {
   browserStorage,
   loadStore,
   persistStore,
+  resolveDraft,
+  sessionDrafts,
   toggleEvidenceFrame,
   upsertCard,
   type EvidenceCard,
@@ -22,7 +24,7 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
   makeRef.current = makeCard;
 
   const [{ card, restored }, setLoaded] = useState(() => initial(contextKey, makeCard));
-  const [saveState, setSaveState] = useState<SaveState>(restored ? { kind: "restored" } : { kind: "idle" });
+  const [saveState, setSaveState] = useState<SaveState>(initialState(restored));
   const timer = useRef<number | null>(null);
   const pending = useRef<EvidenceCard | null>(null);
   const cardRef = useRef(card);
@@ -44,19 +46,29 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
   useEffect(() => {
     const next = initial(contextKey, makeRef.current);
     setLoaded(next);
-    setSaveState(next.restored ? { kind: "restored" } : { kind: "idle" });
-    return () => flush();
+    setSaveState(initialState(next.restored));
+    // Write a pending edit before the page is hidden or unloaded, so a
+    // reload inside the debounce window does not drop the last keystrokes.
+    const onHide = () => document.visibilityState === "hidden" && flush();
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", onHide);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", onHide);
+      flush();
+    };
   }, [contextKey, flush]);
 
   const update = useCallback(
     (next: EvidenceCard) => {
       if (next === cardRef.current) return;
       setLoaded({ card: next, restored: false });
+      sessionDrafts.set(contextKey, next);
       pending.current = next;
       if (timer.current !== null) window.clearTimeout(timer.current);
       timer.current = window.setTimeout(flush, SAVE_DEBOUNCE_MS);
     },
-    [flush],
+    [flush, contextKey],
   );
 
   const toggleFrame = useCallback(
@@ -77,9 +89,14 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
   return { card, update, toggleFrame, removeFrame, saveState };
 }
 
-function initial(contextKey: string, makeCard: () => EvidenceCard): { card: EvidenceCard; restored: boolean } {
-  const store = loadStore(browserStorage());
-  const id = store.contexts[contextKey];
-  const found = id ? store.cards.find((c) => c.id === id) : undefined;
-  return found ? { card: found, restored: true } : { card: makeCard(), restored: false };
+type Restored = false | "storage" | "memory";
+
+function initial(contextKey: string, makeCard: () => EvidenceCard): { card: EvidenceCard; restored: Restored } {
+  const found = resolveDraft(contextKey, loadStore(browserStorage()));
+  return found ? { card: found.card, restored: found.source } : { card: makeCard(), restored: false };
+}
+
+/** A draft that only survived in memory was never saved: keep saying so. */
+function initialState(restored: Restored): SaveState {
+  return restored === "storage" ? { kind: "restored" } : restored === "memory" ? { kind: "failed" } : { kind: "idle" };
 }

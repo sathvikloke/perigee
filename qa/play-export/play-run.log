@@ -1,0 +1,42 @@
+initial {
+  pressed: 'false',
+  label: '▷ Play',
+  counter: '4 / 34',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  quality: 'Flagged near target',
+  note: null,
+  live: 'Frame 4 of 34. 25 Aug 2025. 2.0062 µm. Flagged.',
+  src: '/api/v1/assets/barnards_star--frames-2025W35_1A_0008_1_D3--dd282cc2f444.png'
+}
+1280 frames seen in 3.2 s: 7
+  t=1ms 4 / 34 | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+  t=523ms 5 / 34 | 27 Aug 2025Wavelength 4.0602 µm | Flagged near target
+  t=1047ms 6 / 34 | 27 Aug 2025Wavelength 1.3290 µm | Flagged near target
+  t=1567ms 7 / 34 | 29 Aug 2025Wavelength 1.0318 µm | Flagged near target
+  t=2087ms 8 / 34 | 29 Aug 2025Wavelength 3.5082 µm | Flagged near target
+  t=2527ms 9 / 34 | 1 Sep 2025Wavelength 1.0165 µm | Flagged near target
+  t=3047ms 10 / 34 | 1 Sep 2025Wavelength 3.4490 µm | Flagged near target
+playing state {
+  pressed: 'true',
+  label: 'Ⅱ Pause',
+  note: 'Each frame has its own contrast stretch, so brightness is not directly comparable.The wavelength also changes from frame to frame; it is labeled on each one.',
+  live: 'Playing 34 frames in time order. Use Pause to stop.'
+}
+live-region mutations while playing: [ 'Playing 34 frames in time order. Use Pause to stop.' ]
+stop on hidden tab: PASS false 12 / 34 12 / 34
+stop on print: PASS false 13 / 34 13 / 34
+stop on manual step (ArrowRight): PASS false 15 / 34 15 / 34
+stop on Pause click: PASS false 16 / 34 16 / 34
+stop on breakpoint crossing 1280→540: PASS false 17 / 34 17 / 34
+Space starts play: true
+Space pauses: false
+footer: {
+  text: 'Built with AI-assisted development (Claude Code, Codex). No AI runs in this app; all science checked against original NASA files.',
+  href: 'https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md',
+  h: 44
+}
+overflow 1280: 1280
+390 playing true 7 / 34 29 Aug 2025Wavelength 1.0318 µm
+390 targets: { w: 88, h: 44, scrollWidth: 390 }
+reduced: paused on load false no auto-advance: true
+reduced cadence gaps (ms): [ 1472, 1553 ]

@@ -7,6 +7,9 @@ import { QueryInvestigation } from "./components/QueryInvestigation";
 import { createFixtureApi } from "./fixtures/devFixture";
 import { parseRoute, routeToSearch, type Route } from "./lib/route";
 
+/** AI-use disclosure required by the Space Apps submission guide. */
+const AI_USE_URL = "https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md";
+
 function initialFixtureMode(): boolean {
   const p = new URLSearchParams(window.location.search);
   if (p.has("fixtures")) return p.get("fixtures") === "1";
@@ -216,6 +219,12 @@ export function App() {
         <a href="https://irsa.ipac.caltech.edu/Missions/spherex.html" target="_blank" rel="noreferrer">
           Explore the SPHEREx archive ↗
         </a>
+        <p className="footer-ai">
+          <a href={AI_USE_URL} target="_blank" rel="noreferrer">
+            Built with AI-assisted development (Claude Code, Codex). No AI runs in this app; all science checked
+            against original NASA files.
+          </a>
+        </p>
       </footer>
     </>
   );
