@@ -6,6 +6,10 @@ Perigee will help learners compare real NASA SPHEREx observations, understand wh
 
 **Status:** documentation and research only. Application and processing code will be built from scratch during the November 14–15, 2026 hackathon.
 
+## Team AI prompts
+
+Individualized coding prompts and assigned GitHub issues are indexed in [prompts/README.md](prompts/README.md). The [integration contract](docs/INTEGRATION_CONTRACT.md) is the shared technical source of truth.
+
 ## Start here
 
 | Document | What it contains |
@@ -26,7 +30,7 @@ Perigee will help learners compare real NASA SPHEREx observations, understand wh
 4. Two complete investigations: Barnard's Star and Epsilon Indi B.
 5. Saved evidence cards with observation IDs, sources, conclusions and limitations.
 
-No runtime AI model or GPU is required. Spectra, precision photometry, measured proper motion, asteroid chemistry and accounts are outside the weekend scope.
+This is a responsive web app for desktop and mobile browsers, hosted on Vercel. No native mobile app or app-store submission is planned. No runtime AI model or GPU is required. Spectra, precision photometry, measured proper motion, asteroid chemistry and accounts are outside the weekend scope.
 
 ## Ownership
 
@@ -35,7 +39,7 @@ No runtime AI model or GPU is required. Spectra, precision photometry, measured 
 | Sathvik | Data analysis, scientific checks, case content and pitch |
 | Sagar | Raw data retrieval, processing pipeline and final submission |
 | Akshobya | Frontend and visual design |
-| Aditya | Backend query API and jobs |
+| Aditya | Backend query API and bounded frame requests |
 | Suhrit | Backend storage/cache, asset serving and deployment |
 | Neeraj | Light testing, screenshots, links and submission support |
 
