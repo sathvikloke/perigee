@@ -1,0 +1,76 @@
+name: release-smoke
+
+# Checks the PUBLIC production URL after Vercel finishes a production deploy,
+# exactly as a logged-out judge reaches it: python -m backend.platform.smoke.
+# It never deploys, never uses a bypass secret, and needs no secrets.
+#
+# Setup (Sathvik, once production is public): add a repository VARIABLE
+#   PERIGEE_PUBLIC_URL = https://<production domain>   (not perigee.vercel.app)
+# Until it is set, the automatic run is skipped with a notice.
+# Manual run: Actions > release-smoke > Run workflow, with any deployment URL.
+#
+# Exit 2 from the script = Vercel Authentication blocks logged-out visitors
+# (an access setting, not a code defect); exit 1 = application/config defect.
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Deployment origin to check (https://...)"
+        required: true
+      live:
+        description: "Run the live archive search + frame"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BASE: ${{ github.event_name == 'workflow_dispatch' && inputs.base || vars.PERIGEE_PUBLIC_URL }}
+      NO_LIVE: ${{ github.event_name == 'workflow_dispatch' && !inputs.live && '--no-live' || '' }}
+    steps:
+      - name: Skip when no public URL is configured
+        if: env.BASE == ''
+        run: echo "::notice::PERIGEE_PUBLIC_URL repository variable is not set; release smoke skipped."
+      - uses: actions/checkout@v4
+        if: env.BASE != ''
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        if: env.BASE != ''
+        with:
+          python-version: "3.12"
+      - name: Install smoke dependency
+        if: env.BASE != ''
+        run: python -m pip install "httpx==0.28.1"
+      - name: Smoke check (logged out)
+        if: env.BASE != ''
+        run: |
+          set +e
+          python -m backend.platform.smoke --base "$BASE" $NO_LIVE | tee smoke.txt
+          code=${PIPESTATUS[0]}
+          {
+            echo "### Release smoke: \`$BASE\`"
+            echo "Commit: \`${{ github.event.deployment.sha || github.sha }}\` (exit $code)"
+            echo '```'
+            cat smoke.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" = "2" ]; then
+            echo "::error::Access restricted: Vercel Authentication blocks logged-out visitors (owner setting, not a code failure)."
+          fi
+          exit $code
