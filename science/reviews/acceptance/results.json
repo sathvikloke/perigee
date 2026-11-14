@@ -1,0 +1,3161 @@
+{
+ "processor_commit": "9c9049a163ce89190e092257f93864894fa9fd8e",
+ "matrix": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison A",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison B",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison C (MWIR D6)",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor A",
+   "status": "flagged",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor B",
+   "status": "flagged",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor C",
+   "status": "flagged",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2025W17_4B_0077_2_D1",
+   "preset": "epsilon_indi_b",
+   "set": "frames",
+   "why": "not_covered (SWIR, edge cutout)",
+   "status": "not_covered",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2025W27_2A_0331_1_D4",
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "not_covered (MWIR D4); CASE_SELECTION defect-1 frame",
+   "status": "not_covered",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2025W37_1A_0069_1_D2",
+   "preset": "rw_aurigae",
+   "set": "frames",
+   "why": "not_covered (SWIR); defect-1 frame",
+   "status": "not_covered",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2026W01_2A_0426_1_D3",
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "R Dra saturated (21/21 non-finite)",
+   "status": "flagged",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2025W29_2A_0288_1_D4",
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "R Dra saturated, MWIR D4",
+   "status": "flagged",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D1",
+   "preset": "wise_0855",
+   "set": "frames",
+   "why": "WISE 0855 SWIR, same exposure as next",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "preset": "wise_0855",
+   "set": "frames",
+   "why": "WISE 0855 MWIR D4",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": null
+  }
+ ],
+ "case_rows": {
+  "2026W18_1A_0516_1_D3": {
+   "ref": "A",
+   "wavelength_abs_diff": 3.150455905176486e-05,
+   "bandwidth_abs_diff": 9.446486492731276e-06,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    127.081,
+    128.568
+   ]
+  },
+  "2026W39_2A_0597_4_D3": {
+   "ref": "B",
+   "wavelength_abs_diff": 4.659639372928126e-05,
+   "bandwidth_abs_diff": 3.0090733994944663e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    125.911,
+    129.292
+   ]
+  },
+  "2026W18_1A_0516_1_D6": {
+   "ref": "C",
+   "wavelength_abs_diff": 2.1426279126934844e-05,
+   "bandwidth_abs_diff": 1.2027244967384443e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    127.081,
+    128.568
+   ]
+  },
+  "2025W35_1A_0008_1_D3": {
+   "ref": "A",
+   "wavelength_abs_diff": 3.584326405459137e-05,
+   "bandwidth_abs_diff": 2.015025585512531e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    127.798,
+    130.61
+   ]
+  },
+  "2026W12_1A_0610_2_D3": {
+   "ref": "B",
+   "wavelength_abs_diff": 3.350836746474073e-05,
+   "bandwidth_abs_diff": 2.828712188010507e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    128.121,
+    126.434
+   ]
+  },
+  "2026W34_1A_0431_1_D3": {
+   "ref": "C",
+   "wavelength_abs_diff": 3.58707774177347e-05,
+   "bandwidth_abs_diff": 2.4090437037334322e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    128.36,
+    123.341
+   ]
+  }
+ },
+ "moving_neighbor_marker_motion": {
+  "2026W12_1A_0610_2_D3": {
+   "dx": 0.3230764958700263,
+   "dy": -4.17625493776886,
+   "display_px": 4.188732950120172,
+   "arcsec": 5.890405711106491
+  },
+  "2026W34_1A_0431_1_D3": {
+   "dx": 0.5623756887418381,
+   "dy": -7.269560853036978,
+   "display_px": 7.2912811913473465,
+   "arcsec": 10.253364175332207
+  },
+  "display_scale_arcsec_per_px": 1.40625
+ },
+ "gate2_eps_ind_a": {
+  "2000.0": {
+   "ra": 330.840229295225,
+   "dec": -56.78598060509237,
+   "sep_from_330.84_-56.786_arcsec": 0.4575210362449126
+  },
+  "2025.5": {
+   "ra": 330.8915286098058,
+   "dec": -56.803946650940546,
+   "sep_from_330.84_-56.786_arcsec": 120.39250312401317
+  },
+  "2026.0": {
+   "ra": 330.8925352674752,
+   "dec": -56.80429881993827,
+   "sep_from_330.84_-56.786_arcsec": 122.7470918915501
+  },
+  "2026.9": {
+   "ra": 330.89434732776266,
+   "dec": -56.80493271379515,
+   "sep_from_330.84_-56.786_arcsec": 126.98541976134658
+  }
+ },
+ "frames": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-04-29T12:05:47.874",
+     "MJD-AVG": 61159.504026317,
+     "record": [
+      "2026-04-29T12:05:47.874Z",
+      61159.504026317
+     ],
+     "DATE-OBS": "2026-04-29T12:04:50.315",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.09732450693497,
+      -56.80087121878636
+     ],
+     "native_xy": [
+      28.58217890161656,
+      28.67359645686629
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.08085270172741,
+      128.56843606316795
+     ],
+     "display_xy_linear_pm_control": [
+      127.11667664898006,
+      128.59737894824278
+     ]
+    },
+    "marker_minus_independent_px": 0.00046026934238796045,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9252278186625736e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 56424,
+     "mirrored_control_exact_fraction": 0.014820149338589243
+    },
+    "gaia": {
+     "n_native": 4,
+     "native_median_offset_px": 0.2261529833188719,
+     "native_median_dx_dy": [
+      -0.03977745792970966,
+      -0.18458530153976316
+     ],
+     "n_png": 4,
+     "png_median_dx_dy_display_px": [
+      -0.2800136917640046,
+      0.18963332592447557
+     ],
+     "png_median_offset_display_px": 0.41473101702191006,
+     "stars": [
+      {
+       "gaia": 6412593435166417920,
+       "G": 13.931794,
+       "snr_peak_mad": 152.3,
+       "native_dx": -0.012195840588327123,
+       "native_dy": 0.02396469469638518,
+       "png_dx": -0.36716720439453354,
+       "png_dy": -0.0022492708574048947
+      },
+      {
+       "gaia": 6412595973491218432,
+       "G": 15.813786,
+       "snr_peak_mad": 28.8,
+       "native_dx": 0.38186640512993364,
+       "native_dy": -0.203436604974371,
+       "png_dx": 0.926954246596523,
+       "png_dy": 0.23023214485709786
+      },
+      {
+       "gaia": 6412594397239098368,
+       "G": 16.195631,
+       "snr_peak_mad": 17.1,
+       "native_dx": -0.0673590752710922,
+       "native_dy": -0.16573399810515532,
+       "png_dx": -0.41628265950225796,
+       "png_dy": 0.20104449019223125
+      },
+      {
+       "gaia": 6412596458823395328,
+       "G": 12.953572,
+       "snr_peak_mad": 89.9,
+       "native_dx": -0.13205158903931924,
+       "native_dy": -0.2394024155018144,
+       "png_dx": -0.19286017913347564,
+       "png_dy": 0.1782221616567199
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.323168495440948,
+      0.05770944648649273
+     ],
+     "manual_tab": [
+      2.323168495440948,
+      0.057709446486492726
+     ],
+     "tab_psi": [
+      790.5821789016165,
+      227.67359645686628
+     ],
+     "record": [
+      2.323168495440948,
+      0.05770944648649273
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 19,
+      "adverse": 0,
+      "valid": 19,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 19
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 19,
+      "valid_aperture_pixels": 19,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.41782109838344
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2026W18_1A_0516_1_D3, 2026W39_2A_0597_4_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "sha_record": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "sha_manifest": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W18_1A_0516_1",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.11586961895227432,
+     1.177802324295044
+    ],
+    "stretch_group": [
+     "2026W18_1A_0516_1_D3",
+     "2026W39_2A_0597_4_D3"
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison A",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-09-27T07:44:24.312",
+     "MJD-AVG": 61310.322503608,
+     "record": [
+      "2026-09-27T07:44:24.312Z",
+      61310.322503608
+     ],
+     "DATE-OBS": "2026-09-27T07:43:26.753",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.0981590490463,
+      -56.801153805731055
+     ],
+     "native_xy": [
+      28.513370076682065,
+      29.699308817473963
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      125.91106633406848,
+      129.29187697289748
+     ],
+     "display_xy_linear_pm_control": [
+      125.94802276654282,
+      129.3217349780448
+     ]
+    },
+    "marker_minus_independent_px": 0.00013977080022237903,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9207202949185932e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 55309,
+     "mirrored_control_exact_fraction": 0.01721302069387599
+    },
+    "gaia": {
+     "n_native": 6,
+     "native_median_offset_px": 0.13687008559968783,
+     "native_median_dx_dy": [
+      -0.04916907825545991,
+      -0.01984393244959648
+     ],
+     "n_png": 6,
+     "png_median_dx_dy_display_px": [
+      0.48359853508264905,
+      -0.27833897742141644
+     ],
+     "png_median_offset_display_px": 0.6670047919768161,
+     "stars": [
+      {
+       "gaia": 6412596183945494528,
+       "G": 15.765998,
+       "snr_peak_mad": 23.1,
+       "native_dx": 0.13290917703561078,
+       "native_dy": -0.16272071126848076,
+       "png_dx": 0.18712813819371377,
+       "png_dy": -0.5445365476434318
+      },
+      {
+       "gaia": 6412593435166417920,
+       "G": 13.931794,
+       "snr_peak_mad": 125.9,
+       "native_dx": -0.058245584337448975,
+       "native_dy": -0.025637082748957596,
+       "png_dx": 0.2802151337961547,
+       "png_dy": -0.5390136639359042
+      },
+      {
+       "gaia": 6412595973491218432,
+       "G": 15.813786,
+       "snr_peak_mad": 22.5,
+       "native_dx": -0.2979670714444005,
+       "native_dy": 0.015444078250016702,
+       "png_dx": 1.5176987664752914,
+       "png_dy": 0.32797038377998433
+      },
+      {
+       "gaia": 6412594397239098368,
+       "G": 16.195631,
+       "snr_peak_mad": 16.2,
+       "native_dx": 0.0407447985989009,
+       "native_dy": -0.014050782150235364,
+       "png_dx": 0.40164359302005437,
+       "png_dy": -0.004149279089062929
+      },
+      {
+       "gaia": 6412596458823395328,
+       "G": 12.953572,
+       "snr_peak_mad": 567.1,
+       "native_dx": -0.04009257217347084,
+       "native_dy": 0.0011787387980959352,
+       "png_dx": 0.7243586897500762,
+       "png_dy": -0.055862893077694764
+      },
+      {
+       "gaia": 6412594706476744704,
+       "G": 16.045214,
+       "snr_peak_mad": 19.7,
+       "native_dx": -0.1878105631128344,
+       "native_dy": -0.28020203234682484,
+       "png_dx": 0.5655534771452437,
+       "png_dy": -0.5008150617651381
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.321953403606271,
+      0.05733009073399494
+     ],
+     "manual_tab": [
+      2.321953403606271,
+      0.057330090733994934
+     ],
+     "tab_psi": [
+      188.51337007668207,
+      263.69930881747393
+     ],
+     "record": [
+      2.321953403606271,
+      0.05733009073399494
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 18,
+      "adverse": 0,
+      "valid": 18,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 18
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 18,
+      "valid_aperture_pixels": 18,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 18
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.300691182526037
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2026W18_1A_0516_1_D3, 2026W39_2A_0597_4_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "sha_record": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "sha_manifest": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W39_2A_0597_4",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.11586961895227432,
+     1.177802324295044
+    ],
+    "stretch_group": [
+     "2026W18_1A_0516_1_D3",
+     "2026W39_2A_0597_4_D3"
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison B",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-04-29T12:05:47.874",
+     "MJD-AVG": 61159.504026317,
+     "record": [
+      "2026-04-29T12:05:47.874Z",
+      61159.504026317
+     ],
+     "DATE-OBS": "2026-04-29T12:04:50.315",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.09732450693497,
+      -56.80087121878636
+     ],
+     "native_xy": [
+      28.704936776019604,
+      28.380127038888844
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.08085270172741,
+      128.56843606316795
+     ],
+     "display_xy_linear_pm_control": [
+      127.11667664898006,
+      128.59737894824278
+     ]
+    },
+    "marker_minus_independent_px": 0.00046026934238796045,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9295726717116165e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 56454,
+     "mirrored_control_exact_fraction": 0.018988781079442085
+    },
+    "gaia": null,
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      4.939878573720873,
+      0.03758797275503262
+     ],
+     "manual_tab": [
+      4.939878573720873,
+      0.03758797275503262
+     ],
+     "tab_psi": [
+      788.7049367760196,
+      217.38012703888884
+     ],
+     "record": [
+      4.939878573720873,
+      0.03758797275503262
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 20,
+      "adverse": 0,
+      "valid": 20,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 20
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 20,
+      "valid_aperture_pixels": 20,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 20
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.295063223980396
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.4351555109024048,
+     "high": 2.530604839324951,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "sha_record": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "sha_manifest": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W18_1A_0516_1",
+      6
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.4351555109024048,
+     2.530604839324951
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison C (MWIR D6)",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2025-08-25T00:50:31.845",
+     "MJD-AVG": 60912.035090796,
+     "record": [
+      "2025-08-25T00:50:31.845Z",
+      60912.035090796
+     ],
+     "DATE-OBS": "2025-08-25T00:49:34.286",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      269.4463377072691,
+      4.767304907305694
+     ],
+     "native_xy": [
+      28.334481064828605,
+      30.002653365020482
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.79808007436137,
+      130.61012205176172
+     ],
+     "display_xy_linear_pm_control": [
+      127.7733958991272,
+      130.90904891101349
+     ]
+    },
+    "marker_minus_independent_px": 0.0001459744357195082,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990642
+     ],
+     "1arcmin_east_xy": [
+      85.33333213405909,
+      127.99948235467654
+     ]
+    },
+    "native_parity_det": -2.920458351067023e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 63445,
+     "mirrored_control_exact_fraction": 0.1839099110793795
+    },
+    "gaia": {
+     "n_native": 13,
+     "native_median_offset_px": 0.09240084233413196,
+     "native_median_dx_dy": [
+      -0.059008788905064335,
+      -0.0011183565697123754
+     ],
+     "n_png": 13,
+     "png_median_dx_dy_display_px": [
+      0.03922180109950091,
+      -0.13832501956694188
+     ],
+     "png_median_offset_display_px": 0.38919085374566775,
+     "stars": [
+      {
+       "gaia": 4472836047939582464,
+       "G": 13.596711,
+       "snr_peak_mad": 38.9,
+       "native_dx": -0.03834872120204125,
+       "native_dy": 0.031227953730851965,
+       "png_dx": -0.053150731815151175,
+       "png_dy": 0.2594127177288925
+      },
+      {
+       "gaia": 4472836292758713344,
+       "G": 11.862574,
+       "snr_peak_mad": 425.7,
+       "native_dx": -0.07534477601361544,
+       "native_dy": -0.053489067962670944,
+       "png_dx": 0.053944330823725295,
+       "png_dy": 0.22906756876344758
+      },
+      {
+       "gaia": 4472832508888391168,
+       "G": 13.028434,
+       "snr_peak_mad": 58.5,
+       "native_dx": -0.17309251274702575,
+       "native_dy": -0.0011183565697123754,
+       "png_dx": 0.4369582427659964,
+       "png_dy": -0.08987916753198988
+      },
+      {
+       "gaia": 4472832513187484672,
+       "G": 14.487946,
+       "snr_peak_mad": 28.6,
+       "native_dx": -0.059008788905064335,
+       "native_dy": -0.112089766809774,
+       "png_dx": 0.2574089310736838,
+       "png_dy": -0.7495955128019887
+      },
+      {
+       "gaia": 4472835846082110464,
+       "G": 14.4400835,
+       "snr_peak_mad": 46.7,
+       "native_dx": -0.24101793037569763,
+       "native_dy": -0.1804739695408628,
+       "png_dx": 1.1965846131149647,
+       "png_dy": -0.7550857645642282
+      },
+      {
+       "gaia": 4472835846082111488,
+       "G": 14.53096,
+       "snr_peak_mad": 46.7,
+       "native_dx": 0.535390160179535,
+       "native_dy": 0.14308354168182547,
+       "png_dx": -1.9160868752376246,
+       "png_dy": 0.8751819902389855
+      },
+      {
+       "gaia": 4472835914801589760,
+       "G": 14.837437,
+       "snr_peak_mad": 19.4,
+       "native_dx": 0.0469349902970837,
+       "native_dy": -0.15812603406636327,
+       "png_dx": -0.022732540688281233,
+       "png_dy": -0.5220126752572298
+      },
+      {
+       "gaia": 4472836327118455808,
+       "G": 13.4505,
+       "snr_peak_mad": 312.3,
+       "native_dx": -0.07398052412277245,
+       "native_dy": 0.04562021457652854,
+       "png_dx": 0.03922180109950091,
+       "png_dy": -0.1555313465002044
+      },
+      {
+       "gaia": 4472832959864074752,
+       "G": 14.785453,
+       "snr_peak_mad": 92.8,
+       "native_dx": 0.03365866285150787,
+       "native_dy": -0.08013876744463744,
+       "png_dx": -0.2226787758674078,
+       "png_dy": -0.341921538973736
+      },
+      {
+       "gaia": 4472837770227461632,
+       "G": 12.653553,
+       "snr_peak_mad": 558.2,
+       "native_dx": -0.14846295241596863,
+       "native_dy": 0.011611074432190893,
+       "png_dx": 0.3637797542484833,
+       "png_dy": -0.13832501956694188
+      },
+      {
+       "gaia": 4472837770227463680,
+       "G": 13.902466,
+       "snr_peak_mad": 107.2,
+       "native_dx": 0.02515605430837553,
+       "native_dy": 0.04318887606089561,
+       "png_dx": -0.28115922051189557,
+       "png_dy": 0.12536456354536796
+      },
+      {
+       "gaia": 4472836361478195200,
+       "G": 14.901133,
+       "snr_peak_mad": 74.0,
+       "native_dx": -0.06161596854527929,
+       "native_dy": -0.025594974938668358,
+       "png_dx": -0.08935762114069234,
+       "png_dy": -0.09040628000096618
+      },
+      {
+       "gaia": 4472837495349545984,
+       "G": 13.467515,
+       "snr_peak_mad": 271.5,
+       "native_dx": -0.012257952346161005,
+       "native_dy": 0.01224512672438749,
+       "png_dx": 0.08734516650885382,
+       "png_dy": -0.29387948348173154
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.006235843264055,
+      0.049679849744144876
+     ],
+     "manual_tab": [
+      2.006235843264055,
+      0.049679849744144876
+     ],
+     "tab_psi": [
+      759.3344810648287,
+      965.0026533650205
+     ],
+     "record": [
+      2.006235843264055,
+      0.049679849744144876
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 19,
+      "adverse": 19,
+      "valid": 0,
+      "nonfinite": 3,
+      "status": "flagged",
+      "counts": {
+       "TRANSIENT": 14,
+       "OVERFLOW": 5,
+       "SUR_ERROR": 17,
+       "SOURCE": 19,
+       "BLOOM": 19
+      }
+     },
+     "record": {
+      "status": "flagged",
+      "screened_pixels": 19,
+      "valid_aperture_pixels": 0,
+      "adverse_aperture_pixels": 19,
+      "nonfinite_aperture_pixels": 3,
+      "flag_names": [
+       "BLOOM",
+       "OVERFLOW",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "flag_counts": {
+       "TRANSIENT": 14,
+       "OVERFLOW": 5,
+       "SUR_ERROR": 17,
+       "SOURCE": 19,
+       "BLOOM": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 27.997346634979518
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2025W35_1A_0008_1_D3, 2026W12_1A_0610_2_D3, 2026W34_1A_0431_1_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "e7c0a6f7c4c69cebc5b8fd5b7db21c0ddbc5e4046dd9d7ba3b6a424d99770562",
+     "sha_record": "e7c0a6f7c4c69cebc5b8fd5b7db21c0ddbc5e4046dd9d7ba3b6a424d99770562",
+     "sha_manifest": "e7c0a6f7c4c69cebc5b8fd5b7db21c0ddbc5e4046dd9d7ba3b6a424d99770562",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2025W35_1A_0008_1",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.1697147935628891,
+     32.71215019227493
+    ],
+    "stretch_group": [
+     "2025W35_1A_0008_1_D3",
+     "2026W12_1A_0610_2_D3",
+     "2026W34_1A_0431_1_D3"
+    ]
+   },
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor A",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "flagged"
+  },
+  {
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-03-19T09:06:02.748",
+     "MJD-AVG": 61118.379198469,
+     "record": [
+      "2026-03-19T09:06:02.748Z",
+      61118.379198469
+     ],
+     "DATE-OBS": "2026-03-19T09:05:05.189",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      269.4462110672827,
+      4.768936256893525
+     ],
+     "native_xy": [
+      28.851879164119687,
+      29.676653775730827
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      128.1211565702314,
+      126.43386711399286
+     ],
+     "display_xy_linear_pm_control": [
+      128.09537216906023,
+      126.74611600390273
+     ]
+    },
+    "marker_minus_independent_px": 0.000205360483657301,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990642
+     ],
+     "1arcmin_east_xy": [
+      85.33333213405909,
+      127.99948235467654
+     ]
+    },
+    "native_parity_det": -2.9209780459166408e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 64491,
+     "mirrored_control_exact_fraction": 0.19604762952024882
+    },
+    "gaia": {
+     "n_native": 11,
+     "native_median_offset_px": 0.1539828850315387,
+     "native_median_dx_dy": [
+      -0.0687150001403829,
+      -0.002005261521013324
+     ],
+     "n_png": 11,
+     "png_median_dx_dy_display_px": [
+      -0.2878762483260999,
+      0.29635632542472123
+     ],
+     "png_median_offset_display_px": 0.6093133458993742,
+     "stars": [
+      {
+       "gaia": 4472836292758713344,
+       "G": 11.862574,
+       "snr_peak_mad": 436.1,
+       "native_dx": -0.04798333635229923,
+       "native_dy": -0.002005261521013324,
+       "png_dx": -0.4116827291931884,
+       "png_dy": 0.5479496077674284
+      },
+      {
+       "gaia": 4472832508888391168,
+       "G": 13.028434,
+       "snr_peak_mad": 448.5,
+       "native_dx": -0.08277466549542822,
+       "native_dy": 0.0072970343826410655,
+       "png_dx": -0.21786312305076194,
+       "png_dy": 0.2155284993932014
+      },
+      {
+       "gaia": 4472832513187484672,
+       "G": 14.487946,
+       "snr_peak_mad": 38.5,
+       "native_dx": 0.029468963243608925,
+       "native_dy": 0.174376200847135,
+       "png_dx": 0.28825517908526876,
+       "png_dy": -0.44934280249825065
+      },
+      {
+       "gaia": 4472835846082110464,
+       "G": 14.4400835,
+       "snr_peak_mad": 79.8,
+       "native_dx": 0.1537153103434008,
+       "native_dy": -0.009073711956418151,
+       "png_dx": 0.6595317228624253,
+       "png_dy": -0.3641208233816826
+      },
+      {
+       "gaia": 4472835846082111488,
+       "G": 14.53096,
+       "snr_peak_mad": 79.8,
+       "native_dx": -0.6004796535603418,
+       "native_dy": -0.3823048739465946,
+       "png_dx": -2.5122550172775675,
+       "png_dy": 1.198161967445742
+      },
+      {
+       "gaia": 4472835914801589760,
+       "G": 14.837437,
+       "snr_peak_mad": 21.9,
+       "native_dx": -0.13084103210779574,
+       "native_dy": 0.08734376890053142,
+       "png_dx": -0.6919030021765025,
+       "png_dy": -0.35809500297673935
+      },
+      {
+       "gaia": 4472836327118455808,
+       "G": 13.4505,
+       "snr_peak_mad": 241.6,
+       "native_dx": -0.008638572016430146,
+       "native_dy": -0.034736244564854246,
+       "png_dx": -0.17199141471871826,
+       "png_dy": 0.5725866044299863
+      },
+      {
+       "gaia": 4472837770227461632,
+       "G": 12.653553,
+       "snr_peak_mad": 632.2,
+       "native_dx": -0.0687150001403829,
+       "native_dy": -0.09995416891273834,
+       "png_dx": -0.2878762483260999,
+       "png_dy": 0.29635632542472123
+      },
+      {
+       "gaia": 4472837770227463680,
+       "G": 13.902466,
+       "snr_peak_mad": 101.3,
+       "native_dx": -0.17529770761838037,
+       "native_dy": -7.554658971997696e-05,
+       "png_dx": -0.6072126780007778,
+       "png_dy": 0.4667080339358023
+      },
+      {
+       "gaia": 4472836361478195200,
+       "G": 14.901133,
+       "snr_peak_mad": 63.8,
+       "native_dx": -0.05578214272441073,
+       "native_dy": -0.1477162471402167,
+       "png_dx": -0.3958557263332807,
+       "png_dy": 0.4632072942217569
+      },
+      {
+       "gaia": 4472837495349545984,
+       "G": 13.467515,
+       "snr_peak_mad": 282.0,
+       "native_dx": -0.09744192606482294,
+       "native_dy": 0.01583054385287852,
+       "png_dx": -0.25608457228740633,
+       "png_dy": 0.137725231688961
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.0122664916325355,
+      0.0493282871218801
+     ],
+     "manual_tab": [
+      2.012266491632536,
+      0.0493282871218801
+     ],
+     "tab_psi": [
+      464.8518791641197,
+      963.6766537757309
+     ],
+     "record": [
+      2.0122664916325355,
+      0.0493282871218801
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 20,
+      "adverse": 20,
+      "valid": 0,
+      "nonfinite": 3,
+      "status": "flagged",
+      "counts": {
+       "TRANSIENT": 16,
+       "OVERFLOW": 5,
+       "SUR_ERROR": 19,
+       "NONFUNC": 2,
+       "SOURCE": 20,
+       "BLOOM": 18
+      }
+     },
+     "record": {
+      "status": "flagged",
+      "screened_pixels": 20,
+      "valid_aperture_pixels": 0,
+      "adverse_aperture_pixels": 20,
+      "nonfinite_aperture_pixels": 3,
+      "flag_names": [
+       "BLOOM",
+       "NONFUNC",
+       "OVERFLOW",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "flag_counts": {
+       "TRANSIENT": 16,
+       "OVERFLOW": 5,
+       "SUR_ERROR": 19,
+       "NONFUNC": 2,
+       "SOURCE": 20,
+       "BLOOM": 18
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.148120835880313
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2025W35_1A_0008_1_D3, 2026W12_1A_0610_2_D3, 2026W34_1A_0431_1_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5",
+     "sha_record": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5",
+     "sha_manifest": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W12_1A_0610_2",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.1697147935628891,
+     32.71215019227493
+    ],
+    "stretch_group": [
+     "2025W35_1A_0008_1_D3",
+     "2026W12_1A_0610_2_D3",
+     "2026W34_1A_0431_1_D3"
+    ]
+   },
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor B",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "flagged"
+  },
+  {
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-08-19T04:57:42.053",
+     "MJD-AVG": 61271.206736722,
+     "record": [
+      "2026-08-19T04:57:42.053Z",
+      61271.206736722
+     ],
+     "DATE-OBS": "2026-08-19T04:56:44.494",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      269.44611726605547,
+      4.770144579503282
+     ],
+     "native_xy": [
+      28.602948096715668,
+      28.028714164181384
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      128.3604557631032,
+      123.34056119872474
+     ],
+     "display_xy_linear_pm_control": [
+      128.3338409989415,
+      123.6628644232498
+     ]
+    },
+    "marker_minus_independent_px": 0.0006326662353814309,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990642
+     ],
+     "1arcmin_east_xy": [
+      85.33333213405909,
+      127.99948235467654
+     ]
+    },
+    "native_parity_det": -2.920435484298503e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 63550,
+     "mirrored_control_exact_fraction": 0.18222380290342396
+    },
+    "gaia": {
+     "n_native": 13,
+     "native_median_offset_px": 0.1420462587044416,
+     "native_median_dx_dy": [
+      0.03611946225716167,
+      0.04222768968006818
+     ],
+     "n_png": 13,
+     "png_median_dx_dy_display_px": [
+      0.04288595042402221,
+      0.02468050090087104
+     ],
+     "png_median_offset_display_px": 0.2636720587370503,
+     "stars": [
+      {
+       "gaia": 4472836047939582464,
+       "G": 13.596711,
+       "snr_peak_mad": 37.8,
+       "native_dx": 0.08736411030858804,
+       "native_dy": 0.2643288419140575,
+       "png_dx": -0.06489299308074692,
+       "png_dy": 0.37315387850544823
+      },
+      {
+       "gaia": 4472836292758713344,
+       "G": 11.862574,
+       "snr_peak_mad": 299.0,
+       "native_dx": 0.03611946225716167,
+       "native_dy": 0.04731641258159058,
+       "png_dx": 0.1464815146312617,
+       "png_dy": -0.1547681255838782
+      },
+      {
+       "gaia": 4472832508888391168,
+       "G": 13.028434,
+       "snr_peak_mad": 491.1,
+       "native_dx": -0.055594121914868566,
+       "native_dy": 0.04222768968006818,
+       "png_dx": 0.20270462295616198,
+       "png_dy": 0.02468050090087104
+      },
+      {
+       "gaia": 4472832513187484672,
+       "G": 14.487946,
+       "snr_peak_mad": 79.8,
+       "native_dx": -0.007021605962766131,
+       "native_dy": -0.2373574896684687,
+       "png_dx": 0.29740100782154855,
+       "png_dy": -0.7204580371429472
+      },
+      {
+       "gaia": 4472835846082110464,
+       "G": 14.4400835,
+       "snr_peak_mad": 55.4,
+       "native_dx": -0.17523158191934485,
+       "native_dy": -0.050324518059667867,
+       "png_dx": 0.6782341760557529,
+       "png_dy": -0.4258991349230996
+      },
+      {
+       "gaia": 4472835846082111488,
+       "G": 14.53096,
+       "snr_peak_mad": 55.4,
+       "native_dx": 0.5999293863996336,
+       "native_dy": 0.276544289302862,
+       "png_dx": -2.584806636812857,
+       "png_dy": 1.1820209026567738
+      },
+      {
+       "gaia": 4472835914801589760,
+       "G": 14.837437,
+       "snr_peak_mad": 22.6,
+       "native_dx": 0.1890386451049615,
+       "native_dy": -0.1639920912789492,
+       "png_dx": -0.5866762160671328,
+       "png_dy": -0.684985124975924
+      },
+      {
+       "gaia": 4472836327118455808,
+       "G": 13.4505,
+       "snr_peak_mad": 187.3,
+       "native_dx": 0.04528410153486995,
+       "native_dy": 0.0723107445528548,
+       "png_dx": 0.04288595042402221,
+       "png_dy": 0.07149095287458351
+      },
+      {
+       "gaia": 4472832959864074752,
+       "G": 14.785453,
+       "snr_peak_mad": 16.5,
+       "native_dx": 0.02911920163708004,
+       "native_dy": -0.1390295353798905,
+       "png_dx": 0.2508249544139147,
+       "png_dy": -0.21312708440899542
+      },
+      {
+       "gaia": 4472837770227461632,
+       "G": 12.653553,
+       "snr_peak_mad": 577.4,
+       "native_dx": -0.033150104137952496,
+       "native_dy": 0.06013506291777482,
+       "png_dx": 0.26363169087632343,
+       "png_dy": 0.00461368879803814
+      },
+      {
+       "gaia": 4472837770227463680,
+       "G": 13.902466,
+       "snr_peak_mad": 81.8,
+       "native_dx": 0.06715176486921592,
+       "native_dy": 0.038522295557815944,
+       "png_dx": -0.13359500998615204,
+       "png_dy": 0.12146422732059392
+      },
+      {
+       "gaia": 4472836361478195200,
+       "G": 14.901133,
+       "snr_peak_mad": 90.5,
+       "native_dx": 0.12009465848749379,
+       "native_dy": 0.12460654012220829,
+       "png_dx": -0.12930548386415808,
+       "png_dy": 0.13025015386686434
+      },
+      {
+       "gaia": 4472837495349545984,
+       "G": 13.467515,
+       "snr_peak_mad": 183.6,
+       "native_dx": -0.05012266825536216,
+       "native_dy": -0.03491438623140297,
+       "png_dx": -0.14560354225802996,
+       "png_dy": 0.05995839787227908
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.0284358707774177,
+      0.05017590956296267
+     ],
+     "manual_tab": [
+      2.0284358707774177,
+      0.050175909562962674
+     ],
+     "tab_psi": [
+      644.6029480967156,
+      914.0287141641813
+     ],
+     "record": [
+      2.0284358707774177,
+      0.05017590956296267
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 19,
+      "adverse": 19,
+      "valid": 0,
+      "nonfinite": 2,
+      "status": "flagged",
+      "counts": {
+       "TRANSIENT": 15,
+       "OVERFLOW": 4,
+       "SUR_ERROR": 17,
+       "SOURCE": 19,
+       "BLOOM": 19
+      }
+     },
+     "record": {
+      "status": "flagged",
+      "screened_pixels": 19,
+      "valid_aperture_pixels": 0,
+      "adverse_aperture_pixels": 19,
+      "nonfinite_aperture_pixels": 2,
+      "flag_names": [
+       "BLOOM",
+       "OVERFLOW",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "flag_counts": {
+       "TRANSIENT": 15,
+       "OVERFLOW": 4,
+       "SUR_ERROR": 17,
+       "SOURCE": 19,
+       "BLOOM": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.028714164181384
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2025W35_1A_0008_1_D3, 2026W12_1A_0610_2_D3, 2026W34_1A_0431_1_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "ea3ecdd6d0742276767228a051b7fdbea2ed04181bde6e40701aa608753ec032",
+     "sha_record": "ea3ecdd6d0742276767228a051b7fdbea2ed04181bde6e40701aa608753ec032",
+     "sha_manifest": "ea3ecdd6d0742276767228a051b7fdbea2ed04181bde6e40701aa608753ec032",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W34_1A_0431_1",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.1697147935628891,
+     32.71215019227493
+    ],
+    "stretch_group": [
+     "2025W35_1A_0008_1_D3",
+     "2026W12_1A_0610_2_D3",
+     "2026W34_1A_0431_1_D3"
+    ]
+   },
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "why": "moving_neighbor C",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "flagged"
+  },
+  {
+   "frame_key": "2025W17_4B_0077_2_D1",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2025-04-25T06:16:45.415",
+     "MJD-AVG": 60790.261636745,
+     "record": [
+      "2025-04-25T06:16:45.415Z",
+      60790.261636745
+     ],
+     "DATE-OBS": "2025-04-25T06:15:47.856",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.0952813864499,
+      -56.8001793498052
+     ],
+     "native_xy": [
+      29.185717098624973,
+      29.59319305312362
+     ],
+     "native_shape": [
+      25,
+      58
+     ],
+     "inside": false,
+     "display_xy_independent": [
+      129.94479039558726,
+      126.79726677294317
+     ],
+     "display_xy_linear_pm_control": [
+      129.97791613035272,
+      126.82402930945271
+     ]
+    },
+    "marker_minus_independent_px": 0.0003392665810954276,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.920200854893717e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 22622,
+     "mirrored_control_exact_fraction": 0.02556818181818182
+    },
+    "gaia": {
+     "n_native": 1,
+     "native_median_offset_px": 0.1445172200947712,
+     "native_median_dx_dy": [
+      0.006745539361212138,
+      0.14435970560598577
+     ],
+     "n_png": 1,
+     "png_median_dx_dy_display_px": [
+      -0.10028573182205491,
+      0.256351626575821
+     ],
+     "png_median_offset_display_px": 0.27526965770886247,
+     "stars": [
+      {
+       "gaia": 6412594397239098368,
+       "G": 16.195631,
+       "snr_peak_mad": 25.2,
+       "native_dx": 0.006745539361212138,
+       "native_dy": 0.14435970560598577,
+       "png_dx": -0.10028573182205491,
+       "png_dy": 0.256351626575821
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "would_be_extrapolated_um": 0.7391016881235587,
+     "record": [
+      null,
+      null
+     ],
+     "location_text": "Not sampled: the catalog-predicted target position lies outside this image, and the spectral WCS is not extrapolated."
+    },
+    "flags": {
+     "independent": {
+      "status": "not_covered"
+     },
+     "record": {
+      "status": "not_covered",
+      "screened_pixels": null,
+      "valid_aperture_pixels": null,
+      "adverse_aperture_pixels": null,
+      "nonfinite_aperture_pixels": null,
+      "flag_names": [],
+      "flag_counts": {}
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": false,
+     "signed_margin_native_px": -5.5931930531236205
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.14253245294094086,
+     "high": 1.5725891590118408,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "bc539fed520349389650ae7e6a31676db2ea1ab720fb4e647b625b4ce50e0f82",
+     "sha_record": "bc539fed520349389650ae7e6a31676db2ea1ab720fb4e647b625b4ce50e0f82",
+     "sha_manifest": "bc539fed520349389650ae7e6a31676db2ea1ab720fb4e647b625b4ce50e0f82",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2025W17_4B_0077_2",
+      1
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.14253245294094086,
+     1.5725891590118408
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "frames",
+   "why": "not_covered (SWIR, edge cutout)",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "not_covered"
+  },
+  {
+   "frame_key": "2025W27_2A_0331_1_D4",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2025-07-04T22:44:05.480",
+     "MJD-AVG": 60860.947285645,
+     "record": [
+      "2025-07-04T22:44:05.480Z",
+      60860.947285645
+     ],
+     "DATE-OBS": "2025-07-04T22:43:07.921",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      248.1672402328026,
+      66.75502298442366
+     ],
+     "native_xy": [
+      28.345557557206398,
+      -1.9272459061553155
+     ],
+     "native_shape": [
+      28,
+      58
+     ],
+     "inside": false,
+     "display_xy_independent": [
+      127.99276357095268,
+      128.00215549179364
+     ],
+     "display_xy_linear_pm_control": [
+      127.99276125296036,
+      128.0021548721707
+     ]
+    },
+    "marker_minus_independent_px": 0.0002829777240422823,
+    "marker_radec_minus_independent_arcsec": 2.3813971161603077e-06,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212989217
+     ],
+     "1arcmin_east_xy": [
+      85.33333539128532,
+      127.98555254701114
+     ]
+    },
+    "native_parity_det": -2.9259339988469166e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 25777,
+     "mirrored_control_exact_fraction": 0.5893385982230998
+    },
+    "gaia": null,
+    "registration_notes": [],
+    "wavelength": {
+     "would_be_extrapolated_um": 3.8196245352760703,
+     "record": [
+      null,
+      null
+     ],
+     "location_text": "Not sampled: the catalog-predicted target position lies outside this image, and the spectral WCS is not extrapolated."
+    },
+    "flags": {
+     "independent": {
+      "status": "not_covered"
+     },
+     "record": {
+      "status": "not_covered",
+      "screened_pixels": null,
+      "valid_aperture_pixels": null,
+      "adverse_aperture_pixels": null,
+      "nonfinite_aperture_pixels": null,
+      "flag_names": [],
+      "flag_counts": {}
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": false,
+     "signed_margin_native_px": -1.9272459061553155
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.16829606890678406,
+     "high": 173.9202423095703,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "84a6ed9bdcf57668350873aac365cb7dd57f99dbef56744e3e2fc3989a39866d",
+     "sha_record": "84a6ed9bdcf57668350873aac365cb7dd57f99dbef56744e3e2fc3989a39866d",
+     "sha_manifest": "84a6ed9bdcf57668350873aac365cb7dd57f99dbef56744e3e2fc3989a39866d",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2025W27_2A_0331_1",
+      4
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.16829606890678406,
+     173.9202423095703
+    ]
+   },
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "not_covered (MWIR D4); CASE_SELECTION defect-1 frame",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "not_covered"
+  },
+  {
+   "frame_key": "2025W37_1A_0069_1_D2",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2025-09-08T06:46:04.957",
+     "MJD-AVG": 60926.282001814,
+     "record": [
+      "2025-09-08T06:46:04.957Z",
+      60926.282001814
+     ],
+     "DATE-OBS": "2025-09-08T06:45:07.398",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      76.95658584379079,
+      30.401293120651406
+     ],
+     "native_xy": [
+      28.548451881505574,
+      -5.709620919654853
+     ],
+     "native_shape": [
+      24,
+      59
+     ],
+     "inside": false,
+     "display_xy_independent": [
+      128.0016147717211,
+      127.9954594239663
+     ],
+     "display_xy_linear_pm_control": [
+      128.00161378444426,
+      127.99546161360466
+     ]
+    },
+    "marker_minus_independent_px": 0.0005995591777860475,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.3333321299166
+     ],
+     "1arcmin_east_xy": [
+      85.33333233703752,
+      127.99635899910693
+     ]
+    },
+    "native_parity_det": -2.908939530089547e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 25527,
+     "mirrored_control_exact_fraction": 0.0424006908462867
+    },
+    "gaia": {
+     "n_native": 3,
+     "native_median_offset_px": 0.14012186265705556,
+     "native_median_dx_dy": [
+      0.04265272296083111,
+      0.030149776351345636
+     ],
+     "n_png": 3,
+     "png_median_dx_dy_display_px": [
+      0.2621914147771349,
+      -0.18938295829276797
+     ],
+     "png_median_offset_display_px": 0.9202830541486355,
+     "stars": [
+      {
+       "gaia": 156337329267576576,
+       "G": 14.872919,
+       "snr_peak_mad": 109.2,
+       "native_dx": 0.04265272296083111,
+       "native_dy": -0.00407944084449241,
+       "png_dx": 0.2621914147771349,
+       "png_dy": -0.18938295829276797
+      },
+      {
+       "gaia": 156430955257551360,
+       "G": 14.848765,
+       "snr_peak_mad": 86.2,
+       "native_dx": 0.13683978727127055,
+       "native_dy": 0.030149776351345636,
+       "png_dx": 1.1348296117642747,
+       "png_dy": -0.24199104222030599
+      },
+      {
+       "gaia": 156431234433162496,
+       "G": 14.6471,
+       "snr_peak_mad": 106.1,
+       "native_dx": -0.12930607567723484,
+       "native_dy": 0.11029099009723708,
+       "png_dx": -0.9050885617965321,
+       "png_dy": -0.1665400704281872
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "would_be_extrapolated_um": 1.661539171059374,
+     "record": [
+      null,
+      null
+     ],
+     "location_text": "Not sampled: the catalog-predicted target position lies outside this image, and the spectral WCS is not extrapolated."
+    },
+    "flags": {
+     "independent": {
+      "status": "not_covered"
+     },
+     "record": {
+      "status": "not_covered",
+      "screened_pixels": null,
+      "valid_aperture_pixels": null,
+      "adverse_aperture_pixels": null,
+      "nonfinite_aperture_pixels": null,
+      "flag_names": [],
+      "flag_counts": {}
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": false,
+     "signed_margin_native_px": -5.709620919654853
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.35679861903190613,
+     "high": 5.250380039215088,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "7be729387b90195d650277efe95d98b3438dbefc24e7ff8da4b649b6e9014c0d",
+     "sha_record": "7be729387b90195d650277efe95d98b3438dbefc24e7ff8da4b649b6e9014c0d",
+     "sha_manifest": "7be729387b90195d650277efe95d98b3438dbefc24e7ff8da4b649b6e9014c0d",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2025W37_1A_0069_1",
+      2
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.35679861903190613,
+     5.250380039215088
+    ]
+   },
+   "preset": "rw_aurigae",
+   "set": "frames",
+   "why": "not_covered (SWIR); defect-1 frame",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "not_covered"
+  },
+  {
+   "frame_key": "2026W01_2A_0426_1_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-01-03T13:37:52.919",
+     "MJD-AVG": 61043.567973597,
+     "record": [
+      "2026-01-03T13:37:52.919Z",
+      61043.567973597
+     ],
+     "DATE-OBS": "2026-01-03T13:36:55.360",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      248.16723296826638,
+      66.75502383842154
+     ],
+     "native_xy": [
+      28.1439755321772,
+      28.150065317104424
+     ],
+     "native_shape": [
+      58,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      128.0001032084482,
+      127.99996925764799
+     ],
+     "display_xy_linear_pm_control": [
+      128.00010080001698,
+      127.99996861308543
+     ]
+    },
+    "marker_minus_independent_px": 0.0001076897208924528,
+    "marker_radec_minus_independent_arcsec": 2.475599468428814e-06,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212989217
+     ],
+     "1arcmin_east_xy": [
+      85.33333539128532,
+      127.98555254701114
+     ]
+    },
+    "native_parity_det": -2.921253571313532e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 53732,
+     "mirrored_control_exact_fraction": 0.6938451407986985
+    },
+    "gaia": null,
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.0764469427588996,
+      0.05221809702234305
+     ],
+     "manual_tab": [
+      2.0764469427589,
+      0.05221809702234305
+     ],
+     "tab_psi": [
+      1067.1439755321771,
+      789.1500653171045
+     ],
+     "record": [
+      2.076446942648528,
+      0.05221809701861043
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 21,
+      "adverse": 21,
+      "valid": 0,
+      "nonfinite": 21,
+      "status": "flagged",
+      "counts": {
+       "OVERFLOW": 21,
+       "SUR_ERROR": 21,
+       "SOURCE": 21,
+       "BLOOM": 21
+      }
+     },
+     "record": {
+      "status": "flagged",
+      "screened_pixels": 21,
+      "valid_aperture_pixels": 0,
+      "adverse_aperture_pixels": 21,
+      "nonfinite_aperture_pixels": 21,
+      "flag_names": [
+       "BLOOM",
+       "OVERFLOW",
+       "SUR_ERROR"
+      ],
+      "flag_counts": {
+       "OVERFLOW": 21,
+       "SUR_ERROR": 21,
+       "SOURCE": 21,
+       "BLOOM": 21
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.1439755321772
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.7239295840263367,
+     "high": 803.05126953125,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "1033872a026351e9bd9fc2b749a90e5e3f5b5ec2277840aa2cc18531d5f0d5bf",
+     "sha_record": "1033872a026351e9bd9fc2b749a90e5e3f5b5ec2277840aa2cc18531d5f0d5bf",
+     "sha_manifest": "1033872a026351e9bd9fc2b749a90e5e3f5b5ec2277840aa2cc18531d5f0d5bf",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W01_2A_0426_1",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.7239295840263367,
+     803.05126953125
+    ]
+   },
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "R Dra saturated (21/21 non-finite)",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "flagged"
+  },
+  {
+   "frame_key": "2025W29_2A_0288_1_D4",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2025-07-18T16:00:44.640",
+     "MJD-AVG": 60874.66718333,
+     "record": [
+      "2025-07-18T16:00:44.640Z",
+      60874.66718333
+     ],
+     "DATE-OBS": "2025-07-18T15:59:47.081",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      248.1672396870338,
+      66.75502304858267
+     ],
+     "native_xy": [
+      28.205587001930304,
+      28.835965332649575
+     ],
+     "native_shape": [
+      58,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.99331498199643,
+      128.00199124478257
+     ],
+     "display_xy_linear_pm_control": [
+      127.99331265726876,
+      128.0019906232625
+     ]
+    },
+    "marker_minus_independent_px": 0.00031510365264970024,
+    "marker_radec_minus_independent_arcsec": 2.3882990188685553e-06,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212989217
+     ],
+     "1arcmin_east_xy": [
+      85.33333539128532,
+      127.98555254701114
+     ]
+    },
+    "native_parity_det": -2.925845211172957e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 53874,
+     "mirrored_control_exact_fraction": 0.810336195941002
+    },
+    "gaia": null,
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.6134355493262853,
+      0.07466290476096597
+     ],
+     "manual_tab": [
+      2.6134355493262853,
+      0.07466290476096597
+     ],
+     "tab_psi": [
+      944.2055870019303,
+      1623.8359653326495
+     ],
+     "record": [
+      2.6134355494676793,
+      0.07466290476498319
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 21,
+      "adverse": 21,
+      "valid": 0,
+      "nonfinite": 21,
+      "status": "flagged",
+      "counts": {
+       "OVERFLOW": 21,
+       "SUR_ERROR": 21,
+       "SOURCE": 21,
+       "BLOOM": 21
+      }
+     },
+     "record": {
+      "status": "flagged",
+      "screened_pixels": 21,
+      "valid_aperture_pixels": 0,
+      "adverse_aperture_pixels": 21,
+      "nonfinite_aperture_pixels": 21,
+      "flag_names": [
+       "BLOOM",
+       "OVERFLOW",
+       "SUR_ERROR"
+      ],
+      "flag_counts": {
+       "OVERFLOW": 21,
+       "SUR_ERROR": 21,
+       "SOURCE": 21,
+       "BLOOM": 21
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.164034667350425
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.22333864390850067,
+     "high": 695.9727783203125,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "bfda735d7bd466de1fc275a40c29578499c1f4d0ef510a8929b426c47de9a626",
+     "sha_record": "bfda735d7bd466de1fc275a40c29578499c1f4d0ef510a8929b426c47de9a626",
+     "sha_manifest": "bfda735d7bd466de1fc275a40c29578499c1f4d0ef510a8929b426c47de9a626",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2025W29_2A_0288_1",
+      4
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.22333864390850067,
+     695.9727783203125
+    ]
+   },
+   "preset": "r_draconis",
+   "set": "frames",
+   "why": "R Dra saturated, MWIR D4",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "flagged"
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D1",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-05-04T15:21:06.317",
+     "MJD-AVG": 61164.639656444,
+     "record": [
+      "2026-05-04T15:21:06.317Z",
+      61164.639656444
+     ],
+     "DATE-OBS": "2026-05-04T15:20:08.758",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      133.7589952627782,
+      -7.242118781415187
+     ],
+     "native_xy": [
+      28.201269015675535,
+      29.272155911329786
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      129.95548168902008,
+      127.83769558631089
+     ],
+     "display_xy_linear_pm_control": [
+      129.95718770786058,
+      127.84772512845664
+     ]
+    },
+    "marker_minus_independent_px": 0.000569817520058294,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990642
+     ],
+     "1arcmin_east_xy": [
+      85.33333213959972,
+      128.00078859355983
+     ]
+    },
+    "native_parity_det": -2.9204442759759033e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 57579,
+     "mirrored_control_exact_fraction": 0.03165569318900421
+    },
+    "gaia": {
+     "n_native": 9,
+     "native_median_offset_px": 0.12080740130559439,
+     "native_median_dx_dy": [
+      0.019372341364193524,
+      -0.006619425335534501
+     ],
+     "n_png": 7,
+     "png_median_dx_dy_display_px": [
+      0.30737189844120394,
+      -0.028555739444840356
+     ],
+     "png_median_offset_display_px": 0.4884895014911732,
+     "stars": [
+      {
+       "gaia": 5756955785394371584,
+       "G": 13.29808,
+       "snr_peak_mad": 94.8,
+       "native_dx": -0.025996434608920538,
+       "native_dy": -0.08249687166172492,
+       "png_dx": 0.40213723078336017,
+       "png_dy": -0.5284009277116297
+      },
+      {
+       "gaia": 5756956330854206464,
+       "G": 12.252942,
+       "snr_peak_mad": 197.5,
+       "native_dx": 0.019372341364193524,
+       "native_dy": -0.1230227443882086,
+       "png_dx": null,
+       "png_dy": null
+      },
+      {
+       "gaia": 5756956644387830784,
+       "G": 16.348774,
+       "snr_peak_mad": 43.7,
+       "native_dx": 0.0780150959332353,
+       "native_dy": 0.09223921626260179,
+       "png_dx": -0.06081745716781484,
+       "png_dy": -0.0025105616106060324
+      },
+      {
+       "gaia": 5756956747467044864,
+       "G": 16.058092,
+       "snr_peak_mad": 27.5,
+       "native_dx": 0.19556221449752087,
+       "native_dy": -0.1625808169186067,
+       "png_dx": 0.48584414474933624,
+       "png_dy": -0.050768691926037945
+      },
+      {
+       "gaia": 5756955781099740160,
+       "G": 16.687052,
+       "snr_peak_mad": 94.8,
+       "native_dx": 0.44384201302803916,
+       "native_dy": 0.7608289821783316,
+       "png_dx": -0.12791803205280416,
+       "png_dy": 2.8467715351847858
+      },
+      {
+       "gaia": 5756956163351494656,
+       "G": 15.141475,
+       "snr_peak_mad": 165.6,
+       "native_dx": 0.01471575082055665,
+       "native_dy": -0.07218570542459446,
+       "png_dx": -0.2501029479437875,
+       "png_dy": -0.028555739444840356
+      },
+      {
+       "gaia": 5756956747467043840,
+       "G": 15.775401,
+       "snr_peak_mad": 33.2,
+       "native_dx": -0.33915728715671634,
+       "native_dy": 0.14296736672718868,
+       "png_dx": null,
+       "png_dy": null
+      },
+      {
+       "gaia": 5756956163351494656,
+       "G": 15.339063,
+       "snr_peak_mad": 231.9,
+       "native_dx": -0.08304731766897788,
+       "native_dy": 0.004306275110337765,
+       "png_dx": 0.30737189844120394,
+       "png_dy": 0.04045819545862628
+      },
+      {
+       "gaia": 5756956708811536384,
+       "G": 16.929567,
+       "snr_peak_mad": 21.5,
+       "native_dx": 0.05108770866697654,
+       "native_dy": -0.006619425335534501,
+       "png_dx": 0.6324824739232753,
+       "png_dy": -0.11827471310775195
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      0.8758680404414495,
+      0.021926092252901857
+     ],
+     "manual_tab": [
+      0.8758680404414496,
+      0.02192609225290186
+     ],
+     "tab_psi": [
+      684.2012690156755,
+      1186.2721559113297
+     ],
+     "record": [
+      0.8758680404414495,
+      0.021926092252901857
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 20,
+      "adverse": 0,
+      "valid": 20,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 19
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 20,
+      "valid_aperture_pixels": 20,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.201269015675535
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.1735883206129074,
+     "high": 1.7176538705825806,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "6e8d0ef061794244c206629b111a68f25ab1851a76fad33958c20abe76e0ce2c",
+     "sha_record": "6e8d0ef061794244c206629b111a68f25ab1851a76fad33958c20abe76e0ce2c",
+     "sha_manifest": "6e8d0ef061794244c206629b111a68f25ab1851a76fad33958c20abe76e0ce2c",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W19_1A_0227_1",
+      1
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.1735883206129074,
+     1.7176538705825806
+    ]
+   },
+   "preset": "wise_0855",
+   "set": "frames",
+   "why": "WISE 0855 SWIR, same exposure as next",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-05-04T15:21:06.317",
+     "MJD-AVG": 61164.639656444,
+     "record": [
+      "2026-05-04T15:21:06.317Z",
+      61164.639656444
+     ],
+     "DATE-OBS": "2026-05-04T15:20:08.758",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      133.7589952627782,
+      -7.242118781415187
+     ],
+     "native_xy": [
+      27.767528811924294,
+      29.22612872559807
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      129.95548168902008,
+      127.83769558631089
+     ],
+     "display_xy_linear_pm_control": [
+      129.95718770786058,
+      127.84772512845664
+     ]
+    },
+    "marker_minus_independent_px": 0.000569817520058294,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990642
+     ],
+     "1arcmin_east_xy": [
+      85.33333213959972,
+      128.00078859355983
+     ]
+    },
+    "native_parity_det": -2.925618011856384e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 57571,
+     "mirrored_control_exact_fraction": 0.03421727972626176
+    },
+    "gaia": {
+     "n_native": 6,
+     "native_median_offset_px": 0.31710033912608115,
+     "native_median_dx_dy": [
+      0.05320433531851876,
+      0.00106959039515786
+     ],
+     "n_png": 6,
+     "png_median_dx_dy_display_px": [
+      0.013471362240908391,
+      0.3794206046683968
+     ],
+     "png_median_offset_display_px": 0.6415171414884691,
+     "stars": [
+      {
+       "gaia": 5756955785394371584,
+       "G": 13.29808,
+       "snr_peak_mad": 235.3,
+       "native_dx": -0.08182583857148984,
+       "native_dy": -0.09165907079911051,
+       "png_dx": 0.49144207434306253,
+       "png_dy": -0.4918020361669164
+      },
+      {
+       "gaia": 5756956644387830784,
+       "G": 16.348774,
+       "snr_peak_mad": 23.7,
+       "native_dx": 0.07594440747019604,
+       "native_dy": 0.22169469330614433,
+       "png_dx": -0.08398014607595883,
+       "png_dy": 0.5817452703151389
+      },
+      {
+       "gaia": 5756956747467044864,
+       "G": 16.058092,
+       "snr_peak_mad": 18.2,
+       "native_dx": -0.1988132637539124,
+       "native_dy": -0.4971874535752976,
+       "png_dx": -0.028603495798581235,
+       "png_dy": -0.4649512255981918
+      },
+      {
+       "gaia": 5756955781099740160,
+       "G": 16.687052,
+       "snr_peak_mad": 235.3,
+       "native_dx": 0.38915622807586203,
+       "native_dy": 0.7500503003495673,
+       "png_dx": 0.05554622028039802,
+       "png_dy": 2.728391771310669
+      },
+      {
+       "gaia": 5756956163351494656,
+       "G": 15.141475,
+       "snr_peak_mad": 96.7,
+       "native_dx": 0.34273828790159655,
+       "native_dy": -0.2059552622025933,
+       "png_dx": -0.10118559500256197,
+       "png_dy": 0.17709593902165466
+      },
+      {
+       "gaia": 5756956163351494656,
+       "G": 15.339063,
+       "snr_peak_mad": 223.9,
+       "native_dx": 0.030464263166841477,
+       "native_dy": 0.09379825158942623,
+       "png_dx": 0.19544135759088022,
+       "png_dy": 0.6683474017221442
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.907001345978142,
+      0.08440551533843144
+     ],
+     "manual_tab": [
+      2.907001345978142,
+      0.08440551533843145
+     ],
+     "tab_psi": [
+      688.7675288119243,
+      1175.226128725598
+     ],
+     "record": [
+      2.907001345978142,
+      0.08440551533843144
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 19,
+      "adverse": 0,
+      "valid": 19,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 19
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 19,
+      "valid_aperture_pixels": 19,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 27.767528811924294
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.09164997935295105,
+     "high": 1.4435596466064453,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "96f62fc96b42ed53dbef3ae053ccac7d5bc657f3941f745f8f5b38f15edac9d7",
+     "sha_record": "96f62fc96b42ed53dbef3ae053ccac7d5bc657f3941f745f8f5b38f15edac9d7",
+     "sha_manifest": "96f62fc96b42ed53dbef3ae053ccac7d5bc657f3941f745f8f5b38f15edac9d7",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W19_1A_0227_1",
+      4
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.09164997935295105,
+     1.4435596466064453
+    ]
+   },
+   "preset": "wise_0855",
+   "set": "frames",
+   "why": "WISE 0855 MWIR D4",
+   "processing_version": "perigee-processor-a/0.1.0",
+   "status": "clear"
+  }
+ ]
+}
