@@ -252,3 +252,23 @@ def test_records_without_mjd_sort_last_and_foreign_preset_records_skipped(fixtur
     assert [f["frame_key"] for f in body["frames"]] == ["FIXTURE_LATE_D1", "FIXTURE_NOMJD_D1"]
     assert any("belongs to preset 'wise_0855'" in w for w in body["warnings"])
     assert any("bad.json: not valid JSON" in w for w in body["warnings"])
+
+
+def test_real_case_frame_metadata_round_trips_through_loader(fixture_root):
+    """Uses the science-verified frame metadata in the case files (real
+    observation identities, no images) as a stand-in manifest in a temp dir,
+    to check identity, frame_key convention and ordering on real values."""
+    for case_id, preset_id in (("moving_neighbor", "barnards_star"), ("fair_comparison", "epsilon_indi_b")):
+        case = load_real("cases/{}.json".format(case_id))
+        d = fixture_root / "presets" / preset_id
+        shutil.rmtree(d, ignore_errors=True)
+        d.mkdir()
+        (d / "manifest.json").write_text(json.dumps({"frames": list(reversed(case["frames"]))}))
+        body = make_client(CatalogStore(fixture_root)).get("/api/v1/presets/{}/frames".format(preset_id)).json()
+        served = body["frames"]
+        expected = sorted(case["frames"], key=lambda f: (f["mjd"], f["frame_key"]))
+        assert [f["frame_key"] for f in served] == [f["frame_key"] for f in expected]
+        for frame in served:
+            assert frame["frame_key"] == "{}_D{}".format(frame["observation_id"], frame["detector"])
+            original = next(f for f in case["frames"] if f["frame_key"] == frame["frame_key"])
+            assert frame == original  # nothing added, removed or reworded
