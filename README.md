@@ -18,7 +18,7 @@ Working on a laptop (Vite frontend proxied to the FastAPI backend), using real a
 - Two guided cases: Epsilon Indi B ("is this a fair comparison?") and Barnard's Star (a moving neighbour).
 - Live coordinate search for any RA/Dec through NASA/IPAC IRSA, with real cutouts processed on request. Coordinates in the URL start a search.
 - Evidence card saved in the browser, with JSON export.
-- Tests (commit `4f57270`, `qa/regression/run.sh`): backend **274 passed / 17 skipped** without raw data (**291 passed** with it); frontend **71** (vitest); 183-frame audit and 189-record science acceptance pass.
+- Tests (commit `5827a65`, `qa/regression/run.sh`): backend **274 passed / 17 skipped** without raw data (**291 passed** with it); frontend **86** (vitest); 183-frame audit and 189-record science acceptance pass.
 - Science acceptance: **189/189** processed records pass an independent re-derivation from the original FITS files ([review](science/reviews/acceptance/README.md)).
 
 **Not yet verified:**
