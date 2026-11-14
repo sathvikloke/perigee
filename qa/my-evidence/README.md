@@ -71,3 +71,7 @@ Screenshot: `11-reopen-heading-focus-390.jpg` shows the focus outline on the hea
 
 - A reopened coordinate search uses the default result limit (24), because shared links have never carried the limit. The notebook key does not include the limit, so the notes still come back.
 - While `/presets` is still loading on Home, an older card briefly shows its raw ID as its title, until the target names arrive.
+
+## Regression gates
+
+`qa/regression/run.sh` with `PERIGEE_DATA_ROOT` set, at 0cf390d (rebased on integration 96c005d). All six gates pass: backend pytest (299 passed), deploy_check --app, frontend vitest (119 passed in 11 files), frontend build, audit_all (183 frames) and check_acceptance --all (189 records, no False cells). live_check was skipped because it needs `--live`.
