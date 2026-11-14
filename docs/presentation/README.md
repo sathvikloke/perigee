@@ -14,7 +14,7 @@ Sources of truth:
 - **A passed flag screen is not a detection.** "Flag screen passed" means only that no problem flags were found in a small circle around a *predicted* position.
 - **Brightness is never measured.** Each plate is contrast-stretched for viewing. Perigee does no photometry.
 - **The marker is a prediction.** It is a catalog prediction (SIMBAD/Gaia proper motion), not a position Perigee measured.
-- **Barnard's Star wording uses the corrected science.** The marker moves about 7 display pixels (about 10″, under two SPHEREx pixels) from A to C, August 2025 to August 2026. The shipped `moving_neighbor.json` still says "about 2 display pixels at 5 arcsec/pixel". The fix is the held revision in PR #22 (`b4fcc8c`) and is **pending Sathvik's decision**. Until he accepts it, keep Barnard out of the live demo and show it only as a slide.
+- **Barnard's Star wording uses the corrected science.** The marker moves about 7 display pixels (about 10″, under two SPHEREx pixels) from A to C, August 2025 to August 2026. Sathvik accepted the corrected text (PR #22, `b4fcc8c`), and `moving_neighbor.json` on the integration branch now uses it.
 
 ---
 
@@ -62,7 +62,7 @@ Times are cumulative. The normal path is about 700 spoken words, roughly 4:40 at
 
 **2:25–2:50 · Write and export the evidence card** [type or paste the claim; click **Export evidence card**]
 
-> "Now the learner writes what they can support." [type:] *"A and B are a fair pair: five months apart at nearly the same wavelength, no flags near Epsilon Indi B. I can't tell whether it changed in brightness; that needs a calibrated measurement."* "Export saves an evidence card with the claim plus every frame's ID, detector, release, date, wavelength, quality status and archive link, so a teacher or a club can check it."
+> "Now the learner writes what they can support." [type:] *"A and B are a fair pair (five months apart, 2.323 and 2.322 µm, no flags at the target), and Epsilon Indi B looks the same in both. A and C look different because C shows 4.94 µm light, where Epsilon Indi B stands out and most stars fade."* (This is the case's accepted example claim, PR #31.) "Export saves an evidence card with the claim plus every frame's ID, detector, release, date, wavelength, quality status and archive link, so a teacher or a club can check it."
 
 **2:50–3:20 · One live coordinate search** [switch to the preloaded **Search coordinates** tab; click **Use Epsilon Indi A, J2000 catalog position**, then **Search the archive**]
 
@@ -105,7 +105,7 @@ Times are cumulative. The normal path is about 700 spoken words, roughly 4:40 at
 | Live coordinate search → real IRSA frames | **Working locally** | `/search` 330.84, −56.786 → ready, 460 matches (DR1+QR3); `/frame` HTTP 200, 2.5–7.4 s; UI showed 24 of 460 |
 | IRSA failure handling (retry, honest error, keep old images + notes) | **Working locally** | 14 R1: 4/16 live cutout GETs were 503, and after the fix 8/8 returned 200. Screenshot `after-search-failure-keeps-old-1280`. |
 | Science acceptance of processed products | **Done** | 189/189 PASS; 1 UNKNOWN (no Gaia star in fair_comparison C) |
-| `moving_neighbor` (Barnard's Star) imagery | **Imagery passes; text pending** | Review 10: PASS with display conditions. The case JSON wording is wrong (says 2 px) until Sathvik accepts PR #22. |
+| `moving_neighbor` (Barnard's Star) imagery | **Done** | Review 10: PASS with display conditions. Corrected case text (PR #22) accepted and merged. |
 | Phone layout | **In progress** | Plate starts ~735 px down at 390×844; worker 17 running |
 | **Public deployment** | **Not verified** | Vercel preview builds (status success), but every path redirects to Vercel Authentication, so no response was checked on a public URL. Judge access, `PERIGEE_TOKEN_SECRET` and the protection setting are open decisions. |
 | Rate limiting | Not implemented | Decision D2 (Vercel Firewall suggested) |
@@ -128,7 +128,7 @@ Take all of these from the same build you will demo, in a clean browser profile 
 | S4b | Exported evidence JSON | The downloaded file opened in an editor, showing `data_origin: "api"`, two frames with `frame_key`, `detector`, `collection_id`, `observed_at_utc`, `wavelength_um`, quality status, `source_url` | Editor window, ~1000 px wide | Slide 4 inset |
 | S5 | Print / save PDF | Browser print preview of the same card | Print preview | Optional backup |
 | S6 | Search coordinates | After **Use Epsilon Indi A, J2000 catalog position** → results loaded, "N observations found", frame 1 with its metadata column. Caption it "captured <time>" when used as the fallback. | 1280×800 | Slide 4 inset + demo fallback |
-| S7 | Investigations → Barnard's Star | A ↔ C, "Guide line through A" **on**, "Show flagged pixels" **on**, legend visible. **Take only after PR #22's corrected text is accepted.** | 390×844 phone (or 1280 if worker 17's phone fix lands late) | Slide 6 |
+| S7 | Investigations → Barnard's Star | A ↔ C, "Guide line through A" **on**, "Show flagged pixels" **on**, legend visible. | 390×844 phone (or 1280 if worker 17's phone fix lands late) | Slide 6 |
 | S8 | Search failure state | "The archive search failed. This is not a result about the sky." banner + "Still showing the previous images and notes" | 1280 | Backup only |
 | S9 | Public URL | App loaded in a **logged-out** private window on the production/judge URL | 1280 | Proof of judge access; required before submission |
 
@@ -162,12 +162,12 @@ Draft stand-ins from the QA run are in `screens/`. Use them for layout only. The
 
 ## Open decisions for Sathvik
 
-1. **Barnard text (PR #22, `b4fcc8c`):** accept the corrected wording, about 7 display px (about 10″) A→C? Until it is accepted, Barnard appears only on slide 6 and S7 is not taken.
+1. ~~**Barnard text (PR #22, `b4fcc8c`)**~~ Accepted and merged. S7 can be taken.
 2. **Judge access:**
    - Decide whether the public URL comes out from behind Vercel Authentication, and set `PERIGEE_TOKEN_SECRET`.
    - Until S9 exists, demo from the local build and do not say "live on the web".
 3. **Live-search coordinate:** keep the shipped J2000 link, which the app labels honestly, or switch to the 2026.0 position (330.8925, −56.8043) so Epsilon Indi A sits near the center of the plate?
-4. **Opening hook:** Epsilon Indi B's fairness question (matches the demo, recommended) or Barnard's Star's motion (more vivid, but its text is not final)?
+4. **Opening hook:** Epsilon Indi B's fairness question (matches the demo, recommended) or Barnard's Star's motion (more vivid; its text is now final)?
 5. **Case-guide check:** show "Check your claim against the case guide" in the demo? It is not yet exercised in the log, and showing it costs about 15 s.
 6. **Team slide:** names and roles, and whether to name the parallel AI-assisted build.
 7. **Timing:** the local presentation slot is still unconfirmed. Rehearse to 4:45.
