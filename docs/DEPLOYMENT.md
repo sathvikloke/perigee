@@ -80,10 +80,16 @@ What this shows: hosted routing, Python service startup, the catalog and case en
 
 What it does **not** show: logged-out (judge) access, or end-to-end browser behaviour on a hosted URL.
 
-**Logged-out check (coordinator, 2026-11-14 ~22:20Z).** Every path below returns `302` to `vercel.com/sso-api` (Vercel Authentication):
-- `https://perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app/`
-- the same host at `/api/v1/health`
-- `https://perigee-sathviklokes-projects.vercel.app/`
+**Logged-out check (coordinator, 2026-11-14 ~22:20Z).** These preview and team aliases, and only these, returned `302` to `vercel.com/sso-api` (Vercel Authentication):
+- the branch preview alias `https://perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app/`, and the same host at `/api/v1/health`;
+- the team alias `https://perigee-sathviklokes-projects.vercel.app/`.
+
+The team alias turned out **not** to be the production domain (see below).
+
+**Production domain (2026-11-14 ~23:45Z).**
+- **Registered domain.** The connected Vercel API (`list_project_domains`, project `prj_7JhA3Inkh0euYF4UVwhyDYJusAfQ`, team `team_blm7QlnXb2J53PuzDBnv9TcO`, `production=true`) returns exactly one verified domain: **`https://perigee-liard.vercel.app`**, with `gitBranch: null` and `redirect: null`. This is the project's registered production domain.
+- **Not serving the app yet.** Unauthenticated requests to `/` and to `/api/v1/health`, with redirects not followed, both return **HTTP 404**. The coordinator's smoke check from a clean environment with only the declared smoke dependencies gives exit 1: not redirected to Vercel login, but every app check fails. Production builds from `main`, which has no app until PR #27 is merged.
+- **Environment and repository.** The project has no environment variables (`filter_project_envs`, values not decrypted) and the repository has no Actions variables (`gh variable list`). The repository is **PRIVATE** and its default branch is `main`.
 
 `https://github.com/sathvikloke/perigee` and the app footer link `…/blob/main/docs/AI_USE.md` both return `404` (private repository; `AI_USE.md` is not on `main` yet).
 
@@ -104,13 +110,14 @@ A Preview therefore needs a real `PERIGEE_TOKEN_SECRET` for search and frames, j
 3. **Set `PERIGEE_TOKEN_SECRET`** as a sensitive variable for Production, and for Preview if previews should run live search. Use at least 32 random bytes and never the development value. Leave `PERIGEE_DEV_MODE` unset on Vercel. `/api/v1/health` reports only `token_signing` (`env` / `missing` / `too_short` / `dev_secret_refused` / `dev_mode_refused`), never the value.
 4. **Judge-facing access:** turn off Vercel Authentication for **production only** (Project Settings → Deployment Protection; Standard Protection keeps previews protected).
 5. **Optional (review D2):** add a Vercel Firewall rate-limit rule on `/api/v1/frame` and `/api/v1/search` for the judging window. The API has per-request bounds but no global limiter.
-6. **Verify logged out**, in a private window, on the production domain `https://perigee-sathviklokes-projects.vercel.app/` (or the domain Vercel assigns to production):
+6. **Verify logged out**, in a private window, on the registered production domain `https://perigee-liard.vercel.app` (it returns 404 today, before steps 1–4):
    - `/` returns 200 HTML;
    - `/api/v1/health` returns 200 JSON with `status: ok` and `token_signing: env`;
    - an unknown `/api/v1/x` returns a JSON 404;
    - a live search at 330.84, −56.786 returns frames.
 
-   Run `python -m backend.platform.smoke --base <production origin>` (expect exit 0), then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit.
+   Run `python -m backend.platform.smoke --base https://perigee-liard.vercel.app` (expect exit 0), then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit.
+7. **Optional automatic smoke:** add the repository **variable** (not a secret) `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app`. It has not been set. See **Automatic post-deploy smoke** below for what triggers it and what does not.
 
 ### Two-project fallback (documented, not created)
 
@@ -163,10 +170,12 @@ Runs of the merged script (coordinator, integration after `d859e62`):
 Release details from Suhrit's report, kept alongside the numbered **Owner actions** above:
 - Environment variable changes apply only to new deployments. Redeploy after setting `PERIGEE_TOKEN_SECRET`, then confirm that health shows `token_signing: "env"`.
 - To verify a protected preview before merge, have an owner run the smoke check with `--bypass`. Adding Suhrit to `sathviklokes-projects` is not an option on Hobby: Vercel requires Pro for team members. Making the repo public (owner action 1) also lets Vercel build his commits.
-- Record the production domain shown on the project's Domains page. That domain, not a preview and not `perigee.vercel.app`, is the judge URL. Then run the smoke check **without** `--bypass` and record the URL, commit and output here.
+- The production domain registered on the project is `https://perigee-liard.vercel.app`. That domain, not a preview alias, the team alias or `perigee.vercel.app`, is the judge URL. After release, run the smoke check **without** `--bypass` and record the URL, commit and output here.
 - Risk: on a Hobby team, Vercel can block preview builds of private-repo commits authored by non-members. A teammate's PR that shows "blocked" instead of a build is an access issue, not a code failure.
 
-### Production-mode dress rehearsal (Suhrit, `8f577fa`, 2026-11-14 ~23:25Z)
+### Production-mode dress rehearsal (Suhrit, `8f577fa`, 2026-11-14 ~23:25Z): LOCAL evidence only
+
+This ran on Suhrit's machine with production settings. It is **not** a hosted production result: no Vercel production deployment of the app exists yet.
 
 Setup:
 - `VERCEL_ENV=production`, plus a throwaway local `PERIGEE_TOKEN_SECRET` (48 random bytes, never written down).
@@ -192,11 +201,28 @@ Results:
 
 ### Automatic post-deploy smoke (`.github/workflows/release-smoke.yml`)
 
-- **Trigger:** runs after every successful **Production** deployment that Vercel reports to GitHub, against the repository variable `PERIGEE_PUBLIC_URL`. It runs logged out, with no bypass and no secrets.
-- **Results:** the output goes to the run summary. A failure means either exit 2 (access setting) or exit 1 (app defect).
-- **Before `PERIGEE_PUBLIC_URL` is set:** the automatic run is skipped with a notice.
-- **Manual runs:** Actions → release-smoke → Run workflow, with any URL.
-- **Owner setup:** once production is public, add the repository variable `PERIGEE_PUBLIC_URL=https://<production domain>`. GitHub only runs `deployment_status` workflows from the default branch, so the workflow is active once it is on `main`.
+Suhrit's workflow, PR #36, hardened in review. It runs `python -m backend.platform.smoke` logged out, with no bypass and no secrets. The output goes to the run summary: exit 2 means an access setting, exit 1 means an app defect. The summary names the origin tested, the commit of the smoke harness, and, for a deployment event, the commit and environment the event reported. It states that it did **not** verify that the origin was serving that commit.
+
+**Triggers, as they actually behave:**
+
+- **`deployment_status` (automatic).**
+  - **What GitHub does.** GitHub fires this event for GitHub *Deployments*, and runs it with `GITHUB_SHA`/`GITHUB_REF` set to the deployed commit/ref. The event has no default-branch requirement ([GitHub docs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#deployment_status)).
+  - **Filter.** The job runs only for `state: success` and the `Production` environment. It tests the stable `PERIGEE_PUBLIC_URL`, not the URL in the payload. It checks out the smoke harness from the default branch with `persist-credentials: false`; it does not check out the payload's commit.
+  - **Status here: has never fired, unverified.** As of 2026-11-14, `GET /repos/sathvikloke/perigee/deployments` returns `[]`. Vercel posts commit statuses for this repository but has created no GitHub Deployments, so nothing can trigger this path. It fires only if Vercel starts creating GitHub Deployments for production. Vercel also documents `repository_dispatch` events (for example `vercel.deployment.ready`) as an alternative; they are not configured or tested here.
+  - **Before the variable is set,** a run is skipped with a notice.
+- **`workflow_dispatch` (manual).** Actions → release-smoke → Run workflow, with any https origin. GitHub offers this only once the workflow file is on the default branch (`main`), so it becomes usable when PR #27 is merged.
+- **Without GitHub Actions:** `python -m backend.platform.smoke --base https://perigee-liard.vercel.app`, from any checkout. It needs only `pip install -r backend/platform/requirements-smoke.txt` (`httpx==0.28.1`, `pillow==13.0.0`, the same pins as `backend/requirements.txt`). That manual path is supported now.
+
+**CI hygiene:**
+- `actions/checkout`, `actions/setup-python` and `actions/setup-node` are pinned to the commit SHAs of v4.2.2, v5.6.0 and v4.4.0 in both workflows, resolved through the GitHub API on 2026-11-14.
+- Both workflows check out with `persist-credentials: false` and have `contents: read` only.
+- Payload and input values reach shell steps only through `env`, never inline.
+- Tests in `test_platform_smoke.py` enforce the SHA pins and the dependency pins.
+- `actionlint` 1.7.7 reports no findings for either workflow.
+
+**Clean-environment check (coordinator, 2026-11-14).** In a new virtualenv containing only `requirements-smoke.txt`, `import fastapi` fails, which confirms the environment is minimal.
+- **Local stack:** with `VERCEL_ENV=production`, a throwaway local secret, and Vite proxying to uvicorn, the smoke check gives **PASS 20/20, exit 0**. Both PNG checks decoded through Pillow; the live frame was 10 117 B. This is local evidence.
+- **`https://perigee-liard.vercel.app`:** exit 1, because the domain returns 404, as noted above.
 
 ## Configuration and release checks
 

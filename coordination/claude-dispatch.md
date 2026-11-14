@@ -141,7 +141,7 @@ Inputs: Sagar's PR #19 @ `cb1f36b` (unchanged since 24c); Codex ran its `backend
 3. Further work: flag legend absent (frontend shows the fallback), adverse flags drawn as hatching while the UI says hatching means no data, `frame_id` changes (saved cards mismatch), card `query.fov_arcmin` 6 vs 4′ frames, and ~10 A-layout tests/tools to port. Estimate 1–1.5 engineer-days plus science re-review, with no science gain.
 4. Bilinear smoothing and the noise-based stretch look better, but they are display choices. Per instruction there is no wholesale switch for aesthetics. Not ported now: changing A's rendering would invalidate the 09/10 visual reviews and the case text this late. If adopted later, it must be labelled as display interpolation next to the plate and re-reviewed. #19's record says only "bilinear resample of intensity"; the word "interpolation" appears only in a code comment.
 
-**Ported into A (`e7c263d`, processor A 0.1.2):** Sagar's stricter unknown screen, with flagged precedence kept. Any adverse or non-finite pixel → `flagged`. Otherwise `unknown` when the file has no usable VARIANCE map, or fewer than 10 usable pixels remain; the note calls 10 "our screening heuristic, not a NASA or SPHEREx standard". Flag bits the header doesn't name now count as adverse (as in #19). Checked on the 183 raw files: all have VARIANCE, none use unnamed bits, clear frames have 18–21 usable pixels, so **no status changes**. Rebuilt 574 products: PNGs byte-identical, JSON differs only in `processing_version` (`diff_products` ok). 5 new tests. Gate: backend 296 passed, vitest 86, build, audit_all 183, check_acceptance 189 all pass.
+**Ported into A (`e7c263d`, processor A 0.1.2):** Sagar's stricter unknown screen, with flagged precedence kept. Any adverse or non-finite pixel → `flagged`. Otherwise `unknown` when the file has no VARIANCE extension (missing or wrong shape), or fewer than 10 usable pixels remain. A VARIANCE extension that exists but is non-finite or ≤0 in the circle marks those pixels invalid, so the screen is `flagged` (clarified in the PR #35 review; Sagar's optional change to `unknown` was not adopted); the note calls 10 "our screening heuristic, not a NASA or SPHEREx standard". Flag bits the header doesn't name now count as adverse (as in #19). Checked on the 183 raw files: all have VARIANCE, none use unnamed bits, clear frames have 18–21 usable pixels, so **no status changes**. Rebuilt 574 products: PNGs byte-identical, JSON differs only in `processing_version` (`diff_products` ok). 5 new tests. Gate: backend 296 passed, vitest 86, build, audit_all 183, check_acceptance 189 all pass.
 
 **Already adopted earlier:** `fetch_manifest.py` (`0b6bc6a`), registration check port (24r). A's live path has no `l2b` URL filter, so the `l2b_retry` defect in #19 does not affect us.
 
@@ -196,3 +196,30 @@ PR #34 was handled in the next round (see below).
 - **Docs:** `docs/DEPLOYMENT.md` reconciled. Suhrit's `ebdc0a0` status ("deployed responses not verified") is kept as a superseded earlier report, and the current hosted-Preview evidence (Codex's authenticated check of `bc03f40`) is kept as current. His release notes (redeploy after env changes, team access or `--bypass`, recording the production domain, the Hobby-plan preview risk) were kept, and the smoke command was added to owner step 6.
 - **Gate:** all six offline gates pass; backend 330 with raw data (313 passed / 17 skipped without), vitest 121.
 - **Disposition:** PR #34 is fully contained in `claude/perigee-integration`, so GitHub marks it merged on push. No comment was posted on the teammate PR.
+
+## PR #35 (Sagar) and PR #36 (Suhrit) — reviewed and integrated (2026-11-14)
+Both were merged with `--no-ff`, keeping the original commits and authors. Review fixes are separate coordinator commits.
+
+**PR #35** (`codex/sagar-truncated-fits` @ `8063620`; commits `7e89ae2`, `8063620` by Sagar Raut) → merge `d6272c8`, review fix `eaa92f5`.
+- **Truncated FITS → UNSUPPORTED_DATA: adopted.** Verified at the API: a synthetic cutout cut inside its IMAGE data unit, run through the real processor seam, gives **422 `UNSUPPORTED_DATA`** (`error_type: UnsupportedDataError`). The same test on the pre-#35 processor (`8f577fa`) gives 500. The intact file gives 200. The real Eps Ind B cutout cut at 1/3 gives 422 when raw data is present.
+- **Wavelength tolerance 1e-9 µm: adopted and hardened.** `_wl_differs` used `abs(a-b) > tol`, so NaN compared equal. Replaced by module-level `wavelength_differs()`: both null are equal, one null differs, and NaN, ±inf, strings and booleans always differ. Tests cover 3e-15 relative noise (passes), 1e-6 µm (fails), a null mismatch (fails) and NaN/inf/invalid values (never accepted).
+- **Good products unchanged:** `audit_all` reports 0 stale of 183, 6/6 case frames, and no product rebuild was needed.
+- **VARIANCE policy: kept as is.** A missing or wrong-shape VARIANCE extension gives `unknown`; an existing one with no finite positive values gives `flagged`. Sagar's optional change to `unknown` was not adopted. Clarified in a code comment, in the edge-case note text and in this log; pinned by `test_existing_but_unusable_variance_is_flagged_not_unknown`.
+
+**PR #36** (`codex/suhrit-release-checks` @ `bef9f90`, Suhrit Bestavemula) → merge `16776bd`, review fix `2956e67`, docs in the following commit.
+- **Pillow:** the workflow installed only httpx, but `png_problem` imports PIL. Added `backend/platform/requirements-smoke.txt` (httpx==0.28.1, pillow==13.0.0, matching `backend/requirements.txt`, enforced by a test); the workflow installs it. In a clean venv with only those pins, a local production-mode stack gives PASS 20/20, with both PNG checks decoding.
+- **Triggers corrected:** `deployment_status` has no default-branch requirement (it runs at the deployed SHA/ref, per GitHub docs). This repo has **no GitHub Deployments** (`GET /deployments` returns `[]`; Vercel posts commit statuses only), so the automatic path has never fired and is documented as unverified. `workflow_dispatch` needs the file on `main`. The manual CLI path works now.
+- **Hardening:** the harness is checked out from the default branch with `persist-credentials: false`. Payload and input values reach shell steps only through env. The summary names the origin tested, the harness commit and the event-reported deployment, and says that the origin serving that commit is not verified.
+- **Action pins:** checkout, setup-python and setup-node are pinned to the SHAs of v4.2.2, v5.6.0 and v4.4.0 in both workflows. `actionlint` 1.7.7 is clean, and a test enforces full-SHA pins.
+- **Docs:** Suhrit's production-mode rehearsal is kept and labelled **local evidence only**. His `test_regression_vercelignore` Windows fix and his Hobby/Pro note were kept.
+
+**Handoff correction (from the user's verified facts and the coordinator's re-check):**
+- The registered production domain is **`https://perigee-liard.vercel.app`** (Vercel API: the only verified production domain).
+- Unauthenticated, that domain returns **404** at `/` and `/api/v1/health`, with no redirect. A smoke run against it gives exit 1. It is not serving the app.
+- The earlier 302 observations are scoped to the branch preview alias and the team alias `perigee-sathviklokes-projects.vercel.app`, which is not the production domain.
+- The project has no environment variables and the repository has no variables. The repo is PRIVATE, with default branch `main`.
+- `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app` is documented as intended and **not set**.
+
+**Gate on `2956e67`:** all six offline gates pass; backend 348 with raw data (330 passed / 18 skipped without), vitest 121, audit_all 183 (0 stale), check_acceptance 189.
+
+**Not done this round, per instructions:** no merge to `main`, no visibility, access or protection changes, no secrets or variables set, no emails, no comments on teammate PRs.

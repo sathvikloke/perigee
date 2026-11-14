@@ -23,7 +23,7 @@ Working on a laptop (Vite frontend proxied to the FastAPI backend), using real a
 
 **Not yet verified:**
 
-- **Public URL: TBD (pending production promotion).** The hosted Preview builds and starts: an authenticated check of deployment `bc03f40` returned the app HTML, `/api/v1/health` JSON and the case endpoint. Live search and frames there are off until `PERIGEE_TOKEN_SECRET` is set. Logged-out visitors are redirected to Vercel login, so judge access is not verified. See [deployment notes](docs/DEPLOYMENT.md).
+- **Public URL: TBD (pending production promotion).** The hosted Preview builds and starts: an authenticated check of deployment `bc03f40` returned the app HTML, `/api/v1/health` JSON and the case endpoint. Live search and frames there are off until `PERIGEE_TOKEN_SECRET` is set. The preview and team aliases redirect logged-out visitors to Vercel login, and the registered production domain `https://perigee-liard.vercel.app` returns 404 until the app is on `main`, so judge access is not verified. See [deployment notes](docs/DEPLOYMENT.md).
 - This GitHub repository is currently private. A judge-facing link must open without sign-in.
 - Phone and keyboard checks were done locally in headless Chrome (390 and 320 px, axe-core 0 violations); no physical phone or screen reader. Print was checked in print preview. An exported evidence card was inspected by the regression check (`qa/regression/README.md`, N5). "Check your claim against the case guide" was exercised in the fresh-user pass (`qa/fresh-pass`, issue #6).
 
