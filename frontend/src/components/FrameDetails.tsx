@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { FrameRecord } from "../api/types";
 import { QUALITY_CHIP, releaseLabel } from "../lib/compare";
-import { qualityExplanation, formatPixelCount, formatUtc, formatWavelength, qualityNotes } from "../lib/format";
+import { qualityExplanation, formatFlagNames, formatPixelCount, formatUtc, formatWavelength, qualityNotes } from "../lib/format";
 import { ProcessingNote } from "./CaseBench";
 
 function Disclosure(props: { icon: string; title: string; children: ReactNode }) {
@@ -83,7 +83,7 @@ export function FrameDetails({ frame }: { frame: FrameRecord }) {
           </div>
           <div>
             <dt>Problem flags</dt>
-            <dd>{q.flag_names.length ? q.flag_names.join(", ") : "none reported"}</dd>
+            <dd>{formatFlagNames(q)}</dd>
           </div>
         </dl>
         {qualityNotes(q.notes).length > 0 && (

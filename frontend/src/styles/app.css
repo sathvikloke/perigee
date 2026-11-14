@@ -294,6 +294,13 @@ td { color: var(--ink); }
 /* Play keeps one width so Play ↔ Pause never shifts the slider. */
 .play-toggle { min-width: 6.25rem; font-weight: 650; }
 .play-note p + p { margin-top: 4px; }
+.counter-tag { color: var(--ink); font-weight: 600; }
+/* Wavelength filter for stepping and Play: one native select plus its counts. */
+.wave-filter { display: grid; gap: 6px; }
+.wave-filter label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: var(--text-xs); font-weight: 650; }
+.wave-filter select { max-width: 100%; min-width: 0; font-weight: 500; }
+.wave-filter-summary { font-size: var(--text-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+.wave-filter-summary p:first-child { color: var(--ink); font-weight: 600; }
 .ref-jump { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
 .pair-picker { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 0; }
 .pair-picker legend { font-weight: 650; font-size: var(--text-xs); padding-inline: 4px; }

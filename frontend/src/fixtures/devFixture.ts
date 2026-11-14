@@ -156,6 +156,51 @@ const delay = (ms: number, signal?: AbortSignal) =>
   });
 
 const FAILING_TOKEN = "fixture:failing-frame";
+const UNKNOWN_TOKEN = "fixture:unknown-quality";
+
+/**
+ * The only "unknown" quality example: no real product has one yet. A labeled
+ * fixture frame whose flag screen was not run and whose wavelength at the
+ * target is missing, so the UI's unknown and no-wavelength paths can be seen.
+ */
+export function unknownQualityFixture(): FrameRecord {
+  const key = "FIXTURE_UNKNOWN_QUALITY_D2";
+  return {
+    _fixture: true,
+    frame_id: `fixture:${key}`,
+    frame_key: key,
+    observation_id: "FIXTURE_UNKNOWN_QUALITY",
+    detector: 2,
+    collection_id: "spherex_qr3",
+    observed_at_utc: "2026-07-15T00:00:00.000",
+    mjd: 61236,
+    source_url: "", // no original file: this is not NASA data
+    wavelength_um: null,
+    bandwidth_um: null,
+    wavelength_location: null,
+    image: placeholderImage(key),
+    flag_image: null,
+    registration: { method: "fixture placeholder — no registration performed" },
+    quality: {
+      status: "unknown",
+      covered: null,
+      valid_aperture_pixels: null,
+      adverse_aperture_pixels: null,
+      flag_names: [],
+      notes: ["Development fixture: no flag screen was run for this frame, so its quality is unknown."],
+    },
+    display_scale: { mode: "shared", method: "fixture placeholder" },
+    marker: null,
+    provenance: {
+      retrieved_at_utc: null,
+      original_url: null,
+      file_sha256: null,
+      processing_version: "development-fixture",
+      acknowledgments: ["Development fixture. Not NASA data."],
+    },
+    limitations: ["Development fixture — not NASA data. No image was processed."],
+  };
+}
 
 export function createFixtureApi(): PerigeeApi {
   return {
@@ -211,6 +256,16 @@ export function createFixtureApi(): PerigeeApi {
         source_url: null,
         frame_token: FAILING_TOKEN,
       });
+      observations.push({
+        observation_id: "FIXTURE_UNKNOWN_QUALITY",
+        frame_key: "FIXTURE_UNKNOWN_QUALITY_D2",
+        detector: 2,
+        collection_id: "spherex_qr3",
+        observed_at_utc: "2026-07-15T00:00:00.000",
+        mjd: 61236,
+        source_url: null,
+        frame_token: UNKNOWN_TOKEN,
+      });
       observations.sort(compareChronological);
       const res: SearchResponse = {
         schema_version: 1,
@@ -240,6 +295,7 @@ export function createFixtureApi(): PerigeeApi {
           retryable: true,
         });
       }
+      if (frameToken === UNKNOWN_TOKEN) return unknownQualityFixture();
       const key = frameToken.replace(/^fixture:/, "");
       const seed = SEEDS.find((s) => `${s.observation_id}_D${s.detector}` === key);
       if (!seed) {

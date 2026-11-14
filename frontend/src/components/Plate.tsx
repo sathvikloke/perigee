@@ -47,6 +47,8 @@ export function Plate(props: {
   headingId?: string;
   /** Date/wavelength for a frame still loading (from the search descriptor). */
   pendingDate?: string | null;
+  /** Wavelength text while there is no frame record (default "Wavelength pending"). */
+  pendingWavelength?: string;
 }) {
   const { frame } = props;
   const img = frame?.image ?? null;
@@ -83,7 +85,7 @@ export function Plate(props: {
                 ? "Wavelength n/a (off image)"
                 : "Wavelength not available"
               : formatMicrons(frame.wavelength_um)
-            : "Wavelength pending"}
+            : props.pendingWavelength ?? "Wavelength pending"}
         </span>
       </p>
       <div className="sky">
