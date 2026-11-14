@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "case_id": "fair_comparison",
+  "content_version": "fair_comparison-2026-11-14a",
+  "status": "science_verified_pending_app_render",
+  "title": "Is this a fair comparison?",
+  "target_id": "epsilon_indi_b",
+  "opening_question": "Did Epsilon Indi B change between April and September 2026? Before you decide, check whether the two pictures can be fairly compared.",
+  "summary": "Compare two SPHEREx images taken five months apart, then a third taken at the same moment in a different color of infrared light. Decide which pair is a fair test of change over time.",
+  "background": {
+    "short": "Epsilon Indi B is a pair of brown dwarfs about 12 light-years away: objects too heavy to be planets but too light to shine like stars. SPHEREx sees them as one point of light. Each SPHEREx picture records one narrow color (wavelength) of infrared light, and that color changes across the detector. So two pictures of the same spot can differ because of time, color, or image quality.",
+    "details": [
+      "SPHEREx uses a filter whose wavelength varies across each detector. The same detector number does not guarantee the same wavelength; you must check the wavelength at the object's position.",
+      "Brown dwarfs look very different at different infrared wavelengths because molecules in their atmospheres (such as water and methane) absorb some colors more than others. Field stars also change in relative brightness with wavelength.",
+      "The two brown dwarfs (Ba and Bb) are about 0.7 arcseconds apart, far smaller than one SPHEREx pixel (about 6.15 arcseconds), so they are not resolved.",
+      "The quality screen used here checks a small circle (radius 2.5 pixels) around the catalog-predicted position for problem flags such as saturation, cosmic-ray hits or detector defects. Passing it means no problem flags were found there. It does not prove the object is detected or measure its brightness."
+    ]
+  },
+  "frames": [
+    {
+      "ref": "A",
+      "frame_key": "2026W18_1A_0516_1_D3",
+      "observation_id": "2026W18_1A_0516_1",
+      "detector": 3,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-29T12:05:47.874",
+      "mjd": 61159.504026317,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 2.3232,
+      "bandwidth_um": 0.0577,
+      "wavelength_location": "Catalog-predicted position of Epsilon Indi B at this observation time",
+      "expected_quality_status": "clear",
+      "role": "earlier frame of the fair pair",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+      "sha256_of_retained_cutout": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f"
+    },
+    {
+      "ref": "B",
+      "frame_key": "2026W39_2A_0597_4_D3",
+      "observation_id": "2026W39_2A_0597_4",
+      "detector": 3,
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-27T07:44:24.312",
+      "mjd": 61310.322503608,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 2.3220,
+      "bandwidth_um": 0.0573,
+      "wavelength_location": "Catalog-predicted position of Epsilon Indi B at this observation time",
+      "expected_quality_status": "clear",
+      "role": "later frame of the fair pair",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W39_2A/l2b-v27-2026-271/3/level2_2026W39_2A_0597_4D3_spx_l2b-v27-2026-271.fits",
+      "sha256_of_retained_cutout": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b"
+    },
+    {
+      "ref": "C",
+      "frame_key": "2026W18_1A_0516_1_D6",
+      "observation_id": "2026W18_1A_0516_1",
+      "detector": 6,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-29T12:05:47.874",
+      "mjd": 61159.504026317,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 4.9399,
+      "bandwidth_um": 0.0376,
+      "wavelength_location": "Catalog-predicted position of Epsilon Indi B at this observation time",
+      "expected_quality_status": "clear",
+      "role": "same moment as A, different wavelength (the unfair comparison)",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/6/level2_2026W18_1A_0516_1D6_spx_l2b-v27-2026-244.fits",
+      "sha256_of_retained_cutout": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85"
+    }
+  ],
+  "display_requirements": {
+    "grid": "Fixed north-up, east-left grid centered on the preset query_center; identical for A, B and C.",
+    "stretch": "Shared stretch for A and B (same wavelength). C may need its own stretch; if so, label it 'Brightness not directly comparable'.",
+    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction."
+  },
+  "steps": [
+    {
+      "id": "look",
+      "prompt": "Blink A and B. Find Epsilon Indi B at the marker. Does anything look different?",
+      "check": "observation dates",
+      "hint": "Note the dates first: April 29 and September 27, 2026, about five months apart."
+    },
+    {
+      "id": "wavelength",
+      "prompt": "Check the wavelength of each frame at the marker.",
+      "check": "wavelength",
+      "hint": "A is 2.323 µm and B is 2.322 µm. They differ by about 0.001 µm, much less than the 0.06 µm width of each band, so they record nearly the same color of light."
+    },
+    {
+      "id": "quality",
+      "prompt": "Open the quality details for A and B.",
+      "check": "quality flags",
+      "hint": "Both pass the screen: no problem flags near the marker. That makes them usable for a visual comparison. It does not measure how bright the object is."
+    },
+    {
+      "id": "unfair",
+      "prompt": "Now blink A and C. They were taken at the same moment. Why does the picture look so different?",
+      "check": "wavelength",
+      "hint": "C records 4.94 µm light, more than twice the wavelength of A. Objects shine differently in different infrared colors, so A versus C tells you about color, not about change over time."
+    },
+    {
+      "id": "release",
+      "prompt": "Look at where each frame came from.",
+      "check": "source and release",
+      "hint": "A comes from Data Release 1 and B from Quick Release 3. Both used pipeline version v27, but quick-release products can be updated later. Note this as a caveat."
+    },
+    {
+      "id": "claim",
+      "prompt": "Write your claim: which pair is a fair test of change over time, what can you conclude, and what can't you?",
+      "check": "evidence card"
+    }
+  ],
+  "evidence_requirements": {
+    "min_selected_frames": 2,
+    "must_include_refs_any_of": [["A", "B"]],
+    "fields": ["claim", "observations", "uncertainty"],
+    "card_must_show_per_frame": ["observation_id", "detector", "collection_id", "observed_at_utc", "wavelength_um", "quality status", "source_url"]
+  },
+  "conclusion_guide": {
+    "supported": [
+      "A and B pass the initial checks for a fair comparison: same detector, wavelengths within about 0.001 µm, the object is covered in both, and no problem flags near it.",
+      "A and C are not a fair test of change over time, because they record very different wavelengths at the same moment.",
+      "Any difference I think I see between A and B is not yet a measured change; it could come from display scaling, background, image sharpness or noise."
+    ],
+    "not_supported": [
+      "Epsilon Indi B got brighter or dimmer. These images were not measured with calibrated photometry.",
+      "I can see Epsilon Indi B move between A and B. In five months it moves about 1.9 arcseconds, about a third of one SPHEREx pixel, which is too small to see here.",
+      "The two brown dwarfs can be told apart. They are unresolved."
+    ],
+    "example_claim": "Frames A and B are a fair pair to compare: they were taken five months apart at almost the same wavelength (2.323 and 2.322 µm) with no quality flags near Epsilon Indi B. I can't tell from these pictures whether it changed in brightness, because that needs a calibrated measurement. Frames A and C look different because they show different infrared colors, not because time passed."
+  },
+  "limitations": [
+    "The quality screen checks for problem flags in a small circle around the predicted position. It is not a detection test or a brightness measurement.",
+    "A is from Data Release 1 and B is from Quick Release 3. Quick-release products may be reprocessed later.",
+    "Display images are resampled and contrast-stretched for viewing; they are not used to measure brightness.",
+    "The marker is a catalog prediction from SIMBAD/Gaia proper motion, not a position measured by Perigee. Annual parallax and the Ba/Bb orbit are not modeled; both are well under one pixel."
+  ],
+  "sources": [
+    {"label": "SPHEREx data at NASA/IPAC IRSA", "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"},
+    {"label": "SIMBAD: eps Ind B", "url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eps+Ind+B"},
+    {"label": "SPHEREx spectral image overview (IRSA tutorial)", "url": "https://caltech-ipac.github.io/irsa-tutorials/spherex-intro"},
+    {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
+  ],
+  "verification": {
+    "checked_by": "science/check_frames.py (science-check-1)",
+    "record": "science/CASE_SELECTION.md#fair_comparison",
+    "must_recheck_against_processor_output": true
+  }
+}

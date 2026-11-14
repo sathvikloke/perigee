@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "case_id": "moving_neighbor",
+  "content_version": "moving_neighbor-2026-11-14a",
+  "status": "science_verified_pending_app_render",
+  "title": "Follow a nearby moving star",
+  "target_id": "barnards_star",
+  "opening_question": "Barnard's Star is known to drift across the sky faster than any other star. Can you see it move in SPHEREx images taken a year apart?",
+  "summary": "Blink three SPHEREx images from August 2025, March 2026 and August 2026 on the same sky grid. Use the surrounding stars as a fixed reference and decide what the images show.",
+  "background": {
+    "short": "Barnard's Star is a small red star about 6 light-years away. Because it is so close and moving fast, its position on the sky shifts by about 10.4 arcseconds per year, mostly northward. That figure comes from star catalogs (Gaia), not from Perigee. Distant background stars barely move, so they make a good reference.",
+    "details": [
+      "10.4 arcseconds is roughly the width of a coin seen from 400 meters away, and less than two SPHEREx pixels (about 6.15 arcseconds each). The shift over one year is small but large enough to notice when images share the same sky grid.",
+      "Barnard's Star is very bright in these images, so the detector saturates at its center (flags such as OVERFLOW and BLOOM). The saturated core cannot be used to pin down the star's exact center.",
+      "All three frames record light near 2.0 µm (2.006, 2.012 and 2.028 µm), so the comparison is mostly about time, not color."
+    ]
+  },
+  "frames": [
+    {
+      "ref": "A",
+      "frame_key": "2025W35_1A_0008_1_D3",
+      "observation_id": "2025W35_1A_0008_1",
+      "detector": 3,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-08-25T00:50:31.845",
+      "mjd": 60912.035090796,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 2.0062,
+      "bandwidth_um": 0.0497,
+      "wavelength_location": "Catalog-predicted position of Barnard's Star at this observation time",
+      "expected_quality_status": "flagged",
+      "role": "first epoch",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W35_1A/l2b-v27-2026-230/3/level2_2025W35_1A_0008_1D3_spx_l2b-v27-2026-230.fits",
+      "sha256_of_retained_cutout": "e7c0a6f7c4c69cebc5b8fd5b7db21c0ddbc5e4046dd9d7ba3b6a424d99770562"
+    },
+    {
+      "ref": "B",
+      "frame_key": "2026W12_1A_0610_2_D3",
+      "observation_id": "2026W12_1A_0610_2",
+      "detector": 3,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-03-19T09:06:02.748",
+      "mjd": 61118.379198469,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 2.0123,
+      "bandwidth_um": 0.0493,
+      "wavelength_location": "Catalog-predicted position of Barnard's Star at this observation time",
+      "expected_quality_status": "flagged",
+      "role": "middle epoch",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W12_1A/l2b-v27-2026-235/3/level2_2026W12_1A_0610_2D3_spx_l2b-v27-2026-235.fits",
+      "sha256_of_retained_cutout": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5"
+    },
+    {
+      "ref": "C",
+      "frame_key": "2026W34_1A_0431_1_D3",
+      "observation_id": "2026W34_1A_0431_1",
+      "detector": 3,
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-08-19T04:57:42.053",
+      "mjd": 61271.206736722,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 2.0284,
+      "bandwidth_um": 0.0502,
+      "wavelength_location": "Catalog-predicted position of Barnard's Star at this observation time",
+      "expected_quality_status": "flagged",
+      "role": "last epoch",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W34_1A/l2b-v27-2026-243/3/level2_2026W34_1A_0431_1D3_spx_l2b-v27-2026-243.fits",
+      "sha256_of_retained_cutout": "ea3ecdd6d0742276767228a051b7fdbea2ed04181bde6e40701aa608753ec032"
+    }
+  ],
+  "display_requirements": {
+    "grid": "Fixed north-up, east-left grid centered on the preset query_center and identical for all three frames. Do NOT recenter frames on the star; that would erase the motion.",
+    "stretch": "Shared stretch across A, B and C.",
+    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction. It should move north by about 2 display pixels at 5 arcsec/pixel between A and C.",
+    "reference_line": "Recommended: a thin horizontal guide line through the frame A marker position, kept fixed while blinking, so the northward shift is easy to see."
+  },
+  "steps": [
+    {
+      "id": "controls",
+      "prompt": "Blink the three frames. First watch the smaller stars around the edges. Do they move?",
+      "check": "surrounding stars",
+      "hint": "They should stay in place. If they jumped around, the images would not be lined up and any apparent motion could be a software artifact."
+    },
+    {
+      "id": "target",
+      "prompt": "Now watch the big bright star near the center against the guide line. Which way does it shift from August 2025 to August 2026?",
+      "check": "observation dates",
+      "hint": "Look for a small northward (upward) shift of about 10 arcseconds, less than two pixels, over about one year."
+    },
+    {
+      "id": "marker",
+      "prompt": "Turn on the marker. What is it?",
+      "check": "marker label",
+      "hint": "It is where star catalogs predict Barnard's Star should be on each date. It is a prediction, not a position Perigee measured."
+    },
+    {
+      "id": "flags",
+      "prompt": "Open the quality details for the star's position.",
+      "check": "quality flags",
+      "hint": "Every frame is flagged: the star is so bright that the detector saturates at its center. You can see the star's glow shift, but these pixels cannot pin down its exact center or brightness."
+    },
+    {
+      "id": "wavelength",
+      "prompt": "Check the wavelengths.",
+      "check": "wavelength",
+      "hint": "2.006, 2.012 and 2.028 µm: close enough that the change you see is mainly about time, though the star's glow can still look slightly different."
+    },
+    {
+      "id": "claim",
+      "prompt": "Write your claim: what do these images show about Barnard's Star, and what can't they tell you?",
+      "check": "evidence card"
+    }
+  ],
+  "evidence_requirements": {
+    "min_selected_frames": 2,
+    "must_include_refs_any_of": [["A", "C"]],
+    "fields": ["claim", "observations", "uncertainty"],
+    "card_must_show_per_frame": ["observation_id", "detector", "collection_id", "observed_at_utc", "wavelength_um", "quality status", "source_url"]
+  },
+  "conclusion_guide": {
+    "supported": [
+      "With the images lined up on the same sky grid, the surrounding stars stay put while Barnard's Star's glow shifts slightly north between August 2025 and August 2026.",
+      "That shift is consistent with the catalog prediction of about 10 arcseconds per year.",
+      "The star's center is saturated and flagged in every frame, so these images show the shift visually but do not measure its speed."
+    ],
+    "not_supported": [
+      "I measured Barnard's Star's proper motion. No centroid measurement was made, and the saturated core would not support one.",
+      "Barnard's Star changed in brightness. The center is saturated and no calibrated photometry was done.",
+      "The marker shows where the star was detected. The marker is a catalog prediction."
+    ],
+    "example_claim": "Between August 2025 and August 2026 the background stars stayed in place while Barnard's Star's bright glow shifted a little to the north, which matches what star catalogs predict (about 10 arcseconds per year). I can't measure the exact speed from these images because the star's center is saturated and flagged."
+  },
+  "limitations": [
+    "The star's center is saturated (OVERFLOW/BLOOM flags) in all retained frames; no centroid or brightness measurement is supported.",
+    "Frames A and B are from Data Release 1 and frame C from Quick Release 3; quick-release products may be reprocessed later.",
+    "The marker is a catalog prediction from SIMBAD/Gaia astrometry, not a measured position. Annual parallax (about 0.55 arcsec) is not modeled.",
+    "The visible shift is under two pixels; it depends on correct alignment to a fixed sky grid, which was checked against surrounding stars (see verification)."
+  ],
+  "sources": [
+    {"label": "SPHEREx data at NASA/IPAC IRSA", "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"},
+    {"label": "SIMBAD: Barnard's star", "url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Barnard%27s+star"},
+    {"label": "Gaia mission (ESA)", "url": "https://www.cosmos.esa.int/web/gaia"},
+    {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
+  ],
+  "verification": {
+    "checked_by": "science/check_frames.py (science-check-1) and science/check_registration.py",
+    "record": "science/CASE_SELECTION.md#moving_neighbor",
+    "must_recheck_against_processor_output": true
+  }
+}
