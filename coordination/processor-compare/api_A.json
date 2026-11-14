@@ -1,0 +1,336 @@
+{
+ "health": {
+  "http": 200,
+  "body": {
+   "schema_version": 1,
+   "request_id": "221a99521d924154a7a0117caf88853b",
+   "service": "perigee-api",
+   "api_version": "0.1.0",
+   "status": "ok",
+   "capabilities": {
+    "search": true,
+    "frame": true,
+    "frame_processor": "backend.data.process.process_frame (processor-a adapter)",
+    "archive_search": "backend.routes._archive.irsa_search_collection",
+    "token_signing": "dev_fallback",
+    "collections": [
+     "spherex_dr1",
+     "spherex_qr3"
+    ],
+    "fov_arcmin_min": 2.0,
+    "fov_arcmin_max": 10.0,
+    "limit_max": 48
+   },
+   "checked_at_utc": "2026-11-14T18:20:36+00:00"
+  }
+ },
+ "presets": {
+  "http": 200,
+  "count": 5,
+  "presets": [
+   {
+    "preset_id": "barnards_star",
+    "frames_available": true,
+    "frame_count": 34,
+    "cases": [
+     {
+      "case_id": "moving_neighbor",
+      "title": "Follow a nearby moving star",
+      "available": true,
+      "frames_available": true
+     }
+    ]
+   },
+   {
+    "preset_id": "epsilon_indi_b",
+    "frames_available": true,
+    "frame_count": 44,
+    "cases": [
+     {
+      "case_id": "fair_comparison",
+      "title": "Is this a fair comparison?",
+      "available": true,
+      "frames_available": true
+     }
+    ]
+   },
+   {
+    "preset_id": "wise_0855",
+    "frames_available": true,
+    "frame_count": 34,
+    "cases": []
+   },
+   {
+    "preset_id": "rw_aurigae",
+    "frames_available": true,
+    "frame_count": 35,
+    "cases": []
+   },
+   {
+    "preset_id": "r_draconis",
+    "frames_available": true,
+    "frame_count": 36,
+    "cases": []
+   }
+  ]
+ },
+ "eps_default": {
+  "path": "/api/v1/presets/epsilon_indi_b/frames",
+  "http": 200,
+  "status": "ready",
+  "frames_available": true,
+  "frame_count": 44,
+  "sets": [
+   "frames"
+  ],
+  "reason": null,
+  "n_warnings": 0,
+  "warnings_head": [],
+  "asset_urls_ok": 88,
+  "asset_urls_bad": 0,
+  "image_fields_missing": 0,
+  "frame_keys": [
+   "2025W17_4B_0077_2_D1",
+   "2025W17_4B_0077_2_D4",
+   "2025W17_4B_0222_3_D5",
+   "2025W17_4B_0222_3_D2",
+   "2025W17_4B_0468_1_D1",
+   "2025W17_4B_0468_1_D4"
+  ]
+ },
+ "eps_fair_comparison": {
+  "path": "/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison",
+  "http": 200,
+  "status": "ready",
+  "frames_available": true,
+  "frame_count": 3,
+  "sets": [
+   "case-fair_comparison"
+  ],
+  "reason": null,
+  "n_warnings": 0,
+  "warnings_head": [],
+  "asset_urls_ok": 6,
+  "asset_urls_bad": 0,
+  "image_fields_missing": 0,
+  "frame_keys": [
+   "2026W18_1A_0516_1_D3",
+   "2026W18_1A_0516_1_D6",
+   "2026W39_2A_0597_4_D3"
+  ]
+ },
+ "barnard_moving_neighbor": {
+  "path": "/api/v1/presets/barnards_star/frames?case_id=moving_neighbor",
+  "http": 200,
+  "status": "ready",
+  "frames_available": true,
+  "frame_count": 3,
+  "sets": [
+   "case-moving_neighbor"
+  ],
+  "reason": null,
+  "n_warnings": 0,
+  "warnings_head": [],
+  "asset_urls_ok": 6,
+  "asset_urls_bad": 0,
+  "image_fields_missing": 0,
+  "frame_keys": [
+   "2025W35_1A_0008_1_D3",
+   "2026W12_1A_0610_2_D3",
+   "2026W34_1A_0431_1_D3"
+  ]
+ },
+ "search": {
+  "http": 200,
+  "elapsed_s": 2.1,
+  "n_obs": 24,
+  "summary": {
+   "schema_version": 1,
+   "request_id": "dd696071480b44aa9649fcf775f44fb9",
+   "query": {
+    "ra_deg": 330.84,
+    "dec_deg": -56.786,
+    "fov_arcmin": 6.0,
+    "limit": 24,
+    "collection_ids": [
+     "spherex_dr1",
+     "spherex_qr3"
+    ],
+    "search_radius_deg": 0.001
+   },
+   "status": "ready",
+   "returned_count": 24,
+   "total_matches": 460,
+   "truncated": true,
+   "selection": "evenly_spaced_in_time",
+   "warnings": [
+    "Showing 24 of 460 matching images, evenly spaced in time. Narrow the request or raise the limit (max 48) to see others."
+   ],
+   "collections_queried": [
+    "spherex_dr1",
+    "spherex_qr3"
+   ],
+   "collections_failed": [],
+   "token_expires_at_utc": "2026-11-15T00:20:38+00:00",
+   "queried_at_utc": "2026-11-14T18:20:38+00:00"
+  }
+ },
+ "frames": [
+  {
+   "http": 200,
+   "attempts": 1,
+   "elapsed_s": 4.13,
+   "frame_key": "2025W17_4B_0017_1_D2",
+   "error": null,
+   "quality": "clear",
+   "wavelength_um": 1.5449872205236006,
+   "fov_arcmin": 6.0,
+   "image_src_prefix": "data:image/png;base64,",
+   "image_src_len": 12734,
+   "flag_src_len": 2034,
+   "flag_legend": {
+    "adverse_flag": [
+     255,
+     64,
+     64,
+     150
+    ],
+    "non_finite": [
+     255,
+     200,
+     0,
+     200
+    ]
+   },
+   "processing_version": "perigee-processor-a/0.1.0",
+   "record_keys": [
+    "bandwidth_um",
+    "collection_id",
+    "detector",
+    "display_scale",
+    "flag_image",
+    "frame_id",
+    "frame_key",
+    "image",
+    "limitations",
+    "marker",
+    "mjd",
+    "observation_id",
+    "observed_at_utc",
+    "provenance",
+    "quality",
+    "registration",
+    "sampled_position",
+    "schema_version",
+    "source_url",
+    "time_basis",
+    "wavelength_location",
+    "wavelength_um"
+   ]
+  },
+  {
+   "http": 200,
+   "attempts": 1,
+   "elapsed_s": 4.77,
+   "frame_key": "2025W17_4B_0315_1_D2",
+   "error": null,
+   "quality": "clear",
+   "wavelength_um": 1.5643378105700179,
+   "fov_arcmin": 6.0,
+   "image_src_prefix": "data:image/png;base64,",
+   "image_src_len": 8286,
+   "flag_src_len": 1342,
+   "flag_legend": {
+    "adverse_flag": [
+     255,
+     64,
+     64,
+     150
+    ],
+    "non_finite": [
+     255,
+     200,
+     0,
+     200
+    ]
+   },
+   "processing_version": "perigee-processor-a/0.1.0",
+   "record_keys": [
+    "bandwidth_um",
+    "collection_id",
+    "detector",
+    "display_scale",
+    "flag_image",
+    "frame_id",
+    "frame_key",
+    "image",
+    "limitations",
+    "marker",
+    "mjd",
+    "observation_id",
+    "observed_at_utc",
+    "provenance",
+    "quality",
+    "registration",
+    "sampled_position",
+    "schema_version",
+    "source_url",
+    "time_basis",
+    "wavelength_location",
+    "wavelength_um"
+   ]
+  },
+  {
+   "http": 200,
+   "attempts": 1,
+   "elapsed_s": 4.85,
+   "frame_key": "2025W18_1B_0081_2_D3",
+   "error": null,
+   "quality": "flagged",
+   "wavelength_um": 1.6340278353184743,
+   "fov_arcmin": 6.0,
+   "image_src_prefix": "data:image/png;base64,",
+   "image_src_len": 9878,
+   "flag_src_len": 1674,
+   "flag_legend": {
+    "adverse_flag": [
+     255,
+     64,
+     64,
+     150
+    ],
+    "non_finite": [
+     255,
+     200,
+     0,
+     200
+    ]
+   },
+   "processing_version": "perigee-processor-a/0.1.0",
+   "record_keys": [
+    "bandwidth_um",
+    "collection_id",
+    "detector",
+    "display_scale",
+    "flag_image",
+    "frame_id",
+    "frame_key",
+    "image",
+    "limitations",
+    "marker",
+    "mjd",
+    "observation_id",
+    "observed_at_utc",
+    "provenance",
+    "quality",
+    "registration",
+    "sampled_position",
+    "schema_version",
+    "source_url",
+    "time_basis",
+    "wavelength_location",
+    "wavelength_um"
+   ]
+  }
+ ]
+}
