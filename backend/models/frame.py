@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-from pydantic import AliasChoices, BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .common import SCHEMA_VERSION
 
@@ -37,8 +37,11 @@ class Registration(_Open):
     center_dec_deg: float
     fov_arcmin: float
     scale_arcsec_per_px: float | None = Field(
-        validation_alias=AliasChoices("scale_arcsec_per_px", "scale_arcsec_per_pixel"),
-        description="Display-grid scale. Resampling does not add physical resolution.",
+        description="Display-grid scale. Resampling does not add physical resolution."
+    )
+    native_scale_arcsec_per_px: float | None = None
+    grid_id: str | None = Field(
+        default=None, description="Frames with equal grid_id share the same display grid."
     )
     orientation: str = Field(description='e.g. "north_up_east_left".')
     projection: str | None = Field(default=None, description='e.g. "TAN".')
@@ -59,7 +62,10 @@ class Quality(_Open):
 class DisplayScale(_Open):
     mode: Literal["shared", "per_frame"]
     method: str
-    limits: dict[str, float | None] | None = None
+    low: float | None = Field(default=None, description="Value mapped to black (image unit).")
+    high: float | None = Field(default=None, description="Value mapped to white (image unit).")
+    unit: str | None = None
+    basis: str | None = Field(default=None, description="How the limits were chosen; comparability.")
     comparable_brightness: bool | None = Field(
         default=None, description="False when per-frame contrast makes brightness not comparable."
     )
@@ -69,18 +75,25 @@ class Marker(_Open):
     x: float
     y: float
     kind: Literal["catalog_prediction"]
-    epoch: str
+    label: str | None = Field(default=None, description='e.g. "Catalog prediction (not a detection)".')
+    epoch_utc: str | None = None
+    epoch_mjd: float | None = None
     source: str
 
 
 class Provenance(_Open):
-    data_origin: Literal["nasa_archive", "fixture"] = Field(
-        description="fixture means synthetic/test data; it must never be shown as real sky data."
+    # Field names follow backend/data (processor-a) output so curated presets and live
+    # frames share one shape.
+    data_origin: Literal["nasa_archive", "fixture"] | None = Field(
+        default=None,
+        description='"fixture" means synthetic/test data that must never be shown as sky data. '
+        "Live API frames always set this.",
     )
-    retrieved_at_utc: str | None
+    retrieved_at: str | None
+    retrieved_at_basis: str | None = None
     original_url: str
     cutout_url: str | None = None
-    file_sha256: str | None = None
+    sha256: str | None = Field(default=None, description="SHA-256 of the FITS bytes processed.")
     processing_version: str
     acknowledgments: list[str]
 

@@ -18,6 +18,10 @@ PERIGEE_DEV_MODE=1 .venv/bin/python -m backend.tests.api.make_examples [--live]
 
 - `*.live.json`: produced by this API from the real NASA/IPAC IRSA archive. The tokens are
   signed with the development secret and expire after 6 hours, so they only illustrate the shape.
+  `frame_response.live.json` is a real end-to-end frame for Eps Ind A (RA 330.84, Dec -56.786,
+  FOV 6 arcmin). The real token was verified, the real cutout was fetched from IRSA and processed
+  by processor-a (`backend/data/process.py` from `origin/codex/parallel-05-processor-a` @ 9c9049a,
+  temporarily copied in and not committed here).
 - `*.fixture.json`: produced through the real routes with fixture archive or processor
   stand-ins. These are not NASA results. `frame_response.fixture.json` copies identity, date,
   wavelength and quality from the science-verified `fair_comparison` frame A, but its image

@@ -185,8 +185,8 @@ def build_record(claims: FrameClaims, meta: dict, result: dict) -> FrameRecord:
     prov = dict(rec.get("provenance") or {})
     prov["original_url"] = claims.source_url
     prov["cutout_url"] = meta["cutout_url"]
-    prov.setdefault("retrieved_at_utc", meta["retrieved_at_utc"])
-    prov.setdefault("file_sha256", meta["file_sha256"])
+    prov.setdefault("retrieved_at", meta["retrieved_at_utc"])
+    prov.setdefault("sha256", meta["file_sha256"])
     prov.setdefault("data_origin", "nasa_archive")
     rec["provenance"] = prov
     mjd = rec.get("mjd")

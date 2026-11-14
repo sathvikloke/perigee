@@ -7,7 +7,10 @@ callables below; tests replace them through FastAPI dependency overrides.
 Expected from backend/data (worker 05) at integration
 -----------------------------------------------------
 
-``process_frame(fits_bytes: bytes, meta: dict) -> dict``  (sync, pure, no network)
+``process_frame_for_api(fits_bytes: bytes, meta: dict) -> dict`` (sync, pure, no network),
+exported from ``backend.data``. If absent, processor-a's dataclass API
+(``backend.data.process.process_frame(bytes, FrameInput) -> ProcessedFrame``) is wrapped
+by ``processor_a_adapter`` below.
 
 ``meta`` (built by routes/frames.py, all JSON-serializable)::
 
@@ -66,12 +69,9 @@ class Processor(Protocol):
 SearchCollection = Callable[..., Awaitable[CollectionResult]]
 
 # Where to look for the processor at runtime (first hit wins).
-PROCESSOR_LOCATIONS: tuple[tuple[str, str], ...] = (
-    ("backend.routes._processor_bridge", "process_frame"),  # integration bridge to backend/data/process.py
-    ("backend.data", "process_frame"),
-    ("backend.data.processor", "process_frame"),
-    ("backend.data.frames", "process_frame"),
-)
+# A dict-API hook (signature in the module docstring) takes precedence; otherwise the
+# processor-a dataclass API (backend.data.process.process_frame + FrameInput) is wrapped.
+PROCESSOR_LOCATIONS: tuple[tuple[str, str], ...] = (("backend.data", "process_frame_for_api"),)
 SEARCH_LOCATIONS: tuple[tuple[str, str], ...] = (
     ("backend.data", "search_collection"),
     ("backend.data.archive", "search_collection"),
@@ -98,6 +98,41 @@ def _find(locations: tuple[tuple[str, str], ...]) -> tuple[Callable | None, str 
         if callable(fn):
             return fn, f"{module_name}.{attr}"
     return None, None
+
+
+def processor_a_adapter() -> tuple[Processor | None, str | None]:
+    """Wrap processor-a's ``backend.data.process.process_frame(bytes, FrameInput) ->
+    ProcessedFrame`` (branch codex/parallel-05-processor-a) into the dict seam above."""
+    try:
+        mod = importlib.import_module("backend.data.process")
+    except ImportError:
+        return None, None
+    fn = getattr(mod, "process_frame", None)
+    frame_input = getattr(mod, "FrameInput", None)
+    if not callable(fn) or frame_input is None:
+        return None, None
+
+    def adapter(fits_bytes: bytes, meta: dict[str, Any]) -> dict[str, Any]:
+        q, grid = meta["query"], meta["grid"]
+        fi = frame_input(
+            query_ra_deg=q["ra_deg"],
+            query_dec_deg=q["dec_deg"],
+            fov_arcmin=q["fov_arcmin"],
+            grid_size=int(grid["width"]),
+            target=None,  # live coordinate query: wavelength/quality at the query center
+            source_url=meta["source_url"],
+            observation_id=meta["observation_id"],
+            collection_id=meta["collection_id"],
+            detector=meta["detector"],
+            cutout_url=meta["cutout_url"],
+            retrieved_at_utc=meta["retrieved_at_utc"],
+            retrieved_at_basis="Time this API fetched the cutout from IRSA for this request.",
+            include_flag_image=True,
+        )
+        out = fn(fits_bytes, fi)
+        return {"record": out.record, "image_png": out.png_bytes, "flag_png": out.flag_png_bytes}
+
+    return adapter, "backend.data.process.process_frame (processor-a adapter)"
 
 
 def _wrap_external_search(fn: Callable) -> SearchCollection:
@@ -139,6 +174,8 @@ def resolve_services() -> Services:
     if _cached is None:
         settings = load_settings()
         processor, processor_source = _find(PROCESSOR_LOCATIONS)
+        if processor is None:
+            processor, processor_source = processor_a_adapter()
         ext_search, ext_source = _find(SEARCH_LOCATIONS)
         _cached = Services(
             settings=settings,

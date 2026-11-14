@@ -97,7 +97,9 @@ def example_processor(fits_bytes: bytes, meta: dict) -> dict:
             "display_scale": {
                 "mode": "per_frame",
                 "method": "asinh stretch between the 1st and 99.5th percentile of finite pixels",
-                "limits": {"low": -0.12, "high": 3.4},
+                "low": -0.12,
+                "high": 3.4,
+                "unit": "MJy / sr",
                 "comparable_brightness": False,
             },
             "marker": None,

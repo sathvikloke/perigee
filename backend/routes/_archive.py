@@ -69,7 +69,7 @@ def mjd_to_iso(mjd: float | None) -> str | None:
     if mjd is None or not math.isfinite(mjd):
         return None
     dt = _MJD_EPOCH + timedelta(days=mjd)
-    return dt.strftime("%Y-%m-%dT%H:%M:%S.") + f"{dt.microsecond // 1000:03d}"
+    return dt.strftime("%Y-%m-%dT%H:%M:%S.") + f"{dt.microsecond // 1000:03d}Z"
 
 
 def _float_or_none(text: str | None) -> float | None:
