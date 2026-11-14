@@ -48,7 +48,7 @@ def build_content_root(tmp_path: Path, with_fixture_presets: bool = True) -> Pat
 
 
 def load_real(name: str):
-    return json.loads((REAL_CONTENT / name).read_text())
+    return json.loads((REAL_CONTENT / name).read_text(encoding="utf-8"))
 
 
 @pytest.fixture

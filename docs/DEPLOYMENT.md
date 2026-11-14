@@ -82,6 +82,36 @@ Use this only if Services blocks a deploy for more than 30 minutes. Services bui
 2. A new `perigee-api` project, created by Sathvik only, gets Root Directory `.` with `[tool.vercel] entrypoint = "backend.main:app"` in a root `pyproject.toml`, the FastAPI preset and `PERIGEE_TOKEN_SECRET`.
 3. FastAPI adds `CORSMiddleware` allowing only the frontend production origin, plus the preview pattern if needed. Verify CORS from the deployed frontend. The frontend API client reads `import.meta.env.VITE_API_BASE ?? "/api/v1"`.
 
+## Release smoke check and current status (Suhrit, 2026-11-14)
+
+One command checks a deployment the way a judge reaches it:
+
+```bash
+python -m backend.platform.smoke --base https://<deployment-host>
+```
+
+It checks, in order: logged-out access; `/` plus three deep links return the SPA; `/api/v1/health` is JSON with `token_signing: "env"`; five presets; Barnard's Star frames; the first image asset is a real PNG; `fair_comparison` case; JSON 404s for unknown `/api` paths and a traversal attempt; and a **non-preset** search (Orion Nebula, 83.822, −5.391), followed by one processed frame. Exit `0` = pass, `1` = app/config defect, `2` = access restricted by Deployment Protection (not a code failure). For a protected preview, add `--bypass` with `VERCEL_AUTOMATION_BYPASS_SECRET` in the environment. That proves the app works, not judge access. `--no-live` skips the archive calls. The script refuses `perigee.vercel.app` (unrelated app).
+
+Status on integration commit `ebdc0a0` (PR #27):
+
+| What | Result |
+|---|---|
+| Vercel build | READY, deployment `6qeSegbawa4qLbyJbmuvmo6VAKyw`, `check` workflow passed |
+| Preview URL | `https://perigee-git-claude-perigee-integration-sathviklokes-projects.vercel.app` |
+| Logged-out access | **Restricted**: every path, including `/api/*`, returns `302` to `vercel.com/sso-api`. Smoke exit `2`. |
+| Deployed responses | **Not yet verified.** Needs a team login or bypass secret. |
+| Same commit, local `uvicorn backend.main:app` | All API checks pass. Search `ready`, 377 matches DR1+QR3, 1.6 s. Frame `2025W36_2B_0338_1` 200 in 3.0 s, 18 KB. Asset PNG with `immutable` cache. JSON 404s. `deploy_check --app` ok. |
+
+Owner actions for release (Sathvik; agents do not change these):
+
+1. Set `PERIGEE_TOKEN_SECRET` as a Sensitive env var (≥ 32 bytes, random) for **Preview and Production**. Leave `PERIGEE_DEV_MODE` unset. Redeploy, because env changes apply to new deployments only. Health must then show `token_signing: "env"`. `missing` means search and frame are disabled.
+2. Give Suhrit team access to `sathviklokes-projects`, or run the smoke check yourself with `--bypass`, so the preview is verified before merge.
+3. Merge PR #27 to `main` after the preview passes.
+4. Deployment Protection: switch to **Standard Protection**, which keeps previews protected and leaves production domains public, or turn it off for this project only.
+5. Record the production domain shown on the project's Domains page. That domain, not a preview and not `perigee.vercel.app`, is the judge URL. Then run the smoke check without `--bypass` and record the URL, commit and output here.
+
+Risk: on a Hobby team, Vercel can block preview builds of private-repo commits authored by non-members. If a teammate's PR shows "blocked" instead of a build, that is an access issue, not a code failure.
+
 ## Configuration and release checks
 
 Use backend-only environment configuration for the frame-token signing secret. Keep an example configuration containing names and descriptions, never real values. Preview and production environments may differ; test the environment intended for the public demonstration. Use supported Python and package versions, and commit the appropriate dependency lockfiles through their owners.
