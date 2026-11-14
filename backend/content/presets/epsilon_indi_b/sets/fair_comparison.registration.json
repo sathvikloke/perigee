@@ -1,0 +1,31 @@
+{
+ "set_id": "fair_comparison",
+ "method": "FFT cross-correlation of the original pixels resampled onto the set grid, field only (target masked within 50 arcsec), parabolic sub-pixel peak",
+ "display_scale_arcsec_per_px": 0.9375,
+ "native_pixel_arcsec": 6.15,
+ "interpretation": "Field shifts well under one native pixel (6.15 arcsec) mean the frames are registered by their WCS. This checks our display geometry only; it is not a proper-motion measurement.",
+ "method_check": "Injected grid offsets of 1.5-6 arcsec on these same files were recovered with the right direction and within ~0.4 arcsec (the method slightly underestimates); see backend/tests/data/test_registration.py.",
+ "pairs": [
+  {
+   "reference": "2026W18_1A_0516_1_D3",
+   "compared": "2026W39_2A_0597_4_D3",
+   "field_shift_px": [
+    -0.315,
+    0.927
+   ],
+   "field_shift_arcsec": 0.918,
+   "correlation_peak_contrast": 11.9,
+   "catalog_marker_shift_px": [
+    -1.75,
+    1.09
+   ],
+   "catalog_marker_shift_arcsec": 1.93
+  },
+  {
+   "reference": "2026W18_1A_0516_1_D3",
+   "compared": "2026W18_1A_0516_1_D6",
+   "field_shift_px": null,
+   "note": "Different wavelength from the reference; whole-field correlation is not reliable across wavelengths, so it was not used. Checked by eye (target and bright field star line up) and by science/check_registration.py control stars."
+  }
+ ]
+}
