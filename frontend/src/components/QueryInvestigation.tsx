@@ -258,7 +258,17 @@ export function QueryInvestigation(props: {
         ))}
       </form>
 
-      <div className="query-status" role="status" aria-live="polite">
+      {/* Announce phase changes only; per-frame counts update too often to narrate. */}
+      <p className="visually-hidden" role="status">
+        {phase.kind === "searching"
+          ? "Searching the archive."
+          : phase.kind === "searched"
+            ? phase.response.status === "empty"
+              ? "Search finished with no matching images."
+              : `Search finished: ${phase.response.returned_count} observations. Frames are processing.`
+            : ""}
+      </p>
+      <div className="query-status">
         {phase.kind === "searching" && <p className="status">Searching the archive…</p>}
         {phase.kind === "searched" && <SearchSummary response={phase.response} counts={counts} />}
       </div>

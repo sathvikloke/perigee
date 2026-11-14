@@ -75,7 +75,11 @@ function PresetItem({ preset, onOpen }: { preset: PresetDescriptor; onOpen: () =
         {preset.one_line && <span className="block">{preset.one_line}</span>}
         <span className="muted block">
           {preset.case_ids.length ? "Guided investigation" : "Free exploration"}
-          {preset.retained_frames?.total != null ? ` · ${preset.retained_frames.total} frames` : ""}
+          {preset.frames_available === false
+            ? " · frames not published yet"
+            : preset.frame_count
+              ? ` · ${preset.frame_count} processed frame${preset.frame_count === 1 ? "" : "s"}`
+              : ""}
         </span>
       </button>
     </li>

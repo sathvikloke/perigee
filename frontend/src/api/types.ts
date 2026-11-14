@@ -40,6 +40,9 @@ export interface SkyPosition {
 
 export interface PresetDescriptor {
   id: string;
+  /** Server-added (catalog): whether curated frame products exist, and how many. */
+  frames_available?: boolean;
+  frame_count?: number;
   display_name: string;
   object_type?: string;
   one_line?: string;
@@ -225,4 +228,12 @@ export interface SearchResponse {
 export interface FrameRequest {
   schema_version: typeof SCHEMA_VERSION;
   frame_token: string;
+}
+
+/** GET /presets/{id}/frames. `missing` means no generated products yet; frames are never synthesized. */
+export interface PresetFramesResult {
+  status: "ready" | "partial" | "missing";
+  frames: FrameRecord[];
+  reason: string | null;
+  warnings: string[];
 }

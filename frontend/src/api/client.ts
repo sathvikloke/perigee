@@ -10,6 +10,8 @@ import {
   type HealthResponse,
   type ObservationDescriptor,
   type PresetDescriptor,
+  type PresetFramesResult,
+  type Provenance,
   type Quality,
   type QualityStatus,
   type SearchRequest,
@@ -269,6 +271,21 @@ function normalizeQuality(raw: unknown): Quality {
   };
 }
 
+// The processor (05) writes `retrieved_at` and `sha256`; the contract text says
+// "retrieval time" and "file hash". Accept both spellings, invent neither.
+function normalizeProvenance(raw: unknown): Provenance | null {
+  if (!raw || typeof raw !== "object") return null;
+  const p = raw as Record<string, unknown>;
+  return {
+    ...p,
+    retrieved_at_utc: strOrNull(p.retrieved_at_utc) ?? strOrNull(p.retrieved_at),
+    original_url: strOrNull(p.original_url),
+    file_sha256: strOrNull(p.file_sha256) ?? strOrNull(p.sha256),
+    processing_version: strOrNull(p.processing_version),
+    acknowledgments: (p.acknowledgments as Provenance["acknowledgments"]) ?? null,
+  };
+}
+
 export function normalizeFrameRecord(raw: unknown): FrameRecord {
   if (!raw || typeof raw !== "object") {
     throw new ApiError({ code: "MALFORMED_RESPONSE", message: "Frame record is not an object." });
@@ -303,7 +320,7 @@ export function normalizeFrameRecord(raw: unknown): FrameRecord {
     quality: normalizeQuality(r.quality),
     display_scale: (r.display_scale as FrameRecord["display_scale"]) ?? null,
     marker: (r.marker as FrameRecord["marker"]) ?? null,
-    provenance: (r.provenance as FrameRecord["provenance"]) ?? null,
+    provenance: normalizeProvenance(r.provenance),
     limitations: Array.isArray(r.limitations)
       ? r.limitations.filter((l): l is string => typeof l === "string")
       : [],
@@ -340,6 +357,23 @@ export function normalizePresets(body: unknown): PresetDescriptor[] {
 
 export function normalizeFrameList(body: unknown): FrameRecord[] {
   return asArray(body, ["frames"]).map(normalizeFrameRecord).sort(compareChronological);
+}
+
+export function normalizePresetFrames(body: unknown): PresetFramesResult {
+  const frames = normalizeFrameList(body);
+  const r = (body && typeof body === "object" && !Array.isArray(body) ? body : {}) as Record<string, unknown>;
+  const status =
+    r.status === "ready" || r.status === "partial" || r.status === "missing"
+      ? r.status
+      : frames.length
+        ? "ready"
+        : "missing";
+  return {
+    status,
+    frames,
+    reason: strOrNull(r.reason),
+    warnings: Array.isArray(r.warnings) ? r.warnings.filter((w): w is string => typeof w === "string") : [],
+  };
 }
 
 export function normalizeFrameResponse(body: unknown): FrameRecord {
@@ -457,7 +491,8 @@ export interface PerigeeApi {
   health(signal?: AbortSignal): Promise<HealthResponse>;
   presets(signal?: AbortSignal): Promise<PresetDescriptor[]>;
   caseContent(caseId: string, signal?: AbortSignal): Promise<CaseContent>;
-  presetFrames(presetId: string, signal?: AbortSignal): Promise<FrameRecord[]>;
+  /** Curated frames; `caseId` restricts to that case's product set (catalog `?case_id=`). */
+  presetFrames(presetId: string, caseId?: string | null, signal?: AbortSignal): Promise<PresetFramesResult>;
   search(req: Omit<SearchRequest, "schema_version">, signal?: AbortSignal): Promise<SearchResponse>;
   frame(frameToken: string, signal?: AbortSignal): Promise<FrameRecord>;
 }
@@ -536,9 +571,15 @@ export function createHttpApi(options: { base?: string; fetchImpl?: FetchLike } 
       }
       return c;
     },
-    presetFrames: async (presetId, signal) =>
-      normalizeFrameList(
-        await requestJson("GET", `/presets/${enc(presetId)}/frames`, undefined, signal, DEFAULT_TIMEOUT_MS),
+    presetFrames: async (presetId, caseId, signal) =>
+      normalizePresetFrames(
+        await requestJson(
+          "GET",
+          `/presets/${enc(presetId)}/frames${caseId ? `?case_id=${enc(caseId)}` : ""}`,
+          undefined,
+          signal,
+          DEFAULT_TIMEOUT_MS,
+        ),
       ),
     search: async (req, signal) =>
       normalizeSearchResponse(

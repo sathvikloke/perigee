@@ -174,14 +174,20 @@ export function createFixtureApi(): PerigeeApi {
       }
       return caseFrom(caseId);
     },
-    async presetFrames(presetId, signal) {
+    async presetFrames(presetId, _caseId, signal) {
       await delay(200, signal);
       if (!PRESETS.some((p) => p.id === presetId)) {
         throw new ApiError({ code: "NOT_FOUND", message: `No preset "${presetId}".`, httpStatus: 404 });
       }
-      return SEEDS.filter((s) => s.preset === presetId)
+      const frames = SEEDS.filter((s) => s.preset === presetId)
         .map((s, i) => seedToRecord(s, presetId === "barnards_star" ? 128 - i : 128))
         .sort(compareChronological);
+      return {
+        status: frames.length ? ("ready" as const) : ("missing" as const),
+        frames,
+        reason: frames.length ? null : "Development fixture has no frames for this preset.",
+        warnings: [],
+      };
     },
     async search(req, signal) {
       await delay(500, signal);

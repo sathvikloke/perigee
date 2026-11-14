@@ -7,6 +7,7 @@ import {
   errorFromResponse,
   normalizeFrameList,
   normalizeFrameRecord,
+  normalizePresetFrames,
   normalizeSearchResponse,
   parseErrorEnvelope,
   resolveApiBase,
@@ -253,5 +254,52 @@ describe("normalizers", () => {
     expect(res.returned_count).toBe(2);
     expect(res.total_matches).toBeNull();
     expect(() => normalizeSearchResponse({ status: "done", observations: [] })).toThrow(ApiError);
+  });
+});
+
+describe("catalog and processor payload shapes", () => {
+  it("reads a catalog frames response with status, warnings and processor provenance names", () => {
+    const res = normalizePresetFrames({
+      schema_version: 1,
+      preset_id: "epsilon_indi_b",
+      case_id: "fair_comparison",
+      status: "partial",
+      frames_available: true,
+      frame_count: 1,
+      order: "mjd_then_frame_key",
+      frames: [
+        {
+          ...rawFrame,
+          observed_at_utc: "2026-04-29T12:05:47.874Z",
+          provenance: { retrieved_at: "2026-11-14T04:27:13Z", sha256: "abc", processing_version: "perigee-processor-a/0.1.0" },
+        },
+      ],
+      reason: null,
+      sets: ["case-fair_comparison"],
+      warnings: ["one product skipped"],
+      source_dir: "x",
+    });
+    expect(res.status).toBe("partial");
+    expect(res.warnings).toEqual(["one product skipped"]);
+    expect(res.frames[0].provenance?.retrieved_at_utc).toBe("2026-11-14T04:27:13Z");
+    expect(res.frames[0].provenance?.file_sha256).toBe("abc");
+  });
+
+  it("reports missing products honestly with no frames", () => {
+    const res = normalizePresetFrames({ status: "missing", frames: [], reason: "No generated products yet." });
+    expect(res).toEqual({ status: "missing", frames: [], reason: "No generated products yet.", warnings: [] });
+  });
+
+  it("requests a case product set with ?case_id=", async () => {
+    const urls: string[] = [];
+    const api = createHttpApi({
+      base: "/api/v1",
+      fetchImpl: async (url) => {
+        urls.push(url);
+        return jsonResponse(200, { status: "ready", frames: [rawFrame] });
+      },
+    });
+    await api.presetFrames("epsilon_indi_b", "fair_comparison");
+    expect(urls).toEqual(["/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison"]);
   });
 });

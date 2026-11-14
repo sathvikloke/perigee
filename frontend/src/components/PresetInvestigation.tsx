@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { PerigeeApi } from "../api/client";
-import type { CaseContent, FrameRecord, PresetDescriptor } from "../api/types";
+import { compareChronological, type PerigeeApi } from "../api/client";
+import type { CaseContent, FrameRecord, PresetDescriptor, PresetFramesResult } from "../api/types";
 import { createEvidenceCard } from "../evidence/card";
 import { useEvidenceCard } from "../evidence/useEvidenceCard";
 import { CasePanel } from "./CasePanel";
@@ -11,6 +11,9 @@ import { FrameViewer, type FrameSlot } from "./FrameViewer";
 interface Loaded {
   preset: PresetDescriptor | null;
   frames: FrameRecord[];
+  status: PresetFramesResult["status"];
+  reason: string | null;
+  warnings: string[];
   caseContent: CaseContent | null;
   caseError: unknown;
 }
@@ -24,20 +27,33 @@ export function PresetInvestigation(props: {
   const { api, presetId } = props;
   const { state, retry } = useAsync<Loaded>(
     async (signal) => {
-      const [presets, frames] = await Promise.all([api.presets(signal), api.presetFrames(presetId, signal)]);
+      const presets = await api.presets(signal);
       const preset = presets.find((p) => p.id === presetId) ?? null;
-      const caseId = preset?.case_ids[0];
-      let caseContent: CaseContent | null = null;
-      let caseError: unknown = null;
-      if (caseId) {
-        try {
-          caseContent = await api.caseContent(caseId, signal);
-        } catch (err) {
-          // The frames are still useful without the authored case.
-          caseError = err;
-        }
-      }
-      return { preset, frames, caseContent, caseError };
+      const caseId = preset?.case_ids[0] ?? null;
+      // The preset's full sequence, plus the case's own product set when one
+      // exists. A missing case set is not fatal; the preset set still works.
+      const [all, caseSet, caseResult] = await Promise.all([
+        api.presetFrames(presetId, null, signal),
+        caseId ? api.presetFrames(presetId, caseId, signal).catch(() => null) : Promise.resolve(null),
+        caseId
+          ? api.caseContent(caseId, signal).then(
+              (c) => ({ c, err: null as unknown }),
+              (err: unknown) => ({ c: null, err }),
+            )
+          : Promise.resolve({ c: null, err: null as unknown }),
+      ]);
+      const byKey = new Map<string, FrameRecord>();
+      for (const f of [...all.frames, ...(caseSet?.frames ?? [])]) if (!byKey.has(f.frame_key)) byKey.set(f.frame_key, f);
+      const frames = [...byKey.values()].sort(compareChronological);
+      return {
+        preset,
+        frames,
+        status: frames.length ? all.status : "missing",
+        reason: all.reason ?? caseSet?.reason ?? null,
+        warnings: [...all.warnings, ...(caseSet?.warnings ?? [])],
+        caseContent: caseResult.c,
+        caseError: caseResult.err,
+      };
     },
     [api, presetId],
   );
@@ -145,8 +161,27 @@ function PresetLoaded(props: {
         </p>
       )}
 
+      {data.status === "partial" && (
+        <p className="notice" role="note">
+          Some curated frames for this preset could not be used.
+        </p>
+      )}
+      {data.warnings.length > 0 && (
+        <details className="disclosure">
+          <summary>Catalog warnings ({data.warnings.length})</summary>
+          <ul className="plain-list">
+            {data.warnings.map((w) => (
+              <li key={w}>{w}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+
       {slots.length === 0 ? (
-        <p className="status">No curated frames are available for this preset yet.</p>
+        <div className="status">
+          <p>No processed frames are published for this preset yet. Nothing is shown in their place.</p>
+          {data.reason && <p className="muted">{data.reason}</p>}
+        </div>
       ) : (
         <FrameViewer
           label={`${preset?.display_name ?? presetId} frames in time order`}
