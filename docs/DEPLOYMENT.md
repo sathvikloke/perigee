@@ -162,9 +162,41 @@ Runs of the merged script (coordinator, integration after `d859e62`):
 
 Release details from Suhrit's report, kept alongside the numbered **Owner actions** above:
 - Environment variable changes apply only to new deployments. Redeploy after setting `PERIGEE_TOKEN_SECRET`, then confirm that health shows `token_signing: "env"`.
-- To verify a protected preview before merge, either give Suhrit team access to `sathviklokes-projects`, or have an owner run the smoke check with `--bypass`.
+- To verify a protected preview before merge, have an owner run the smoke check with `--bypass`. Adding Suhrit to `sathviklokes-projects` is not an option on Hobby: Vercel requires Pro for team members. Making the repo public (owner action 1) also lets Vercel build his commits.
 - Record the production domain shown on the project's Domains page. That domain, not a preview and not `perigee.vercel.app`, is the judge URL. Then run the smoke check **without** `--bypass` and record the URL, commit and output here.
 - Risk: on a Hobby team, Vercel can block preview builds of private-repo commits authored by non-members. A teammate's PR that shows "blocked" instead of a build is an access issue, not a code failure.
+
+### Production-mode dress rehearsal (Suhrit, `8f577fa`, 2026-11-14 ~23:25Z)
+
+Setup:
+- `VERCEL_ENV=production`, plus a throwaway local `PERIGEE_TOKEN_SECRET` (48 random bytes, never written down).
+- `uvicorn backend.main:app`, with `vite preview` of the production frontend build proxying `/api`.
+- Windows 11, Python 3.12.10.
+
+Results:
+- **Smoke: PASS 20/20, exit 0.**
+  - Health `ok`, with `token_signing: env`.
+  - Live non-preset search: `ready`, 377 matches, 7.8 s.
+  - Frame `2025W36_2B_0338_1`: 200 in 4.7 s, 18 KB.
+- **Unit tests:**
+  - Backend: 311 pass. The only failures are 2 symlink tests that need Windows admin rights. The vercelignore regression test now passes on Windows.
+  - Frontend: vitest 121/121 pass. The build is 102 KB gzipped JS.
+- **In the browser:**
+  - Barnard's Star loads 6 images, all decoded, with no console errors.
+  - The evidence card autosaves to `perigee.evidence.v1` with the claim, uncertainty, observation IDs, dates, wavelengths, flags and IRSA source URLs.
+  - The deep link `/?view=query&ra=83.822&dec=-5.391&fov=6` runs the search. It returned 24 of 237 matches in time order, and frames loaded progressively.
+- **Live archive behavior seen:**
+  - At limit 24, IRSA's QR3 query did not answer within the search budget. The UI showed honest **partial** results: "spherex_qr3 could not be searched".
+  - One frame got an IRSA `502 UPSTREAM_UNAVAILABLE` and the rest continued.
+  - These are archive slowdowns, not app defects. Expect them during the demo too, and prefer a preset for the live walk-through.
+
+### Automatic post-deploy smoke (`.github/workflows/release-smoke.yml`)
+
+- **Trigger:** runs after every successful **Production** deployment that Vercel reports to GitHub, against the repository variable `PERIGEE_PUBLIC_URL`. It runs logged out, with no bypass and no secrets.
+- **Results:** the output goes to the run summary. A failure means either exit 2 (access setting) or exit 1 (app defect).
+- **Before `PERIGEE_PUBLIC_URL` is set:** the automatic run is skipped with a notice.
+- **Manual runs:** Actions → release-smoke → Run workflow, with any URL.
+- **Owner setup:** once production is public, add the repository variable `PERIGEE_PUBLIC_URL=https://<production domain>`. GitHub only runs `deployment_status` workflows from the default branch, so the workflow is active once it is on `main`.
 
 ## Configuration and release checks
 

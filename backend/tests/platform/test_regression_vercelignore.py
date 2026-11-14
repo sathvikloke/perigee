@@ -46,15 +46,16 @@ def _ignored(rules: str, paths: list[str], tmp: Path) -> set[str]:
     repo = tmp / f"r{abs(hash(rules))}"
     repo.mkdir()
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
-    (repo / ".gitignore").write_text(rules)
+    # Bytes, not text mode: on Windows text mode turns "\n" into "\r\n", git then
+    # sees paths ending in "\r" and nothing matches.
+    (repo / ".gitignore").write_bytes(rules.replace("\r\n", "\n").encode())
     out = subprocess.run(
         ["git", "-C", str(repo), "check-ignore", "--no-index", "--stdin"],
-        input="\n".join(paths) + "\n",
+        input=("\n".join(paths) + "\n").encode(),
         capture_output=True,
-        text=True,
     )
-    assert out.returncode in (0, 1), out.stderr
-    return set(out.stdout.split())
+    assert out.returncode in (0, 1), out.stderr.decode(errors="replace")
+    return set(out.stdout.decode().split())
 
 
 def test_vercelignore_keeps_backend_runtime_and_drops_research(tmp_path):
