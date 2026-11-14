@@ -4,6 +4,7 @@ import type { FrameRecord } from "../api/types";
 import { markerXY } from "../lib/compare";
 import { QUALITY_LABEL, daysBetween, formatDateShort, formatDuration, formatMicrons } from "../lib/format";
 import { nextPlayableIndex, playAnnouncement, playCadenceMs, playableCount, playbackCaveats } from "../lib/playback";
+import { Elapsed } from "./common";
 import { FrameDetails } from "./FrameDetails";
 import { Plate } from "./Plate";
 
@@ -22,6 +23,8 @@ export interface FrameSlot {
   observed_at_utc: string | null;
   mjd: number | null;
   error: { code: string; message: string; retryable: boolean } | null;
+  /** When this frame's request started (epoch ms), while it is loading. */
+  startedAt?: number | null;
 }
 
 /**
@@ -239,7 +242,15 @@ export function FrameViewer(props: {
               guideY={guideY}
               placeholder={
                 <>
-                  <p>{statusText(slot)}</p>
+                  <p>
+                    {statusText(slot)}
+                    {slot.status === "loading" && slot.startedAt ? (
+                      <>
+                        {" "}
+                        <Elapsed since={slot.startedAt} />
+                      </>
+                    ) : null}
+                  </p>
                   {slot.status === "error" && slot.error && (
                     <p className="mono">
                       {slot.error.code}: {slot.error.message}
@@ -358,7 +369,9 @@ function statusText(slot: FrameSlot): string {
     case "loading":
       return "Processing this frame…";
     case "error":
-      return "This frame could not be processed. The other frames are unaffected.";
+      return slot.error?.code === "SUPERSEDED"
+        ? "This frame was not processed because a newer search started."
+        : "This frame could not be processed. The other frames are unaffected.";
     default:
       return "";
   }

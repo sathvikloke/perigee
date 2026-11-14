@@ -225,6 +225,7 @@ export function createFixtureApi(): PerigeeApi {
           "Development fixture: the same Epsilon Indi B frames are returned for every coordinate. No archive was queried.",
         ],
         collections_queried: ["spherex_dr1", "spherex_qr3"],
+        collections_failed: [],
         queried_at_utc: new Date().toISOString(),
       };
       return res;

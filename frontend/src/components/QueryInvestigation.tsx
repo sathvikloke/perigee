@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   FRAME_CONCURRENCY,
+  SEARCH_TIMEOUT_MS,
+  createLimiter,
   createRequestGate,
   isAbortError,
   runWithConcurrency,
@@ -21,14 +23,24 @@ import {
   type QueryInput,
   type ValidQuery,
 } from "../lib/coords";
-import { ErrorBlock, errorInfo } from "./common";
+import {
+  SLOW_SEARCH_MS,
+  isDuplicateSubmit,
+  retryActionLabel,
+  retryableFailedIndices,
+  sameQuery,
+  searchFailureTitle,
+  searchScope,
+  stoppedCount,
+} from "../lib/requestState";
+import { Elapsed, ErrorBlock, errorInfo, useNow } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook } from "./Notebook";
 import { PageHeading } from "./PageHeading";
 
 type Phase =
   | { kind: "idle" }
-  | { kind: "searching"; query: ValidQuery }
+  | { kind: "searching"; query: ValidQuery; startedAt: number }
   | { kind: "searched"; query: ValidQuery }
   | { kind: "failed"; query: ValidQuery; error: unknown };
 
@@ -61,7 +73,19 @@ export function QueryInvestigation(props: {
   const [shown, setShown] = useState<Shown | null>(null);
   const [slots, setSlots] = useState<FrameSlot[]>([]);
   const [index, setIndex] = useState(0);
-  const gate = useRef(createRequestGate());
+  // The notebook's position: the results on screen, or, before any search has
+  // succeeded, the position in the opened link. A failed or unfinished search
+  // never switches it, so saved notes stay visible while the archive is down.
+  const [notesQuery, setNotesQuery] = useState<ValidQuery | null>(null);
+  // Search requests and frame requests have separate generations, so frames
+  // of the results on screen can still be retried after a search fails or is
+  // cancelled. One limiter caps every frame request at FRAME_CONCURRENCY.
+  const searchGate = useRef(createRequestGate());
+  const frameGate = useRef(createRequestGate());
+  const limiter = useRef(createLimiter(FRAME_CONCURRENCY));
+  const inFlight = useRef<ValidQuery | null>(null);
+  const onQueryChange = useRef(props.onQueryChange);
+  onQueryChange.current = props.onQueryChange;
   const fieldRefs = useRef<Partial<Record<keyof QueryInput, HTMLInputElement | null>>>({});
 
   const patchSlot = (i: number, patch: Partial<FrameSlot>) =>
@@ -70,19 +94,23 @@ export function QueryInvestigation(props: {
 
   const loadFrame = useCallback(
     async (ticketId: number, signal: AbortSignal, i: number, token: string, key: string) => {
+      const live = () => frameGate.current.isCurrent(ticketId);
       const cached = frameCache.get(cacheKey(key));
       if (cached) {
-        if (gate.current.isCurrent(ticketId)) patchSlot(i, { status: "ready", frame: cached, error: null });
+        if (live()) patchSlot(i, { status: "ready", frame: cached, error: null, startedAt: null });
         return;
       }
-      if (gate.current.isCurrent(ticketId)) patchSlot(i, { status: "loading", error: null });
+      if (live()) patchSlot(i, { status: "pending", error: null, startedAt: null });
       try {
-        const frame = await api.frame(token, signal);
+        const frame = await limiter.current.run(() => {
+          if (live()) patchSlot(i, { status: "loading", startedAt: Date.now() });
+          return api.frame(token, signal);
+        }, signal);
         frameCache.set(cacheKey(key), frame);
-        if (gate.current.isCurrent(ticketId)) patchSlot(i, { status: "ready", frame, error: null });
+        if (live()) patchSlot(i, { status: "ready", frame, error: null, startedAt: null });
       } catch (err) {
-        if (isAbortError(err) || !gate.current.isCurrent(ticketId)) return;
-        patchSlot(i, { status: "error", error: errorInfo(err) });
+        if (isAbortError(err) || !live()) return;
+        patchSlot(i, { status: "error", error: errorInfo(err), startedAt: null });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,22 +119,35 @@ export function QueryInvestigation(props: {
 
   const runSearch = useCallback(
     async (query: ValidQuery) => {
-      const ticket = gate.current.begin();
-      setPhase({ kind: "searching", query });
-      // Frames of the previous search that never finished stay unfinished;
-      // their requests were aborted with the old ticket.
+      const ticket = searchGate.current.begin();
+      inFlight.current = query;
+      setPhase({ kind: "searching", query, startedAt: Date.now() });
+      // Frames of the previous search that never finished are stopped; they
+      // stay retryable in case this search fails and those results remain.
+      frameGate.current.cancel();
       setSlots((prev) =>
         prev.map((s) =>
           s.status === "pending" || s.status === "loading"
-            ? { ...s, status: "error", error: { code: "SUPERSEDED", message: "Stopped by a newer search.", retryable: false } }
+            ? {
+                ...s,
+                status: "error",
+                startedAt: null,
+                error: { code: "SUPERSEDED", message: "Stopped when a newer search started.", retryable: true },
+              }
             : s,
         ),
       );
       try {
         const response = await api.search(query, ticket.signal);
-        if (!gate.current.isCurrent(ticket.id)) return;
+        if (!searchGate.current.isCurrent(ticket.id)) return;
+        inFlight.current = null;
+        const frames = frameGate.current.begin();
         setPhase({ kind: "searched", query });
         setShown({ query, response });
+        setNotesQuery(query);
+        // The link follows the results on screen, so a reload during an
+        // archive outage reopens the position whose notes were being written.
+        onQueryChange.current(query);
         setIndex(0);
         setSlots(
           response.observations.map((o) => {
@@ -126,11 +167,12 @@ export function QueryInvestigation(props: {
         await runWithConcurrency(
           response.observations,
           FRAME_CONCURRENCY,
-          (o, i) => loadFrame(ticket.id, ticket.signal, i, o.frame_token, o.frame_key ?? o.observation_id),
-          ticket.signal,
+          (o, i) => loadFrame(frames.id, frames.signal, i, o.frame_token, o.frame_key ?? o.observation_id),
+          frames.signal,
         );
       } catch (err) {
-        if (isAbortError(err) || !gate.current.isCurrent(ticket.id)) return;
+        if (isAbortError(err) || !searchGate.current.isCurrent(ticket.id)) return;
+        inFlight.current = null;
         setPhase({ kind: "failed", query, error: err });
       }
     },
@@ -138,7 +180,13 @@ export function QueryInvestigation(props: {
     [api, frameCache, loadFrame],
   );
 
-  const submit = (e?: FormEvent) => {
+  /** Every search start goes through here: a repeat of the one in flight is ignored. */
+  const startSearch = (query: ValidQuery) => {
+    if (isDuplicateSubmit(inFlight.current, query)) return;
+    void runSearch(query);
+  };
+
+  const submit = (e?: FormEvent): ValidQuery | null => {
     e?.preventDefault();
     const v = validateQuery(input);
     if (!v.ok) {
@@ -146,35 +194,58 @@ export function QueryInvestigation(props: {
       setNotices([]);
       const first = (["ra", "dec", "fov", "limit"] as const).find((k) => v.errors[k]);
       if (first) fieldRefs.current[first]?.focus();
-      return;
+      return null;
     }
     setErrors({});
     setNotices(v.notices);
     if (v.value.ra_deg !== Number(input.ra)) setInput((p) => ({ ...p, ra: String(v.value.ra_deg) }));
-    if (phase.kind === "searching" && sameQuery(phase.query, v.value)) return;
-    props.onQueryChange(v.value);
-    void runSearch(v.value);
+    startSearch(v.value);
+    return v.value;
+  };
+
+  const cancelSearch = () => {
+    searchGate.current.cancel();
+    inFlight.current = null;
+    setPhase({ kind: "idle" });
   };
 
   // Run once when opened from a shared coordinate link. The cleanup cancels
   // in-flight work on unmount; under StrictMode's mount/unmount/mount the
   // second mount simply starts the search again.
   useEffect(() => {
-    if (props.initial.ra && props.initial.dec) submit();
-    const g = gate.current;
-    return () => g.cancel();
+    if (props.initial.ra && props.initial.dec) {
+      const q = submit();
+      if (q) setNotesQuery((prev) => prev ?? q);
+    }
+    const s = searchGate.current;
+    const f = frameGate.current;
+    return () => {
+      s.cancel();
+      f.cancel();
+      inFlight.current = null;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const retryFrame = (i: number) => {
-    const o = shown?.response.observations[i];
-    const ticket = gate.current.active();
-    if (!o || !ticket || phase.kind !== "searched") return;
-    void loadFrame(ticket.id, ticket.signal, i, o.frame_token, o.frame_key ?? o.observation_id);
+  /** Retries frames of the results on screen, in order, within the shared limit. */
+  const retryFrames = (indices: number[]) => {
+    const obs = shown?.response.observations;
+    if (!obs || !indices.length) return;
+    const ticket = frameGate.current.active() ?? frameGate.current.begin();
+    void runWithConcurrency(
+      indices,
+      FRAME_CONCURRENCY,
+      (i) => {
+        const o = obs[i];
+        return o ? loadFrame(ticket.id, ticket.signal, i, o.frame_token, o.frame_key ?? o.observation_id) : Promise.resolve();
+      },
+      ticket.signal,
+    );
   };
+  const retryFrame = (i: number) => retryFrames([i]);
 
-  // Notes belong to the results on screen, so a failed new search never hides them.
-  const q = shown?.query ?? null;
+  // Notes belong to the notebook's position, so a failed new search never hides them.
+  const q = notesQuery;
   const contextKey = q ? `${api.mode}:query:${q.ra_deg},${q.dec_deg},${q.fov_arcmin}` : `${api.mode}:query:none`;
   const makeCard = useCallback(
     () =>
@@ -196,6 +267,7 @@ export function QueryInvestigation(props: {
     { pending: 0, loading: 0, ready: 0, error: 0 } as Record<FrameSlot["status"], number>,
   );
   const expired = slots.some((s) => s.error?.code === "TOKEN_EXPIRED");
+  const failedIdx = retryableFailedIndices(slots);
   const showingOld = shown && phase.kind !== "idle" && phase.kind !== "searched" && !sameQuery(phase.query, shown.query);
 
   const field = (key: keyof QueryInput, label: string, help: string, numeric = false) => (
@@ -236,7 +308,7 @@ export function QueryInvestigation(props: {
         intro="Enter a position. Perigee asks the archive, then processes each image one at a time so you can compare dates, wavelengths and quality."
         mode={api.mode}
       />
-      <div className={`workspace${shown ? "" : " single"}`}>
+      <div className={`workspace${notesQuery ? "" : " single"}`}>
         <section className="bench" aria-label="Coordinate search">
           <form className="comparison-shell query-form" onSubmit={submit} noValidate aria-label="Sky position">
             <div className="query-fields">
@@ -250,14 +322,8 @@ export function QueryInvestigation(props: {
                 Search the archive
               </button>
               {phase.kind === "searching" && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    gate.current.cancel();
-                    setPhase({ kind: "idle" });
-                  }}
-                >
-                  Cancel
+                <button type="button" onClick={cancelSearch}>
+                  Cancel search
                 </button>
               )}
             </div>
@@ -285,18 +351,22 @@ export function QueryInvestigation(props: {
               : phase.kind === "searched" && shown
                 ? shown.response.status === "empty"
                   ? "Search finished with no matching images."
-                  : `Search finished: ${shown.response.returned_count} observations. Frames are processing.`
+                  : shown.response.status === "partial" && shown.response.observations.length === 0
+                    ? "Search incomplete: part of the archive could not be searched."
+                    : `Search finished${shown.response.status === "partial" ? " with partial results" : ""}: ${
+                        shown.response.returned_count
+                      } observations. Frames are processing.`
                 : phase.kind === "failed"
                   ? "The search failed."
                   : ""}
           </p>
 
-          {phase.kind === "searching" && <p className="status">Searching the archive for {describe(phase.query)}…</p>}
+          {phase.kind === "searching" && <SearchProgress query={phase.query} startedAt={phase.startedAt} />}
           {phase.kind === "failed" && (
             <ErrorBlock
-              title="The archive search failed. This is not a result about the sky."
+              title={searchFailureTitle(errorInfo(phase.error).code)}
               error={phase.error}
-              onRetry={() => void runSearch(phase.query)}
+              onRetry={() => startSearch(phase.query)}
               onUseFixture={api.mode === "api" ? props.onUseFixture : undefined}
             />
           )}
@@ -305,11 +375,27 @@ export function QueryInvestigation(props: {
               Still showing the previous images and notes, from {describe(shown.query)}.
             </p>
           )}
-          {shown && !showingOld && <SearchSummary response={shown.response} counts={counts} />}
+          {!shown && notesQuery && phase.kind === "failed" && (
+            <p className="notice" role="note">
+              Your notes for {describe(notesQuery)} are kept. Images appear once the search succeeds.
+            </p>
+          )}
+          {shown && !showingOld && (
+            <SearchSummary
+              response={shown.response}
+              counts={counts}
+              failedIdx={failedIdx}
+              stopped={stoppedCount(slots)}
+              retryLabel={retryActionLabel(slots, failedIdx)}
+              onRetryFailed={() => retryFrames(failedIdx)}
+              onJump={setIndex}
+              onSearchAgain={() => startSearch(shown.query)}
+            />
+          )}
           {expired && phase.kind === "searched" && shown && (
             <div className="notice" role="alert">
               <p>This search has expired. Run it again to continue; your notes are kept.</p>
-              <button type="button" onClick={() => void runSearch(shown.query)}>
+              <button type="button" onClick={() => startSearch(shown.query)}>
                 Run the search again
               </button>
             </div>
@@ -330,7 +416,7 @@ export function QueryInvestigation(props: {
           )}
         </section>
 
-        {shown && (
+        {notesQuery && (
           <Notebook
             card={ev.card}
             onChange={ev.update}
@@ -343,20 +429,64 @@ export function QueryInvestigation(props: {
   );
 }
 
-function sameQuery(a: ValidQuery, b: ValidQuery) {
-  return a.ra_deg === b.ra_deg && a.dec_deg === b.dec_deg && a.fov_arcmin === b.fov_arcmin && a.limit === b.limit;
+/** Search progress with elapsed time; after a few seconds it says why it may be slow. */
+function SearchProgress({ query, startedAt }: { query: ValidQuery; startedAt: number }) {
+  const now = useNow(true);
+  return (
+    <div className="status">
+      <p>
+        Searching the archive for {describe(query)}… <Elapsed since={startedAt} />
+      </p>
+      {now - startedAt >= SLOW_SEARCH_MS && (
+        <p>
+          The NASA/IPAC archive is slow to answer right now. Perigee stops waiting after{" "}
+          {Math.round(SEARCH_TIMEOUT_MS / 1000)} seconds; you can cancel sooner.
+        </p>
+      )}
+    </div>
+  );
 }
 
 function SearchSummary({
   response,
   counts,
+  failedIdx,
+  stopped,
+  retryLabel,
+  onRetryFailed,
+  onJump,
+  onSearchAgain,
 }: {
   response: SearchResponse;
   counts: Record<FrameSlot["status"], number>;
+  failedIdx: number[];
+  /** Frames stopped by a newer search that was then cancelled or failed. */
+  stopped: number;
+  retryLabel: string;
+  onRetryFailed: () => void;
+  onJump: (i: number) => void;
+  onSearchAgain: () => void;
 }) {
-  const scope = response.collections_queried.length
-    ? response.collections_queried.join(", ")
-    : "the supported collections";
+  const { answered, failed } = searchScope(response);
+  const scope = answered.length ? answered.join(", ") : "the supported collections";
+  // The partial notice below names the failed collections; skip the API's copy of that sentence.
+  const warnings = failed.length
+    ? response.warnings.filter((w) => !w.startsWith("Some collections could not be searched"))
+    : response.warnings;
+  if (response.status === "partial" && response.observations.length === 0) {
+    return (
+      <div className="notice" role="note">
+        <p>
+          <strong>No images from {scope}, and {failed.length ? failed.join(", ") : "part of the archive"} could not be
+          searched.</strong>{" "}
+          This is an incomplete answer, not a result about the sky.
+        </p>
+        <button type="button" onClick={onSearchAgain}>
+          Search again
+        </button>
+      </div>
+    );
+  }
   if (response.status === "empty") {
     return (
       <div className="status">
@@ -377,14 +507,41 @@ function SearchSummary({
         in {scope}
         {response.total_matches != null ? ` (of ${response.total_matches} matches)` : ""}
         {response.truncated ? ", shortened by the result limit" : ""}. {counts.ready} ready · {counts.loading}{" "}
-        processing · {counts.pending} waiting · {counts.error} failed.
+        processing · {counts.pending} waiting · {counts.error - stopped} failed
+        {stopped ? ` · ${stopped} stopped by a newer search` : ""}.
       </p>
-      {response.status === "partial" && (
-        <p className="notice">Partial results: part of the archive could not be searched. Some images may be missing.</p>
+      {failedIdx.length > 0 && (
+        <div className="actions">
+          <button type="button" onClick={onRetryFailed}>
+            {retryLabel}
+          </button>
+          <span className="counter">
+            Not loaded:{" "}
+            {failedIdx.map((i, n) => (
+              <span key={i}>
+                {n > 0 && ", "}
+                <button type="button" className="link" onClick={() => onJump(i)} aria-label={`Show frame ${i + 1}`}>
+                  #{i + 1}
+                </button>
+              </span>
+            ))}
+          </span>
+        </div>
       )}
-      {response.warnings.length > 0 && (
+      {response.status === "partial" && (
+        <div className="notice">
+          <p>
+            Partial results: {failed.length ? failed.join(", ") : "part of the archive"} could not be searched, so some
+            images may be missing.
+          </p>
+          <button type="button" onClick={onSearchAgain}>
+            Search again
+          </button>
+        </div>
+      )}
+      {warnings.length > 0 && (
         <ul className="plain-list">
-          {response.warnings.map((w) => (
+          {warnings.map((w) => (
             <li key={w}>{w}</li>
           ))}
         </ul>

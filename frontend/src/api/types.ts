@@ -230,6 +230,8 @@ export interface SearchResponse {
   truncated: boolean;
   warnings: string[];
   collections_queried: string[];
+  /** Collections that could not be searched (status "partial"); empty otherwise. */
+  collections_failed: string[];
   queried_at_utc: string;
 }
 

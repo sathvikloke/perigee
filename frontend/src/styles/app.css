@@ -208,7 +208,7 @@ main:focus { outline: none; }
 .sky img { width: 100%; height: 100%; display: block; image-rendering: pixelated; user-select: none; }
 .sky .flag-overlay { position: absolute; inset: 0; opacity: 0.85; }
 .sky-empty { display: grid; place-content: center; gap: var(--space-sm); padding: var(--space-lg); text-align: center; color: var(--sky-label); font-size: var(--text-sm); height: 100%; }
-.sky-empty .mono { color: var(--sky-label); }
+.sky-empty .mono, .sky-empty .counter { color: var(--sky-label); }
 .sky-empty button { justify-self: center; }
 .prediction {
   position: absolute; width: 25px; height: 25px; border: 1px solid var(--marker); border-radius: 50%;
