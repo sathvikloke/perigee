@@ -1,0 +1,458 @@
+[
+ {
+  "frame_key": "2026W18_1A_0516_1_D3",
+  "registration": {
+   "center": [
+    331.0966687831005,
+    -56.80064917516836,
+    331.0966687831005,
+    -56.80064917516836
+   ],
+   "scale_arcsec_per_display_px": [
+    1.40625,
+    1.40625
+   ],
+   "native_scale_arcsec": [
+    6.159563174491026,
+    6.1318
+   ],
+   "native_scale_check": {
+    "local_sip_jacobian_arcsec": 6.13175,
+    "linear_cd_only_arcsec": 6.15719,
+    "header_OMEGA_MEDIAN_sqrt_arcsec": 6.15415
+   },
+   "orientation": [
+    "north_up_east_left",
+    "north_up_east_left"
+   ],
+   "intensity_method": [
+    "nearest_neighbour",
+    "bilinear (finite neighbours)"
+   ],
+   "target_native_px": [
+    [
+     28.58217890161656,
+     28.67359645686629
+    ],
+    [
+     28.5822,
+     28.6736
+    ]
+   ],
+   "marker_display_px": [
+    [
+     127.081,
+     128.568
+    ],
+    [
+     127.081,
+     128.568
+    ]
+   ],
+   "displayable_mask": {
+    "A_only": 0,
+    "B_only": 0,
+    "both": 56424
+   },
+   "intensity_best_shift": {
+    "corr": 0.9514,
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  "spectral": {
+   "wavelength_um": [
+    2.323168495440948,
+    2.323168
+   ],
+   "bandwidth_um": [
+    0.05770944648649273,
+    0.057709
+   ],
+   "abs_diff_wavelength_um": 4.954409482671451e-07
+  },
+  "time": [
+   "2026-04-29T12:05:47.874Z",
+   "2026-04-29T12:05:47.874"
+  ],
+  "quality": {
+   "status": [
+    "clear",
+    "clear"
+   ],
+   "covered": [
+    true,
+    true
+   ],
+   "aperture_pixels": [
+    19,
+    19
+   ],
+   "valid": [
+    19,
+    19
+   ],
+   "adverse": [
+    0,
+    0
+   ],
+   "nonfinite": [
+    0,
+    0
+   ],
+   "flag_names": [
+    [],
+    []
+   ],
+   "flag_counts": [
+    {
+     "SOURCE": 19
+    },
+    {
+     "SOURCE": 19
+    }
+   ]
+  },
+  "flag_overlay_confusion_0none_1adverse_2nonfinite": {
+   "A0_B0": 64977,
+   "A0_B1": 0,
+   "A0_B2": 0,
+   "A1_B0": 0,
+   "A1_B1": 559,
+   "A1_B2": 0,
+   "A2_B0": 0,
+   "A2_B1": 0,
+   "A2_B2": 0
+  },
+  "display_scale": {
+   "A": {
+    "mode": "shared",
+    "method": "asinh",
+    "asinh_softening": 10.0,
+    "low": 0.11586961895227432,
+    "high": 1.177802324295044,
+    "background_subtraction": null
+   },
+   "B": {
+    "mode": "shared",
+    "method": "asinh: t = clip((v - lo) / (hi - lo), 0, 1); grey = 255 * asinh(t / 0.1) / asinh(1 / 0.1)",
+    "asinh_softening": 0.1,
+    "lo": -0.064761,
+    "hi": 1.003253,
+    "background_offset": 0.185769
+   }
+  },
+  "size_bytes": {
+   "A_png": 24842,
+   "B_png": 31933,
+   "A_flags_png": 852,
+   "B_flags_png": 850,
+   "A_png_data_url_chars": 33146,
+   "B_png_data_url_chars": 42602
+  }
+ },
+ {
+  "frame_key": "2026W39_2A_0597_4_D3",
+  "registration": {
+   "center": [
+    331.0966687831005,
+    -56.80064917516836,
+    331.0966687831005,
+    -56.80064917516836
+   ],
+   "scale_arcsec_per_display_px": [
+    1.40625,
+    1.40625
+   ],
+   "native_scale_arcsec": [
+    6.154930701370139,
+    6.1267
+   ],
+   "native_scale_check": {
+    "local_sip_jacobian_arcsec": 6.12672,
+    "linear_cd_only_arcsec": 6.15244,
+    "header_OMEGA_MEDIAN_sqrt_arcsec": 6.1533
+   },
+   "orientation": [
+    "north_up_east_left",
+    "north_up_east_left"
+   ],
+   "intensity_method": [
+    "nearest_neighbour",
+    "bilinear (finite neighbours)"
+   ],
+   "target_native_px": [
+    [
+     28.513370076682065,
+     29.699308817473963
+    ],
+    [
+     28.5134,
+     29.6993
+    ]
+   ],
+   "marker_display_px": [
+    [
+     125.911,
+     129.292
+    ],
+    [
+     125.911,
+     129.292
+    ]
+   ],
+   "displayable_mask": {
+    "A_only": 0,
+    "B_only": 0,
+    "both": 55309
+   },
+   "intensity_best_shift": {
+    "corr": 0.9288,
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  "spectral": {
+   "wavelength_um": [
+    2.321953403606271,
+    2.321953
+   ],
+   "bandwidth_um": [
+    0.05733009073399494,
+    0.05733
+   ],
+   "abs_diff_wavelength_um": 4.036062706269661e-07
+  },
+  "time": [
+   "2026-09-27T07:44:24.312Z",
+   "2026-09-27T07:44:24.312"
+  ],
+  "quality": {
+   "status": [
+    "clear",
+    "clear"
+   ],
+   "covered": [
+    true,
+    true
+   ],
+   "aperture_pixels": [
+    18,
+    18
+   ],
+   "valid": [
+    18,
+    18
+   ],
+   "adverse": [
+    0,
+    0
+   ],
+   "nonfinite": [
+    0,
+    0
+   ],
+   "flag_names": [
+    [],
+    []
+   ],
+   "flag_counts": [
+    {
+     "SOURCE": 18
+    },
+    {
+     "SOURCE": 18
+    }
+   ]
+  },
+  "flag_overlay_confusion_0none_1adverse_2nonfinite": {
+   "A0_B0": 63869,
+   "A0_B1": 0,
+   "A0_B2": 0,
+   "A1_B0": 0,
+   "A1_B1": 1647,
+   "A1_B2": 0,
+   "A2_B0": 0,
+   "A2_B1": 0,
+   "A2_B2": 20
+  },
+  "display_scale": {
+   "A": {
+    "mode": "shared",
+    "method": "asinh",
+    "asinh_softening": 10.0,
+    "low": 0.11586961895227432,
+    "high": 1.177802324295044,
+    "background_subtraction": null
+   },
+   "B": {
+    "mode": "shared",
+    "method": "asinh: t = clip((v - lo) / (hi - lo), 0, 1); grey = 255 * asinh(t / 0.1) / asinh(1 / 0.1)",
+    "asinh_softening": 0.1,
+    "lo": -0.064761,
+    "hi": 1.003253,
+    "background_offset": 0.166272
+   }
+  },
+  "size_bytes": {
+   "A_png": 22448,
+   "B_png": 31900,
+   "A_flags_png": 1343,
+   "B_flags_png": 1350,
+   "A_png_data_url_chars": 29954,
+   "B_png_data_url_chars": 42558
+  }
+ },
+ {
+  "frame_key": "2026W18_1A_0516_1_D6",
+  "registration": {
+   "center": [
+    331.0966687831005,
+    -56.80064917516836,
+    331.0966687831005,
+    -56.80064917516836
+   ],
+   "scale_arcsec_per_display_px": [
+    1.40625,
+    1.40625
+   ],
+   "native_scale_arcsec": [
+    6.1646891711943,
+    6.1381
+   ],
+   "native_scale_check": {
+    "local_sip_jacobian_arcsec": 6.13808,
+    "linear_cd_only_arcsec": 6.16176,
+    "header_OMEGA_MEDIAN_sqrt_arcsec": 6.1602
+   },
+   "orientation": [
+    "north_up_east_left",
+    "north_up_east_left"
+   ],
+   "intensity_method": [
+    "nearest_neighbour",
+    "bilinear (finite neighbours)"
+   ],
+   "target_native_px": [
+    [
+     28.704936776019604,
+     28.380127038888844
+    ],
+    [
+     28.7049,
+     28.3801
+    ]
+   ],
+   "marker_display_px": [
+    [
+     127.081,
+     128.568
+    ],
+    [
+     127.081,
+     128.568
+    ]
+   ],
+   "displayable_mask": {
+    "A_only": 0,
+    "B_only": 0,
+    "both": 56454
+   },
+   "intensity_best_shift": {
+    "corr": 0.7418,
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  "spectral": {
+   "wavelength_um": [
+    4.939878573720873,
+    4.939879
+   ],
+   "bandwidth_um": [
+    0.03758797275503262,
+    0.037588
+   ],
+   "abs_diff_wavelength_um": 4.262791275522204e-07
+  },
+  "time": [
+   "2026-04-29T12:05:47.874Z",
+   "2026-04-29T12:05:47.874"
+  ],
+  "quality": {
+   "status": [
+    "clear",
+    "clear"
+   ],
+   "covered": [
+    true,
+    true
+   ],
+   "aperture_pixels": [
+    20,
+    20
+   ],
+   "valid": [
+    20,
+    20
+   ],
+   "adverse": [
+    0,
+    0
+   ],
+   "nonfinite": [
+    0,
+    0
+   ],
+   "flag_names": [
+    [],
+    []
+   ],
+   "flag_counts": [
+    {
+     "SOURCE": 20
+    },
+    {
+     "SOURCE": 20
+    }
+   ]
+  },
+  "flag_overlay_confusion_0none_1adverse_2nonfinite": {
+   "A0_B0": 64150,
+   "A0_B1": 0,
+   "A0_B2": 0,
+   "A1_B0": 0,
+   "A1_B1": 1350,
+   "A1_B2": 0,
+   "A2_B0": 0,
+   "A2_B1": 0,
+   "A2_B2": 36
+  },
+  "display_scale": {
+   "A": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "asinh_softening": 10.0,
+    "low": 0.4351555109024048,
+    "high": 2.530604839324951,
+    "background_subtraction": null
+   },
+   "B": {
+    "mode": "per_frame",
+    "method": "asinh: t = clip((v - lo) / (hi - lo), 0, 1); grey = 255 * asinh(t / 0.1) / asinh(1 / 0.1)",
+    "asinh_softening": 0.1,
+    "lo": -0.171049,
+    "hi": 1.349695,
+    "background_offset": 0.592501
+   }
+  },
+  "size_bytes": {
+   "A_png": 26576,
+   "B_png": 38140,
+   "A_flags_png": 1449,
+   "B_flags_png": 1462,
+   "A_png_data_url_chars": 35458,
+   "B_png_data_url_chars": 50878
+  }
+ }
+]

@@ -1,0 +1,6 @@
+# Processing (backend/data) dependencies, candidate B. Tested with Python 3.12.16.
+astropy==8.0.2
+numpy==2.5.4
+pillow==13.0.0
+# tests only
+pytest==9.2.0
