@@ -222,12 +222,41 @@ def test_truncation_evenly_spaced_and_flagged(client, harness):
     assert mjds == sorted(mjds) and mjds[0] == 61000.0 and mjds[-1] == 61099.0
 
 
-def test_overflow_makes_total_unknown(client, harness):
+def test_overflow_is_partial_with_unknown_total(client, harness):
+    # D1: the archive's record cap is a documented limit that interrupted retrieval.
     harness.search = FakeSearch(
         {"spherex_dr1": CollectionResult("spherex_dr1", [fixture_descriptor("a_1", 1, 1.0)], overflow=True), "spherex_qr3": []}
     )
     d = client.post(URL, json=body()).json()
+    assert d["status"] == "partial"
     assert d["total_matches"] is None and d["truncated"] is True
+    assert d["collections_capped"] == ["spherex_dr1"] and d["collections_failed"] == []
+    assert any("maximum number of records for spherex_dr1" in w for w in d["warnings"])
+
+
+def test_mixed_failure_and_overflow(client, harness):
+    harness.search = FakeSearch(
+        {
+            "spherex_dr1": CollectionResult("spherex_dr1", [fixture_descriptor("a_1", 1, 1.0)], overflow=True),
+            "spherex_qr3": UpstreamUnavailable("502", status=502, reason="upstream_5xx"),
+        }
+    )
+    resp = client.post(URL, json=body())
+    assert resp.status_code == 200
+    d = resp.json()
+    assert d["status"] == "partial" and d["returned_count"] == 1
+    assert d["collections_failed"] == ["spherex_qr3"] and d["collections_capped"] == ["spherex_dr1"]
+    assert d["total_matches"] is None and d["truncated"] is True
+    assert any(w.startswith("Some collections could not be searched") for w in d["warnings"])
+    assert any("maximum number of records" in w for w in d["warnings"])
+
+
+def test_limit_subset_without_overflow_stays_ready(client, harness):
+    many = [fixture_descriptor(f"2026W18_1A_{i:04d}_1", 2, 61000.0 + i) for i in range(10)]
+    harness.search = FakeSearch({"spherex_dr1": many, "spherex_qr3": []})
+    d = client.post(URL, json=body(limit=3)).json()
+    assert d["status"] == "ready" and d["collections_capped"] == []
+    assert d["truncated"] is True and d["total_matches"] == 10
 
 
 def test_duplicate_frame_keys_across_releases_deduplicated(client, harness):

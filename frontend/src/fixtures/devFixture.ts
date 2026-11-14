@@ -281,6 +281,7 @@ export function createFixtureApi(): PerigeeApi {
         ],
         collections_queried: ["spherex_dr1", "spherex_qr3"],
         collections_failed: [],
+        collections_capped: [],
         queried_at_utc: new Date().toISOString(),
       };
       return res;

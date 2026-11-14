@@ -232,6 +232,9 @@ export interface SearchResponse {
   collections_queried: string[];
   /** Collections that could not be searched (status "partial"); empty otherwise. */
   collections_failed: string[];
+  /** Collections where the archive returned its record cap (status "partial",
+   * total_matches null). Missing from older API responses: treat as []. */
+  collections_capped: string[];
   queried_at_utc: string;
 }
 

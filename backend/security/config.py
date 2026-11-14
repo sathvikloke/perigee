@@ -10,8 +10,9 @@ import os
 from dataclasses import dataclass
 
 MIN_SECRET_BYTES = 32
-# Dev-only fallback. Used only when PERIGEE_DEV_MODE=1 *and* the platform does not
-# report a production environment. Tokens signed with it are worthless elsewhere.
+# Dev-only fallback for LOCAL development. Used only when PERIGEE_DEV_MODE=1 and the
+# platform does not report a hosted deployment (Vercel Preview or Production). The
+# value is public in this repository, so tokens signed with it are worthless.
 _DEV_SECRET = "perigee-dev-only-secret-not-for-production-use-0001"
 
 
@@ -42,7 +43,9 @@ def _float_env(name: str, default: float) -> float:
 @dataclass(frozen=True)
 class Settings:
     token_secret: bytes | None
-    token_secret_source: str  # "env", "dev_fallback" or "missing" (safe to expose)
+    # Safe to expose: "env", "dev_fallback" (local only), "missing", "too_short",
+    # "dev_secret_refused" or "dev_mode_refused" (hosted deployments).
+    token_secret_source: str
     token_ttl_s: int
     upstream_connect_timeout_s: float
     upstream_read_timeout_s: float
@@ -52,24 +55,43 @@ class Settings:
     is_production: bool
 
 
+HOSTED_ENVS = frozenset({"production", "preview"})
+
+
 def is_production_env() -> bool:
     return os.environ.get("VERCEL_ENV", "").lower() == "production" or os.environ.get(
         "PERIGEE_ENV", ""
     ).lower() == "production"
 
 
+def is_hosted_env() -> bool:
+    """True on a hosted deployment (Vercel Preview or Production, or PERIGEE_ENV
+    set to either). Local runs, including ``vercel dev`` (VERCEL_ENV=development),
+    are not hosted."""
+    return (
+        os.environ.get("VERCEL_ENV", "").lower() in HOSTED_ENVS
+        or os.environ.get("PERIGEE_ENV", "").lower() in HOSTED_ENVS
+    )
+
+
 def load_settings() -> Settings:
     production = is_production_env()
+    hosted = is_hosted_env()
     secret_raw = os.environ.get("PERIGEE_TOKEN_SECRET", "")
-    if production and secret_raw == _DEV_SECRET:
-        # The dev secret is public in this repository; never sign with it in production.
+    dev_mode = _truthy(os.environ.get("PERIGEE_DEV_MODE"))
+    if hosted and secret_raw == _DEV_SECRET:
+        # The dev secret is public in this repository; never sign with it on a
+        # hosted deployment (Preview or Production).
         secret, source = None, "dev_secret_refused"
     elif secret_raw and len(secret_raw.encode()) >= MIN_SECRET_BYTES:
         secret: bytes | None = secret_raw.encode()
         source = "env"
-    elif _truthy(os.environ.get("PERIGEE_DEV_MODE")) and not production:
+    elif dev_mode and not hosted:
         secret = _DEV_SECRET.encode()
         source = "dev_fallback"
+    elif dev_mode and hosted and not secret_raw:
+        # PERIGEE_DEV_MODE set on Preview/Production: refuse the fallback and say so.
+        secret, source = None, "dev_mode_refused"
     else:
         secret = None
         source = "missing" if not secret_raw else "too_short"

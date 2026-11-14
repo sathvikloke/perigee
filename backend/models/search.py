@@ -98,5 +98,10 @@ class SearchResponse(BaseModel):
     collections_failed: list[str] = Field(
         default_factory=list, description="Collections whose archive query failed (status partial)."
     )
+    collections_capped: list[str] = Field(
+        default_factory=list,
+        description="Collections where the archive returned its record cap (SIA MAXREC), so not every "
+        "match was retrieved (status partial, total_matches null, truncated true).",
+    )
     token_expires_at_utc: str | None = None
     queried_at_utc: str

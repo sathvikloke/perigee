@@ -484,6 +484,9 @@ export function normalizeSearchResponse(body: unknown): SearchResponse {
     collections_failed: Array.isArray(r.collections_failed)
       ? r.collections_failed.filter((c): c is string => typeof c === "string")
       : [],
+    collections_capped: Array.isArray(r.collections_capped)
+      ? r.collections_capped.filter((c): c is string => typeof c === "string")
+      : [],
     queried_at_utc: strOrNull(r.queried_at_utc) ?? "",
   };
 }

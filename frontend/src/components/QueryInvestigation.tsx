@@ -468,6 +468,7 @@ function SearchSummary({
   onSearchAgain: () => void;
 }) {
   const { answered, failed } = searchScope(response);
+  const capped = response.collections_capped ?? [];
   const scope = answered.length ? answered.join(", ") : "the supported collections";
   // The partial notice below names the failed collections; skip the API's copy of that sentence.
   const warnings = failed.length
@@ -528,7 +529,7 @@ function SearchSummary({
           </span>
         </div>
       )}
-      {response.status === "partial" && (
+      {response.status === "partial" && (failed.length > 0 || capped.length === 0) && (
         <div className="notice">
           <p>
             Partial results: {failed.length ? failed.join(", ") : "part of the archive"} could not be searched, so some

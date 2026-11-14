@@ -82,16 +82,33 @@ def test_token_flip_any_signature_char():
 # ------------------------------------------------------------------ settings
 
 
-def test_dev_secret_never_in_production(monkeypatch):
+def test_dev_fallback_is_local_only(monkeypatch):
     monkeypatch.delenv("PERIGEE_TOKEN_SECRET", raising=False)
+    monkeypatch.delenv("PERIGEE_ENV", raising=False)
     monkeypatch.setenv("PERIGEE_DEV_MODE", "1")
-    monkeypatch.setenv("VERCEL_ENV", "production")
-    s = config.load_settings()
-    assert s.token_secret is None and s.token_secret_source == "missing"
-    monkeypatch.setenv("VERCEL_ENV", "preview")
+    # D3: hosted Preview and Production never use the public dev secret.
+    for env in ("production", "preview", "PREVIEW"):
+        monkeypatch.setenv("VERCEL_ENV", env)
+        s = config.load_settings()
+        assert s.token_secret is None and s.token_secret_source == "dev_mode_refused"
+    monkeypatch.delenv("VERCEL_ENV")
+    monkeypatch.setenv("PERIGEE_ENV", "preview")
+    assert config.load_settings().token_secret_source == "dev_mode_refused"
+    monkeypatch.delenv("PERIGEE_ENV")
+    # Ordinary local development keeps working, including `vercel dev`.
+    assert config.load_settings().token_secret_source == "dev_fallback"
+    monkeypatch.setenv("VERCEL_ENV", "development")
     assert config.load_settings().token_secret_source == "dev_fallback"
     monkeypatch.delenv("PERIGEE_DEV_MODE")
     assert config.load_settings().token_secret is None
+
+
+def test_real_secret_still_works_on_preview(monkeypatch):
+    monkeypatch.setenv("PERIGEE_DEV_MODE", "1")
+    monkeypatch.setenv("VERCEL_ENV", "preview")
+    monkeypatch.setenv("PERIGEE_TOKEN_SECRET", "x" * 48)
+    s = config.load_settings()
+    assert s.token_secret_source == "env" and s.token_secret == b"x" * 48
 
 
 def test_short_secret_refused(monkeypatch):

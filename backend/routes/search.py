@@ -2,8 +2,14 @@
 
 * Input is validated strictly (see backend/models/search.py); nothing is clipped.
 * Every selected collection is queried at the actual coordinate (no preset fallback).
-* status: ready (all collections answered, >=1 result), partial (>=1 result but a
-  collection failed), empty (every collection answered and none matched).
+* status (docs/INTEGRATION_CONTRACT.md, "Search"):
+  - ready: every collection answered in full and >=1 image matched. Choosing an
+    evenly spaced subset because of the caller's ``limit`` keeps ``ready``
+    (retrieval finished; ``truncated`` true, ``total_matches`` known).
+  - partial: >=1 image, but retrieval was incomplete: a collection failed
+    (``collections_failed``) or the archive hit its documented record cap,
+    SIA MAXREC (``collections_capped``; ``truncated`` true, ``total_matches`` null).
+  - empty: every collection answered in full and none matched.
   Upstream failure with no results is an error envelope, never "empty".
 * Descriptors are sorted by mjd then frame_key. When more than ``limit`` match, an
   evenly spaced-in-time subset is returned and ``truncated`` is true.
@@ -31,7 +37,7 @@ from backend.security.tokens import issue_token
 from backend.security.upstream import UpstreamError, UpstreamTimeout, UrlNotAllowed
 
 from ._adapters import Services, resolve_services
-from ._archive import SEARCH_RADIUS_DEG, CollectionResult
+from ._archive import SEARCH_RADIUS_DEG, SIA_MAXREC, CollectionResult
 from ._errors import ApiError, request_id_of
 
 router = APIRouter()
@@ -136,7 +142,8 @@ async def search(
         )
 
     warnings: list[str] = []
-    overflow = any(r.overflow for r in succeeded)
+    capped = sorted(r.collection_id for r in succeeded if r.overflow)
+    overflow = bool(capped)
     # Unknown (null) when the archive capped records or a collection failed.
     total = None if (overflow or failed) else len(merged)
     selected = select_evenly(merged, body.limit)
@@ -148,7 +155,12 @@ async def search(
             )
         )
     if overflow:
-        warnings.append("The archive capped the number of records; total_matches is unknown.")
+        warnings.append(
+            "The archive returned its maximum number of records for {} ({} per collection), so the total "
+            "is unknown and some images are not included. A smaller field of view returns fewer.".format(
+                ", ".join(capped), SIA_MAXREC
+            )
+        )
     if len(selected) < len(merged):
         warnings.append(
             f"Showing {len(selected)} of {len(merged)} matching images, evenly spaced in time. "
@@ -162,7 +174,10 @@ async def search(
     if not merged:
         warnings.append(SCOPE_NOTE.format(cols=" and ".join(collections)))
 
-    status = "partial" if failed else ("ready" if merged else "empty")
+    if not merged:
+        status = "empty" if not overflow else "partial"
+    else:
+        status = "partial" if (failed or overflow) else "ready"
     ttl = services.settings.token_ttl_s
     now = time.time()
     observations: list[ObservationDescriptor] = []
@@ -218,6 +233,7 @@ async def search(
         warnings=warnings,
         collections_queried=collections,
         collections_failed=sorted(failed),
+        collections_capped=capped,
         token_expires_at_utc=(
             datetime.fromtimestamp(expires_at, timezone.utc).isoformat(timespec="seconds")
             if expires_at

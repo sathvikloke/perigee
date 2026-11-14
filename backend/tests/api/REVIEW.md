@@ -14,8 +14,10 @@ Run: `.venv/bin/python -m pytest backend/tests/api/test_review_api.py -q`
 | R4 | Low | fixed |
 | R5 | Low | fixed |
 | R6 | Low | fixed |
-| R7 | Low | open (catalog owner) |
-| D1–D3 | n/a | owner decisions |
+| R7 | Low | fixed (`454d027`) |
+| D1 | n/a | decided: archive cap → `partial` |
+| D2 | n/a | documented; platform limit is an owner option |
+| D3 | n/a | decided: dev secret/fallback refused on Preview and Production |
 
 ### R1: no retry on IRSA's transient cutout 503s, so about 25% of frames fail on first load (High)
 - **Reproduction (live):** I made 16 sequential cutout GETs through `bounded_get`, using the API's own `cutout_url_for` for Eps Ind A on 2026-11-14. 4 of them returned **HTTP 503 in 0.1 s**. The other 12 returned a ~4 MB FITS in 3.4–5.2 s. Script: an SIA search, then 8 cutouts, run twice.
@@ -55,15 +57,21 @@ Run: `.venv/bin/python -m pytest backend/tests/api/test_review_api.py -q`
 - **Observed:** the dev-mode fallback was refused in production, but the same publicly known string supplied through the env var was accepted. Anyone could then mint tokens. The impact is limited because `/frame` re-checks the source allowlist, but forged RA/Dec/FOV and identity strings would be accepted.
 - **Fix (`security/config.py`):** in production that value leaves signing unconfigured, with `token_signing: "dev_secret_refused"` in `/health` and in the 503 details.
 
-### R7: catalog error envelopes carry a different `request_id` from the `X-Request-ID` header (Low, not fixed)
+### R7: catalog error envelopes carry a different `request_id` from the `X-Request-ID` header (Low, fixed)
 - **Reproduction:** `curl -si -H 'X-Request-ID: abc-123' localhost:8020/api/v1/cases/nope_case`. The header is `abc-123`, but the body's `request_id` is a fresh UUID. API routes and the unknown-route 404 use the same id in both.
-- **Why not fixed:** this only affects diagnostics. The fix means threading `Request` through four catalog routes (worker 08's file). Left for the catalog owner.
+- **Fix (`454d027`, coordinator, with the catalog files):** the request-id middleware stores the id in a `ContextVar` (`routes/_errors.py` `CURRENT_REQUEST_ID`), and `routes/catalog.py` uses it for its envelopes, so no `Request` threading was needed. `backend/tests/platform/test_platform_request_id.py` checks that the body id equals `X-Request-ID` for unknown case, preset and asset, and that a valid client-supplied id is echoed in both.
 
-## Decisions for the API owner
+## Decisions (resolved by the coordinator, 2026-11-14)
 
-- **D1: overflow status.** When IRSA returns `QUERY_STATUS=OVERFLOW` (MAXREC 2000), `/search` reports `status: ready` with `truncated: true` and `total_matches: null`. The contract says "partial means … a documented limit interrupted retrieval", which arguably covers this. Choose `ready` or `partial`. I did not change it.
-- **D2: rate limiting.** `RATE_LIMITED` is defined but never emitted. API B uses a per-instance in-memory limiter. On Vercel, instances do not share memory, so it only catches a runaway loop that hits one warm instance. I did not port it, because the brief says no speculative infrastructure. If abuse protection matters for the judging window, a platform-level limit (Vercel Firewall rate limiting on `/api/v1/frame`) is the effective option.
-- **D3: dev secret on Preview.** `PERIGEE_DEV_MODE=1` still enables the public dev secret on `VERCEL_ENV=preview`, and the existing test pins this behavior. That is safe only while Preview has no `PERIGEE_DEV_MODE` and keeps Vercel Authentication.
+- **D1: overflow status → `partial`.** `docs/INTEGRATION_CONTRACT.md` says partial means "some useful results exist but a collection failed or a documented limit interrupted retrieval". IRSA's `QUERY_STATUS=OVERFLOW` at SIA `MAXREC=2000` is that case: matches beyond the cap were never retrieved. The response is now `status: partial`, `truncated: true`, `total_matches: null`, plus a new `collections_capped: [...]` (default `[]`) and a warning naming the capped collection and suggesting a smaller field. Our own `limit` subset (evenly spaced in time) is **not** an interruption: retrieval finished, so it stays `ready` with `truncated: true` and a known `total_matches`. Mixed cases combine: a failed collection plus a capped one gives `partial` with both `collections_failed` and `collections_capped`. The frontend shows "could not be searched / Search again" only for failed collections; a capped-only search shows the API's cap warning instead, because retrying would return the same cap. Tests: `test_overflow_is_partial_with_unknown_total`, `test_mixed_failure_and_overflow` and `test_limit_subset_without_overflow_stays_ready` (`backend/tests/api/test_search.py`); the frontend normalizer test is in `frontend/tests/loading-recovery.test.ts`.
+- **D2: rate limiting. No limiter added; existing bounds documented.** `RATE_LIMITED` (429) stays defined but is not emitted. An in-memory limiter on Vercel is per instance, not global, so the API does not pretend to have one. The bounds in place:
+  - `/search`: `limit` ≤ 48, 2 collections, an upstream connect/read timeout of 5/20 s and a 25 s search budget.
+  - `/frame`: only HMAC-signed tokens issued by `/search` are accepted (6 h TTL, bound to one allowlisted IRSA source URL), so the endpoint cannot be used as an open proxy. Downloads are capped at 24 MB, with a 40 s frame budget, a bounded retry on IRSA 5xx (R1) and a response under Vercel's 4.5 MB limit (R5).
+  - Validation errors are bounded (R2).
+  - The browser runs at most 2 frame requests at once.
+  - The Vercel function has `maxDuration: 60`.
+  - **Owner decision still open:** whether to add a Vercel Firewall rate-limit rule on `/api/v1/frame` and `/api/v1/search` for the judging window. This is a project-settings change outside agent scope.
+- **D3: dev secret on Preview → refused.** `security/config.py` now treats `VERCEL_ENV` (or `PERIGEE_ENV`) `preview` like `production`. There, `PERIGEE_TOKEN_SECRET` equal to the public dev value gives `token_signing: dev_secret_refused`, and `PERIGEE_DEV_MODE=1` without a real secret gives `dev_mode_refused`; search and frame stay off with a 503 `SERVICE_MISCONFIGURED`. Local development is unchanged: no `VERCEL_ENV`, or `vercel dev` with `VERCEL_ENV=development`, plus `PERIGEE_DEV_MODE=1` still gives `dev_fallback`. A real secret of 32 bytes or more works everywhere. Tests: `test_dev_fallback_is_local_only` and `test_real_secret_still_works_on_preview` (`test_platform_protocol.py`), and `test_r6_dev_secret_refused_on_hosted_deployments` (`test_review_api.py`).
 
 ## Already handled well (no test added)
 

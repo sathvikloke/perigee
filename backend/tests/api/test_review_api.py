@@ -156,11 +156,15 @@ def test_r5_oversized_frame_response_is_a_json_error(client, harness):
 # R6 -- the public dev secret was accepted as PERIGEE_TOKEN_SECRET in production.
 
 
-def test_r6_dev_secret_refused_in_production(monkeypatch):
+def test_r6_dev_secret_refused_on_hosted_deployments(monkeypatch):
     monkeypatch.delenv("PERIGEE_DEV_MODE", raising=False)
+    monkeypatch.delenv("PERIGEE_ENV", raising=False)
     monkeypatch.setenv("PERIGEE_TOKEN_SECRET", config._DEV_SECRET)
-    monkeypatch.setenv("VERCEL_ENV", "production")
-    s = config.load_settings()
-    assert s.token_secret is None and s.token_secret_source == "dev_secret_refused"
-    monkeypatch.setenv("VERCEL_ENV", "preview")
-    assert config.load_settings().token_secret_source == "env"
+    for env in ("production", "preview"):  # D3: Preview is hosted too
+        monkeypatch.setenv("VERCEL_ENV", env)
+        s = config.load_settings()
+        assert s.token_secret is None and s.token_secret_source == "dev_secret_refused"
+    # Locally (no VERCEL_ENV, or `vercel dev`) the value is merely a long string.
+    for env in ("", "development"):
+        monkeypatch.setenv("VERCEL_ENV", env)
+        assert config.load_settings().token_secret_source == "env"

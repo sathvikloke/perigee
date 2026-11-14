@@ -167,6 +167,21 @@ describe("partial search results", () => {
     expect(ready.collections_failed).toEqual([]);
     expect(searchScope(ready).answered).toEqual(["spherex_dr1", "spherex_qr3"]);
   });
+
+  it("keeps collections_capped (archive record cap) and defaults it to empty for older responses", () => {
+    const capped = normalizeSearchResponse({
+      ...partialFixture,
+      collections_failed: [],
+      collections_capped: ["spherex_dr1"],
+      total_matches: null,
+      truncated: true,
+    });
+    expect(capped.status).toBe("partial");
+    expect(capped.collections_capped).toEqual(["spherex_dr1"]);
+    expect(capped.total_matches).toBeNull();
+    expect(capped.truncated).toBe(true);
+    expect(normalizeSearchResponse(partialFixture).collections_capped).toEqual([]);
+  });
 });
 
 describe("search submission and failure wording", () => {
