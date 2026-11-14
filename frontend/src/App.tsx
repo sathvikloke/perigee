@@ -32,10 +32,20 @@ function defaultPair(view: View | null): Pair | null {
   if (view.pairs?.length) return view.pairs[0];
   const ready = view.slots.map((s, i) => (s.status === 'ready' ? i : -1)).filter((i) => i >= 0);
   if (ready.length < 2) return null;
-  const left = ready[0];
-  const a = view.slots[left].frame!;
-  const fair = [...ready].reverse().find((i) => i !== left && classifyPair(a, view.slots[i].frame!) === 'fair_time');
-  return [left, fair ?? ready[ready.length - 1]];
+  // Prefer the longest-baseline pair at matching wavelength, favouring frames that pass the flag screen.
+  let best: Pair | null = null;
+  let bestScore = -1;
+  for (const i of ready)
+    for (const j of ready) {
+      if (j <= i) continue;
+      const fi = view.slots[i].frame!;
+      const fj = view.slots[j].frame!;
+      if (classifyPair(fi, fj) !== 'fair_time') continue;
+      const clear = (qualityStatus(fi) === 'clear' ? 1 : 0) + (qualityStatus(fj) === 'clear' ? 1 : 0);
+      const score = clear * 1e6 + Math.abs((fj.mjd ?? 0) - (fi.mjd ?? 0));
+      if (score > bestScore) [best, bestScore] = [[i, j], score];
+    }
+  return best ?? [ready[0], ready[ready.length - 1]];
 }
 
 function frameHeading(f: FrameRecord, other: FrameRecord): string {
@@ -141,7 +151,7 @@ export default function App() {
   const caseData = view?.caseData ?? null;
   const presetId = caseData?.target_id ?? (view?.source.kind === 'preset' ? view.source.presetId : null);
   const preset = presets.find((p) => p.id === presetId) ?? null;
-  const targetName = preset?.display_name ?? (presetId ? presetId : 'Sky position');
+  const targetName = !view ? 'Loading…' : preset?.display_name ?? (presetId ? presetId : 'Sky position');
   const vs = view?.source;
 
   let eyebrow = 'SPHEREx investigation';
@@ -160,7 +170,7 @@ export default function App() {
   } else if (vs?.kind === 'coords') {
     eyebrow = 'Live coordinates';
     accent = 'NASA/IPAC IRSA';
-    title = `Compare observations at RA ${vs.ra.toFixed(4)}°, Dec ${vs.dec.toFixed(4)}°`;
+    title = `Compare observations at RA\u00a0${vs.ra.toFixed(4)}°, Dec\u00a0${vs.dec.toFixed(4).replace('-', '−')}°`;
     intro = `A ${vs.fov} arcmin field searched live in SPHEREx DR1 and QR3. Pick two processed frames and check whether the comparison is fair.`;
   }
 
@@ -203,6 +213,10 @@ export default function App() {
   const anyFlagged = [a, b].some((f) => f && qualityStatus(f) === 'flagged');
   const showFlags = flagsChoice ?? anyFlagged;
   const legend = showFlags ? flagLegend([a, b]) : [];
+  const notClear = a && b ? ([[letters[0], a], [letters[1], b]] as const).filter(([, f]) => qualityStatus(f) !== 'clear') : [];
+  const qualityNote = notClear.length
+    ? `Quality: ${notClear.map(([r, f]) => `${r} is ${QUALITY_TEXT[qualityStatus(f)].label.toLowerCase()}`).join('; ')}. Open the quality details before reading anything into brightness at the target.`
+    : null;
 
   return (
     <>
@@ -315,7 +329,7 @@ export default function App() {
                       {search.returned_count} observation{search.returned_count === 1 ? '' : 's'} found
                       {search.total_matches != null && search.truncated ? ` (of ${search.total_matches})` : ''}
                     </strong>{' '}
-                    · {readyCount} ready{loadingCount ? ` · ${loadingCount} processing` : ''}
+                    · {readyCount} ready{loadingCount ? ` · ${loadingCount} still loading` : ''}
                     {failed.length ? ` · ${failed.length} could not be processed` : ''}
                   </p>
                 )}
@@ -479,6 +493,7 @@ export default function App() {
                   <div>
                     <strong>{insight.title}</strong>
                     <p>{insight.body}</p>
+                    {qualityNote ? <p>{qualityNote}</p> : null}
                     {a?.display_scale?.mode !== b?.display_scale?.mode || a?.display_scale?.mode === 'per_frame' ? (
                       <p>Brightness is scaled separately for at least one frame, so grey levels are not directly comparable.</p>
                     ) : null}
