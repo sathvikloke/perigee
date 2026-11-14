@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "8bb9fa49-1e84-4172-8c9a-4e0c1c29a655",
+  "created_at_utc": "2026-11-14T22:08:23.471Z",
+  "updated_at_utc": "2026-11-14T22:11:03.213Z",
+  "app_version": "0.1.0",
+  "data_origin": "api",
+  "case_id": "fair_comparison",
+  "preset_id": "epsilon_indi_b",
+  "query": {
+    "ra_deg": 331.0966687831005,
+    "dec_deg": -56.80064917516836,
+    "fov_arcmin": 6
+  },
+  "frames": [
+    {
+      "ref": "A",
+      "frame_key": "2026W18_1A_0516_1_D3",
+      "frame_id": "frm_8f30a028ec827826",
+      "observation_id": "2026W18_1A_0516_1",
+      "detector": 3,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-29T12:05:47.874Z",
+      "mjd": 61159.504026317,
+      "wavelength_um": 2.3231684948179585,
+      "bandwidth_um": 0.057709446474039715,
+      "wavelength_location": "Evaluated at the predicted target position (RA 331.09732, Dec -56.80087) from the file's spectral lookup table.",
+      "quality_status": "clear",
+      "quality_flag_names": [],
+      "display_scale_mode": "shared",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+      "processing": {
+        "processing_version": "perigee-data 0.1.0",
+        "pipeline_version": "7.0.5",
+        "file_sha256": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+        "registration_method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+        "display_scale_method": "asinh",
+        "marker_kind": "catalog_prediction"
+      }
+    },
+    {
+      "ref": "B",
+      "frame_key": "2026W39_2A_0597_4_D3",
+      "frame_id": "frm_1b34ab0d2529d843",
+      "observation_id": "2026W39_2A_0597_4",
+      "detector": 3,
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-27T07:44:24.312Z",
+      "mjd": 61310.322503608,
+      "wavelength_um": 2.321953404298646,
+      "bandwidth_um": 0.0573300907482798,
+      "wavelength_location": "Evaluated at the predicted target position (RA 331.09816, Dec -56.80115) from the file's spectral lookup table.",
+      "quality_status": "clear",
+      "quality_flag_names": [],
+      "display_scale_mode": "shared",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W39_2A/l2b-v27-2026-271/3/level2_2026W39_2A_0597_4D3_spx_l2b-v27-2026-271.fits",
+      "processing": {
+        "processing_version": "perigee-data 0.1.0",
+        "pipeline_version": "7.0.5",
+        "file_sha256": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+        "registration_method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+        "display_scale_method": "asinh",
+        "marker_kind": "catalog_prediction"
+      }
+    }
+  ],
+  "claim": "Trial 24f: A and B are a fair time pair; no visible change.",
+  "observations": "Same detector, 151 days apart, 0.0012 um difference; field stars stay put.",
+  "uncertainty": "No brightness was measured; the core is clipped by the shared stretch.",
+  "sources": [
+    {
+      "label": "SPHEREx data at NASA/IPAC IRSA",
+      "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"
+    },
+    {
+      "label": "SIMBAD: eps Ind B",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eps+Ind+B"
+    },
+    {
+      "label": "SPHEREx spectral image overview (IRSA tutorial)",
+      "url": "https://caltech-ipac.github.io/irsa-tutorials/spherex-intro"
+    },
+    {
+      "label": "Planet X and SPHEREx challenge",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"
+    }
+  ]
+}
