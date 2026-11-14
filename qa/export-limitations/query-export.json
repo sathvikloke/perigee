@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "5c4df3e7-a6f3-461c-bb15-539dffcd91bf",
+  "created_at_utc": "2026-11-14T22:27:23.648Z",
+  "updated_at_utc": "2026-11-14T22:28:30.033Z",
+  "app_version": "0.1.0",
+  "data_origin": "api",
+  "case_id": null,
+  "preset_id": null,
+  "title": null,
+  "query": {
+    "ra_deg": 83.82,
+    "dec_deg": -5.39,
+    "fov_arcmin": 6
+  },
+  "frames": [
+    {
+      "ref": null,
+      "frame_key": "2025W36_2B_0338_1_D1",
+      "frame_id": "2025W36_2B_0338_1_D1",
+      "observation_id": "2025W36_2B_0338_1",
+      "detector": 1,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-09-06T03:59:40.976Z",
+      "mjd": 60924.166446479,
+      "wavelength_um": 1.0603706138306215,
+      "bandwidth_um": 0.028535163252468614,
+      "wavelength_location": "Spectral WCS (key W) sampled at the query center (native pixel x=43.32, y=43.91). Other pixels in the image record other wavelengths.",
+      "quality_status": "flagged",
+      "quality_flag_names": [
+        "BLOOM",
+        "CROSSTALK",
+        "OVERFLOW",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "display_scale_mode": "per_frame",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W36_2B/l2b-v27-2026-234/1/level2_2025W36_2B_0338_1D1_spx_l2b-v27-2026-234.fits",
+      "limitations": [
+        "Display image is nearest-neighbour resampled from ~6.16 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+        "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+        "Per-frame stretch: brightness is not directly comparable with other frames.",
+        "The quality screen checks flags in a small circle around one position. A clear result is not a detection."
+      ],
+      "processing": {
+        "processing_version": "perigee-processor-a/0.1.2",
+        "pipeline_version": "l2b-v27-2026-234",
+        "file_sha256": "a28b70cd8feb2997bf2357b4c6d0228066e663a2318751c320c622aebab526af",
+        "registration_method": "nearest_neighbour",
+        "display_scale_method": "asinh",
+        "marker_kind": null
+      }
+    },
+    {
+      "ref": null,
+      "frame_key": "2026W11_1A_0124_4_D2",
+      "frame_id": "2026W11_1A_0124_4_D2",
+      "observation_id": "2026W11_1A_0124_4",
+      "detector": 2,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-03-09T15:15:45.945Z",
+      "mjd": 61108.635948435,
+      "wavelength_um": 1.5008083895145314,
+      "bandwidth_um": 0.037014158290871554,
+      "wavelength_location": "Spectral WCS (key W) sampled at the query center (native pixel x=43.15, y=43.16). Other pixels in the image record other wavelengths.",
+      "quality_status": "flagged",
+      "quality_flag_names": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "display_scale_mode": "per_frame",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W11_1A/l2b-v27-2026-232/2/level2_2026W11_1A_0124_4D2_spx_l2b-v27-2026-232.fits",
+      "limitations": [
+        "Display image is nearest-neighbour resampled from ~6.14 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+        "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+        "Per-frame stretch: brightness is not directly comparable with other frames.",
+        "The quality screen checks flags in a small circle around one position. A clear result is not a detection."
+      ],
+      "processing": {
+        "processing_version": "perigee-processor-a/0.1.2",
+        "pipeline_version": "l2b-v27-2026-232",
+        "file_sha256": "c084edc0430d321139c8c33662476a95af9bb48402a2b21f53052e5dc3814c3e",
+        "registration_method": "nearest_neighbour",
+        "display_scale_method": "asinh",
+        "marker_kind": null
+      }
+    }
+  ],
+  "claim": "These two frames of the Orion Nebula field were taken at different dates and different wavelengths.",
+  "observations": "6 Sep 2025 at 1.06 um is flagged near the target; 9 Mar 2026 at 1.50 um.",
+  "uncertainty": "Date and wavelength both differ, so I cannot tell which causes a difference.",
+  "case_limitations": null,
+  "sources": [
+    {
+      "label": "SPHEREx data at NASA/IPAC IRSA",
+      "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"
+    }
+  ]
+}

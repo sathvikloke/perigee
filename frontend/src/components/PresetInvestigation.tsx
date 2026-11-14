@@ -145,6 +145,8 @@ function PresetLoaded(props: {
       createEvidenceCard({
         case_id: caseContent?.case_id ?? null,
         preset_id: presetId,
+        title: caseContent?.title ?? preset?.display_name ?? null,
+        case_limitations: caseContent?.limitations ?? null,
         query: preset?.query_center
           ? {
               ra_deg: preset.query_center.ra_deg,

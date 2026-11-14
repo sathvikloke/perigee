@@ -3,6 +3,7 @@ import type { FrameRecord } from "../api/types";
 import type { SaveState } from "../components/Notebook";
 import {
   browserStorage,
+  fillCardContext,
   loadStore,
   persistStore,
   resolveDraft,
@@ -47,6 +48,13 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
     const next = initial(contextKey, makeRef.current);
     setLoaded(next);
     setSaveState(initialState(next.restored));
+    // A stored card from before title/case limitations existed: write the
+    // filled-in copy back quietly (same updated_at_utc, learner text
+    // untouched) so saved-card lists can show its title. Failure is harmless.
+    if (next.filled && next.restored === "storage") {
+      const storage = browserStorage();
+      persistStore(storage, upsertCard(loadStore(storage), contextKey, next.card));
+    }
     // Write a pending edit before the page is hidden or unloaded, so a
     // reload inside the debounce window does not drop the last keystrokes.
     const onHide = () => document.visibilityState === "hidden" && flush();
@@ -91,9 +99,15 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
 
 type Restored = false | "storage" | "memory";
 
-function initial(contextKey: string, makeCard: () => EvidenceCard): { card: EvidenceCard; restored: Restored } {
+function initial(
+  contextKey: string,
+  makeCard: () => EvidenceCard,
+): { card: EvidenceCard; restored: Restored; filled?: boolean } {
   const found = resolveDraft(contextKey, loadStore(browserStorage()));
-  return found ? { card: found.card, restored: found.source } : { card: makeCard(), restored: false };
+  if (!found) return { card: makeCard(), restored: false };
+  // Reopened: add a missing title / case limitations the caller now knows.
+  const card = fillCardContext(found.card, makeCard());
+  return { card, restored: found.source, filled: card !== found.card };
 }
 
 /** A draft that only survived in memory was never saved: keep saying so. */

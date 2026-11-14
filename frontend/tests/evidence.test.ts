@@ -77,11 +77,13 @@ describe("evidence card", () => {
       "data_origin",
       "case_id",
       "preset_id",
+      "title",
       "query",
       "frames",
       "claim",
       "observations",
       "uncertainty",
+      "case_limitations",
       "sources",
     ]);
     expect(parsed.schema_version).toBe(1);

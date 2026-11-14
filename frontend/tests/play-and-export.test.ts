@@ -188,6 +188,7 @@ describe("evidence export shape", () => {
       quality_flag_names: ["SOURCE"],
       display_scale_mode: "per_frame",
       source_url: c.source_url,
+      limitations: c.limitations,
       processing: {
         processing_version: "perigee-processor 0.3.0",
         pipeline_version: "l2b-v20-2025-1",

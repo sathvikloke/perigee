@@ -4,6 +4,17 @@
 // dates/wavelengths/quality summaries, claim, observations, uncertainty,
 // sources and application version. Stored in localStorage; exported as JSON.
 // Never stores images, raw FITS or secrets.
+//
+// Additive fields (still schema_version 1; older cards lack them and are
+// normalized on load, see normalizeEvidenceCard):
+//   title             human name of the investigation (case title, else the
+//                     preset display name); null for a coordinate search or an
+//                     older card that has not been reopened yet.
+//   case_limitations  the case's `limitations`, copied verbatim from the API;
+//                     null when no case is active or the card predates the field.
+//   frames[].limitations  the FrameRecord's `limitations`, verbatim; [] when the
+//                     API reported none, null when the frame was attached before
+//                     the field existed.
 
 import type { FrameRecord, QualityStatus, SourceLink } from "../api/types";
 
@@ -12,6 +23,8 @@ export const CLAIM_MAX = 280;
 export const TEXT_MAX = 2000;
 export const MAX_STORED_CARDS = 50;
 export const STORAGE_KEY = "perigee.evidence.v1";
+/** Defensive bounds for API-supplied limitation lists. Items are never shortened or reworded. */
+export const MAX_LIMITATIONS = 20;
 
 export type DataOrigin = "api" | "fixture";
 
@@ -31,6 +44,8 @@ export interface EvidenceFrame {
   quality_flag_names: string[];
   display_scale_mode: "shared" | "per_frame" | null;
   source_url: string;
+  /** The frame's limitations, verbatim from the API. Null: attached before this field existed. */
+  limitations?: string[] | null;
   /** How the display image was made (from the FrameRecord). Null when not reported. */
   processing?: EvidenceProcessing;
 }
@@ -58,15 +73,36 @@ export interface EvidenceCard {
   updated_at_utc: string;
   case_id: string | null;
   preset_id: string | null;
+  /** Case title, else the preset display name; null for a coordinate search or an older card. */
+  title?: string | null;
   query: EvidenceQuery | null;
   frames: EvidenceFrame[];
   claim: string;
   observations: string;
   uncertainty: string;
+  /** The active case's limitations, verbatim from the API; null without a case or on an older card. */
+  case_limitations?: string[] | null;
   sources: SourceLink[];
   app_version: string;
   data_origin: DataOrigin;
 }
+
+/**
+ * API limitation strings as stored: strings only, exact duplicates removed,
+ * order and wording kept. Anything that is not a list becomes null (unknown).
+ */
+export function cleanLimitations(value: unknown): string[] | null {
+  if (!Array.isArray(value)) return null;
+  const out: string[] = [];
+  for (const v of value) {
+    if (typeof v !== "string" || !v.trim() || v.length > TEXT_MAX || out.includes(v)) continue;
+    out.push(v);
+    if (out.length >= MAX_LIMITATIONS) break;
+  }
+  return out;
+}
+
+const cleanTitle = (v: unknown): string | null => (typeof v === "string" && v.trim() ? v.slice(0, CLAIM_MAX) : null);
 
 export function generateId(): string {
   const c = globalThis.crypto as Crypto | undefined;
@@ -78,6 +114,10 @@ export function createEvidenceCard(init: {
   case_id?: string | null;
   preset_id?: string | null;
   query?: EvidenceQuery | null;
+  /** Case title, else preset display name. Omit for a coordinate search. */
+  title?: string | null;
+  /** The active case's `limitations` from the API. Ignored without a case_id. */
+  case_limitations?: string[] | null;
   sources?: SourceLink[];
   app_version: string;
   data_origin: DataOrigin;
@@ -92,11 +132,13 @@ export function createEvidenceCard(init: {
     updated_at_utc: ts,
     case_id: init.case_id ?? null,
     preset_id: init.preset_id ?? null,
+    title: cleanTitle(init.title),
     query: init.query ?? null,
     frames: [],
     claim: "",
     observations: "",
     uncertainty: "",
+    case_limitations: init.case_id ? cleanLimitations(init.case_limitations) : null,
     sources: init.sources ?? [],
     app_version: init.app_version,
     data_origin: init.data_origin,
@@ -120,6 +162,7 @@ export function frameToEvidence(frame: FrameRecord, ref: string | null): Evidenc
     quality_flag_names: [...frame.quality.flag_names],
     display_scale_mode: frame.display_scale?.mode ?? null,
     source_url: frame.source_url,
+    limitations: cleanLimitations(frame.limitations) ?? [],
     processing: {
       processing_version: frame.provenance?.processing_version ?? null,
       pipeline_version: typeof frame.provenance?.pipeline_version === "string" ? frame.provenance.pipeline_version : null,
@@ -164,13 +207,71 @@ export function attachPair(
     .map((f) => f.frame_key)
     .sort()
     .join("|");
-  if (want === have) return card;
+  if (want === have) return fillFrameLimitations(card, pair.map((p) => p.frame));
   const pairKeys = new Set(pair.map((p) => p.frame.frame_key));
   const extras = card.frames.filter((f) => !(f.ref && pairRefs.includes(f.ref)) && !pairKeys.has(f.frame_key));
   const frames = [...extras, ...pair.map((p) => frameToEvidence(p.frame, p.ref))].sort(
     (a, b) => a.mjd - b.mjd || (a.frame_key < b.frame_key ? -1 : a.frame_key > b.frame_key ? 1 : 0),
   );
   return { ...card, frames, updated_at_utc: now.toISOString() };
+}
+
+/**
+ * Fills `limitations` on attached frames that predate the field, from the
+ * matching FrameRecords. Never touches learner text or updated_at_utc.
+ * Returns the same object when nothing changes.
+ */
+export function fillFrameLimitations(card: EvidenceCard, records: FrameRecord[]): EvidenceCard {
+  let changed = false;
+  const frames = card.frames.map((f) => {
+    if (f.limitations != null) return f;
+    const rec = records.find((r) => r.frame_key === f.frame_key);
+    if (!rec) return f;
+    changed = true;
+    return { ...f, limitations: cleanLimitations(rec.limitations) ?? [] };
+  });
+  return changed ? { ...card, frames } : card;
+}
+
+/**
+ * Fills a reopened card's missing title and case limitations from a freshly
+ * made card for the same investigation (same case and preset). Existing
+ * values and all learner text are kept; updated_at_utc is unchanged.
+ * Returns the same object when nothing changes.
+ */
+export function fillCardContext(card: EvidenceCard, fresh: EvidenceCard): EvidenceCard {
+  if (card.case_id !== fresh.case_id || card.preset_id !== fresh.preset_id) return card;
+  const title = card.title ?? fresh.title ?? null;
+  const case_limitations = card.case_limitations ?? fresh.case_limitations ?? null;
+  if (title === (card.title ?? null) && case_limitations === (card.case_limitations ?? null)) return card;
+  return { ...card, title, case_limitations };
+}
+
+/**
+ * Export-time guarantee: a case card carries its case's title and
+ * limitations when the case content is at hand, even if the card was made
+ * before they were known. Existing values win. Same object when unchanged.
+ */
+export function withCaseContext(
+  card: EvidenceCard,
+  content: { case_id: string; title?: string; limitations?: string[] } | null | undefined,
+): EvidenceCard {
+  if (!content || !card.case_id || card.case_id !== content.case_id) return card;
+  const title = card.title ?? cleanTitle(content.title);
+  const case_limitations = card.case_limitations ?? cleanLimitations(content.limitations);
+  if (title === (card.title ?? null) && case_limitations === (card.case_limitations ?? null)) return card;
+  return { ...card, title, case_limitations };
+}
+
+/**
+ * The short list for print: the case's limitations when a case is active
+ * (they are written for the pair), otherwise the attached frames'
+ * limitations with exact duplicates removed. The exported JSON always keeps
+ * the full case and per-frame lists.
+ */
+export function printedLimitations(card: EvidenceCard): string[] {
+  if (card.case_limitations?.length) return card.case_limitations;
+  return [...new Set(card.frames.flatMap((f) => f.limitations ?? []))];
 }
 
 export function updateEvidenceText(
@@ -192,18 +293,21 @@ const CARD_KEY_ORDER: (keyof EvidenceCard)[] = [
   "data_origin",
   "case_id",
   "preset_id",
+  "title",
   "query",
   "frames",
   "claim",
   "observations",
   "uncertainty",
+  "case_limitations",
   "sources",
 ];
 
-/** Stable, human-readable JSON for export. */
+/** Stable, human-readable JSON for export. Older cards export the new keys as null. */
 export function serializeEvidenceCard(card: EvidenceCard): string {
+  const c = normalizeEvidenceCard(card);
   const ordered: Record<string, unknown> = {};
-  for (const k of CARD_KEY_ORDER) ordered[k] = card[k];
+  for (const k of CARD_KEY_ORDER) ordered[k] = c[k];
   return `${JSON.stringify(ordered, null, 2)}\n`;
 }
 
@@ -272,7 +376,33 @@ export function validateEvidenceCard(
       if (!ok) errors.push(`frames[${i}] is malformed`);
     });
   }
-  return errors.length ? { ok: false, errors } : { ok: true, card: c as unknown as EvidenceCard };
+  return errors.length ? { ok: false, errors } : { ok: true, card: normalizeEvidenceCard(c as unknown as EvidenceCard) };
+}
+
+/**
+ * Brings a stored card (possibly written before title/limitations existed)
+ * to the current shape: missing or malformed additive fields become null.
+ * Every other field, including all learner text and provenance, is kept as
+ * is. Returns the same object when nothing needs to change.
+ */
+export function normalizeEvidenceCard(card: EvidenceCard): EvidenceCard {
+  const title = cleanTitle(card.title);
+  const raw = card.case_limitations;
+  const caseLims = raw == null ? null : cleanLimitations(raw);
+  let framesChanged = false;
+  const frames = card.frames.map((f) => {
+    const lims = f.limitations == null ? null : cleanLimitations(f.limitations);
+    if (f.limitations !== undefined && sameList(lims, f.limitations)) return f;
+    framesChanged = true;
+    return { ...f, limitations: lims };
+  });
+  if (card.title === title && sameList(caseLims, raw) && !framesChanged) return card;
+  return { ...card, title, case_limitations: caseLims, frames: framesChanged ? frames : card.frames };
+}
+
+function sameList(a: string[] | null, b: unknown): boolean {
+  if (a === null) return b === null;
+  return Array.isArray(b) && a.length === b.length && a.every((v, i) => v === b[i]);
 }
 
 // ---------------------------------------------------------------------------

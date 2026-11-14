@@ -3,10 +3,12 @@ import type { CaseContent } from "../api/types";
 import {
   CLAIM_MAX,
   TEXT_MAX,
+  printedLimitations,
   checkCaseRequirements,
   exportFilename,
   serializeEvidenceCard,
   updateEvidenceText,
+  withCaseContext,
   type EvidenceCard,
 } from "../evidence/card";
 import { releaseLabel } from "../lib/compare";
@@ -76,7 +78,9 @@ export function Notebook(props: {
   const id = useId();
   const [exportStatus, setExportStatus] = useState<string | null>(null);
   const refs = useRef<Partial<Record<Field, HTMLTextAreaElement | null>>>({});
-  const out = props.exportCard ?? card;
+  // Export and print carry the case's own limitations, verbatim, with the frames'.
+  const out = withCaseContext(props.exportCard ?? card, caseContent);
+  const limitations = printedLimitations(out);
   const issues = checkCaseRequirements(out, caseContent?.evidence_requirements).filter(
     (i) => i !== "Write a short claim.",
   );
@@ -298,6 +302,18 @@ export function Notebook(props: {
               )}
             </div>
           ))}
+          {limitations.length > 0 && (
+            <div>
+              <p>
+                <strong>Stated limitations</strong> (from the {out.case_limitations?.length ? "case" : "observation records"})
+              </p>
+              <ul>
+                {limitations.map((l) => (
+                  <li key={l}>{l}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           <p>
             Perigee {out.app_version} · card {out.id} · {out.data_origin === "fixture" ? "DEVELOPMENT FIXTURE, not NASA data" : "SPHEREx data via NASA/IPAC IRSA"}.
             Display images are for visual comparison only; flag screening is not a detection or a brightness measurement.
