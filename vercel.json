@@ -9,7 +9,13 @@
     "api": {
       "root": "./",
       "framework": "fastapi",
-      "entrypoint": "backend.main:app"
+      "entrypoint": "backend.main:app",
+      "functions": {
+        "backend/main.py": {
+          "maxDuration": 60,
+          "excludeFiles": "{frontend/**,docs/**,prompts/**,research/**,qa/**,science/**,tools/**,backend/tests/**,**/*.fits,**/*.fits.gz,**/*.fz,README.md,vercel.json,.vercelignore}"
+        }
+      }
     }
   },
   "rewrites": [
