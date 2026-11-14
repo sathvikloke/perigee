@@ -66,7 +66,7 @@ def test_happy_path_fixture_frame(client, harness):
     assert fetched.params["center"] == "330.84,-56.786"
     assert float(fetched.params["size"]) == pytest.approx(6.0 * 1.5 / 60)
     assert f["provenance"]["cutout_url"] == harness.fetched[0]
-    assert len(f["provenance"]["file_sha256"]) == 64
+    assert len(f["provenance"]["sha256"]) == 64
 
 
 def _tamper_payload(token: str, mutate) -> str:

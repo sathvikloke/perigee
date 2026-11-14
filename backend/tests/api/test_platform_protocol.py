@@ -231,5 +231,5 @@ def test_sia_gives_up_after_bounded_attempts(monkeypatch):
 
 
 def test_mjd_to_iso():
-    assert mjd_to_iso(51544.5) == "2000-01-01T12:00:00.000"
+    assert mjd_to_iso(51544.5) == "2000-01-01T12:00:00.000Z"
     assert mjd_to_iso(None) is None and mjd_to_iso(float("nan")) is None

@@ -69,10 +69,17 @@ def main(argv: list[str]) -> int:
     f = client.post("/api/v1/frame", json={"schema_version": 1, "frame_token": obs["frame_token"]})
     print(f"frame HTTP {f.status_code} in {time.monotonic() - t0:.2f}s")
     body = f.json()
+    if "--out" in argv:
+        out = argv[argv.index("--out") + 1]
+        with open(out, "w") as fh:
+            json.dump(body, fh, indent=2)
+        print("wrote", out)
     if f.status_code == 200:
         fr = body["frame"]
-        fr["image"]["src"] = fr["image"]["src"][:48] + "..."
-        print(json.dumps({k: fr[k] for k in ("frame_key", "detector", "observed_at_utc", "mjd", "provenance")}, indent=1))
+        print(f"image data URL: {len(fr['image']['src'])} chars; flag_image: {bool(fr['flag_image'])}")
+        keys = ("frame_key", "detector", "observed_at_utc", "mjd", "wavelength_um", "bandwidth_um",
+                "wavelength_location", "quality", "registration", "provenance")
+        print(json.dumps({k: fr.get(k) for k in keys}, indent=1))
         print("timing_ms", body.get("timing_ms"))
     else:
         print(json.dumps(body, indent=1))

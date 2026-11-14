@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "request_id": "64cd956148d44d558d0054a2ce152fa4",
+  "request_id": "9fc9d743e8954321b04108cb8b0957f9",
   "error": {
     "code": "INVALID_FIELD_OF_VIEW",
     "message": "Field of view must be a number from 2 to 10 arcminutes.",
