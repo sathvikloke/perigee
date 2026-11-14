@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "created_date": "2026-11-14",
+  "repository": "https://github.com/sathvikloke/perigee",
+  "word_count_method": "Whitespace-separated words in the complete Markdown file",
+  "prompts": [
+    {
+      "owner": "Sathvik Loke",
+      "github": "sathvikloke",
+      "role": "Scientific validation, investigation content and integration leadership",
+      "path": "prompts/SATHVIK.md",
+      "words": 18778,
+      "bytes": 130812,
+      "sha256": "a4ee42a724740bc4877f84116957834083a05e801c714cbcae6a321730caa268"
+    },
+    {
+      "owner": "Sagar Raut",
+      "github": "s1g6r",
+      "role": "NASA archive and scientific image pipeline",
+      "path": "prompts/SAGAR.md",
+      "words": 18689,
+      "bytes": 130340,
+      "sha256": "277c616ba0edcb95b180c230be844408543934e429f1ce8617a7c11d2b4c9bef"
+    },
+    {
+      "owner": "Akshobya Rao",
+      "github": "AkshobyaRaoSWE",
+      "role": "Frontend and visual experience",
+      "path": "prompts/AKSHOBYA.md",
+      "words": 18786,
+      "bytes": 130744,
+      "sha256": "7a5658b99ac0c65436cdc5c2bc53cc5819a346051d3c3166a64ec7eefa90d2b4"
+    },
+    {
+      "owner": "Aditya R",
+      "github": "adityaraut09",
+      "role": "Backend API and bounded request orchestration",
+      "path": "prompts/ADITYA.md",
+      "words": 18675,
+      "bytes": 130171,
+      "sha256": "9499d17a1e5226b7e74c73cc554bc903452a759620b0c761261f1752b8fefc67"
+    },
+    {
+      "owner": "Suhrit Bestavemula",
+      "github": "suhritb",
+      "role": "Backend platform, asset serving and Vercel deployment",
+      "path": "prompts/SUHRIT.md",
+      "words": 18673,
+      "bytes": 130098,
+      "sha256": "b31b60d4ac928ce090c925073601b006f29e19f60348eaec0c39b0b51cb67a43"
+    },
+    {
+      "owner": "Neeraj Movva",
+      "github": "movvaneeraj",
+      "role": "Focused QA, usability and demo support",
+      "path": "prompts/NEERAJ.md",
+      "words": 18667,
+      "bytes": 129535,
+      "sha256": "938b4dfb1072ce428ded3ec8f4d9dab97424abf66b36bdeb59e37b56e82fde37"
+    }
+  ]
+}
