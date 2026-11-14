@@ -43,9 +43,9 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 | 09 | Epsilon Indi B case review | **running** (launched 19:05Z) | `.claude/worktrees/agent-a210a316699a1c312` | `codex/parallel-09-epsilon-case` | Review + proposed `fair_comparison` revision for Sathvik (judging finding 2) |
 | 20 | Pitch + demo script draft | **done 18:36Z, integrated** | `.claude/worktrees/agent-ad68f2e9948f5b802` | `codex/parallel-20-pitch` @ `c27b96a`, draft PR #23 | `docs/presentation/README.md`: 7 slides, 5-min narration (demo 1:05–3:20, IRSA-slow fallback), working-vs-future table, screenshot requests S1–S9, sources. Open decisions for Sathvik listed there. |
 | 21 | Independent judging critique | **done 18:50Z, integrated** | `.claude/worktrees/agent-aee4454798765b5f7` | `codex/parallel-21-judge-review` @ `ef0f68d`, draft PR #24 | Official rubric (Impact/Creativity/Validity/Relevance/Presentation, 1–5); est. 3/3/4/3/3. Findings: (1) no judge can open it — production is login-protected and `main` has no app; `perigee.vercel.app` is an unrelated third-party app, never submit it; (2) demo undersells challenge's motion-across-series ask — lead with Barnard A↔C, accept PR #22, optional Play over full series; (3) README stale + required AI-use disclosure text missing. |
-| 22a | README + AI-use disclosure draft | **running** (launched 18:51Z) | `.claude/worktrees/agent-a30927e0088abbbaf` | `codex/parallel-22-readme-disclosure` | Docs only; draft for Sagar/Sathvik |
+| 22a | README + AI-use disclosure draft | **done 19:08Z, integrated** | `.claude/worktrees/agent-a30927e0088abbbaf` | `codex/parallel-22-readme-disclosure` @ `cafcd73`, draft PR #28 | Stale README replaced; `docs/AI_USE.md` with [TO CONFIRM] items for Sagar/Sathvik. Guide requires SI use indicated in descriptive text and metadata, visible watermark on SI images/video, and a link needing no password/permission. **Repo `sathvikloke/perigee` is PRIVATE** → judges can't open it. Coordinator corrected test counts (`c3f90eb`). |
 | 24c | Compare Sagar's processor (PR #19) vs A | **done 18:44Z, integrated** | `.claude/worktrees/agent-abe7771e1bbba2e83` | `codex/parallel-24-processor-compare` @ `abec9c7` | Science tie (both 189/189; Sagar Gaia median 0.35 px vs A 0.45 px; Sathvik audit 0 diffs both). Sagar's products incompatible with tested catalog/frontend: case sets `missing`, 0/366 image srcs (asset IDs lack `.png`), no `flag_image.legend`, 4′ vs 6′ FOV, `frm_<hash>` frame_id, `l2b_retry` URL rejected. **Decision (c): keep A**, adopted `fetch_manifest.py` (`0b6bc6a`), registration check being ported (24r). |
-| 24r | Port Sagar's field-registration check | **running** (launched 18:46Z) | `.claude/worktrees/agent-a64394056412a5c86` | `codex/parallel-24-registration-check` | Adapted to A's layout, credited to Sagar |
+| 24r | Port Sagar's field-registration check | **done 19:12Z, integrated** | `.claude/worktrees/agent-a64394056412a5c86` | `codex/parallel-24-registration-check` @ `8c3e672`, draft PR #29 | Reproduces Sagar's 0.92/0.35/0.44″ on his grid. On A's grid same-band field shifts 0.36–1.19″ (≪ 3.1″ half native px); ±0.5″ method systematics. fair A→B field shift 1.19″ vs marker 1.94″ → no motion claim on that pair (sent to 09). Cross-band pairs not measurable. 10 tests. |
 
 ## Queue (by prerequisite; not running)
 
@@ -102,3 +102,12 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 - 19:03Z merged 23; re-ran `PERIGEE_DATA_ROOT=… qa/regression/run.sh` on `cd4ef49`: backend pytest, deploy_check, vitest (42), build, audit_all 183, check_acceptance 189 — all PASS.
 - 19:04Z opened **draft integration PR #27** `claude/perigee-integration` → `main` (not merged; Sathvik merges and owns Vercel settings). Bound to coordinator session.
 - 19:05Z launched 09.
+- 19:09Z merged 22a; README counts corrected to verified `cd4ef49` run (265/17, 282 with data, vitest 42). 19:12Z merged 24r (`5b518a6`): backend 274 passed / 17 skipped.
+
+## Needs Sathvik / Sagar before submission (consolidated)
+1. Make GitHub repo `sathvikloke/perigee` public (currently PRIVATE) — judges need no-permission access.
+2. Merge PR #27 → main; Vercel: disable Authentication for production only, set `PERIGEE_TOKEN_SECRET`, keep `PERIGEE_DEV_MODE` unset; logged-out check. Never submit `perigee.vercel.app` (unrelated third party).
+3. Fill `[TO CONFIRM]` items in `docs/AI_USE.md` (idea is team's own; mockup tool; planning-doc tooling; Sagar's PR #19 AI use; human review record). Watermark `.impeccable/mocks` images if used in slides.
+4. Accept/reject case revisions: PR #22 (Barnard) and the upcoming 09 proposal (Epsilon Indi B).
+5. API decisions D1–D3 (`backend/tests/api/REVIEW.md`).
+6. Pitch decisions in `docs/presentation/README.md`.
