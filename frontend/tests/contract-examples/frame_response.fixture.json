@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "request_id": "3107c456695f4ff3b4b0e55e5616d422",
+  "frame": {
+    "frame_id": "spherex_dr1:2026W18_1A_0516_1_D3",
+    "frame_key": "2026W18_1A_0516_1_D3",
+    "observation_id": "2026W18_1A_0516_1",
+    "detector": 3,
+    "collection_id": "spherex_dr1",
+    "observed_at_utc": "2026-04-29T12:05:47.874",
+    "mjd": 61159.504026317,
+    "time_basis": "header_mjd_avg",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+    "wavelength_um": 2.3232,
+    "bandwidth_um": 0.0577,
+    "wavelength_location": "Query center (RA, Dec) of this live search",
+    "image": {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAP0lEQVR4nF3HtQHAAACAME6vu7vf2p1sIQijOEmzvCirumm7Hn1AH9En9Bl9QV/RN/Qd/UA/0S/0G/1Bf9G/H37mjwFWJTjTAAAAAElFTkSuQmCC",
+      "width": 256,
+      "height": 256,
+      "media_type": "image/png"
+    },
+    "flag_image": {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAP0lEQVR4nF3HNQKAQADAsOLO4Q7/fyZ7swWiOEmzvCirumm7PvgD+og+oc/oC/qKvqHv6Af6iX6h3+gP+ov+/XrqDwGIThoNAAAAAElFTkSuQmCC",
+      "width": 256,
+      "height": 256,
+      "media_type": "image/png"
+    },
+    "registration": {
+      "center_ra_deg": 331.0966687831005,
+      "center_dec_deg": -56.80064917516836,
+      "fov_arcmin": 6.0,
+      "scale_arcsec_per_px": 1.40625,
+      "native_scale_arcsec_per_px": null,
+      "grid_id": null,
+      "orientation": "north_up_east_left",
+      "projection": "TAN",
+      "method": "bilinear reprojection of the IMAGE HDU onto a fixed north-up TAN grid",
+      "width": 256,
+      "height": 256
+    },
+    "quality": {
+      "status": "clear",
+      "covered": true,
+      "valid_aperture_pixels": 21,
+      "adverse_aperture_pixels": 0,
+      "flag_names": [],
+      "notes": [
+        "No problem flags within 2.5 px of the position. A clear screen is not a detection or a brightness measurement."
+      ]
+    },
+    "display_scale": {
+      "mode": "per_frame",
+      "method": "asinh stretch between the 1st and 99.5th percentile of finite pixels",
+      "low": -0.12,
+      "high": 3.4,
+      "unit": "MJy / sr",
+      "basis": null,
+      "comparable_brightness": false
+    },
+    "marker": null,
+    "provenance": {
+      "data_origin": "fixture",
+      "retrieved_at": "2026-11-14T17:55:05+00:00",
+      "retrieved_at_basis": null,
+      "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+      "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits?center=331.0966687831005%2C-56.80064917516836&size=0.150000",
+      "sha256": "dd2b4f14ca2132a80859daba84ded01038c21c83fa903603d1c3a0f811a367be",
+      "processing_version": "example-0",
+      "acknowledgments": [
+        "This publication makes use of data products from SPHEREx, a NASA mission managed by JPL/Caltech, obtained from NASA/IPAC Infrared Science Archive (IRSA)."
+      ]
+    },
+    "limitations": [
+      "EXAMPLE PAYLOAD: identity, date, wavelength and quality copied from the science-verified case JSON (fair_comparison frame A); the image is a synthetic placeholder, not sky data.",
+      "Per-frame contrast: brightness is not directly comparable between frames.",
+      "Display pixels are resampled; they do not add physical resolution (SPHEREx pixels are ~6.15 arcsec)."
+    ]
+  },
+  "timing_ms": {
+    "fetch": 0,
+    "process": 0
+  }
+}

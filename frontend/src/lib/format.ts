@@ -62,6 +62,15 @@ export const QUALITY_EXPLANATION: Record<QualityStatus, string> = {
     "The quality screen could not be completed for this frame. Treat it as unchecked.",
 };
 
+/**
+ * Quality explanation for one frame. Curated frames screen the catalog
+ * prediction; live search frames without a marker screen the query center.
+ */
+export function qualityExplanation(frame: Pick<FrameRecord, "quality" | "marker">): string {
+  const text = QUALITY_EXPLANATION[frame.quality.status];
+  return frame.marker ? text : text.replace(/the predicted position/g, "the searched position");
+}
+
 export function formatPixelCount(v: number | null): string {
   return v == null ? "not available" : String(v);
 }

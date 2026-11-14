@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "request_id": "48d2fdffc66640168c231a0f67f8b71c",
+  "query": {
+    "ra_deg": 330.84,
+    "dec_deg": -56.786,
+    "fov_arcmin": 6.0,
+    "limit": 24,
+    "collection_ids": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "search_radius_deg": 0.001
+  },
+  "status": "partial",
+  "observations": [
+    {
+      "observation_id": "2026W18_1A_0516_1",
+      "detector": 3,
+      "frame_key": "2026W18_1A_0516_1_D3",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": null,
+      "mjd": 61159.50335,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D3",
+      "detector_wavelength_range_um": null,
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjozLCJmayI6IjIwMjZXMThfMUFfMDUxNl8xX0QzIiwibWpkIjo2MTE1OS41MDMzNSwib2JzIjoiMjAyNlcxOF8xQV8wNTE2XzEiLCJzcmMiOiJodHRwczovL2lyc2EuaXBhYy5jYWx0ZWNoLmVkdS9pYmUvZGF0YS9zcGhlcmV4L2RyMS9sZXZlbDIvMjAyNlcxOF8xQS9sMmItdjI3LTIwMjYtMjQ0LzMvbGV2ZWwyXzIwMjZXMThfMUFfMDUxNl8xRDNfc3B4X2wyYi12MjctMjAyNi0yNDQuZml0cyIsInV0YyI6bnVsbH0sImV4cCI6MTc5NDY4MjUwNSwiaWF0IjoxNzk0Njc4OTA1LCJxIjp7ImRlYyI6LTU2Ljc4NiwiZm92Ijo2LjAsInJhIjozMzAuODR9LCJ2IjoxfQ.h-aAJ4-Q3gs5VesCz0Hlkdhq03lRJ_k4xCwIevYjTtI"
+    },
+    {
+      "observation_id": "2026W18_1A_0516_1",
+      "detector": 6,
+      "frame_key": "2026W18_1A_0516_1_D6",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": null,
+      "mjd": 61159.50335,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": null,
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/6/level2_2026W18_1A_0516_1D6_spx_l2b-v27-2026-244.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo2LCJmayI6IjIwMjZXMThfMUFfMDUxNl8xX0Q2IiwibWpkIjo2MTE1OS41MDMzNSwib2JzIjoiMjAyNlcxOF8xQV8wNTE2XzEiLCJzcmMiOiJodHRwczovL2lyc2EuaXBhYy5jYWx0ZWNoLmVkdS9pYmUvZGF0YS9zcGhlcmV4L2RyMS9sZXZlbDIvMjAyNlcxOF8xQS9sMmItdjI3LTIwMjYtMjQ0LzYvbGV2ZWwyXzIwMjZXMThfMUFfMDUxNl8xRDZfc3B4X2wyYi12MjctMjAyNi0yNDQuZml0cyIsInV0YyI6bnVsbH0sImV4cCI6MTc5NDY4MjUwNSwiaWF0IjoxNzk0Njc4OTA1LCJxIjp7ImRlYyI6LTU2Ljc4NiwiZm92Ijo2LjAsInJhIjozMzAuODR9LCJ2IjoxfQ.RwmO5LgMiv3zhU3Ayugp_RoBx3z1Z_BDSCIcyfcNyuQ"
+    }
+  ],
+  "returned_count": 2,
+  "total_matches": null,
+  "truncated": false,
+  "selection": "all",
+  "warnings": [
+    "Some collections could not be searched (spherex_qr3); results are incomplete."
+  ],
+  "collections_queried": [
+    "spherex_dr1",
+    "spherex_qr3"
+  ],
+  "collections_failed": [
+    "spherex_qr3"
+  ],
+  "token_expires_at_utc": "2026-11-14T18:55:05+00:00",
+  "queried_at_utc": "2026-11-14T17:55:05+00:00"
+}

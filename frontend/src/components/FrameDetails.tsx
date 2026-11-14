@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { FrameRecord } from "../api/types";
 import { QUALITY_CHIP, releaseLabel } from "../lib/compare";
-import { QUALITY_EXPLANATION, formatPixelCount, formatUtc, formatWavelength, qualityNotes } from "../lib/format";
+import { qualityExplanation, formatPixelCount, formatUtc, formatWavelength, qualityNotes } from "../lib/format";
 import { ProcessingNote } from "./CaseBench";
 
 function Disclosure(props: { icon: string; title: string; children: ReactNode }) {
@@ -62,7 +62,7 @@ export function FrameDetails({ frame }: { frame: FrameRecord }) {
         <span className="quality" data-status={q.status}>
           {QUALITY_CHIP[q.status]}
         </span>{" "}
-        {QUALITY_EXPLANATION[q.status]}
+        {qualityExplanation(frame)}
       </p>
       {frame.display_scale?.mode === "per_frame" && (
         <p className="notice">Brightness is not directly comparable: this frame has its own contrast stretch.</p>

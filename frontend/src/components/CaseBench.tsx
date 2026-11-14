@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import type { CaseContent, FrameRecord } from "../api/types";
 import { QUALITY_CHIP, analyzePair, markerXY, releaseLabel } from "../lib/compare";
 import {
-  QUALITY_EXPLANATION,
+  qualityExplanation,
   formatMicrons,
   formatPixelCount,
   formatUtc,
@@ -269,7 +269,7 @@ export function CaseBench(props: {
                         {ref as string} · {QUALITY_CHIP[f.quality.status]}
                       </strong>
                     </p>
-                    <p>{QUALITY_EXPLANATION[f.quality.status]}</p>
+                    <p>{qualityExplanation(f)}</p>
                     <dl className="facts">
                       <div>
                         <dt>Usable pixels near target</dt>

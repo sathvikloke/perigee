@@ -134,7 +134,7 @@ export function errorFromResponse(
     // page answered instead of the API. Never treat it as success.
     return new ApiError({
       code: "NON_JSON_RESPONSE",
-      message: `The API answered with ${contentType || "an unknown content type"} instead of JSON (HTTP ${status}).`,
+      message: `The Perigee API did not answer normally (HTTP ${status}, ${contentType || "unknown content"} instead of JSON). It may be down or misrouted.`,
       httpStatus: status,
       retryable: status >= 500,
     });

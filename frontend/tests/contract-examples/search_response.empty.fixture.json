@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "request_id": "dbeb2d07d7a149d6bf4844faecb1d4a6",
+  "query": {
+    "ra_deg": 330.84,
+    "dec_deg": -56.786,
+    "fov_arcmin": 6.0,
+    "limit": 24,
+    "collection_ids": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "search_radius_deg": 0.001
+  },
+  "status": "empty",
+  "observations": [],
+  "returned_count": 0,
+  "total_matches": 0,
+  "truncated": false,
+  "selection": "all",
+  "warnings": [
+    "Scope: SPHEREx spherex_dr1 and spherex_qr3 level-2 wide-survey images whose footprint covers the query center. A zero result here is not a claim that no telescope ever observed this position."
+  ],
+  "collections_queried": [
+    "spherex_dr1",
+    "spherex_qr3"
+  ],
+  "collections_failed": [],
+  "token_expires_at_utc": null,
+  "queried_at_utc": "2026-11-14T17:55:05+00:00"
+}

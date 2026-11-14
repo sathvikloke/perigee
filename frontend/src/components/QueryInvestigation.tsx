@@ -64,8 +64,6 @@ export function QueryInvestigation(props: {
   const gate = useRef(createRequestGate());
   const fieldRefs = useRef<Partial<Record<keyof QueryInput, HTMLInputElement | null>>>({});
 
-  useEffect(() => () => gate.current.cancel(), []);
-
   const patchSlot = (i: number, patch: Partial<FrameSlot>) =>
     setSlots((prev) => prev.map((s, j) => (j === i ? { ...s, ...patch } : s)));
   const cacheKey = (key: string) => `${api.mode}:${key}`;
@@ -158,11 +156,13 @@ export function QueryInvestigation(props: {
     void runSearch(v.value);
   };
 
-  const autoRan = useRef(false);
+  // Run once when opened from a shared coordinate link. The cleanup cancels
+  // in-flight work on unmount; under StrictMode's mount/unmount/mount the
+  // second mount simply starts the search again.
   useEffect(() => {
-    if (autoRan.current) return;
-    autoRan.current = true;
     if (props.initial.ra && props.initial.dec) submit();
+    const g = gate.current;
+    return () => g.cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
