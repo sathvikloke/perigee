@@ -108,7 +108,7 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 
 ## Needs Sathvik / Sagar before submission (consolidated)
 1. Make GitHub repo `sathvikloke/perigee` public (currently PRIVATE) — judges need no-permission access.
-2. Merge PR #27 → main; Vercel: disable Authentication for production only, set `PERIGEE_TOKEN_SECRET` (≥32 bytes, never the dev value; Preview refuses dev mode now), keep `PERIGEE_DEV_MODE` unset; logged-out check per `docs/DEPLOYMENT.md` step 6. Never submit `perigee.vercel.app` (unrelated third party).
+2. In this order (see `docs/DEPLOYMENT.md` → Owner actions): set `PERIGEE_TOKEN_SECRET` (≥32 bytes, never the dev value; keep `PERIGEE_DEV_MODE` unset) **before** merging, or redeploy afterwards; optionally set `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app`; disable Vercel Authentication for production only; then merge PR #27 → main; then do the logged-out check on `https://perigee-liard.vercel.app` (step 7). Never submit `perigee.vercel.app` (unrelated third party).
 3. Fill `[TO CONFIRM]` items in `docs/AI_USE.md` (idea is team's own; mockup tool; planning-doc tooling; Sagar's PR #19 AI use; human review record). Watermark `.impeccable/mocks` images if used in slides.
 4. ~~Case revisions #22/#31~~ accepted and merged (`2a4273a`, `98fae22`).
 5. ~~API decisions D1–D3~~ settled as implementation choices (`03bb179`); optional Vercel Firewall rate-limit rule remains an owner choice (D2).
@@ -221,5 +221,7 @@ Both were merged with `--no-ff`, keeping the original commits and authors. Revie
 - `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app` is documented as intended and **not set**.
 
 **Gate on `2956e67`:** all six offline gates pass; backend 348 with raw data (330 passed / 18 skipped without), vitest 121, audit_all 183 (0 stale), check_acceptance 189.
+
+**Owner-step order corrected (from Suhrit's email):** `PERIGEE_TOKEN_SECRET`, and optionally `PERIGEE_PUBLIC_URL`, now come **before** the PR #27 merge that builds production, with an explicit redeploy if they are configured after a build. The automatic trigger is still documented as unverified.
 
 **Not done this round, per instructions:** no merge to `main`, no visibility, access or protection changes, no secrets or variables set, no emails, no comments on teammate PRs.

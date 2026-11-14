@@ -105,19 +105,26 @@ A Preview therefore needs a real `PERIGEE_TOKEN_SECRET` for search and frames, j
 
 ### Owner actions (not done by agents)
 
-1. **Make the code public:** change `sathvikloke/perigee` to public, or publish a public mirror. Then `https://github.com/sathvikloke/perigee` and the footer link `https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md` resolve once PR #27 is merged.
-2. **Merge draft PR #27** (`claude/perigee-integration` → `main`) after review, so production builds the app from `main`.
-3. **Set `PERIGEE_TOKEN_SECRET`** as a sensitive variable for Production, and for Preview if previews should run live search. Use at least 32 random bytes and never the development value. Leave `PERIGEE_DEV_MODE` unset on Vercel. `/api/v1/health` reports only `token_signing` (`env` / `missing` / `too_short` / `dev_secret_refused` / `dev_mode_refused`), never the value.
+These must happen in this order. Vercel applies environment variables only to deployments built **after** they are set, and merging PR #27 is what triggers the production build from `main`.
+
+1. **Make the code public:** change `sathvikloke/perigee` to public, or publish a public mirror. After the merge in step 6, `https://github.com/sathvikloke/perigee` and the footer link `https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md` resolve.
+2. **Set `PERIGEE_TOKEN_SECRET` before merging.** Add it as a sensitive variable for Production, and for Preview if previews should run live search.
+   - Use at least 32 random bytes, never the development value. Leave `PERIGEE_DEV_MODE` unset on Vercel.
+   - `/api/v1/health` reports only `token_signing` (`env` / `missing` / `too_short` / `dev_secret_refused` / `dev_mode_refused`), never the value.
+   - If it is set after a production build already exists, **redeploy** that deployment so the new value applies.
+3. **Optional, before the deployment meant to trigger it:** add the repository **variable** (not a secret) `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app`. It has not been set.
+   - The automatic `deployment_status` trigger is still **unverified** here: the repo has no GitHub Deployments. See **Automatic post-deploy smoke** below.
+   - The manual smoke in step 7 does not depend on this variable.
 4. **Judge-facing access:** turn off Vercel Authentication for **production only** (Project Settings → Deployment Protection; Standard Protection keeps previews protected).
 5. **Optional (review D2):** add a Vercel Firewall rate-limit rule on `/api/v1/frame` and `/api/v1/search` for the judging window. The API has per-request bounds but no global limiter.
-6. **Verify logged out**, in a private window, on the registered production domain `https://perigee-liard.vercel.app` (it returns 404 today, before steps 1–4):
+6. **Merge draft PR #27** (`claude/perigee-integration` → `main`) after review. This builds production from `main` with the configuration from steps 2–4 already in place.
+7. **Verify logged out**, in a private window, on the registered production domain `https://perigee-liard.vercel.app` (it returns 404 today, before these steps):
    - `/` returns 200 HTML;
-   - `/api/v1/health` returns 200 JSON with `status: ok` and `token_signing: env`;
+   - `/api/v1/health` returns 200 JSON with `status: ok` and `token_signing: env` (`missing` means step 2 came after the build: redeploy);
    - an unknown `/api/v1/x` returns a JSON 404;
    - a live search at 330.84, −56.786 returns frames.
 
    Run `python -m backend.platform.smoke --base https://perigee-liard.vercel.app` (expect exit 0), then rerun `qa/fresh-pass` steps 1–8 there and record the deployed commit.
-7. **Optional automatic smoke:** add the repository **variable** (not a secret) `PERIGEE_PUBLIC_URL=https://perigee-liard.vercel.app`. It has not been set. See **Automatic post-deploy smoke** below for what triggers it and what does not.
 
 ### Two-project fallback (documented, not created)
 
