@@ -28,14 +28,14 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 | 03 | API A: live coordinate and frame path | **running** | `.claude/worktrees/agent-aa1e6a902a4de7062` | `codex/parallel-03-api-a` | — |
 | 05 | Processor A: one FITS → browser frame | **running** | `.claude/worktrees/agent-ac9eda3765a9fcaa0` | `codex/parallel-05-processor-a` | — |
 | 08 | Catalog, presets, assets | **running** | `.claude/worktrees/agent-aff3329b79a0deb37` | `codex/parallel-08-catalog-assets` | — |
-| 07 | Vercel deployment preparation | **running** | `.claude/worktrees/agent-a9da251dd88b21712` | `codex/parallel-07-deployment` | Preview builds only; no local Vercel auth |
+| 07 | Vercel deployment preparation | **done 17:46Z** | `.claude/worktrees/agent-a9da251dd88b21712` | `codex/parallel-07-deployment` @ `8b57241`, draft PR #9 | Services config builds on preview (2 deployments, Vercel status success) but every path 302s to Vercel Authentication, so responses unverified on preview. Local `vercel build` confirms route order `/api`→api before SPA. Placeholders (`frontend/*`, `backend/main.py`, `backend/__init__.py`, `backend/requirements.txt`) must not be adopted. Needs Sathvik: view preview while logged in, decide judge access/protection, add `PERIGEE_TOKEN_SECRET` (Preview+Production). |
+| 06 | Processor B (duplicate) | **running** (launched 17:46Z) | `.claude/worktrees/agent-af381359120abb365` | `codex/parallel-06-processor-b` | Independent of A's code; compares on frame `2026W18_1A_0516_1_D3` |
 | 01 | Frontend A: investigation flow | **running** | `.claude/worktrees/agent-a6fde9ea57d0b21dd` | `codex/parallel-01-frontend-a` | Visuals wait for Codex `design/HANDOFF.md` |
 
 ## Queue (by prerequisite; not running)
 
 | ID | Task | Prerequisite | Planned slot |
 |---|---|---|---|
-| 06 | Processor B (duplicate) | 05 first real FrameRecord (representative source selected) | first free slot |
 | 04 | API B (duplicate) | 03 first interface/models pushed | first free slot |
 | 02 | Frontend B (duplicate) | Codex `design/HANDOFF.md` | when handoff lands |
 | 24 | Compare duplicates + assemble | first competing results | coordinator, on this branch |
@@ -49,3 +49,6 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 ## Integration log
 
 - 17:38Z `claude/perigee-integration` created at `fa92766`. Nothing merged yet.
+- 17:45Z observed pushes: 05 @ `47c812e` (pure processor + first real FrameRecord for Eps Ind B frame A, `backend/content/presets/epsilon_indi_b/frames/`); 08 @ `c85fd7d` (science content imported read-only, catalog routes, loader tested on real case metadata). 03 and 01 not yet pushed.
+- 17:46Z 07 handed off; 06 launched into its slot (prerequisite met by 05 `47c812e`).
+- Integration of 07 config deferred until 03 backend + 01 frontend exist, so the integration preview builds a real app rather than an empty Services config. Adopt: `vercel.json`, `.vercelignore`, `backend/.python-version`, `backend/platform/{runtime,deploy_check}.py`, `.github/workflows/deploy-check.yml`, `.gitignore` `.vercel/`, `docs/DEPLOYMENT.md` Services section. Import rule from 07: backend must run from repo root as `backend.main:app` (`backend/platform` shadows stdlib `platform` if cwd is `backend/`).
