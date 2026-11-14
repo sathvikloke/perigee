@@ -5,12 +5,18 @@ found in real IRSA SPHEREx L2b cutouts (PRIMARY, IMAGE, FLAGS, VARIANCE, ZODI,
 EPSF, WCS-WAVE) closely enough to exercise the processor: a TAN celestial WCS,
 MSKNnnnn flag-bit names, DATE-AVG/MJD-AVG, and a WAVE-TAB spectral WCS (key W)
 whose lookup table makes wavelength linear in raw detector x.
+
+Optional knobs (all default off, so the default fixture is unchanged): image
+``shape``, ``flip_parity`` (mirrored native x axis), ``crpix_offset`` (moves the
+cutout on the sky, e.g. to truncate it), ``sip`` (TAN-SIP distortion terms on
+the IMAGE header only) and a ``variance`` array. Some of these support tests
+ported from candidate processor B (worker 06); they are synthetic too.
 """
 
 from __future__ import annotations
 
 import io
-from typing import Dict, Optional, Tuple
+from typing import Dict, Mapping, Optional, Tuple
 
 import numpy as np
 from astropy.io import fits
@@ -38,17 +44,34 @@ def wavelength_at_native(x0: float) -> float:
     return WL0 + WL_SLOPE * (raw_index_coord - 1.0)
 
 
-def celestial_header(rot_deg: float = 0.0) -> fits.Header:
+def celestial_header(
+    rot_deg: float = 0.0,
+    *,
+    flip_parity: bool = False,
+    crpix_offset: Tuple[float, float] = (0.0, 0.0),
+    sip: Optional[Mapping[str, float]] = None,
+) -> fits.Header:
+    """Celestial TAN header. CRVAL is at native pixel (NX/2-0.5, NY/2-0.5) plus
+    ``crpix_offset``. ``flip_parity`` mirrors the native x axis (det(PC) > 0).
+    ``sip`` maps e.g. ``{"A_2_0": 5e-5}`` and switches CTYPE to TAN-SIP."""
     h = fits.Header()
     h["WCSAXES"] = 2
-    h["CTYPE1"], h["CTYPE2"] = "RA---TAN", "DEC--TAN"
+    h["CTYPE1"], h["CTYPE2"] = ("RA---TAN-SIP", "DEC--TAN-SIP") if sip else ("RA---TAN", "DEC--TAN")
     h["CRVAL1"], h["CRVAL2"] = CENTER
-    h["CRPIX1"], h["CRPIX2"] = NX / 2.0 + 0.5, NY / 2.0 + 0.5
+    h["CRPIX1"], h["CRPIX2"] = NX / 2.0 + 0.5 + crpix_offset[0], NY / 2.0 + 0.5 + crpix_offset[1]
     c, s = np.cos(np.radians(rot_deg)), np.sin(np.radians(rot_deg))
-    h["PC1_1"], h["PC1_2"], h["PC2_1"], h["PC2_2"] = -SCALE_DEG * c, SCALE_DEG * s, SCALE_DEG * s, SCALE_DEG * c
+    pc = np.array([[-SCALE_DEG * c, SCALE_DEG * s], [SCALE_DEG * s, SCALE_DEG * c]])
+    if flip_parity:
+        pc[:, 0] *= -1.0
+    h["PC1_1"], h["PC1_2"], h["PC2_1"], h["PC2_2"] = pc[0, 0], pc[0, 1], pc[1, 0], pc[1, 1]
     h["CDELT1"], h["CDELT2"] = 1.0, 1.0
     h["CUNIT1"], h["CUNIT2"] = "deg", "deg"
     h["RADESYS"] = "ICRS"
+    if sip:
+        order = max(sum(int(v) for v in k.split("_")[1:]) for k in sip)
+        h["A_ORDER"] = h["B_ORDER"] = max(order, 2)
+        for k, v in sip.items():
+            h[k] = float(v)
     return h
 
 
@@ -94,14 +117,21 @@ def make_fits(
     date_avg: str = "2025-11-24T12:00:00.000",
     rot_deg: float = 0.0,
     sources: Tuple[Tuple[float, float, float], ...] = (),
+    shape: Tuple[int, int] = (NY, NX),
+    flip_parity: bool = False,
+    crpix_offset: Tuple[float, float] = (0.0, 0.0),
+    sip: Optional[Mapping[str, float]] = None,
+    variance: Optional[np.ndarray] = None,
 ) -> bytes:
     """Return FITS bytes. ``sources`` are (x, y, amplitude) native-pixel Gaussians."""
+    ny, nx = shape
+    geo = dict(flip_parity=flip_parity, crpix_offset=crpix_offset)
     rng = np.random.default_rng(1)
-    img = image if image is not None else (0.5 + 0.01 * rng.standard_normal((NY, NX))).astype(np.float32)
-    yy, xx = np.mgrid[0:NY, 0:NX]
+    img = image if image is not None else (0.5 + 0.01 * rng.standard_normal((ny, nx))).astype(np.float32)
+    yy, xx = np.mgrid[0:ny, 0:nx]
     for sx, sy, amp in sources:
         img = img + (amp * np.exp(-((xx - sx) ** 2 + (yy - sy) ** 2) / (2 * 0.8**2))).astype(np.float32)
-    ih = celestial_header(rot_deg)
+    ih = celestial_header(rot_deg, sip=sip, **geo)
     ih["EXTNAME"] = "IMAGE"
     ih["BUNIT"] = "MJy / sr"
     ih["DETECTOR"] = detector
@@ -115,15 +145,16 @@ def make_fits(
     spectral_keys(ih)
     hdus = [fits.PrimaryHDU(), fits.ImageHDU(np.asarray(img, dtype=np.float32), header=ih, name="IMAGE")]
     if include_flags:
-        fh = celestial_header(rot_deg)
+        fh = celestial_header(rot_deg, **geo)
         for bit, name in FLAG_BITS.items():
             fh[f"MSKN{bit:04d}"] = name
             fh[f"MSKM{bit:04d}"] = 1 << bit
-        f = flags if flags is not None else np.zeros((NY, NX), dtype=np.int32)
+        f = flags if flags is not None else np.zeros((ny, nx), dtype=np.int32)
         hdus.append(fits.ImageHDU(f.astype(np.int32), header=fh, name="FLAGS"))
     if include_variance:
-        hdus.append(fits.ImageHDU(np.full((NY, NX), 1e-4, dtype=np.float32), header=celestial_header(rot_deg), name="VARIANCE"))
-    hdus.append(fits.ImageHDU(np.zeros((NY, NX), dtype=np.float32), name="ZODI"))
+        v = variance if variance is not None else np.full((ny, nx), 1e-4, dtype=np.float32)
+        hdus.append(fits.ImageHDU(np.asarray(v, dtype=np.float32), header=celestial_header(rot_deg, **geo), name="VARIANCE"))
+    hdus.append(fits.ImageHDU(np.zeros((ny, nx), dtype=np.float32), name="ZODI"))
     if include_wave:
         hdus.append(wave_table())
     buf = io.BytesIO()
