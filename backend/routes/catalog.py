@@ -15,6 +15,7 @@ from typing import Any, Dict, Optional
 from fastapi import APIRouter, Depends, Query
 from fastapi.responses import JSONResponse, Response
 
+from backend.routes._errors import CURRENT_REQUEST_ID
 from backend.platform.catalog import CatalogStore, ContentUnavailable, get_catalog_store
 from backend.platform.catalog_models import (
     CaseDocument,
@@ -33,7 +34,8 @@ _ERROR_RESPONSES: Dict[int, Dict[str, Any]] = {
 
 
 def _new_request_id() -> str:
-    return uuid.uuid4().hex
+    # Echo the middleware's id (also sent as X-Request-ID); fresh id only outside a request.
+    return CURRENT_REQUEST_ID.get() or uuid.uuid4().hex
 
 
 def error_response(

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import logging
 import uuid
+from contextvars import ContextVar
 from typing import Any
 
 from fastapi import FastAPI, Request
@@ -36,6 +37,11 @@ class ApiError(Exception):
         self.http_status = http_status
         self.retryable = retryable
         self.details = details
+
+
+#: Request id of the in-flight request, set by the middleware in main.py so code
+#: without access to ``Request`` (e.g. catalog error helpers) can echo it.
+CURRENT_REQUEST_ID: ContextVar[str | None] = ContextVar("perigee_request_id", default=None)
 
 
 def request_id_of(request: Request) -> str:

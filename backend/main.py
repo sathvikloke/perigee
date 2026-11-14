@@ -13,7 +13,7 @@ import uuid
 from fastapi import FastAPI, Request
 
 from backend.routes import frames, health, search
-from backend.routes._errors import install_error_handlers
+from backend.routes._errors import CURRENT_REQUEST_ID, install_error_handlers
 
 API_PREFIX = "/api/v1"
 _CLIENT_RID = re.compile(r"^[A-Za-z0-9._:-]{1,64}$")
@@ -37,6 +37,7 @@ async def request_id_middleware(request: Request, call_next):
     # the server generates one. It identifies a response, it is not an auth token.
     supplied = request.headers.get("x-request-id", "")
     request.state.request_id = supplied if _CLIENT_RID.match(supplied) else uuid.uuid4().hex
+    CURRENT_REQUEST_ID.set(request.state.request_id)
     response = await call_next(request)
     response.headers["X-Request-ID"] = request.state.request_id
     return response
