@@ -7,9 +7,10 @@ import { CaseBench } from "./CaseBench";
 import { ErrorBlock, useAsync } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook } from "./Notebook";
-import { PageHeading, WorkflowStrip } from "./PageHeading";
+import { InvestigationSwitcher, PageHeading, WorkflowStrip } from "./PageHeading";
 
 interface Loaded {
+  presets: PresetDescriptor[];
   preset: PresetDescriptor | null;
   /** The preset's full `frames` set, for free stepping. */
   sequence: FrameRecord[];
@@ -27,6 +28,8 @@ export function PresetInvestigation(props: {
   presetId: string;
   onUseFixture?: () => void;
   onQueryPosition: (preset: PresetDescriptor) => void;
+  onOpenPreset: (id: string) => void;
+  onOpenQuery: () => void;
 }) {
   const { api, presetId } = props;
   const { state, retry } = useAsync<Loaded>(
@@ -45,6 +48,7 @@ export function PresetInvestigation(props: {
           : Promise.resolve({ c: null, err: null as unknown }),
       ]);
       return {
+        presets,
         preset,
         sequence: all.frames,
         caseFrames: caseSet?.frames ?? [],
@@ -75,7 +79,16 @@ export function PresetInvestigation(props: {
       />
     );
   }
-  return <PresetLoaded api={api} presetId={presetId} data={state.data} onQueryPosition={props.onQueryPosition} />;
+  return (
+    <PresetLoaded
+      api={api}
+      presetId={presetId}
+      data={state.data}
+      onQueryPosition={props.onQueryPosition}
+      onOpenPreset={props.onOpenPreset}
+      onOpenQuery={props.onOpenQuery}
+    />
+  );
 }
 
 function PresetLoaded(props: {
@@ -83,6 +96,8 @@ function PresetLoaded(props: {
   presetId: string;
   data: Loaded;
   onQueryPosition: (preset: PresetDescriptor) => void;
+  onOpenPreset: (id: string) => void;
+  onOpenQuery: () => void;
 }) {
   const { data, api, presetId } = props;
   const { preset, caseContent } = data;
@@ -195,8 +210,48 @@ function PresetLoaded(props: {
             </div>
           ) : null;
 
+  // Authored background, closed by default so the plates reach the first viewport.
+  const backgroundPanel =
+    caseContent?.background?.short || caseContent?.background?.details?.length ? (
+      <details className="panel">
+        <summary>
+          <span>
+            <span className="section-icon" aria-hidden="true">
+              ?
+            </span>
+            About {preset?.display_name ?? "this target"} and this investigation
+          </span>
+          <span className="expand" aria-hidden="true">
+            +
+          </span>
+        </summary>
+        <div className="details-body">
+          {caseContent?.background?.short && <p>{caseContent.background.short}</p>}
+          {caseContent?.background?.details?.length ? (
+            <ul className="plain-list">
+              {caseContent.background.details.map((d, i) => (
+                <li key={i}>{d}</li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </details>
+    ) : null;
+  const caseGuidance = (
+    <>
+      {stepsCard}
+      {backgroundPanel}
+    </>
+  );
+
   return (
     <>
+      <InvestigationSwitcher
+        presets={data.presets}
+        currentId={presetId}
+        onOpenPreset={props.onOpenPreset}
+        onOpenQuery={props.onOpenQuery}
+      />
       <PageHeading
         eyebrow="SPHEREx investigation"
         eyebrowDetail={caseContent ? preset?.display_name ?? presetId : "Free exploration"}
@@ -228,25 +283,6 @@ function PresetLoaded(props: {
             </p>
           </div>
 
-          {caseContent?.background?.short && (
-            <p className="background-short wide-only">{caseContent.background.short}</p>
-          )}
-          {caseContent?.background?.short || caseContent?.background?.details?.length ? (
-            <details className="inline-disclosure">
-              <summary>
-                <span className="wide-only">More background</span>
-                <span className="phone-only">About this target</span>
-              </summary>
-              {caseContent?.background?.short && (
-                <p className="background-short phone-only">{caseContent.background.short}</p>
-              )}
-              <ul className="plain-list background-short">
-                {(caseContent?.background?.details ?? []).map((d, i) => (
-                  <li key={i}>{d}</li>
-                ))}
-              </ul>
-            </details>
-          ) : null}
           {data.caseError != null && !caseContent && (
             <ErrorBlock title="The investigation text could not be loaded. The frames below still work." error={data.caseError} />
           )}
@@ -256,7 +292,7 @@ function PresetLoaded(props: {
               caseContent={caseContent}
               framesByRef={framesByRef}
               otherRef={otherRef}
-              afterShell={stepsCard}
+              afterShell={caseGuidance}
               onOtherRefChange={(r) => {
                 setOtherRef(r);
                 const nextPair = [firstRef, r].flatMap((ref) => {
@@ -267,6 +303,7 @@ function PresetLoaded(props: {
               }}
             />
           )}
+          {!hasCase && caseContent && caseGuidance}
           {missingRefs.length > 0 && (
             <p className="notice" role="note">
               Case frame{missingRefs.length > 1 ? "s" : ""} {missingRefs.map((m) => `${m.ref} (${m.frame_key})`).join(", ")}{" "}

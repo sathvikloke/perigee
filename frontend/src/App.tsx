@@ -170,6 +170,8 @@ export function App() {
             presetId={route.presetId}
             onUseFixture={useFixture}
             onQueryPosition={openQueryAt}
+            onOpenPreset={(id) => navigate({ view: "preset", presetId: id })}
+            onOpenQuery={() => navigate({ view: "query" })}
           />
         )}
         {route.view === "query" && (

@@ -1,3 +1,5 @@
+import type { PresetDescriptor } from "../api/types";
+
 /** Investigation heading row (design: `.heading-row`). */
 export function PageHeading(props: {
   eyebrow: string;
@@ -24,6 +26,55 @@ export function PageHeading(props: {
         </span>
       )}
     </div>
+  );
+}
+
+/**
+ * One closed disclosure at the top of an investigation for switching target,
+ * investigation or coordinates, so the sky reaches the first viewport sooner.
+ */
+export function InvestigationSwitcher(props: {
+  presets: PresetDescriptor[];
+  currentId: string;
+  onOpenPreset: (id: string) => void;
+  onOpenQuery: () => void;
+}) {
+  return (
+    <details className="panel switcher">
+      <summary>
+        <span>
+          <span className="section-icon" aria-hidden="true">
+            ⌖
+          </span>
+          Change investigation, target or coordinates
+        </span>
+        <span className="expand" aria-hidden="true">
+          +
+        </span>
+      </summary>
+      <div className="details-body">
+        <ul className="switcher-list">
+          {props.presets.map((p) => (
+            <li key={p.id}>
+              <button
+                type="button"
+                aria-current={p.id === props.currentId ? "true" : undefined}
+                onClick={() => props.onOpenPreset(p.id)}
+              >
+                {p.display_name}
+                <span>{p.case_ids.length ? "Guided investigation" : "Free exploration"}</span>
+              </button>
+            </li>
+          ))}
+          <li>
+            <button type="button" onClick={props.onOpenQuery}>
+              Any sky position
+              <span>Search by coordinates</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </details>
   );
 }
 
