@@ -126,7 +126,7 @@
   ],
   "sources": [
     {"label": "SPHEREx data at NASA/IPAC IRSA", "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"},
-    {"label": "SIMBAD: Barnard's star", "url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Barnard%27s+star"},
+    {"label": "SIMBAD (CDS), CfA Harvard mirror: Barnard's star", "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Barnard%27s+star"},
     {"label": "Gaia mission (ESA)", "url": "https://www.cosmos.esa.int/web/gaia"},
     {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
   ],

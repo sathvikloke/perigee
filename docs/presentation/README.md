@@ -147,12 +147,12 @@ Draft stand-ins from the QA run are in `screens/`. Use them for layout only. The
 - **IRSA SPHEREx visualization docs (as observed in the design handoff):** https://irsa.ipac.caltech.edu/onlinehelp/spherex/spherex/visualization.html
 - **SPHEREx archive access documentation:** https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/
 - **Backyard Worlds: Planet 9 (as observed in the design handoff, landing page only; its classifier was out of data, so no classifier behavior is claimed):** https://www.zooniverse.org/projects/marckuchner/backyard-worlds-planet-9
-- **SIMBAD targets:**
-  - Epsilon Indi B: https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eps+Ind+B
-  - Barnard's Star: https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Barnard%27s+star
-  - WISE 0855: https://simbad.cds.unistra.fr/simbad/sim-id?Ident=WISEA+J085510.74-071442.5
-  - RW Aurigae: https://simbad.cds.unistra.fr/simbad/sim-id?Ident=RW+Aur
-  - R Draconis: https://simbad.cds.unistra.fr/simbad/sim-id?Ident=R+Dra
+- **SIMBAD targets** (CDS SIMBAD via its official CfA Harvard mirror; the Strasbourg site has been offline since a CDS security incident, notice dated 9 Nov 2026; the same `sim-id?Ident=` paths work on `simbad.cds.unistra.fr` once it is restored):
+  - Epsilon Indi B: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=eps+Ind+B
+  - Barnard's Star: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Barnard%27s+star
+  - WISE 0855: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=WISEA+J085510.74-071442.5
+  - RW Aurigae: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RW+Aur
+  - R Draconis: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=R+Dra
 - **Planet X and SPHEREx challenge (cited in both case JSON files):** https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/
 - **Gaia DR3, used for the acceptance and Barnard field-star checks:** https://www.cosmos.esa.int/web/gaia/dr3 (the mission page cited in the Barnard case is https://www.cosmos.esa.int/web/gaia). The queries went to `gaiadr3.gaia_source` through the ESA Gaia archive: https://gea.esac.esa.int/archive/
 - **Judging and awards guide:** https://www.spaceappschallenge.org/resources/judging-awards-guide/
