@@ -62,8 +62,9 @@ def test_partial_when_one_collection_returns_html_502(client, archive):
     assert r.status_code == 200 and body["status"] == "partial"
     assert body["collections_failed"] == ["spherex_qr3"] and body["returned_count"] == 3
     assert any("spherex_qr3" in w for w in body["warnings"])
-    # one retry was attempted for the transient 502
-    assert sum("spherex_qr3" in c for c in archive.calls) == 2
+    assert body["total_matches"] is None  # unknown: a collection failed
+    # bounded retries for the transient 502: 1 attempt + upstream_retries (4)
+    assert sum("spherex_qr3" in c for c in archive.calls) == 5
 
 
 def test_transient_502_then_success_is_ready(client, archive):

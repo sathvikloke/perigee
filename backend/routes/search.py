@@ -292,7 +292,7 @@ async def search(body: SearchRequest, request: Request) -> JSONResponse:
         status=status,
         observations=[ObservationDescriptor(**o) for o in observations],
         returned_count=len(observations),
-        total_matches=None if overflow else n,
+        total_matches=None if (overflow or failed) else n,  # unknown if any collection failed
         truncated=n > len(observations) or overflow,
         selection="evenly_spaced_in_time" if n > len(observations) else "all",
         warnings=warnings,

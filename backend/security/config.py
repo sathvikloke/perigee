@@ -56,7 +56,10 @@ class Settings:
     max_request_body_bytes: int = 16 * 1024
     sia_maxrec: int = 2000
     processing_reserve_s: float = 6.0  # min budget left before starting FITS processing
-    upstream_retries: int = 1  # one extra attempt on 502/503/connect error, budget permitting
+    # Extra attempts on 502/503/504/connect error, budget permitting. IRSA SIA returned
+    # intermittent 502 HTML (2026-11-14). Alternating real searches: 1 retry gave 5/8 ready
+    # (2 partial, 1 UPSTREAM_UNAVAILABLE); 4 retries with linear backoff gave 10/10 ready.
+    upstream_retries: int = 4
     allowed_hosts: Tuple[str, ...] = ("irsa.ipac.caltech.edu",)
     # Per-client fixed-window limits (best effort, per function instance)
     search_per_minute: int = 30

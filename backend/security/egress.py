@@ -160,7 +160,7 @@ async def fetch(client: httpx.AsyncClient, settings: Settings, url: str, *, budg
         except httpx.TransportError as exc:  # connect refused, reset, protocol errors
             last = UpstreamFailure("unavailable", type(exc).__name__, None, attempt)
         if attempt <= retries and last.transient and budget.remaining() > RETRY_MIN_REMAINING_S:
-            await asyncio.sleep(RETRY_BACKOFF_S)
+            await asyncio.sleep(RETRY_BACKOFF_S * attempt)  # linear: 0.3, 0.6, 0.9 s ...
             continue
         break
     assert last is not None

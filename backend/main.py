@@ -102,7 +102,8 @@ _FIELD_CODES = (
 def classify_validation(errors: List[Dict[str, Any]]) -> tuple[ErrorCode, List[Dict[str, str]]]:
     fields = []
     for e in errors:
-        loc = [str(p) for p in e.get("loc", ()) if p != "body"]
+        # JSON decode errors carry a character offset in loc; report them against "body".
+        loc = [p for p in e.get("loc", ()) if p != "body" and isinstance(p, str)]
         fields.append({"field": loc[0] if loc else "body", "problem": str(e.get("type", "invalid"))})
     if any(e.get("type") in ("json_invalid", "model_attributes_type", "dict_type") or
            (e.get("type") == "missing" and tuple(e.get("loc", ())) == ("body",)) for e in errors):
