@@ -1,0 +1,4 @@
+# Local development and tests (not deployed).
+-r requirements.txt
+uvicorn==0.54.0
+pytest==9.2.0

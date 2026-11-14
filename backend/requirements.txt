@@ -1,0 +1,13 @@
+# Perigee API runtime dependencies (Python 3.12; Vercel Python runtime).
+# Candidate B uses the same pins as candidate A (worker 03) so the two are swappable.
+# Processor packages are pinned for backend/data (worker 05); change them with that owner.
+fastapi==0.163.0
+starlette==1.10.0
+pydantic==2.14.3
+pydantic-core==2.50.4
+httpx==0.28.1
+anyio==4.16.0
+# FITS processing (backend/data):
+astropy==8.0.2
+numpy==2.5.4
+pillow==13.0.0
