@@ -328,17 +328,29 @@ def display_wcs(center_ra_deg: float, center_dec_deg: float, fov_arcmin: float, 
     return w
 
 
-def native_geometry(cel: WCS) -> Dict[str, float]:
-    """Native pixel scale (arcsec), rotation and parity from the linear WCS part."""
-    cd = cel.pixel_scale_matrix  # rows: world axis, cols: pixel axis; handles CD or PC+CDELT
-    det = float(np.linalg.det(cd))
-    scale = math.sqrt(abs(det)) * 3600.0
-    # Position angle (east of north) of the source +y pixel axis.
-    dra, ddec = cd[0, 1], cd[1, 1]
-    # Intermediate world axes are (east, north), so PA (east of north) = atan2(east, north).
-    pa_y = math.degrees(math.atan2(dra, ddec)) % 360.0
+def native_geometry(cel: WCS, x: float, y: float) -> Dict[str, float]:
+    """Local native pixel scale (arcsec), rotation and parity at source pixel (x, y).
+
+    Uses the Jacobian of the full TAN-SIP mapping (finite differences of
+    all_pix2world), so SIP's local scale change is included. SPHEREx SIP terms
+    change the scale by ~0.5% across a detector; the linear CD-only value
+    (scale at CRPIX, near the detector centre) is reported separately.
+    """
+    h = 0.5
+    px = np.array([x - h, x + h, x, x])
+    py = np.array([y, y, y - h, y + h])
+    ra, dec = cel.all_pix2world(px, py, 0)
+    c = math.cos(math.radians(float(np.mean(dec))))
+    dra = (ra + 180.0 - ra[0]) % 360.0 - 180.0  # unwrap RA
+    # Rows: (east, north) in deg; columns: (d/dx, d/dy).
+    j = np.array([[(dra[1] - dra[0]) * c, (dra[3] - dra[2]) * c], [dec[1] - dec[0], dec[3] - dec[2]]])
+    det = float(np.linalg.det(j))
+    lin = cel.pixel_scale_matrix
+    # PA (east of north) of the source +y pixel axis = atan2(east, north).
+    pa_y = math.degrees(math.atan2(j[0, 1], j[1, 1])) % 360.0
     return {
-        "native_scale_arcsec": scale,
+        "native_scale_arcsec": math.sqrt(abs(det)) * 3600.0,
+        "native_scale_linear_arcsec": math.sqrt(abs(float(np.linalg.det(lin)))) * 3600.0,
         "native_y_axis_pa_deg": pa_y,
         # det<0 is the usual sky parity (east left when north up).
         "native_parity": "sky (east-left when north-up)" if det < 0 else "flipped (east-right when north-up)",
@@ -465,7 +477,7 @@ def _bilinear_finite(image: np.ndarray, x: np.ndarray, y: np.ndarray) -> np.ndar
 def resample(src: SourceFrame, meta: FrameInput) -> ResampledFrame:
     n = int(meta.grid_size)
     dw = display_wcs(meta.center_ra_deg, meta.center_dec_deg, meta.fov_arcmin, n)
-    geo = native_geometry(src.celestial)
+    geo = native_geometry(src.celestial, (src.shape[1] - 1) / 2.0, (src.shape[0] - 1) / 2.0)
     disp_scale = meta.fov_arcmin * 60.0 / n
     # Sub-samples per display pixel so that flags are OR-ed over the footprint
     # when display pixels are larger than native pixels. 1 when upsampling.
@@ -713,7 +725,7 @@ def process_frame(fits_bytes: bytes, meta: FrameInput) -> ProcessedFrame:
     rf = resample(src, meta)
     n = int(meta.grid_size)
     dw = display_wcs(meta.center_ra_deg, meta.center_dec_deg, meta.fov_arcmin, n)
-    geo = native_geometry(src.celestial)
+    geo = native_geometry(src.celestial, (src.shape[1] - 1) / 2.0, (src.shape[0] - 1) / 2.0)
     disp_scale = meta.fov_arcmin * 60.0 / n
 
     # Position used for wavelength + quality: predicted target, else query centre.
@@ -819,6 +831,8 @@ def process_frame(fits_bytes: bytes, meta: FrameInput) -> ProcessedFrame:
             "Coverage: geometric (source pixel footprint)."
         ),
         "native_scale_arcsec": _round(geo["native_scale_arcsec"], 4),
+        "native_scale_basis": "sqrt|det J| of the TAN-SIP mapping at the cutout centre (includes SIP)",
+        "native_scale_linear_arcsec": _round(geo["native_scale_linear_arcsec"], 4),
         "native_y_axis_pa_deg": _round(geo["native_y_axis_pa_deg"], 3),
         "native_parity": geo["native_parity"],
         "source_shape": [int(src.shape[0]), int(src.shape[1])],

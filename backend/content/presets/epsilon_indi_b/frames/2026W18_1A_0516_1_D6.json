@@ -88,8 +88,10 @@
    "note": "FITS convention (+y north). PNG row r is FITS row n-1-r."
   },
   "method": "Inverse mapping: each display pixel centre -> sky (display TAN) -> source pixel through the frame's TAN-SIP celestial WCS (astropy all_world2pix). Intensity: bilinear over finite neighbours. Flags and non-finite mask: nearest neighbour (bitwise OR over sub-samples if downsampling). Coverage: geometric (source pixel footprint).",
-  "native_scale_arcsec": 6.1618,
-  "native_y_axis_pa_deg": 337.149,
+  "native_scale_arcsec": 6.1381,
+  "native_scale_basis": "sqrt|det J| of the TAN-SIP mapping at the cutout centre (includes SIP)",
+  "native_scale_linear_arcsec": 6.1618,
+  "native_y_axis_pa_deg": 335.861,
   "native_parity": "sky (east-left when north-up)",
   "source_shape": [
    59,
@@ -106,7 +108,7 @@
    "y": 28.3801,
    "convention": "0-based FITS"
   },
-  "upsampling_factor": 4.382
+  "upsampling_factor": 4.365
  },
  "quality": {
   "status": "clear",
@@ -169,7 +171,7 @@
  },
  "limitations": [
   "Per-frame contrast: brightness is not directly comparable with other frames.",
-  "Display pixels (1.41 arcsec) are resampled from ~6.16 arcsec native pixels; resampling adds no resolution.",
+  "Display pixels (1.41 arcsec) are resampled from ~6.14 arcsec native pixels; resampling adds no resolution.",
   "Wavelength is the WCS-WAVE lookup-table value at the checked position only; it varies across the image, and the supplement describes this table as an approximation for visualisation.",
   "Quality screen = flags and non-finite pixels within 2.5 native pixels of the checked position. Not a detection, photometry or astrometric validation.",
   "The marker is a catalog prediction, not a measured position."

@@ -38,7 +38,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 62.5,
+   "process_ms": 57.2,
    "png_bytes": 31933,
    "flag_png_bytes": 850,
    "png_data_url_chars": 42602,
@@ -84,7 +84,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 41.9,
+   "process_ms": 37.7,
    "png_bytes": 31900,
    "flag_png_bytes": 1350,
    "png_data_url_chars": 42558,
@@ -130,7 +130,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 39.0,
+   "process_ms": 35.3,
    "png_bytes": 38140,
    "flag_png_bytes": 1462,
    "png_data_url_chars": 50878,
@@ -181,7 +181,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 41.0,
+   "process_ms": 39.2,
    "png_bytes": 17921,
    "flag_png_bytes": 1019,
    "png_data_url_chars": 23918,
@@ -233,7 +233,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 42.6,
+   "process_ms": 41.3,
    "png_bytes": 17749,
    "flag_png_bytes": 1674,
    "png_data_url_chars": 23690,
@@ -284,7 +284,7 @@
    "source_url": true
   },
   "measurements": {
-   "process_ms": 41.4,
+   "process_ms": 39.7,
    "png_bytes": 17722,
    "flag_png_bytes": 795,
    "png_data_url_chars": 23654,

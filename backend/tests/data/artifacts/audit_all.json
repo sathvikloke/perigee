@@ -132,9 +132,9 @@
  ],
  "max_abs_wavelength_diff_vs_old_manifest_um": 4.975046961064322e-07,
  "runtime_ms": {
-  "median": 42.4,
-  "p95": 52.0,
-  "max": 77.0,
+  "median": 40.2,
+  "p95": 50.5,
+  "max": 63.4,
   "note": "process_frame wall time incl. FITS parse, resample, PNG encode, base64; single process, Apple laptop"
  },
  "size_bytes": {
