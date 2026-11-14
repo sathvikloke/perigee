@@ -154,11 +154,27 @@ PR #19 stays open and uncommented (teammate PR; the coordinator doesn't post the
 | B2 | Private repo; footer `AI_USE.md` link 404 | Still true (logged-out 404 for both) | Owner action: make public or mirror; merge PR #27 |
 | F1 | Exported card has no limitations | Confirmed, then **fixed**: QA-F1 `77fa179`/`dff3e34` | Export carries `case_limitations` (5, verbatim) and `frames[].limitations`, plus `title`; schema stays v1; old cards are normalized and filled in on reopen without touching learner text. Real files in `qa/export-limitations/`. Codex separately verified an actual saved download (titles, 5 case limitations verbatim, 4/5 per-frame, URLs and SHA-256) |
 | F2 | SIMBAD links 404 | Confirmed: the CDS Strasbourg security incident (notice updated 9 Nov 2026) makes every `/simbad/*` path 404, even Vega. Not malformed: the same paths resolve on the official CfA mirror | **Fixed `1b87fe6`**: case sources point to `simbad.cfa.harvard.edu` with SIMBAD (CDS) attribution kept. Checked with curl; the built-in browser blocks the SIMBAD domain under site permissions |
-| F3 | My evidence shows raw id; no reopen | Confirmed; QA-F3 `ededc96` + follow-up | See QA-F3 row below |
-| F4 | Shared vs own stretch confusing | Confirmed (labels differ by design) | QA-F3: one short sentence by the case pair |
+| F3 | My evidence shows raw id; no reopen | Confirmed; **fixed** QA-F3 (`4505b66`, `0cf390d`) | Human titles (target · case, coordinate fallback, stored `title`), Reopen link restoring the right investigation and notebook |
+| F4 | Shared vs own stretch confusing | Confirmed (labels differ by design); **fixed** `4505b66` | One sentence in the pair's processing note: "The pair shares one stretch so the plates can be compared by eye; the timeline below gives each frame its own." |
 
 ## API review leftovers (resolved 2026-11-14, `03bb179`)
 R7 had been fixed in `454d027` (ContextVar request id), with a regression test. D1: an archive OVERFLOW is now `partial` + `collections_capped`, `truncated: true`, `total_matches: null`; a limit subset stays `ready`; mixed case tested. D2: no fake global limiter; bounds documented; a Vercel Firewall rule is an owner option. D3: dev secret and dev fallback refused on hosted Preview as well as Production; local dev unchanged. Details: `backend/tests/api/REVIEW.md`.
 
 ## Content metadata and docs (`6f08d56`)
 Both cases: `status: science_owner_approved` plus a dated `verification.approval`; science text unchanged. `docs/DEPLOYMENT.md` rewritten (current setup, hosted Preview evidence, logged-out results, numbered owner actions with target URLs). `docs/AI_USE.md` and README: stale "Barnard fix unmerged / 2-px text shipped" and "D1–D3 owner decisions" corrected; no human attestations added; `[TO CONFIRM]` items left for the team.
+
+## Final integration batch (QA-F1, QA-F3) — `a416c9e`
+| Task | Worker worktree | Branch @ commit | Result |
+|---|---|---|---|
+| QA-F1 export limitations | `.claude/worktrees/agent-a8fd59d7be8486894` | `claude/qa-f1-export-limitations` @ `dff3e34` (fast-forwarded) | `case_limitations`, `frames[].limitations`, `title`; schema v1 kept; old cards normalized; print lists stated limitations. 12 tests. Real exports in `qa/export-limitations/`; Codex verified an actual saved download |
+| QA-F3 My evidence + F4 | `.claude/worktrees/agent-aedbfcbfa039f7e04` | `claude/qa-f3-my-evidence` @ `a416c9e` (fast-forwarded) | Titles + Reopen (`4505b66`, `0cf390d`); 320 px timeline overflow and heading focus on client navigation fixed with layout and a MutationObserver, no timeouts (`2dacdd5`); false "not saved" after leaving before the debounce fixed by re-reading the list after unmount cleanups, refused writes still warn (`cf47026`). Evidence `qa/my-evidence/`. Codex independently confirmed 320 px, focus, Reopen and reload |
+
+**Final verification on `a416c9e` (coordinator):**
+- `qa/regression/run.sh`: all six offline gates pass (backend 299 with raw data; vitest 121 in 12 files; build; audit_all 183; check_acceptance 189).
+- `--live` against local uvicorn: 6/6. Search 330.84, −56.786 → ready, 460 matches. A real `/frame` returns 200 with processor 0.1.2. JSON 404s echo `X-Request-ID`, including the catalog 404 (R7).
+- Browser at 320 px: Barnard case `scrollWidth == innerWidth`, 6 plates and flagged labels from the records. Epsilon case: 3 "Flag screen passed", the F4 sentence present, focus on the `h1`.
+- Non-preset live search, Orion 83.82, −5.39: 377 matches, still 320 px wide. With limit 4, one simulated 502 plus one **real** IRSA 502 (`UPSTREAM_UNAVAILABLE` after the server's retries): both stayed in date order, marked "failed to load", with "Retry 2 failed frames". The retry recovered the simulated frame; the real one failed again and stayed in its slot, with the other frames unaffected.
+
+Not re-run (already recorded, no code change since): the export download (QA-F1, Codex), print preview (24f, 17, QA-F1), keyboard journey (17, QA-F3, Codex). Not covered by anyone: a physical phone, a screen reader, a printed PDF, a public URL.
+
+Not merged, noted: PR #34 (`codex/suhrit-platform`, deployed release smoke check) was opened by a teammate during this batch. It was not reviewed in this task.
