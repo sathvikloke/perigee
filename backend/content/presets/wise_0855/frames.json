@@ -1,0 +1,3408 @@
+{
+ "schema_version": 1,
+ "preset_id": "wise_0855",
+ "name": "WISE 0855",
+ "delivery": "curated",
+ "delivery_note": "Pre-processed from retained original archive files; not a live archive query.",
+ "processing_version": "perigee-data 0.1.0",
+ "registration": {
+  "grid_id": "grid_df39916c964f",
+  "center_ra_deg": 133.75976526566546,
+  "center_dec_deg": -7.242182182223836,
+  "fov_arcmin": 4.0,
+  "width": 256,
+  "height": 256,
+  "scale_arcsec_per_px": 0.9375,
+  "native_scale_arcsec_per_px": 6.15,
+  "projection": "TAN",
+  "frame": "ICRS",
+  "orientation": "north_up_east_left",
+  "pixel_origin": "top-left pixel corner; x right, y down",
+  "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+ },
+ "ordering": "mjd (mid-exposure) ascending, then frame_key",
+ "frames": [
+  {
+   "frame_id": "frm_a1a92388dce0e4f2",
+   "frame_key": "2025W19_1B_0116_1_D6",
+   "observation_id": "2025W19_1B_0116_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-05T16:49:00.018Z",
+   "mjd": 60800.70069465,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_1D6_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 4.967396580201929,
+   "bandwidth_um": 0.03718691299037463,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_1_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0116_1_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_1_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0116_1_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.09412337689160756,
+    "high": 3.6386252345688113,
+    "asinh_softening": 0.18824675378321512,
+    "background_offset": 0.7194930643315631,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.3,
+    "y": 128.47,
+    "ra_deg": 133.76126180702474,
+    "dec_deg": -7.242305401297761,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60800.70069465,
+    "epoch_utc": "2025-05-05T16:49:00.018Z",
+    "epoch_jyear": 2025.3421,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_1D6_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_1D6_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "938da09e9dc277dea60879ab04d06a0319a7b7c86deb46268868e09bf1cad3ec",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_027b0469d70ed72a",
+   "frame_key": "2025W19_1B_0116_2_D3",
+   "observation_id": "2025W19_1B_0116_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-05T16:51:08.949Z",
+   "mjd": 60800.702186907,
+   "time_basis": "header_mjd_avg",
+   "detector": 3,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/3/level2_2025W19_1B_0116_2D3_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 2.4126759920354175,
+   "bandwidth_um": 0.05045793090845013,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_2_D3.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0116_2_D3.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_2_D3.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0116_2_D3.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 0,
+    "adverse_aperture_pixels": 19,
+    "flag_names": [
+     "DICHROIC"
+    ],
+    "notes": [
+     "19 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: DICHROIC (low efficiency from the dichroic).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03797883033606832,
+    "high": 3.855392315099124,
+    "asinh_softening": 0.07595766067213663,
+    "background_offset": 0.14325128553801772,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.3,
+    "y": 128.47,
+    "ra_deg": 133.76126179773127,
+    "dec_deg": -7.2423054005325875,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60800.702186907,
+    "epoch_utc": "2025-05-05T16:51:08.949Z",
+    "epoch_jyear": 2025.3421,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/3/level2_2025W19_1B_0116_2D3_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/3/level2_2025W19_1B_0116_2D3_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "389e3ba87b0f1b2b0695261c434be5b918bd1a9168e368baf4637d6ff884abc1",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_08ab5088370b67b9",
+   "frame_key": "2025W19_1B_0116_2_D6",
+   "observation_id": "2025W19_1B_0116_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-05T16:51:08.949Z",
+   "mjd": 60800.702186907,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_2D6_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 5.003460588998953,
+   "bandwidth_um": 0.0375835442858112,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_2_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0116_2_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0116_2_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0116_2_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.10219705973992628,
+    "high": 1.5385253409470505,
+    "asinh_softening": 0.20439411947985245,
+    "background_offset": 0.7389748763093131,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.3,
+    "y": 128.47,
+    "ra_deg": 133.76126179773127,
+    "dec_deg": -7.2423054005325875,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60800.702186907,
+    "epoch_utc": "2025-05-05T16:51:08.949Z",
+    "epoch_jyear": 2025.3421,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_2D6_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/6/level2_2025W19_1B_0116_2D6_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "0cafe41f27a3dea17027cc239ae31a93d3207cbe1cdecb9e566fc27ef924ff49",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_80f2362b5f76da5f",
+   "frame_key": "2025W19_1B_0181_2_D2",
+   "observation_id": "2025W19_1B_0181_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T02:36:36.419Z",
+   "mjd": 60801.108754847,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0181_2D2_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 1.5524370023301173,
+   "bandwidth_um": 0.03796775438310752,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0181_2_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0181_2_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0181_2_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0181_2_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "OUTLIER"
+    ],
+    "notes": [
+     "1 of 20 pixels at the predicted target position are flagged or have no usable value. Flags: OUTLIER (statistical outlier).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03098836062823798,
+    "high": 5.837968549798005,
+    "asinh_softening": 0.06197672125647596,
+    "background_offset": 0.24021342946699598,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.31,
+    "y": 128.47,
+    "ra_deg": 133.7612592657061,
+    "dec_deg": -7.2423051920602095,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.108754847,
+    "epoch_utc": "2025-05-06T02:36:36.419Z",
+    "epoch_jyear": 2025.3432,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0181_2D2_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0181_2D2_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "4bf7a6efef3734d1fd93eea70d41df6726c0dd86a94a3b99f8acddcb8b4a651b",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_a685bc8917525313",
+   "frame_key": "2025W19_1B_0181_2_D5",
+   "observation_id": "2025W19_1B_0181_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T02:36:36.419Z",
+   "mjd": 60801.108754847,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0181_2D5_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 4.331969175574715,
+   "bandwidth_um": 0.03778614875431131,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0181_2_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0181_2_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0181_2_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0181_2_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.05786129284137651,
+    "high": 1.5293622180443818,
+    "asinh_softening": 0.11572258568275302,
+    "background_offset": 0.3190367785597588,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.31,
+    "y": 128.47,
+    "ra_deg": 133.7612592657061,
+    "dec_deg": -7.2423051920602095,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.108754847,
+    "epoch_utc": "2025-05-06T02:36:36.419Z",
+    "epoch_jyear": 2025.3432,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0181_2D5_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0181_2D5_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "7ac87f36d91bd69fb4ca2900b67b61c660becfdaedf03faa829515543f56e637",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_6624492998ca95e8",
+   "frame_key": "2025W19_1B_0231_2_D2",
+   "observation_id": "2025W19_1B_0231_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T10:44:49.776Z",
+   "mjd": 60801.44779833,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0231_2D2_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 1.310068079885328,
+   "bandwidth_um": 0.03147895643035119,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0231_2_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0231_2_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0231_2_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0231_2_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.030699724494970874,
+    "high": 5.253704556848599,
+    "asinh_softening": 0.06139944898994175,
+    "background_offset": 0.2433142242254508,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.76125715420994,
+    "dec_deg": -7.242305018211764,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.44779833,
+    "epoch_utc": "2025-05-06T10:44:49.776Z",
+    "epoch_jyear": 2025.3441,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0231_2D2_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/2/level2_2025W19_1B_0231_2D2_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "f84e8b89a07c80b39818acf5e47aeb14a5a87b0b27ecbf9e869379f367a7403c",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_e723320b60ca70ee",
+   "frame_key": "2025W19_1B_0231_2_D5",
+   "observation_id": "2025W19_1B_0231_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T10:44:49.776Z",
+   "mjd": 60801.44779833,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0231_2D5_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 4.073835221134941,
+   "bandwidth_um": 0.036781176926728304,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24231) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0231_2_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0231_2_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0231_2_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0231_2_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.048503458887490886,
+    "high": 3.0668716994716343,
+    "asinh_softening": 0.09700691777498177,
+    "background_offset": 0.21679414873046451,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.76125715420994,
+    "dec_deg": -7.242305018211764,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.44779833,
+    "epoch_utc": "2025-05-06T10:44:49.776Z",
+    "epoch_jyear": 2025.3441,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0231_2D5_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/5/level2_2025W19_1B_0231_2D5_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "297719dcba619206a31edb78c5af63fb474f0fd2bff53f38b597b02c94a206bd",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_4623856eb0f8e941",
+   "frame_key": "2025W19_1B_0241_1_D1",
+   "observation_id": "2025W19_1B_0241_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T12:21:22.447Z",
+   "mjd": 60801.514843134,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_1D1_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 0.9926711419628238,
+   "bandwidth_um": 0.02634817665579962,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24230) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_1_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0241_1_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_1_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0241_1_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 18,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "HALO"
+    ],
+    "notes": [
+     "1 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: HALO (halo around a transient).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.029592274275994944,
+    "high": 4.322726711022447,
+    "asinh_softening": 0.059184548551989916,
+    "background_offset": 0.23545535810841522,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.7612567366681,
+    "dec_deg": -7.242304983833768,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.514843134,
+    "epoch_utc": "2025-05-06T12:21:22.447Z",
+    "epoch_jyear": 2025.3443,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_1D1_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_1D1_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "db45df853958270e81b02be87eaff6cac9492a44f18cf37d863903b0c8193bda",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_55972fe91223f424",
+   "frame_key": "2025W19_1B_0241_1_D4",
+   "observation_id": "2025W19_1B_0241_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T12:21:22.447Z",
+   "mjd": 60801.514843134,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_1D4_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 3.358090583358704,
+   "bandwidth_um": 0.09475217209060942,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24230) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_1_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0241_1_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_1_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0241_1_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 16,
+    "adverse_aperture_pixels": 3,
+    "flag_names": [
+     "HALO",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "notes": [
+     "3 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: HALO (halo around a transient); SUR_ERROR (onboard slope fit had an error); TRANSIENT (a cosmic-ray-like jump during the exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.02353469737519412,
+    "high": 2.4566872008902703,
+    "asinh_softening": 0.04706939475038824,
+    "background_offset": 0.12866604139610577,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.7612567366681,
+    "dec_deg": -7.242304983833768,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.514843134,
+    "epoch_utc": "2025-05-06T12:21:22.447Z",
+    "epoch_jyear": 2025.3443,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_1D4_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_1D4_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "ce26f5ce55a92cd34303a8b80c1f725c8c1d9562aa75f348c60507729fe8e667",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_a32b2374db825f5c",
+   "frame_key": "2025W19_1B_0241_3_D1",
+   "observation_id": "2025W19_1B_0241_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T12:25:40.308Z",
+   "mjd": 60801.517827636,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_3D1_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 1.040729819804035,
+   "bandwidth_um": 0.027885212440686893,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24230) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_3_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0241_3_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_3_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0241_3_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03080824431019838,
+    "high": 4.11911385443516,
+    "asinh_softening": 0.06161648862039676,
+    "background_offset": 0.24144086537273562,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.7612567180812,
+    "dec_deg": -7.2423049823034304,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.517827636,
+    "epoch_utc": "2025-05-06T12:25:40.308Z",
+    "epoch_jyear": 2025.3443,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_3D1_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/1/level2_2025W19_1B_0241_3D1_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "25b965d589b0baae8d3bad478146d69dac35b357f0d8ca54301e6917f60c5bec",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_d412230c2a3a602a",
+   "frame_key": "2025W19_1B_0241_3_D4",
+   "observation_id": "2025W19_1B_0241_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-05-06T12:25:40.308Z",
+   "mjd": 60801.517827636,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_3D4_spx_l2b-v27-2026-197.fits",
+   "wavelength_um": 3.5423726003846503,
+   "bandwidth_um": 0.09728141857532836,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76126, Dec -7.24230) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_3_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W19_1B_0241_3_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W19_1B_0241_3_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W19_1B_0241_3_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.02359489835900128,
+    "high": 1.9259393859653646,
+    "asinh_softening": 0.04718979671800253,
+    "background_offset": 0.12875338127204172,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 122.32,
+    "y": 128.47,
+    "ra_deg": 133.7612567180812,
+    "dec_deg": -7.2423049823034304,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60801.517827636,
+    "epoch_utc": "2025-05-06T12:25:40.308Z",
+    "epoch_jyear": 2025.3443,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_3D4_spx_l2b-v27-2026-197.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W19_1B/l2b-v27-2026-197/4/level2_2025W19_1B_0241_3D4_spx_l2b-v27-2026-197.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "3bc090dccfff6628694a6c7fb677189a03e6deb858bc968cfbc93c58361132a3",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_0dd726c949eba016",
+   "frame_key": "2025W44_2B_0321_1_D1",
+   "observation_id": "2025W44_2B_0321_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-10-31T18:51:58.102Z",
+   "mjd": 60979.786089141,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/1/level2_2025W44_2B_0321_1D1_spx_l2b-v27-2026-246.fits",
+   "wavelength_um": 0.9459957821528675,
+   "bandwidth_um": 0.024498431128335076,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76015, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W44_2B_0321_1_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W44_2B_0321_1_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W44_2B_0321_1_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W44_2B_0321_1_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03172985549730737,
+    "high": 3.6606310661962813,
+    "asinh_softening": 0.06345971099461474,
+    "background_offset": 0.28134510823613174,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.55,
+    "y": 128.12,
+    "ra_deg": 133.76014649865255,
+    "dec_deg": -7.24221357185389,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60979.786089141,
+    "epoch_utc": "2025-10-31T18:51:58.102Z",
+    "epoch_jyear": 2025.8324,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/1/level2_2025W44_2B_0321_1D1_spx_l2b-v27-2026-246.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/1/level2_2025W44_2B_0321_1D1_spx_l2b-v27-2026-246.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "1fd5c7fccc68cf9efb329fcfb2dce8260877cc5c3d6519dafa1d812ca1fbac51",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_62dbc4f72c62e80a",
+   "frame_key": "2025W44_2B_0321_1_D4",
+   "observation_id": "2025W44_2B_0321_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-10-31T18:51:58.103Z",
+   "mjd": 60979.786089152,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/4/level2_2025W44_2B_0321_1D4_spx_l2b-v27-2026-246.fits",
+   "wavelength_um": 3.179594887990653,
+   "bandwidth_um": 0.09367589027373383,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76015, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W44_2B_0321_1_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W44_2B_0321_1_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W44_2B_0321_1_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W44_2B_0321_1_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.023111787228628417,
+    "high": 20.76315422507288,
+    "asinh_softening": 0.04622357445725686,
+    "background_offset": 0.15161627393055316,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.55,
+    "y": 128.12,
+    "ra_deg": 133.76014649865246,
+    "dec_deg": -7.242213571853883,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60979.786089152,
+    "epoch_utc": "2025-10-31T18:51:58.103Z",
+    "epoch_jyear": 2025.8324,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/4/level2_2025W44_2B_0321_1D4_spx_l2b-v27-2026-246.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W44_2B/l2b-v27-2026-246/4/level2_2025W44_2B_0321_1D4_spx_l2b-v27-2026-246.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "933e36cb9adea326cb41d8dcea1262f7c9256e08c1f35133d34ca5c392d3993c",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_ad52a0e8a79359c4",
+   "frame_key": "2025W45_1A_0095_4_D1",
+   "observation_id": "2025W45_1A_0095_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-03T10:37:42.564Z",
+   "mjd": 60982.442853747,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/1/level2_2025W45_1A_0095_4D1_spx_l2b-v27-2026-247.fits",
+   "wavelength_um": 0.7493712301388744,
+   "bandwidth_um": 0.017610395486462403,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76013, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_1A_0095_4_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W45_1A_0095_4_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_1A_0095_4_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W45_1A_0095_4_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 21,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "21 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.030132518418490198,
+    "high": 2.298027390382218,
+    "asinh_softening": 0.06026503683698037,
+    "background_offset": 0.24592149493519738,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.61,
+    "y": 128.12,
+    "ra_deg": 133.76012995285245,
+    "dec_deg": -7.24221220952687,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60982.442853747,
+    "epoch_utc": "2025-11-03T10:37:42.564Z",
+    "epoch_jyear": 2025.8397,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/1/level2_2025W45_1A_0095_4D1_spx_l2b-v27-2026-247.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/1/level2_2025W45_1A_0095_4D1_spx_l2b-v27-2026-247.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "7280f701319d65012576dafb8cad0253bf2a4eb78bd69544e139cacc37354b2b",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_e66a4ab7b5dd4d07",
+   "frame_key": "2025W45_1A_0095_4_D4",
+   "observation_id": "2025W45_1A_0095_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-03T10:37:42.564Z",
+   "mjd": 60982.442853747,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/4/level2_2025W45_1A_0095_4D4_spx_l2b-v27-2026-247.fits",
+   "wavelength_um": 2.4388429778876404,
+   "bandwidth_um": 0.05072043282743247,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76013, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_1A_0095_4_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W45_1A_0095_4_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_1A_0095_4_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W45_1A_0095_4_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03230822063727227,
+    "high": 44.461166634974184,
+    "asinh_softening": 0.06461644127454454,
+    "background_offset": 0.18555997052696654,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.61,
+    "y": 128.12,
+    "ra_deg": 133.76012995285245,
+    "dec_deg": -7.24221220952687,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60982.442853747,
+    "epoch_utc": "2025-11-03T10:37:42.564Z",
+    "epoch_jyear": 2025.8397,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/4/level2_2025W45_1A_0095_4D4_spx_l2b-v27-2026-247.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_1A/l2b-v27-2026-247/4/level2_2025W45_1A_0095_4D4_spx_l2b-v27-2026-247.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "699c12d9a13e1b890f8b60d6c47644f8448b7ad1c9fc5bda3c4b5bd71cecaefe",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_6435b8ec472d242f",
+   "frame_key": "2025W45_2A_0278_1_D2",
+   "observation_id": "2025W45_2A_0278_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-07T18:48:11.654Z",
+   "mjd": 60986.783468215,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+   "wavelength_um": 1.2571922023503987,
+   "bandwidth_um": 0.030050855010933224,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76010, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_2A_0278_1_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W45_2A_0278_1_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_2A_0278_1_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W45_2A_0278_1_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.03415126205615454,
+    "high": 62.72541951951831,
+    "asinh_softening": 0.06830252411230903,
+    "background_offset": 0.28463101233110066,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.71,
+    "y": 128.11,
+    "ra_deg": 133.7601029203715,
+    "dec_deg": -7.242209983759572,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60986.783468215,
+    "epoch_utc": "2025-11-07T18:48:11.654Z",
+    "epoch_jyear": 2025.8516,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_d35ed90f1306d35b",
+   "frame_key": "2025W45_2A_0278_1_D5",
+   "observation_id": "2025W45_2A_0278_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-07T18:48:11.654Z",
+   "mjd": 60986.783468215,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/5/level2_2025W45_2A_0278_1D5_spx_l2b-v27-2026-247.fits",
+   "wavelength_um": 4.012206873509838,
+   "bandwidth_um": 0.03657801093111279,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76010, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_2A_0278_1_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W45_2A_0278_1_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W45_2A_0278_1_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W45_2A_0278_1_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 18,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "NONFUNC",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "notes": [
+     "1 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: NONFUNC (permanently unusable pixel); SUR_ERROR (onboard slope fit had an error); TRANSIENT (a cosmic-ray-like jump during the exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.050709043192256505,
+    "high": 2.1101564287199306,
+    "asinh_softening": 0.10141808638451304,
+    "background_offset": 0.24406850346595999,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.71,
+    "y": 128.11,
+    "ra_deg": 133.7601029203715,
+    "dec_deg": -7.242209983759572,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60986.783468215,
+    "epoch_utc": "2025-11-07T18:48:11.654Z",
+    "epoch_jyear": 2025.8516,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/5/level2_2025W45_2A_0278_1D5_spx_l2b-v27-2026-247.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/5/level2_2025W45_2A_0278_1D5_spx_l2b-v27-2026-247.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "de515237bedf3425cb6c8ac0c8ec3310480ccc9cf59085a6ebdfce6d5213c93b",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_149df50fec22f163",
+   "frame_key": "2025W46_1A_0090_2_D3",
+   "observation_id": "2025W46_1A_0090_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-10T08:48:23.146Z",
+   "mjd": 60989.366934557,
+   "time_basis": "header_mjd_avg",
+   "detector": 3,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/3/level2_2025W46_1A_0090_2D3_spx_l2b-v27-2026-206.fits",
+   "wavelength_um": 1.829524562851475,
+   "bandwidth_um": 0.044984519893324776,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76009, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0090_2_D3.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_1A_0090_2_D3.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0090_2_D3.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_1A_0090_2_D3.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 17,
+    "adverse_aperture_pixels": 2,
+    "flag_names": [
+     "PERSIST"
+    ],
+    "notes": [
+     "2 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: PERSIST (charge left over from an earlier bright exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.030895669294108207,
+    "high": 5.542434067180571,
+    "asinh_softening": 0.061791338588216414,
+    "background_offset": 0.22323717900588894,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.78,
+    "y": 128.1,
+    "ra_deg": 133.76008683105863,
+    "dec_deg": -7.242208659016675,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60989.366934557,
+    "epoch_utc": "2025-11-10T08:48:23.146Z",
+    "epoch_jyear": 2025.8586,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/3/level2_2025W46_1A_0090_2D3_spx_l2b-v27-2026-206.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/3/level2_2025W46_1A_0090_2D3_spx_l2b-v27-2026-206.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "5215b5b2dc78ba5f957986721eaabaf0633a4e1ed291ad88742b703a3b96ac7a",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_c68be0c92107ec9b",
+   "frame_key": "2025W46_1A_0090_2_D6",
+   "observation_id": "2025W46_1A_0090_2",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-10T08:48:23.146Z",
+   "mjd": 60989.366934557,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/6/level2_2025W46_1A_0090_2D6_spx_l2b-v27-2026-206.fits",
+   "wavelength_um": 4.579660766367473,
+   "bandwidth_um": 0.03606869188581268,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76009, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0090_2_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_1A_0090_2_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0090_2_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_1A_0090_2_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "NONFUNC",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "notes": [
+     "1 of 21 pixels at the predicted target position are flagged or have no usable value. Flags: NONFUNC (permanently unusable pixel); SUR_ERROR (onboard slope fit had an error); TRANSIENT (a cosmic-ray-like jump during the exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.07922237697085281,
+    "high": 1.6466501950691743,
+    "asinh_softening": 0.15844475394170562,
+    "background_offset": 0.5116491840207849,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.78,
+    "y": 128.1,
+    "ra_deg": 133.76008683105863,
+    "dec_deg": -7.242208659016675,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60989.366934557,
+    "epoch_utc": "2025-11-10T08:48:23.146Z",
+    "epoch_jyear": 2025.8586,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/6/level2_2025W46_1A_0090_2D6_spx_l2b-v27-2026-206.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/6/level2_2025W46_1A_0090_2D6_spx_l2b-v27-2026-206.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "846d62f1e21e8e86b9789ac02ff41c1e3c9d0bbd489d2c5d4cce02a6c24bd90a",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_f68872f73f334480",
+   "frame_key": "2025W46_1A_0108_1_D2",
+   "observation_id": "2025W46_1A_0108_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-10T10:31:39.500Z",
+   "mjd": 60989.438651617,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+   "wavelength_um": 1.2572468095835678,
+   "bandwidth_um": 0.030053123906378244,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76009, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0108_1_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_1A_0108_1_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0108_1_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_1A_0108_1_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 17,
+    "adverse_aperture_pixels": 2,
+    "flag_names": [
+     "PERSIST"
+    ],
+    "notes": [
+     "2 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: PERSIST (charge left over from an earlier bright exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.032655529171483365,
+    "high": 61.79895788064755,
+    "asinh_softening": 0.06531105834296673,
+    "background_offset": 0.2763006567534926,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.78,
+    "y": 128.1,
+    "ra_deg": 133.7600863844191,
+    "dec_deg": -7.2422086222417885,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60989.438651617,
+    "epoch_utc": "2025-11-10T10:31:39.500Z",
+    "epoch_jyear": 2025.8588,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_236089f9f88d40ff",
+   "frame_key": "2025W46_1A_0108_1_D5",
+   "observation_id": "2025W46_1A_0108_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-10T10:31:39.500Z",
+   "mjd": 60989.438651617,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/5/level2_2025W46_1A_0108_1D5_spx_l2b-v27-2026-206.fits",
+   "wavelength_um": 4.0122711062989955,
+   "bandwidth_um": 0.03657776297447772,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76009, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0108_1_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_1A_0108_1_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_1A_0108_1_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_1A_0108_1_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "NONFUNC",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "notes": [
+     "1 of 20 pixels at the predicted target position are flagged or have no usable value. Flags: NONFUNC (permanently unusable pixel); SUR_ERROR (onboard slope fit had an error); TRANSIENT (a cosmic-ray-like jump during the exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.05241641930957353,
+    "high": 1.8284315435827494,
+    "asinh_softening": 0.10483283861914706,
+    "background_offset": 0.2307970996882892,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.78,
+    "y": 128.1,
+    "ra_deg": 133.7600863844191,
+    "dec_deg": -7.2422086222417885,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60989.438651617,
+    "epoch_utc": "2025-11-10T10:31:39.500Z",
+    "epoch_jyear": 2025.8588,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/5/level2_2025W46_1A_0108_1D5_spx_l2b-v27-2026-206.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/5/level2_2025W46_1A_0108_1D5_spx_l2b-v27-2026-206.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "191e3ddce494ce42bd04325bb6019a9ed7517544c283e42ad560a8f4dd092ba6",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_e57fb6d73ac5b09c",
+   "frame_key": "2025W46_2A_0226_3_D3",
+   "observation_id": "2025W46_2A_0226_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-14T13:52:10.609Z",
+   "mjd": 60993.577900564,
+   "time_basis": "header_mjd_avg",
+   "detector": 3,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/3/level2_2025W46_2A_0226_3D3_spx_l2b-v27-2026-207.fits",
+   "wavelength_um": 2.2805181980261002,
+   "bandwidth_um": 0.05669109649875739,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76006, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_2A_0226_3_D3.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_2A_0226_3_D3.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_2A_0226_3_D3.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_2A_0226_3_D3.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 18,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "18 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.028190423707995314,
+    "high": 4.180504327441418,
+    "asinh_softening": 0.0563808474159906,
+    "background_offset": 0.16544852644403163,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.87,
+    "y": 128.09,
+    "ra_deg": 133.7600606060029,
+    "dec_deg": -7.242206499727685,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60993.577900564,
+    "epoch_utc": "2025-11-14T13:52:10.609Z",
+    "epoch_jyear": 2025.8702,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/3/level2_2025W46_2A_0226_3D3_spx_l2b-v27-2026-207.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/3/level2_2025W46_2A_0226_3D3_spx_l2b-v27-2026-207.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "7e36305ebabfbf641112002b7721ae591da8a101c18227e9139337fc49b467f2",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_0a7e3b71322af2a1",
+   "frame_key": "2025W46_2A_0226_3_D6",
+   "observation_id": "2025W46_2A_0226_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-14T13:52:10.609Z",
+   "mjd": 60993.577900564,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/6/level2_2025W46_2A_0226_3D6_spx_l2b-v27-2026-207.fits",
+   "wavelength_um": 4.910588461695489,
+   "bandwidth_um": 0.037527903187510536,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.76006, Dec -7.24221) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_2A_0226_3_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2025W46_2A_0226_3_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2025W46_2A_0226_3_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2025W46_2A_0226_3_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 15,
+    "adverse_aperture_pixels": 4,
+    "flag_names": [
+     "HALO",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "notes": [
+     "4 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: HALO (halo around a transient); SUR_ERROR (onboard slope fit had an error); TRANSIENT (a cosmic-ray-like jump during the exposure).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.10040337023111665,
+    "high": 10.70259821895615,
+    "asinh_softening": 0.2008067404622334,
+    "background_offset": 0.7430287654375864,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 126.87,
+    "y": 128.09,
+    "ra_deg": 133.7600606060029,
+    "dec_deg": -7.242206499727685,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 60993.577900564,
+    "epoch_utc": "2025-11-14T13:52:10.609Z",
+    "epoch_jyear": 2025.8702,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/6/level2_2025W46_2A_0226_3D6_spx_l2b-v27-2026-207.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_2A/l2b-v27-2026-207/6/level2_2025W46_2A_0226_3D6_spx_l2b-v27-2026-207.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "cab179d7ee62b08c88ed6519764475f7f605da995efbdfe6736169abd3570438",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_7bb62c5127a518f4",
+   "frame_key": "2026W17_1B_0507_3_D3",
+   "observation_id": "2026W17_1B_0507_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-04-22T18:15:46.450Z",
+   "mjd": 61152.76095428,
+   "time_basis": "header_mjd_avg",
+   "detector": 3,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/3/level2_2026W17_1B_0507_3D3_spx_l2b-v27-2026-242.fits",
+   "wavelength_um": 1.8359648484272562,
+   "bandwidth_um": 0.045269011450083954,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75907, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W17_1B_0507_3_D3.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W17_1B_0507_3_D3.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W17_1B_0507_3_D3.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W17_1B_0507_3_D3.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.027087667262223756,
+    "high": 5.26959118785482,
+    "asinh_softening": 0.054175334524447484,
+    "background_offset": 0.1741238981852335,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.65,
+    "y": 127.78,
+    "ra_deg": 133.7590692459203,
+    "dec_deg": -7.242124873125985,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61152.76095428,
+    "epoch_utc": "2026-04-22T18:15:46.450Z",
+    "epoch_jyear": 2026.306,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/3/level2_2026W17_1B_0507_3D3_spx_l2b-v27-2026-242.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/3/level2_2026W17_1B_0507_3D3_spx_l2b-v27-2026-242.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "c5f03cb5e367266ad944bc0a4c3f4c85c065765afc961c350bc533e47b5b3959",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_9a104056cbf12699",
+   "frame_key": "2026W17_1B_0507_3_D6",
+   "observation_id": "2026W17_1B_0507_3",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-04-22T18:15:46.450Z",
+   "mjd": 61152.76095428,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0507_3D6_spx_l2b-v27-2026-242.fits",
+   "wavelength_um": 4.584089955160857,
+   "bandwidth_um": 0.03592257860313356,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75907, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W17_1B_0507_3_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W17_1B_0507_3_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W17_1B_0507_3_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W17_1B_0507_3_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.06572501509482832,
+    "high": 232.49080888233402,
+    "asinh_softening": 0.13145003018965665,
+    "background_offset": 0.3475842791270307,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.65,
+    "y": 127.78,
+    "ra_deg": 133.7590692459203,
+    "dec_deg": -7.242124873125985,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61152.76095428,
+    "epoch_utc": "2026-04-22T18:15:46.450Z",
+    "epoch_jyear": 2026.306,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0507_3D6_spx_l2b-v27-2026-242.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0507_3D6_spx_l2b-v27-2026-242.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "5487892e859f3bf0aabbb8d1ca18c72340ba35da9ec8897e254ea14fe4f9a428",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_3bd451a9486589ec",
+   "frame_key": "2026W18_2A_0065_1_D6",
+   "observation_id": "2026W18_2A_0065_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-04-30T18:30:56.169Z",
+   "mjd": 61160.771483435,
+   "time_basis": "header_mjd_avg",
+   "detector": 6,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/6/level2_2026W18_2A_0065_1D6_spx_l2b-v27-2026-244.fits",
+   "wavelength_um": 4.824892925070341,
+   "bandwidth_um": 0.03753005604761752,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75902, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0065_1_D6.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W18_2A_0065_1_D6.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0065_1_D6.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W18_2A_0065_1_D6.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.08245097487721804,
+    "high": 337.16486419103455,
+    "asinh_softening": 0.16490194975443598,
+    "background_offset": 0.5445586497561241,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.84,
+    "y": 127.76,
+    "ra_deg": 133.75901935796426,
+    "dec_deg": -7.2421207653942306,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61160.771483435,
+    "epoch_utc": "2026-04-30T18:30:56.169Z",
+    "epoch_jyear": 2026.3279,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/6/level2_2026W18_2A_0065_1D6_spx_l2b-v27-2026-244.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/6/level2_2026W18_2A_0065_1D6_spx_l2b-v27-2026-244.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "4192bc99a2555c8745eb9e2997e7f022fc41c5e2c91ec7eef63d910fb5381db0",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_3a8123254c7a5295",
+   "frame_key": "2026W18_2A_0247_4_D2",
+   "observation_id": "2026W18_2A_0247_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-01T14:12:29.692Z",
+   "mjd": 61161.592010321,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/2/level2_2026W18_2A_0247_4D2_spx_l2b-v27-2026-244.fits",
+   "wavelength_um": 1.192130060634017,
+   "bandwidth_um": 0.028822516306167896,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75901, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0247_4_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W18_2A_0247_4_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0247_4_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W18_2A_0247_4_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 17,
+    "adverse_aperture_pixels": 2,
+    "flag_names": [
+     "HALO"
+    ],
+    "notes": [
+     "2 of 19 pixels at the predicted target position are flagged or have no usable value. Flags: HALO (halo around a transient).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.030888609999134724,
+    "high": 5.165471453606498,
+    "asinh_softening": 0.06177721999826945,
+    "background_offset": 0.22175918584544266,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.86,
+    "y": 127.76,
+    "ra_deg": 133.75901424788876,
+    "dec_deg": -7.24212034463466,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61161.592010321,
+    "epoch_utc": "2026-05-01T14:12:29.692Z",
+    "epoch_jyear": 2026.3302,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/2/level2_2026W18_2A_0247_4D2_spx_l2b-v27-2026-244.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/2/level2_2026W18_2A_0247_4D2_spx_l2b-v27-2026-244.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "ccd20cb305aa83dab58ca95a5832f2bfad830f516c9549dbc89a511d8ffc8f49",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_5cc83213281e1674",
+   "frame_key": "2026W18_2A_0247_4_D5",
+   "observation_id": "2026W18_2A_0247_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-01T14:12:29.692Z",
+   "mjd": 61161.592010321,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/5/level2_2026W18_2A_0247_4D5_spx_l2b-v27-2026-244.fits",
+   "wavelength_um": 3.9348283311932017,
+   "bandwidth_um": 0.03619315936693693,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75901, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0247_4_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W18_2A_0247_4_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0247_4_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W18_2A_0247_4_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.04905745877267378,
+    "high": 2.2228977724841426,
+    "asinh_softening": 0.09811491754534753,
+    "background_offset": 0.16472046252203776,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.86,
+    "y": 127.76,
+    "ra_deg": 133.75901424788876,
+    "dec_deg": -7.24212034463466,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61161.592010321,
+    "epoch_utc": "2026-05-01T14:12:29.692Z",
+    "epoch_jyear": 2026.3302,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/5/level2_2026W18_2A_0247_4D5_spx_l2b-v27-2026-244.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/5/level2_2026W18_2A_0247_4D5_spx_l2b-v27-2026-244.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "6c25ebf51f488604061e7abae32798b5b11bf4f22110bc2a1ebe8b795f284297",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_5c094a392ef0d836",
+   "frame_key": "2026W18_2A_0424_4_D1",
+   "observation_id": "2026W18_2A_0424_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-02T08:06:10.580Z",
+   "mjd": 61162.337622451,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/1/level2_2026W18_2A_0424_4D1_spx_l2b-v27-2026-244.fits",
+   "wavelength_um": 0.77903706888127,
+   "bandwidth_um": 0.0191550987963013,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75901, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0424_4_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W18_2A_0424_4_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0424_4_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W18_2A_0424_4_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "OUTLIER"
+    ],
+    "notes": [
+     "1 of 21 pixels at the predicted target position are flagged or have no usable value. Flags: OUTLIER (statistical outlier).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.02764289229885984,
+    "high": 2.2279196161867048,
+    "asinh_softening": 0.05528578459771965,
+    "background_offset": 0.2031067170263952,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.88,
+    "y": 127.76,
+    "ra_deg": 133.7590096043672,
+    "dec_deg": -7.242119962290725,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61162.337622451,
+    "epoch_utc": "2026-05-02T08:06:10.580Z",
+    "epoch_jyear": 2026.3322,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/1/level2_2026W18_2A_0424_4D1_spx_l2b-v27-2026-244.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/1/level2_2026W18_2A_0424_4D1_spx_l2b-v27-2026-244.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "bcd99cae5fbab6250a4168bee27ec91e8dfaad0471f2e9ceae77a3c801b26c82",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_43760a0f607427cb",
+   "frame_key": "2026W18_2A_0424_4_D4",
+   "observation_id": "2026W18_2A_0424_4",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-02T08:06:10.580Z",
+   "mjd": 61162.337622451,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/4/level2_2026W18_2A_0424_4D4_spx_l2b-v27-2026-244.fits",
+   "wavelength_um": 2.542767439889866,
+   "bandwidth_um": 0.07366505875328945,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75901, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0424_4_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W18_2A_0424_4_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W18_2A_0424_4_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W18_2A_0424_4_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.023997519867913635,
+    "high": 61.00912996457794,
+    "asinh_softening": 0.04799503973582727,
+    "background_offset": 0.12951295347420122,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.88,
+    "y": 127.76,
+    "ra_deg": 133.7590096043672,
+    "dec_deg": -7.242119962290725,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61162.337622451,
+    "epoch_utc": "2026-05-02T08:06:10.580Z",
+    "epoch_jyear": 2026.3322,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/4/level2_2026W18_2A_0424_4D4_spx_l2b-v27-2026-244.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/4/level2_2026W18_2A_0424_4D4_spx_l2b-v27-2026-244.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "3552fedaf2671fa3524a6d967848091279cb622c139d3bf5f2c5b470bfa2860d",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_e991eeb9a09b6a6d",
+   "frame_key": "2026W19_1A_0227_1_D1",
+   "observation_id": "2026W19_1A_0227_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-04T15:21:06.317Z",
+   "mjd": 61164.639656444,
+   "time_basis": "header_mjd_avg",
+   "detector": 1,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/1/level2_2026W19_1A_0227_1D1_spx_l2b-v27-2026-245.fits",
+   "wavelength_um": 0.8758680405432911,
+   "bandwidth_um": 0.02192609226010556,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75900, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W19_1A_0227_1_D1.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W19_1A_0227_1_D1.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W19_1A_0227_1_D1.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W19_1A_0227_1_D1.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 20,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "20 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.027768844781052363,
+    "high": 3.367000322165636,
+    "asinh_softening": 0.05553768956210475,
+    "background_offset": 0.21366585861635795,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.93,
+    "y": 127.76,
+    "ra_deg": 133.75899526776516,
+    "dec_deg": -7.24211878182581,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61164.639656444,
+    "epoch_utc": "2026-05-04T15:21:06.317Z",
+    "epoch_jyear": 2026.3385,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/1/level2_2026W19_1A_0227_1D1_spx_l2b-v27-2026-245.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/1/level2_2026W19_1A_0227_1D1_spx_l2b-v27-2026-245.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "6e8d0ef061794244c206629b111a68f25ab1851a76fad33958c20abe76e0ce2c",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_bdccc33609a7a490",
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "observation_id": "2026W19_1A_0227_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-04T15:21:06.317Z",
+   "mjd": 61164.639656444,
+   "time_basis": "header_mjd_avg",
+   "detector": 4,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/4/level2_2026W19_1A_0227_1D4_spx_l2b-v27-2026-245.fits",
+   "wavelength_um": 2.907001346401794,
+   "bandwidth_um": 0.08440551533010415,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75900, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W19_1A_0227_1_D4.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W19_1A_0227_1_D4.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W19_1A_0227_1_D4.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W19_1A_0227_1_D4.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.02265131173668981,
+    "high": 47.621677733940956,
+    "asinh_softening": 0.045302623473379634,
+    "background_offset": 0.12386252866640754,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 130.93,
+    "y": 127.76,
+    "ra_deg": 133.75899526776516,
+    "dec_deg": -7.24211878182581,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61164.639656444,
+    "epoch_utc": "2026-05-04T15:21:06.317Z",
+    "epoch_jyear": 2026.3385,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/4/level2_2026W19_1A_0227_1D4_spx_l2b-v27-2026-245.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W19_1A/l2b-v27-2026-245/4/level2_2026W19_1A_0227_1D4_spx_l2b-v27-2026-245.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "96f62fc96b42ed53dbef3ae053ccac7d5bc657f3941f745f8f5b38f15edac9d7",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_4a00711726f506f8",
+   "frame_key": "2026W20_1A_0214_1_D2",
+   "observation_id": "2026W20_1A_0214_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-11T13:37:42.970Z",
+   "mjd": 61171.567858446,
+   "time_basis": "header_mjd_avg",
+   "detector": 2,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits",
+   "wavelength_um": 1.4442523416615034,
+   "bandwidth_um": 0.03533871902859789,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75895, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W20_1A_0214_1_D2.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W20_1A_0214_1_D2.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W20_1A_0214_1_D2.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W20_1A_0214_1_D2.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "clear",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 0,
+    "flag_names": [],
+    "notes": [
+     "19 pixels at the predicted target position have no adverse flags. This is a pixel-quality screen only: it does not show that a source was detected or that its brightness was measured.",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.031658532102853444,
+    "high": 5.540346720545851,
+    "asinh_softening": 0.06331706420570689,
+    "background_offset": 0.2522676065945777,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 131.1,
+    "y": 127.74,
+    "ra_deg": 133.75895212032503,
+    "dec_deg": -7.242115229095646,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61171.567858446,
+    "epoch_utc": "2026-05-11T13:37:42.970Z",
+    "epoch_jyear": 2026.3575,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  },
+  {
+   "frame_id": "frm_41073173b06b5f0d",
+   "frame_key": "2026W20_1A_0214_1_D5",
+   "observation_id": "2026W20_1A_0214_1",
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-11T13:37:42.970Z",
+   "mjd": 61171.567858446,
+   "time_basis": "header_mjd_avg",
+   "detector": 5,
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/5/level2_2026W20_1A_0214_1D5_spx_l2b-v27-2026-246.fits",
+   "wavelength_um": 4.222135194790733,
+   "bandwidth_um": 0.03671874808903115,
+   "wavelength_location": "Evaluated at the predicted target position (RA 133.75895, Dec -7.24212) from the file's spectral lookup table.",
+   "image": {
+    "src": "/api/v1/assets/wise_0855.2026W20_1A_0214_1_D5.seq.image.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "asset_id": "wise_0855.2026W20_1A_0214_1_D5.seq.image.v1"
+   },
+   "flag_image": {
+    "src": "/api/v1/assets/wise_0855.2026W20_1A_0214_1_D5.seq.flags.v1",
+    "width": 256,
+    "height": 256,
+    "media_type": "image/png",
+    "meaning": "Hatched pixels carry at least one adverse SPHEREx flag (informational SOURCE/FULLSAMPLE flags are not drawn).",
+    "asset_id": "wise_0855.2026W20_1A_0214_1_D5.seq.flags.v1"
+   },
+   "registration": {
+    "grid_id": "grid_df39916c964f",
+    "center_ra_deg": 133.75976526566546,
+    "center_dec_deg": -7.242182182223836,
+    "fov_arcmin": 4.0,
+    "width": 256,
+    "height": 256,
+    "scale_arcsec_per_px": 0.9375,
+    "native_scale_arcsec_per_px": 6.15,
+    "projection": "TAN",
+    "frame": "ICRS",
+    "orientation": "north_up_east_left",
+    "pixel_origin": "top-left pixel corner; x right, y down",
+    "method": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags"
+   },
+   "quality": {
+    "status": "flagged",
+    "covered": true,
+    "valid_aperture_pixels": 19,
+    "adverse_aperture_pixels": 1,
+    "flag_names": [
+     "NONFUNC"
+    ],
+    "notes": [
+     "1 of 20 pixels at the predicted target position are flagged or have no usable value. Flags: NONFUNC (permanently unusable pixel).",
+     "Informational flags present: SOURCE (SOURCE means the pixel lies on a catalogued source; it is not a defect)."
+    ]
+   },
+   "display_scale": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "unit": "MJy/sr",
+    "low": -0.05590748279046703,
+    "high": 188.9435031287015,
+    "asinh_softening": 0.11181496558093405,
+    "background_offset": 0.2813909798656525,
+    "comparable_brightness": false,
+    "basis": "Median background offset subtracted for display only; values outside low/high are clipped. Each frame has its own contrast, so brightness is NOT comparable between frames."
+   },
+   "marker": {
+    "x": 131.1,
+    "y": 127.74,
+    "ra_deg": 133.75895212032503,
+    "dec_deg": -7.242115229095646,
+    "kind": "catalog_prediction",
+    "label": "Catalog prediction (not a detection)",
+    "epoch_mjd": 61171.567858446,
+    "epoch_utc": "2026-05-11T13:37:42.970Z",
+    "epoch_jyear": 2026.3575,
+    "source": "WISE 0855: catalog position (epoch J2000) propagated with catalog proper motion to this frame's time. Not a measured position. Catalog: https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5"
+   },
+   "provenance": {
+    "data_origin": "nasa_archive",
+    "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+    "retrieved_at_basis": "When the original audit ledger was written. The bytes were re-downloaded from cutout_url and matched the ledger's SHA-256 before processing.",
+    "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/5/level2_2026W20_1A_0214_1D5_spx_l2b-v27-2026-246.fits",
+    "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/5/level2_2026W20_1A_0214_1D5_spx_l2b-v27-2026-246.fits?center=133.75976526566546%2C-7.242182182223836&size=0.1",
+    "sha256": "fbdc57901bce1be63f68b156ae3bc8697823a4757286373485f4ab29dcead2d1",
+    "processing_version": "perigee-data 0.1.0",
+    "pipeline_version": "7.0.5",
+    "time_note": "Mid-exposure time (DATE-AVG / MJD-AVG) from the file header.",
+    "acknowledgments": [
+     "SPHEREx data from the NASA/IPAC Infrared Science Archive (IRSA). SPHEREx is a NASA mission led by Caltech/JPL; IRSA is operated by Caltech/IPAC for NASA."
+    ]
+   },
+   "limitations": [
+    "Display image only: resampled and contrast-stretched for viewing, not for measuring brightness.",
+    "Resampling to the display grid does not add telescope resolution (SPHEREx pixels are 6.15 arcsec).",
+    "The wavelength applies at the stated position only; SPHEREx wavelength changes across each image.",
+    "Pixels at the checked position are flagged; do not use this frame for brightness or position measurements there.",
+    "Contrast is set per frame, so brightness differences between frames are not meaningful."
+   ]
+  }
+ ],
+ "skipped": []
+}

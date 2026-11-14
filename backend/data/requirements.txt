@@ -1,0 +1,5 @@
+# Runtime needs of backend/data (the data adapter). Aditya owns the backend's main
+# dependency files; merge these lines there. Versions are the ones this code was tested with.
+numpy>=2.0          # tested 2.5.3
+astropy>=7.0        # tested 8.0.2 (FITS, WCS incl. -TAB lookup, VOTable, time)
+pillow>=10.0        # tested 12.3.0 (PNG encoding)
