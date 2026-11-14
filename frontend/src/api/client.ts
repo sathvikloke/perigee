@@ -23,7 +23,8 @@ export const API_PREFIX = "/api/v1";
 /** Browser frame concurrency limit fixed by the contract. */
 export const FRAME_CONCURRENCY = 2;
 
-const SEARCH_TIMEOUT_MS = 45_000;
+/** Browser-side wait for /search; the UI quotes it while a search is slow. */
+export const SEARCH_TIMEOUT_MS = 45_000;
 const FRAME_TIMEOUT_MS = 90_000;
 const DEFAULT_TIMEOUT_MS = 20_000;
 
@@ -228,6 +229,59 @@ export async function runWithConcurrency<T>(
   await Promise.all(lanes);
 }
 
+export interface Limiter {
+  /**
+   * Runs `fn` once fewer than `limit` calls are in flight, in call order.
+   * Aborting `signal` while queued rejects with an AbortError and never runs `fn`.
+   */
+  run<T>(fn: () => Promise<T>, signal?: AbortSignal): Promise<T>;
+  inFlight(): number;
+}
+
+/**
+ * One concurrency budget shared by every frame request on a page: the first
+ * pass, single-frame retries and "retry all failed" together stay within
+ * FRAME_CONCURRENCY, however fast the learner clicks.
+ */
+export function createLimiter(limit: number): Limiter {
+  let active = 0;
+  const queue: Array<() => void> = [];
+  const release = () => {
+    active -= 1;
+    queue.shift()?.();
+  };
+  return {
+    inFlight: () => active,
+    run<T>(fn: () => Promise<T>, signal?: AbortSignal): Promise<T> {
+      return new Promise<T>((resolve, reject) => {
+        const abortError = () => new DOMException("Aborted while queued", "AbortError");
+        if (signal?.aborted) return reject(abortError());
+        const start = () => {
+          signal?.removeEventListener("abort", onAbort);
+          active += 1;
+          let p: Promise<T>;
+          try {
+            p = fn();
+          } catch (err) {
+            p = Promise.reject(err);
+          }
+          p.then(resolve, reject).finally(release);
+        };
+        const onAbort = () => {
+          const i = queue.indexOf(start);
+          if (i >= 0) queue.splice(i, 1);
+          reject(abortError());
+        };
+        if (active < limit) start();
+        else {
+          queue.push(start);
+          signal?.addEventListener("abort", onAbort, { once: true });
+        }
+      });
+    },
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Normalizers. They accept small shape variations from the backend workers
 // without inventing values: absent numbers become null, never 0.
@@ -427,6 +481,9 @@ export function normalizeSearchResponse(body: unknown): SearchResponse {
     truncated: r.truncated === true,
     warnings: Array.isArray(r.warnings) ? (r.warnings as string[]) : [],
     collections_queried: Array.isArray(r.collections_queried) ? (r.collections_queried as string[]) : [],
+    collections_failed: Array.isArray(r.collections_failed)
+      ? r.collections_failed.filter((c): c is string => typeof c === "string")
+      : [],
     queried_at_utc: strOrNull(r.queried_at_utc) ?? "",
   };
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ApiError, isAbortError } from "../api/client";
+import { formatElapsed } from "../lib/requestState";
 
 export function errorInfo(err: unknown): { code: string; message: string; retryable: boolean } {
   if (err instanceof ApiError) return { code: err.code, message: err.message, retryable: err.retryable };
@@ -35,6 +36,24 @@ export function ErrorBlock(props: {
       </div>
     </div>
   );
+}
+
+/** The current time, refreshed every second while `active`. */
+export function useNow(active: boolean): number {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!active) return;
+    setNow(Date.now());
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, [active]);
+  return now;
+}
+
+/** Elapsed time since `since` (epoch ms), ticking once a second. Not a live region. */
+export function Elapsed({ since }: { since: number }) {
+  const now = useNow(true);
+  return <span className="counter">{formatElapsed(now - since)}</span>;
 }
 
 export type AsyncState<T> =
