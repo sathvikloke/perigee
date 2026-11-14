@@ -43,6 +43,7 @@ from backend.security.upstream import (
 )
 
 from ._adapters import Services, resolve_services
+from ._archive import _RETRY_REASONS, _RETRY_STATUSES, SIA_RETRY_BACKOFF_S
 from ._errors import ApiError, request_id_of
 
 router = APIRouter()
@@ -54,6 +55,10 @@ CUTOUT_MARGIN = 1.5
 FITS_MAGIC = b"SIMPLE  ="
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 MAX_PNG_BYTES = 2 * 1024 * 1024
+# Whole JSON body, kept under Vercel's 4.5 MB function response limit (two 2 MB PNGs
+# as base64 data URLs alone are ~5.4 MB).
+MAX_RESPONSE_BYTES = 4_000_000
+FETCH_MAX_ATTEMPTS = 3
 
 
 def cutout_url_for(claims: FrameClaims) -> str:
@@ -206,6 +211,43 @@ def build_record(claims: FrameClaims, meta: dict, result: dict) -> FrameRecord:
         ) from exc
 
 
+async def _fetch_with_retry(client, url: str, *, max_bytes: int, budget_s: float):
+    """bounded_get with a bounded retry for IRSA's fast transient 5xx/connection resets.
+
+    Live 2026-11-14: 4 of 16 sequential cutout GETs got a 0.1 s HTTP 503 from IRSA; the
+    same URLs succeed on retry. All attempts share one ``budget_s`` deadline.
+    """
+    started = time.monotonic()
+    attempt = 0
+    while True:
+        attempt += 1
+        remaining = budget_s - (time.monotonic() - started)
+        try:
+            return await bounded_get(
+                client, url, purpose="data", max_bytes=max_bytes, deadline_s=max(0.5, remaining)
+            )
+        except UpstreamUnavailable as exc:
+            transient = exc.status in _RETRY_STATUSES or exc.reason in _RETRY_REASONS
+            remaining = budget_s - (time.monotonic() - started)
+            if not transient or attempt >= FETCH_MAX_ATTEMPTS or remaining < 2.0:
+                exc.attempts = attempt  # type: ignore[attr-defined]
+                raise
+            await asyncio.sleep(SIA_RETRY_BACKOFF_S * attempt)
+
+
+def _json_within_budget(payload: dict, headers: dict[str, str]) -> JSONResponse:
+    response = JSONResponse(payload, headers=headers)
+    if len(response.body) > MAX_RESPONSE_BYTES:
+        # Vercel replaces a >4.5 MB function response with its own non-JSON error.
+        raise ApiError(
+            ErrorCode.PROCESSING_FAILED,
+            "The processed frame exceeded the response size limit.",
+            http_status=500,
+            details={"stage": "validate", "reason": "response_too_large", "bytes": len(response.body)},
+        )
+    return response
+
+
 @router.post("/frame", response_model=FrameResponse)
 async def frame(body: FrameRequest, request: Request, services: Services = Depends(resolve_services)):
     claims = _verify(services, body.frame_token)
@@ -223,12 +265,11 @@ async def frame(body: FrameRequest, request: Request, services: Services = Depen
     cutout_url = cutout_url_for(claims)
     try:
         async with services.http_client_factory() as client:
-            resp = await bounded_get(
+            resp = await _fetch_with_retry(
                 client,
                 cutout_url,
-                purpose="data",
                 max_bytes=settings.frame_fetch_max_bytes,
-                deadline_s=settings.frame_budget_s * 0.6,
+                budget_s=settings.frame_budget_s * 0.6,
             )
     except UpstreamTimeout as exc:
         raise ApiError(
@@ -258,7 +299,12 @@ async def frame(body: FrameRequest, request: Request, services: Services = Depen
             "The NASA/IPAC archive could not provide this image right now.",
             http_status=502,
             retryable=exc.status != 404,
-            details={"stage": "fetch", "reason": exc.reason, "upstream_status": exc.status},
+            details={
+                "stage": "fetch",
+                "reason": exc.reason,
+                "upstream_status": exc.status,
+                "attempts": getattr(exc, "attempts", 1),
+            },
         ) from exc
     fetch_ms = int((time.monotonic() - started) * 1000)
 
@@ -331,7 +377,7 @@ async def frame(body: FrameRequest, request: Request, services: Services = Depen
         frame=record,
         timing_ms={"fetch": fetch_ms, "process": process_ms},
     )
-    return JSONResponse(
+    return _json_within_budget(
         response.model_dump(mode="json"),
         headers={
             "Cache-Control": "no-store",

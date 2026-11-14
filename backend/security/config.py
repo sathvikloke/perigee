@@ -61,7 +61,10 @@ def is_production_env() -> bool:
 def load_settings() -> Settings:
     production = is_production_env()
     secret_raw = os.environ.get("PERIGEE_TOKEN_SECRET", "")
-    if secret_raw and len(secret_raw.encode()) >= MIN_SECRET_BYTES:
+    if production and secret_raw == _DEV_SECRET:
+        # The dev secret is public in this repository; never sign with it in production.
+        secret, source = None, "dev_secret_refused"
+    elif secret_raw and len(secret_raw.encode()) >= MIN_SECRET_BYTES:
         secret: bytes | None = secret_raw.encode()
         source = "env"
     elif _truthy(os.environ.get("PERIGEE_DEV_MODE")) and not production:
