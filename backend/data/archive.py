@@ -62,8 +62,8 @@ CUTOUT_FOV_FACTOR = 1.5
 # Full-file Level 2 URLs we will ever request. Anything else is refused before any network call.
 _SOURCE_URL_RE = re.compile(
     r"^https://irsa\.ipac\.caltech\.edu/ibe/data/spherex/(?P<release>dr1|qr3)/level2/"
-    r"[A-Za-z0-9_]+/l2b-[A-Za-z0-9.\-]+/(?P<det>[1-6])/"
-    r"level2_[A-Za-z0-9_]+D(?P=det)_spx_l2b-[A-Za-z0-9.\-]+\.fits$"
+    r"[A-Za-z0-9_]+/l2b(?:_retry)?-[A-Za-z0-9.\-]+/(?P<det>[1-6])/"
+    r"level2_[A-Za-z0-9_]+D(?P=det)_spx_l2b(?:_retry)?-[A-Za-z0-9.\-]+\.fits$"
 )
 _COLLECTION_RELEASE = {"spherex_dr1": "dr1", "spherex_qr3": "qr3"}
 
