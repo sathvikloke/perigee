@@ -35,3 +35,4 @@ coverage/
 .vercel/
 node_modules/
 frontend/dist/
+.claude/
