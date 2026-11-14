@@ -91,4 +91,4 @@ Screenshot: `13-write-refused-warning.jpg`.
 
 ## Regression gates
 
-`qa/regression/run.sh` with `PERIGEE_DATA_ROOT` set, at 0cf390d (rebased on integration 96c005d). All six gates pass: backend pytest (299 passed), deploy_check --app, frontend vitest (119 passed in 11 files), frontend build, audit_all (183 frames) and check_acceptance --all (189 records, no False cells). live_check was skipped because it needs `--live`.
+`qa/regression/run.sh` with `PERIGEE_DATA_ROOT` set, at cf47026 (on integration 96c005d). All six gates pass: backend pytest (299 passed), deploy_check --app, frontend vitest (121 passed in 12 files), frontend build, audit_all (183 frames) and check_acceptance --all (189 records, no False cells). live_check was skipped because it needs `--live`.
