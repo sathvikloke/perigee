@@ -37,7 +37,9 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 | 02 | Frontend B (duplicate) | **done 18:14Z, not selected** | `.claude/worktrees/agent-aac5358ff9243861c` | `codex/parallel-02-frontend-b` @ `e51027c`, draft PR #18 | Design A on real API; 13 vitest; 264 kB JS. First viewport closer to reference (plates visible at 1280; closed investigation picker). Live search 10/12 frames + retry. Screenshots `qa/frontend-b/`. |
 | 01 | Frontend A: investigation flow + design A | **selected & integrated; follow-up `6632cef` integrated 18:22Z** | `.claude/worktrees/agent-a6fde9ea57d0b21dd` | `codex/parallel-01-frontend-a` @ `4d8ed91`, draft PR #17 | Design A applied; 38 vitest incl. contract tests from 03 examples; 306 kB JS. Gate 1 (card export `data_origin: api`) and gate 2 (live search 24/460, real frames) in UI; failure keeps old images + notes. Follow-up: move "Your steps"/background below bench so plates are in first viewport (from B). |
 | 17 | Mobile & keyboard repair | **running** (launched 18:23Z) | `.claude/worktrees/agent-a1e1fc7523c40da54` | `codex/parallel-17-mobile-accessibility` | Phone plate at 735px of 844, touch targets, keyboard/reduced-motion/print/overflow; only frontend worker active |
-| 10 | Barnard case review | **running** (launched 18:14Z) | `.claude/worktrees/agent-a4ae98b4b4989f773` | `codex/parallel-10-barnard-case` | Review + proposed `moving_neighbor` revision for Sathvik |
+| 10 | Barnard case review | **done 18:31Z; review integrated, JSON revision held** | `.claude/worktrees/agent-a4ae98b4b4989f773` | `codex/parallel-10-barnard-case` @ `b4fcc8c`, draft PR #22 | Imagery supports demo (PASS with display conditions). Marker A→B 4.19 px, A→C 7.29 px (10.25″) north; 6 Gaia field stars stable ≤0.77 px; glow shift ~7 px by eye (±1 px). No better trio (longest baseline +4%; D5 trio breaks shared stretch). Review `eaa59fe` merged; proposed `moving_neighbor.json` revision `b4fcc8c` awaits Sathvik. |
+| 23 | Regression suite | **running** (launched 18:30Z) | `.claude/worktrees/agent-a587eb2bc6118cd0e` | `codex/parallel-23-regression` | Re-runs every confirmed defect reproduction on integration |
+| 20 | Pitch + demo script draft | **running** (launched 18:30Z) | `.claude/worktrees/agent-ad68f2e9948f5b802` | `codex/parallel-20-pitch` | Seven-slide outline + 5-min narration from actual build, for Sathvik |
 | 24c | Compare Sagar's processor (PR #19) vs A | **running** (launched 18:18Z) | `.claude/worktrees/agent-abe7771e1bbba2e83` | `codex/parallel-24-processor-compare` | Runs acceptance checker + API/catalog/frontend tests on `codex/sagar-data` |
 
 ## Queue (by prerequisite; not running)
@@ -47,7 +49,7 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 | 24 | Compare duplicates + assemble | first competing results | coordinator, on this branch |
 | 09, 10 | Case reviews | processor products + PR #8 | after 05/06 |
 | 12, 13, 18 | Frontend follow-ups | selected frontend (+API for 18) | serially after 17, one frontend writer at a time |
-| 11, 20 | Target audit, pitch outline | none | low priority |
+| 11 | Target audit | none | low priority |
 | 16, 19, 21, 22, 23 | E2E, perf, judge, submission, regression | running deployed app | later |
 
 ## Integration log
@@ -87,3 +89,4 @@ Native Claude Code subagents (`Agent` tool, `general-purpose`, `isolation: workt
 - D2 Rate limiting: `RATE_LIMITED` never emitted; recommended Vercel Firewall rate limit on `/api/v1/frame` rather than per-instance code.
 - D3 `PERIGEE_DEV_MODE=1` enables dev secret on Preview; safe only while Preview never sets it and stays behind Vercel Authentication.
 - Limitation sentence in each record still says "~6.16 arcsec native pixels" while `native_scale_arcsec_per_px` is now SIP-aware (e.g. 6.1318); one-line change + regeneration if consistency is wanted.
+- 18:30Z launched 23 and 20. 18:32Z merged Barnard review `eaa59fe` only; the case-text revision (PR #22, `b4fcc8c`) is Sathvik's call: corrected marker wording (≈4 px A→B, ≈7 px/10″ A→C), reworded opening question, reference line required, saturated-core display requirement, `must_recheck_against_processor_output` → false.
