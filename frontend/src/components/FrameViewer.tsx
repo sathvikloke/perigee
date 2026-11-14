@@ -4,6 +4,18 @@ import type { FrameRecord } from "../api/types";
 import { markerXY } from "../lib/compare";
 import { QUALITY_LABEL, daysBetween, formatDateShort, formatDuration, formatMicrons } from "../lib/format";
 import { nextPlayableIndex, playAnnouncement, playCadenceMs, playableCount, playbackCaveats } from "../lib/playback";
+import {
+  ALL_WAVELENGTHS,
+  applyWaveFilter,
+  filterOptionLabel,
+  filterScope,
+  filterSummary,
+  shortMicrons,
+  sliderPosition,
+  slotStatusTag,
+  stepWithin,
+  type WaveFilter,
+} from "../lib/wavelengthFilter";
 import { Elapsed } from "./common";
 import { FrameDetails } from "./FrameDetails";
 import { Plate } from "./Plate";
@@ -54,7 +66,9 @@ export function FrameViewer(props: {
   const [flagChoice, setShowFlags] = useState<boolean | null>(null);
   const showFlags = flagChoice ?? (frame != null && frame.quality.status !== "clear");
 
-  const [pair, setPair] = useState<[string, string] | null>(null);
+  const [pair, setPair] = useState<[string, string] | null>(() =>
+    slots.length >= 2 ? [slots[0].key, slots[slots.length - 1].key] : null,
+  );
   useEffect(() => {
     if (pair || slots.length < 2) return;
     setPair([slots[0].key, slots[slots.length - 1].key]);
@@ -65,10 +79,24 @@ export function FrameViewer(props: {
   const [motion, setMotion] = useState<"blink" | "play" | null>(null);
   const blinking = motion === "blink";
   const playing = motion === "play";
+  // Wavelength filter: narrows Earlier/Later, the slider and Play to frames
+  // near one wavelength (or one detector). Time order never changes.
+  const [waveFilter, setWaveFilter] = useState<WaveFilter>(ALL_WAVELENGTHS);
+  // A different series (new search or preset) starts on all wavelengths again.
+  const seriesKey = slots.map((s) => s.key).join("|");
+  const [filterSeries, setFilterSeries] = useState(seriesKey);
+  if (filterSeries !== seriesKey) {
+    setFilterSeries(seriesKey);
+    setWaveFilter(ALL_WAVELENGTHS);
+  }
+  const filtered = useMemo(() => applyWaveFilter(slots, waveFilter), [slots, waveFilter]);
+  const allowed = waveFilter.mode === "all" ? undefined : filtered.indices;
   const idxRef = useRef(index);
   idxRef.current = index;
   const slotsRef = useRef(slots);
   slotsRef.current = slots;
+  const allowedRef = useRef(allowed);
+  allowedRef.current = allowed;
   useEffect(() => {
     if (!blinking || !pair) return;
     const a = slots.findIndex((s) => s.key === pair[0]);
@@ -84,7 +112,7 @@ export function FrameViewer(props: {
   useEffect(() => {
     if (!playing) return;
     const id = window.setInterval(() => {
-      const next = nextPlayableIndex(slotsRef.current, idxRef.current);
+      const next = nextPlayableIndex(slotsRef.current, idxRef.current, allowedRef.current);
       if (next < 0) setMotion(null);
       else onIndexChange(next);
     }, playCadenceMs(Boolean(media(REDUCED)?.matches)));
@@ -94,9 +122,9 @@ export function FrameViewer(props: {
   // Warm only the one image that plays next; the series is never prefetched.
   useEffect(() => {
     if (!playing) return;
-    const next = slots[nextPlayableIndex(slots, index)]?.frame?.image;
+    const next = slots[nextPlayableIndex(slots, index, allowed)]?.frame?.image;
     if (next && typeof Image !== "undefined") new Image().src = resolveAssetSrc(next.src);
-  }, [playing, index, slots]);
+  }, [playing, index, slots, allowed]);
 
   useEffect(() => {
     if (!motion) return;
@@ -113,13 +141,15 @@ export function FrameViewer(props: {
     };
   }, [motion]);
 
-  const readyCount = playableCount(slots);
+  const readyCount = playableCount(slots, allowed);
+  const inFilter = !allowed || allowed.includes(index);
   const togglePlay = () => {
     if (playing) return setMotion(null);
     if (readyCount < 2) return;
-    // Start from a ready frame so the first tick never lands on a placeholder.
-    if (!(slot?.status === "ready" && slot.frame)) {
-      const first = nextPlayableIndex(slots, index);
+    // Start from a ready frame inside the filter so the first tick never
+    // lands on a placeholder or on another wavelength.
+    if (!(slot?.status === "ready" && slot.frame && inFilter)) {
+      const first = nextPlayableIndex(slots, index, allowed);
       if (first >= 0) onIndexChange(first);
     }
     setMotion("play");
@@ -131,13 +161,32 @@ export function FrameViewer(props: {
     onIndexChange(Math.min(slots.length - 1, Math.max(0, i)));
   };
 
+  // Earlier/Later, arrow keys and Home/End stay inside the filter. From a
+  // frame outside it (reached by a case-frame jump) they move to the nearest
+  // kept frame in that direction.
+  const prevIdx = allowed ? stepWithin(allowed, index, -1) : index > 0 ? index - 1 : -1;
+  const nextIdx = allowed ? stepWithin(allowed, index, 1) : index < slots.length - 1 ? index + 1 : -1;
+  const firstIdx = allowed ? allowed[0] ?? -1 : 0;
+  const lastIdx = allowed ? allowed[allowed.length - 1] ?? -1 : slots.length - 1;
+
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     const t = e.target as HTMLElement;
     if (t.closest("input, textarea, select, summary")) return;
-    const map: Record<string, number> = { ArrowLeft: index - 1, ArrowRight: index + 1, Home: 0, End: slots.length - 1 };
+    const map: Record<string, number> = { ArrowLeft: prevIdx, ArrowRight: nextIdx, Home: firstIdx, End: lastIdx };
     if (e.key in map) {
       e.preventDefault();
-      goTo(map[e.key]);
+      if (map[e.key] >= 0) goTo(map[e.key]);
+    }
+  };
+
+  const chooseFilter = (mode: string) => {
+    setMotion(null);
+    if (mode === "near" && frame?.wavelength_um != null && frame.bandwidth_um != null) {
+      setWaveFilter({ mode: "near", center_um: frame.wavelength_um });
+    } else if (mode === "detector" && frame?.wavelength_um != null && frame.detector != null) {
+      setWaveFilter({ mode: "detector", detector: frame.detector });
+    } else {
+      setWaveFilter(ALL_WAVELENGTHS);
     }
   };
 
@@ -149,19 +198,46 @@ export function FrameViewer(props: {
 
   if (!slots.length) return null;
 
-  const slotName = (s: FrameSlot, i: number) =>
-    `${s.ref ? `${s.ref} · ` : ""}${formatDateShort(s.observed_at_utc)} (#${i + 1})`;
+  // "#4 · 1 Jun 2026 · failed to load": frames without an image say so in the
+  // slider's spoken value and the blink picker, and stay selectable.
+  const slotName = (s: FrameSlot, i: number) => {
+    const tag = slotStatusTag(s);
+    const wl = s.frame?.wavelength_um;
+    const tail = tag ?? (s.frame ? (wl != null ? shortMicrons(wl) : "no wavelength at target") : null);
+    return `#${i + 1} · ${s.ref ? `${s.ref} · ` : ""}${formatDateShort(s.observed_at_utc)}${tail ? ` · ${tail}` : ""}`;
+  };
+  const currentTag = slot ? slotStatusTag(slot) : null;
+  const filterLines = filterSummary(waveFilter, filtered);
+  // The near/detector options describe the current frame until one is chosen.
+  const nearOption: WaveFilter | null =
+    waveFilter.mode === "near"
+      ? waveFilter
+      : frame?.wavelength_um != null && frame.bandwidth_um != null
+      ? { mode: "near", center_um: frame.wavelength_um }
+      : null;
+  const detectorOption: WaveFilter | null =
+    waveFilter.mode === "detector"
+      ? waveFilter
+      : frame?.wavelength_um != null && frame.detector != null
+      ? { mode: "detector", detector: frame.detector }
+      : null;
   // While blinking or playing, announce once instead of narrating every frame.
   const announcement = blinking
     ? "Blinking two frames. Use Pause blink to stop."
     : playing
-    ? playAnnouncement(readyCount)
+    ? playAnnouncement(readyCount, waveFilter)
     : slot
-    ? `Frame ${index + 1} of ${slots.length}. ${formatDateShort(slot.observed_at_utc)}. ${
-        frame ? `${formatMicrons(frame.wavelength_um)}. ${QUALITY_LABEL[frame.quality.status]}.` : statusText(slot)
+    ? `${
+        allowed && inFilter
+          ? `Frame ${sliderPosition(allowed, index) + 1} of ${allowed.length}${filterScope(waveFilter)} (${index + 1} of ${slots.length} in all)`
+          : `Frame ${index + 1} of ${slots.length}${allowed ? ", outside the wavelength filter" : ""}`
+      }. ${formatDateShort(slot.observed_at_utc)}. ${
+        frame
+          ? `${frame.wavelength_um == null ? "Wavelength not available" : formatMicrons(frame.wavelength_um)}. ${QUALITY_LABEL[frame.quality.status]}.`
+          : statusText(slot)
       }`
     : "";
-  const caveats = playing ? playbackCaveats(slots) : [];
+  const caveats = playing ? playbackCaveats(slots, allowed, waveFilter) : [];
   const inEvidence = frame ? props.selectedKeys.has(frame.frame_key) : false;
   const pairIdx = pair ? pair.map((k) => slots.findIndex((s) => s.key === k)) : [-1, -1];
   const pf = pairIdx.map((i) => (i >= 0 ? slots[i].frame : null));
@@ -180,7 +256,13 @@ export function FrameViewer(props: {
           aria-pressed={playing}
           aria-disabled={readyCount < 2}
           onClick={togglePlay}
-          title={readyCount < 2 ? "Needs at least two processed frames" : undefined}
+          title={
+            readyCount < 2
+              ? allowed
+                ? "Needs at least two processed frames inside the wavelength filter"
+                : "Needs at least two processed frames"
+              : undefined
+          }
         >
           {playing ? "Ⅱ Pause" : "▷ Play"}
         </button>
@@ -188,8 +270,8 @@ export function FrameViewer(props: {
             button would drop keyboard focus to <body> after Home/End. */}
         <button
           type="button"
-          onClick={() => index > 0 && goTo(index - 1)}
-          aria-disabled={index === 0}
+          onClick={() => prevIdx >= 0 && goTo(prevIdx)}
+          aria-disabled={prevIdx < 0}
           aria-label="Earlier frame"
         >
           ← Earlier
@@ -199,23 +281,53 @@ export function FrameViewer(props: {
           <input
             type="range"
             min={0}
-            max={slots.length - 1}
-            value={index}
-            onChange={(e) => goTo(Number(e.target.value))}
-            aria-valuetext={slot ? slotName(slot, index) : undefined}
+            max={allowed ? Math.max(0, allowed.length - 1) : slots.length - 1}
+            value={allowed ? sliderPosition(allowed, index) : index}
+            onChange={(e) => {
+              const v = Number(e.target.value);
+              const target = allowed ? allowed[v] : v;
+              if (target != null) goTo(target);
+            }}
+            disabled={allowed ? allowed.length === 0 : false}
+            aria-valuetext={slot ? `${slotName(slot, index)}${inFilter ? "" : " · outside the wavelength filter"}` : undefined}
           />
         </label>
         <button
           type="button"
-          onClick={() => index < slots.length - 1 && goTo(index + 1)}
-          aria-disabled={index === slots.length - 1}
+          onClick={() => nextIdx >= 0 && goTo(nextIdx)}
+          aria-disabled={nextIdx < 0}
           aria-label="Later frame"
         >
           Later →
         </button>
         <span className="counter" aria-hidden="true">
-          {index + 1} / {slots.length}
+          {allowed && inFilter ? `${sliderPosition(allowed, index) + 1} / ${allowed.length}` : `${index + 1} / ${slots.length}`}
+          {currentTag && <span className="counter-tag"> · {currentTag}</span>}
         </span>
+      </div>
+      <div className="wave-filter">
+        <label>
+          <span>Wavelengths to step and play</span>
+          <select value={waveFilter.mode} onChange={(e) => chooseFilter(e.target.value)}>
+            <option value="all">{filterOptionLabel(ALL_WAVELENGTHS)}</option>
+            <option value="near" disabled={!nearOption}>
+              {nearOption ? filterOptionLabel(nearOption) : "Near this frame's wavelength (not available)"}
+            </option>
+            <option value="detector" disabled={!detectorOption}>
+              {detectorOption ? filterOptionLabel(detectorOption) : "This frame's detector only (not available)"}
+            </option>
+          </select>
+        </label>
+        {filterLines.length > 0 && (
+          <div className="wave-filter-summary" aria-live="polite">
+            {filterLines.map((l) => (
+              <p key={l}>{l}</p>
+            ))}
+            {!inFilter && (
+              <p>Frame #{index + 1} is outside this filter; Earlier and Later move to the nearest frame inside it.</p>
+            )}
+          </div>
+        )}
       </div>
       <p className="visually-hidden" aria-live="polite">
         {announcement}
@@ -237,6 +349,7 @@ export function FrameViewer(props: {
               headingId="sequence-plate-h"
               frame={frame}
               pendingDate={slot.observed_at_utc}
+              pendingWavelength={slot.status === "error" ? "Wavelength unknown (not loaded)" : undefined}
               showMarker={showMarker}
               showFlags={showFlags}
               guideY={guideY}
@@ -312,7 +425,7 @@ export function FrameViewer(props: {
                     }}
                   >
                     {slots.map((s, i) => (
-                      <option key={s.key} value={s.key} disabled={s.status !== "ready"}>
+                      <option key={s.key} value={s.key}>
                         {slotName(s, i)}
                       </option>
                     ))}
@@ -327,6 +440,15 @@ export function FrameViewer(props: {
               >
                 {blinking ? "Ⅱ Pause blink" : "▷ Blink"}
               </button>
+              {(!pf[0] || !pf[1]) && (
+                <p className="pair-summary">
+                  {pairIdx
+                    .filter((i, k) => i >= 0 && !pf[k])
+                    .map((i) => `#${i + 1} has no image (${slotStatusTag(slots[i]) ?? "not loaded"}).`)
+                    .join(" ")}{" "}
+                  {props.onRetry ? "Retry it from the stepper, or choose another frame to blink." : "Choose another frame to blink."}
+                </p>
+              )}
               {pf[0] && pf[1] && (
                 <p className="pair-summary">
                   {formatDuration(daysBetween(pf[0].mjd, pf[1].mjd))}

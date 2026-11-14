@@ -59,7 +59,7 @@ export const QUALITY_EXPLANATION: Record<QualityStatus, string> = {
   not_covered:
     "The predicted position is just outside this image, so this frame can't show the object there. That is not evidence the object is absent.",
   unknown:
-    "The quality screen could not be completed for this frame. Treat it as unchecked.",
+    "The flag screen was not run or could not be completed for this frame, so its quality is unknown. Treat it as unchecked, not as clear.",
 };
 
 /**
@@ -69,6 +69,17 @@ export const QUALITY_EXPLANATION: Record<QualityStatus, string> = {
 export function qualityExplanation(frame: Pick<FrameRecord, "quality" | "marker">): string {
   const text = QUALITY_EXPLANATION[frame.quality.status];
   return frame.marker ? text : text.replace(/the predicted position/g, "the searched position");
+}
+
+/**
+ * Problem-flag list for one frame. An empty list only means "none" when the
+ * screen actually ran; unknown and not-covered frames were never screened.
+ */
+export function formatFlagNames(q: Pick<FrameRecord["quality"], "status" | "flag_names">): string {
+  if (q.flag_names.length) return q.flag_names.join(", ");
+  if (q.status === "unknown") return "not checked";
+  if (q.status === "not_covered") return "not checked (the position is off this image)";
+  return "none reported";
 }
 
 export function formatPixelCount(v: number | null): string {

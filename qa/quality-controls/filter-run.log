@@ -1,0 +1,86 @@
+
+== 1280px: on frame A {
+  pressed: 'false',
+  counter: '4 / 34',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  heading: 'Case frame A',
+  quality: 'Flagged near target',
+  note: null,
+  live: 'Frame 4 of 34. 25 Aug 2025. 2.0062 µm. Flagged.',
+  summary: null,
+  filter: 'all',
+  options: [
+    'all: All wavelengths',
+    'near: Near 2.01 µm (within one band width)',
+    'detector: Detector 3 only'
+  ],
+  valuetext: '#4 · A · 25 Aug 2025 · 2.01 µm'
+}
+near filter: {
+  counter: '1 / 3',
+  summary: '3 of 34 frames near 2.01 µm, each within its own band width (2.0062–2.0284 µm).',
+  options: [
+    'all: All wavelengths',
+    'near: Near 2.01 µm (within one band width)',
+    'detector: Detector 3 only'
+  ]
+}
+1280 frames seen while playing 3.4 s:
+  t=1ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+  t=584ms 2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm | Flagged near target
+  t=1016ms 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm | Flagged near target
+  t=1522ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+  t=2026ms 2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm | Flagged near target
+  t=2528ms 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm | Flagged near target
+  t=3029ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+while playing: {
+  note: 'Each frame has its own contrast stretch, so brightness is not directly comparable.',
+  live: 'Playing 3 frames near 2.01 µm in time order. Use Pause to stop.'
+}
+detector filter: 6 of 34 frames from detector 3 (1.6698–2.0284 µm).
+all: 4 / 34
+scrollWidth vs viewport [ 1280, 1280 ]
+select box { x: 238, y: -123.84375, width: 259, height: 44 }
+
+== 390px: on frame A {
+  pressed: 'false',
+  counter: '4 / 34',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  heading: 'Case frame A',
+  quality: 'Flagged near target',
+  note: null,
+  live: 'Frame 4 of 34. 25 Aug 2025. 2.0062 µm. Flagged.',
+  summary: null,
+  filter: 'all',
+  options: [
+    'all: All wavelengths',
+    'near: Near 2.01 µm (within one band width)',
+    'detector: Detector 3 only'
+  ],
+  valuetext: '#4 · A · 25 Aug 2025 · 2.01 µm'
+}
+near filter: {
+  counter: '1 / 3',
+  summary: '3 of 34 frames near 2.01 µm, each within its own band width (2.0062–2.0284 µm).',
+  options: [
+    'all: All wavelengths',
+    'near: Near 2.01 µm (within one band width)',
+    'detector: Detector 3 only'
+  ]
+}
+390 frames seen while playing 3.4 s:
+  t=1ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+  t=580ms 2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm | Flagged near target
+  t=1023ms 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm | Flagged near target
+  t=1526ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+  t=2026ms 2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm | Flagged near target
+  t=2528ms 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm | Flagged near target
+  t=3028ms 1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm | Flagged near target
+while playing: {
+  note: 'Each frame has its own contrast stretch, so brightness is not directly comparable.',
+  live: 'Playing 3 frames near 2.01 µm in time order. Use Pause to stop.'
+}
+detector filter: 6 of 34 frames from detector 3 (1.6698–2.0284 µm).
+all: 4 / 34
+scrollWidth vs viewport [ 390, 390 ]
+select box { x: 29, y: -283.046875, width: 259, height: 44 }

@@ -4,6 +4,7 @@ import { QUALITY_CHIP, analyzePair, markerXY, releaseLabel } from "../lib/compar
 import {
   qualityExplanation,
   formatMicrons,
+  formatFlagNames,
   formatPixelCount,
   formatUtc,
   qualityNotes,
@@ -284,7 +285,7 @@ export function CaseBench(props: {
                       </div>
                       <div>
                         <dt>Problem flags</dt>
-                        <dd>{f.quality.flag_names.length ? f.quality.flag_names.join(", ") : "none reported"}</dd>
+                        <dd>{formatFlagNames(f.quality)}</dd>
                       </div>
                     </dl>
                     {qualityNotes(f.quality.notes).length > 0 && (
