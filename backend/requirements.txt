@@ -1,0 +1,14 @@
+# Perigee API runtime dependencies (Python 3.12; Vercel Python runtime).
+# Owner: API (Aditya / worker 03). Processor packages are pinned here for worker 05's
+# backend/data; change them in coordination with that owner.
+# Verified installable together on CPython 3.12.16 (uv 0.13.8), 2026-11-14.
+fastapi==0.163.0
+starlette==1.10.0
+pydantic==2.14.3
+pydantic-core==2.50.4
+httpx==0.28.1
+anyio==4.16.0
+# FITS processing (backend/data):
+astropy==8.0.2
+numpy==2.5.4
+pillow==13.0.0

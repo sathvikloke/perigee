@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "request_id": "2ab6939cf5fc4b0db7b589fdc9a2dd59",
+  "error": {
+    "code": "INVALID_FRAME_TOKEN",
+    "message": "The frame token is invalid. Run the search again.",
+    "retryable": false,
+    "details": null
+  }
+}
