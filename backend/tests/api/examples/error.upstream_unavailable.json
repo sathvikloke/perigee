@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "request_id": "b6ac36f8c0f141b4aa3624178314533e",
+  "error": {
+    "code": "UPSTREAM_UNAVAILABLE",
+    "message": "The NASA/IPAC archive is unavailable right now.",
+    "retryable": true,
+    "details": {
+      "collections_failed": [
+        "spherex_dr1",
+        "spherex_qr3"
+      ],
+      "collections_succeeded_empty": [],
+      "reasons": {
+        "spherex_dr1": "upstream_5xx",
+        "spherex_qr3": "upstream_5xx"
+      }
+    }
+  }
+}

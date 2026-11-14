@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "request_id": "3284deb5b8b846d59f0fcb1a462174c4",
+  "error": {
+    "code": "TOKEN_EXPIRED",
+    "message": "This frame link has expired. Run the search again to refresh it; your notes are kept.",
+    "retryable": false,
+    "details": {
+      "action": "refresh_search",
+      "expired_at_utc": "2023-11-14T22:14:20+00:00"
+    }
+  }
+}

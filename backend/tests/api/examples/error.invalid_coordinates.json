@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "request_id": "57f2ae7385994b2d9540181c794c49fd",
+  "error": {
+    "code": "INVALID_COORDINATES",
+    "message": "RA must be a finite number in [0, 360) and Dec in [-90, 90].",
+    "retryable": false,
+    "details": {
+      "fields": [
+        {
+          "field": "ra_deg",
+          "problem": "less_than"
+        }
+      ]
+    }
+  }
+}

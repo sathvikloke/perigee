@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request_id": "bea88ccf563d489398194fa516337548",
+  "error": {
+    "code": "PROCESSOR_UNAVAILABLE",
+    "message": "Frame processing is not installed on this deployment yet.",
+    "retryable": false,
+    "details": {
+      "missing": "backend.data.process_frame"
+    }
+  }
+}
