@@ -2,22 +2,24 @@
 
 Each file is a complete, individualized master prompt of approximately 18,000 words. The opening assignment, file ownership, ordered work packets and acceptance criteria are specific to its owner. The shared contract, project context and reference scenarios are included so every coding agent has the same facts. The long reference is not a requirement to implement every feature or test every scenario.
 
+Start with the [short sprint brief](../docs/SPRINT_BRIEF.md). **The human should not read 18,000 words before building.** Coding agents should use the role and contract first, then consult deeper reference as needed.
+
 ## Start with your file
 
 Accept the repository invitation if needed, clone or open this repository in your coding environment, and give the agent this instruction with your filename:
 
-> Read `prompts/YOUR_NAME.md` completely, inspect the current repository and my assigned issue, then carry out my workstream. Follow the current integration contract, preserve teammates' work, and implement and verify the first useful slice before expanding scope. Use the role's acceptance criteria for the final handoff.
+> Read the “Start here” brief and my role in `prompts/YOUR_NAME.md`, then inspect the current repository and integration contract. Begin the first deliverable immediately; use the rest as reference when needed. Preserve teammates' work and integrate a working slice early.
 
 If the coding tool cannot access files, paste the complete prompt from your individual email. The repository is private; sign into the invited GitHub account to open its links. Do not paste all six prompts into one agent or ask every person to build the whole application.
 
 | Teammate | Workstream | Master prompt | Words | GitHub task | Assignment status |
 |---|---|---|---:|---|---|
-| Sathvik Loke (`sathvikloke`) | Scientific validation, investigation content and integration leadership | [SATHVIK.md](SATHVIK.md) | 18,778 | [#1](https://github.com/sathvikloke/perigee/issues/1) | Assigned |
-| Sagar Raut (`s1g6r`) | NASA archive and scientific image pipeline | [SAGAR.md](SAGAR.md) | 18,689 | [#2](https://github.com/sathvikloke/perigee/issues/2) | Assigned |
-| Akshobya Rao (`AkshobyaRaoSWE`) | Frontend and visual experience | [AKSHOBYA.md](AKSHOBYA.md) | 18,786 | [#3](https://github.com/sathvikloke/perigee/issues/3) | Owner named; invitation pending |
-| Aditya R (`adityaraut09`) | Backend API and bounded request orchestration | [ADITYA.md](ADITYA.md) | 18,675 | [#4](https://github.com/sathvikloke/perigee/issues/4) | Assigned |
-| Suhrit Bestavemula (`suhritb`) | Backend platform, asset serving and Vercel deployment | [SUHRIT.md](SUHRIT.md) | 18,673 | [#5](https://github.com/sathvikloke/perigee/issues/5) | Owner named; invitation pending |
-| Neeraj Movva (`movvaneeraj`) | Focused QA, usability and demo support | [NEERAJ.md](NEERAJ.md) | 18,667 | [#6](https://github.com/sathvikloke/perigee/issues/6) | Owner named; invitation pending |
+| Sathvik Loke (`sathvikloke`) | Scientific validation, investigation content and integration leadership | [SATHVIK.md](SATHVIK.md) | 18,911 | [#1](https://github.com/sathvikloke/perigee/issues/1) | Assigned |
+| Sagar Raut (`s1g6r`) | NASA archive and scientific image pipeline | [SAGAR.md](SAGAR.md) | 18,820 | [#2](https://github.com/sathvikloke/perigee/issues/2) | Assigned |
+| Akshobya Rao (`AkshobyaRaoSWE`) | Frontend and visual experience | [AKSHOBYA.md](AKSHOBYA.md) | 18,918 | [#3](https://github.com/sathvikloke/perigee/issues/3) | Owner named; invitation pending |
+| Aditya R (`adityaraut09`) | Backend API and bounded request orchestration | [ADITYA.md](ADITYA.md) | 18,802 | [#4](https://github.com/sathvikloke/perigee/issues/4) | Assigned |
+| Suhrit Bestavemula (`suhritb`) | Backend platform, asset serving and Vercel deployment | [SUHRIT.md](SUHRIT.md) | 18,802 | [#5](https://github.com/sathvikloke/perigee/issues/5) | Owner named; invitation pending |
+| Neeraj Movva (`movvaneeraj`) | Focused QA, usability and demo support | [NEERAJ.md](NEERAJ.md) | 18,794 | [#6](https://github.com/sathvikloke/perigee/issues/6) | Owner named; invitation pending |
 
 ## Shared boundaries
 

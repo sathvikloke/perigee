@@ -6,6 +6,10 @@ Perigee will help learners compare real NASA SPHEREx observations, understand wh
 
 **Status:** documentation and research only. Application and processing code will be built from scratch during the November 14–15, 2026 hackathon.
 
+## Start building now
+
+Read the [short two-day sprint brief](docs/SPRINT_BRIEF.md). Aim for one deployed observation-to-evidence flow within two hours of implementation start, then a working non-preset coordinate query. The long prompts are agent reference, not a reading assignment for teammates.
+
 ## Team AI prompts
 
 Individualized coding prompts and assigned GitHub issues are indexed in [prompts/README.md](prompts/README.md). The [integration contract](docs/INTEGRATION_CONTRACT.md) is the shared technical source of truth.

@@ -1,5 +1,11 @@
 # Neeraj Movva: Perigee AI coding master prompt
 
+## Start here: two-day sprint
+
+**Your next deliverable:** Once a public build exists, spend 30–45 minutes checking access, attempting one complete investigation and testing submission links. Report exact blockers with screenshots. The remaining QA packets are optional; do not read the entire reference before starting this small track.
+
+Spend at most ten minutes on your role and the shared contract, then implement. The remaining material is reference for your coding agent; it is not a sequential reading or research assignment. Follow the [short sprint brief](https://github.com/sathvikloke/perigee/blob/main/docs/SPRINT_BRIEF.md). The first team gate is a deployed real frame through to an evidence export within two hours of implementation start. Merge small working slices early. If blocked for 20 minutes, report the exact dependency and keep moving on independent work.
+
 Role: **Focused QA, usability and demo support**
 
 GitHub owner: **@movvaneeraj**
@@ -463,7 +469,7 @@ The live team page lists **Sagar Raut, Akshobya Rao, Aditya R, Neeraj Movva, Sat
 | Sathvik Loke | Data analysis, scientific validation, investigation content and pitch | Own the full dataset with Sagar; select case frames, check alignment/wavelength/flags, write supported conclusions, and own the final story/slides |
 | Sagar Raut | Data engineering and archive processing; final submission owner | Own the full dataset with Sathvik; retrieval, FITS-to-preview processing, manifests and callable data functions for the backend team |
 | Akshobya Rao | Frontend and visual design | Coordinate form, five presets, viewer, timeline/wavelength controls, case screens, evidence card, local save/export/print and loading/error states |
-| Aditya R | Backend query API and job orchestration | Input validation, search/job endpoints, progressive results, retries and integration with the data functions supplied by Sathvik and Sagar |
+| Aditya R | Backend query API and bounded frame requests | Input validation, search/frame endpoints, progressive results, bounded retries and integration with the data functions supplied by Sathvik and Sagar |
 | Suhrit Bestavemula | Backend storage, content serving and deployment | Cache/storage integration, image/manifest/case endpoints, public deployment, health checks and backend integration checks |
 | Neeraj Movva | Light testing and submission support | Fresh-browser checks, broken-link reports, screenshots and optional slide assembly; no required feature or deadline depends on his availability |
 

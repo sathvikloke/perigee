@@ -1,5 +1,7 @@
 # Perigee project plan
 
+Execution priority: follow the [short two-day sprint brief](SPRINT_BRIEF.md); use this document as reference.
+
 Implementation starts from scratch during the November 14–15, 2026 event. This repository currently contains documentation and research records.
 
 # The decision
@@ -119,7 +121,7 @@ The live team page lists **Sagar Raut, Akshobya Rao, Aditya R, Neeraj Movva, Sat
 | Sathvik Loke | Data analysis, scientific validation, investigation content and pitch | Own the full dataset with Sagar; select case frames, check alignment/wavelength/flags, write supported conclusions, and own the final story/slides |
 | Sagar Raut | Data engineering and archive processing; final submission owner | Own the full dataset with Sathvik; retrieval, FITS-to-preview processing, manifests and callable data functions for the backend team |
 | Akshobya Rao | Frontend and visual design | Coordinate form, five presets, viewer, timeline/wavelength controls, case screens, evidence card, local save/export/print and loading/error states |
-| Aditya R | Backend query API and job orchestration | Input validation, search/job endpoints, progressive results, retries and integration with the data functions supplied by Sathvik and Sagar |
+| Aditya R | Backend query API and bounded frame requests | Input validation, search/frame endpoints, progressive results, bounded retries and integration with the data functions supplied by Sathvik and Sagar |
 | Suhrit Bestavemula | Backend storage, content serving and deployment | Cache/storage integration, image/manifest/case endpoints, public deployment, health checks and backend integration checks |
 | Neeraj Movva | Light testing and submission support | Fresh-browser checks, broken-link reports, screenshots and optional slide assembly; no required feature or deadline depends on his availability |
 
