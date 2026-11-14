@@ -116,7 +116,7 @@
   "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W38_1A/l2b-v27-2026-261/2/level2_2026W38_1A_0064_2D2_spx_l2b-v27-2026-261.fits",
   "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W38_1A/l2b-v27-2026-261/2/level2_2026W38_1A_0064_2D2_spx_l2b-v27-2026-261.fits?center=76.95658657511666%2C30.40129134698889&size=0.1",
   "sha256": "efde1e06e14cf6923f8e651121ead6df07139538d45af3da2ac920bb3456eda7",
-  "processing_version": "perigee-processor-a/0.1.1",
+  "processing_version": "perigee-processor-a/0.1.2",
   "pipeline_version": "l2b-v27-2026-261",
   "ssdc_software_version": "7.0.5",
   "l2_dqa": "Pass",

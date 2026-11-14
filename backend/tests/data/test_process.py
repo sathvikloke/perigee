@@ -155,6 +155,59 @@ def test_missing_flags_but_nonfinite_at_position_is_still_flagged():
     assert rec["quality"]["adverse_aperture_pixels"] is None
 
 
+def test_missing_variance_with_nothing_wrong_is_unknown_not_clear():
+    rec = process_frame(syn.make_fits(include_variance=False), meta()).record
+    q = rec["quality"]
+    assert q["status"] == "unknown"
+    assert q["covered"] is True
+    assert any("no usable VARIANCE map" in n for n in q["notes"])
+    assert not any("not a detection" in n for n in q["notes"])  # the clear-screen note is absent
+
+
+def test_missing_variance_does_not_hide_a_known_flag():
+    flags = np.zeros((syn.NY, syn.NX), dtype=np.int32)
+    flags[29, 30] = 1 << syn.BIT["OVERFLOW"]
+    rec = process_frame(syn.make_fits(flags=flags, include_variance=False), meta()).record
+    assert rec["quality"]["status"] == "flagged"
+    assert rec["quality"]["flag_names"] == ["OVERFLOW"]
+
+
+def _corner_target() -> TargetInput:
+    """Target just inside a corner pixel centre: only about a quarter of the
+    2.5 px screen circle falls on the image."""
+    x = syn.NX - 1 - 0.2
+    y = syn.NY - 1 - 0.2
+    ra = RA0 - (x - (syn.NX / 2 - 0.5)) * PX / np.cos(np.radians(DEC0))
+    dec = DEC0 + (y - (syn.NY / 2 - 0.5)) * PX
+    return TargetInput(ra, dec)
+
+
+def test_clipped_circle_with_fewer_than_ten_usable_pixels_is_unknown():
+    rec = process_frame(syn.make_fits(), meta(target=_corner_target())).record
+    q = rec["quality"]
+    assert q["covered"] is True
+    assert q["valid_aperture_pixels"] < 10
+    assert q["status"] == "unknown"
+    assert any("screening heuristic, not a NASA" in n for n in q["notes"])
+
+
+def test_clipped_circle_with_a_flag_stays_flagged():
+    flags = np.zeros((syn.NY, syn.NX), dtype=np.int32)
+    flags[syn.NY - 1, syn.NX - 1] = 1 << syn.BIT["HOT"]
+    rec = process_frame(syn.make_fits(flags=flags), meta(target=_corner_target())).record
+    assert rec["quality"]["status"] == "flagged"
+
+
+def test_undocumented_flag_bit_counts_as_a_problem():
+    flags = np.zeros((syn.NY, syn.NX), dtype=np.int32)
+    unused = next(b for b in range(31) if b not in syn.BIT.values())
+    flags[29, 30] = 1 << unused
+    rec = process_frame(syn.make_fits(flags=flags), meta()).record
+    q = rec["quality"]
+    assert q["status"] == "flagged"
+    assert q["flag_names"] == [f"UNDOCUMENTED_BIT_{unused}"]
+
+
 # ---------------------------------------------------------------- marker and grid
 
 

@@ -1,6 +1,6 @@
 // Regression checks (worker 23) for behaviour near confirmed fixes that the
 // existing tests do not pin. Inputs are real processor-A products committed in
-// backend/content (perigee-processor-a/0.1.1), not hand-written fixtures.
+// backend/content (perigee-processor-a/0.1.2), not hand-written fixtures.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { normalizeFrameRecord, runWithConcurrency } from "../src/api/client";
@@ -49,7 +49,7 @@ describe("evidence export from real processor-A records", () => {
       expect(f.observed_at_utc).toMatch(/^2026-04-29T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/);
       expect(typeof f.wavelength_um).toBe("number");
       expect(f.source_url).toMatch(/^https:\/\/irsa\.ipac\.caltech\.edu\/ibe\/data\/spherex\/dr1\/.+\.fits$/);
-      expect(f.processing.processing_version).toBe("perigee-processor-a/0.1.1");
+      expect(f.processing.processing_version).toBe("perigee-processor-a/0.1.2");
       expect(f.processing.file_sha256).toMatch(/^[0-9a-f]{64}$/);
       expect(f.processing.registration_method).toEqual(expect.any(String));
       expect(f.processing.display_scale_method).toEqual(expect.any(String));

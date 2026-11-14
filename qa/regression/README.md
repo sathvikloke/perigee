@@ -4,7 +4,7 @@
 
 The build under test:
 - API A with the API-review fixes (R1–R7)
-- processor A `perigee-processor-a/0.1.1` and its 574 products
+- processor A `perigee-processor-a/0.1.2` and its 574 products
 - the catalog (08)
 - the Vercel Services config (07)
 - frontend A with design A (01 + follow-up)
@@ -58,7 +58,7 @@ Result on `efaa874` + this branch's tests:
 |---|---|
 | `backend/tests/api/test_regression_seam.py` | Real `/frame` route + real processor A (via `processor_a_adapter`), upstream fetch scripted to return the retained Eps Ind B cutout. The response must validate as `FrameResponse` and carry `registration.scale_arcsec_per_px`. **Negative control:** renaming the field back to `scale_arcsec_per_pixel` makes the API return `500 PROCESSING_FAILED (fields: registration.scale_arcsec_per_px)` and the test fails. |
 | `backend/tests/platform/test_regression_vercelignore.py` | Applies `.vercelignore` with `git check-ignore --no-index`. `backend/data/process.py`, `archive.py`, routes, content, presets, `requirements.txt` and `frontend/src` must ship. `research/`, `/data/`, `/tools/`, `science/`, `backend/tests/` and `*.fits` must not. **Negative control:** the original unanchored `data/` does ignore `backend/data/process.py`. `deploy_check` does not test this. |
-| `frontend/tests/regression.test.ts` | Evidence export built from the committed processor-A 0.1.1 case records carries identity, detector, release, `Z` UTC time, wavelength, IRSA source and `processing`, and keeps full-length notes (280 + 2000 + 2000 chars, including non-ASCII). Bare and `Z` timestamps near midnight give the same UTC date; this passed under America/Chicago, Pacific/Kiritimati and America/Los_Angeles. A failed frame leaves every other result in its own slot. |
+| `frontend/tests/regression.test.ts` | Evidence export built from the committed processor-A 0.1.2 case records carries identity, detector, release, `Z` UTC time, wavelength, IRSA source and `processing`, and keeps full-length notes (280 + 2000 + 2000 chars, including non-ASCII). Bare and `Z` timestamps near midnight give the same UTC date; this passed under America/Chicago, Pacific/Kiritimati and America/Los_Angeles. A failed frame leaves every other result in its own slot. |
 | `qa/regression/live_check.py` | Live: `/health` names processor A. One `/search` and one `/frame` → 200 and `FrameResponse` validates. Unknown `/api/...` paths give a JSON 404 with `X-Request-ID` echoed in the body and header, checked on every `--base`. |
 
 ## Results

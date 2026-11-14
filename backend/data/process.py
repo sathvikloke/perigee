@@ -47,11 +47,14 @@ from astropy.wcs import WCS, FITSFixedWarning
 from astropy.wcs.utils import proj_plane_pixel_scales
 from PIL import Image
 
-PROCESSING_VERSION = "perigee-processor-a/0.1.1"
+PROCESSING_VERSION = "perigee-processor-a/0.1.2"
 
 #: Radius of the quality-screen circle in native SPHEREx pixels (~15 arcsec).
 #: Matches the science screen used to verify the authored cases.
 APERTURE_RADIUS_PX = 2.5
+# Perigee screening heuristic (not a NASA/SPHEREx standard): a screen with no
+# problems found is only "clear" if at least this many usable pixels back it.
+MIN_CLEAR_PIXELS = 10
 
 #: Flag bits that describe the scene rather than a data problem.
 INFORMATIONAL_FLAGS = frozenset({"SOURCE", "FULLSAMPLE"})
@@ -529,10 +532,43 @@ def _process(hdul, meta: FrameInput, sha256: str, notes: List[str], limitations:
                     if name not in INFORMATIONAL_FLAGS:
                         adverse_names.append(name)
                         adverse |= hit
+            # Bits the header does not name are treated as problems (we cannot
+            # tell they are harmless). None occur in the 183 retained frames.
+            named_mask = 0
+            for bit in bit_names:
+                named_mask |= 1 << bit
+            unnamed = flg & ~named_mask & 0x7FFFFFFF
+            for bit in range(31):
+                hit = ap & (((unnamed >> bit) & 1) == 1)
+                c = int(hit.sum())
+                if c:
+                    label = f"UNDOCUMENTED_BIT_{bit}"
+                    flag_counts[label] = c
+                    adverse_names.append(label)
+                    adverse |= hit
             bad = adverse | nonfinite_mask
             adverse_n = int(bad.sum())
             valid_n = int((ap & ~bad).sum())
-            status = "flagged" if adverse_n > 0 else "clear"
+            # Known problems always win: any adverse or non-finite pixel -> flagged.
+            # Only a screen with nothing wrong found can be "unknown" instead of
+            # "clear", when the evidence behind it is too thin.
+            if adverse_n > 0:
+                status = "flagged"
+            elif var is None:
+                status = "unknown"
+                notes.append(
+                    "This file has no usable VARIANCE map, so pixel validity could not be fully "
+                    "checked; the screen is reported as unknown rather than clear."
+                )
+            elif valid_n < MIN_CLEAR_PIXELS:
+                status = "unknown"
+                notes.append(
+                    f"Only {valid_n} usable pixels in the screen circle. Perigee asks for at least "
+                    f"{MIN_CLEAR_PIXELS} before calling a screen clear; this is our screening "
+                    "heuristic, not a NASA or SPHEREx standard."
+                )
+            else:
+                status = "clear"
         else:
             # Without flags we only know about non-finite pixels.
             if nonfinite_n > 0:
