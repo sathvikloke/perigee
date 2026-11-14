@@ -47,7 +47,7 @@ from astropy.wcs import WCS, FITSFixedWarning
 from astropy.wcs.utils import proj_plane_pixel_scales
 from PIL import Image
 
-PROCESSING_VERSION = "perigee-processor-a/0.1.0"
+PROCESSING_VERSION = "perigee-processor-a/0.1.1"
 
 #: Radius of the quality-screen circle in native SPHEREx pixels (~15 arcsec).
 #: Matches the science screen used to verify the authored cases.
@@ -287,6 +287,28 @@ def _without_sip(header: fits.Header) -> fits.Header:
     return h
 
 
+def native_scale_arcsec_at(cel: WCS, x: float, y: float, h: float = 0.5) -> float:
+    """Local native pixel scale (arcsec per pixel) at 0-based native pixel (x, y).
+
+    ``sqrt(|det J|)`` of the full celestial mapping (TAN plus SIP, via
+    ``all_pix2world``), with ``J`` taken by central differences of +/-``h`` pixels
+    and expressed in a gnomonic plane tangent at (x, y), so it is pole-safe.
+    SPHEREx cutouts sit far from CRPIX, where SIP changes the scale by up to
+    ~0.5% relative to the linear CD matrix. Metadata only: never used to
+    resample, screen or mark.
+    """
+    px = np.array([x, x - h, x + h, x, x], dtype=float)
+    py = np.array([y, y, y, y - h, y + h], dtype=float)
+    ra, dec = cel.all_pix2world(px, py, 0)
+    a, d = np.radians(ra), np.radians(dec)
+    a0, d0 = a[0], d[0]
+    cosc = np.sin(d0) * np.sin(d) + np.cos(d0) * np.cos(d) * np.cos(a - a0)
+    xi = np.cos(d) * np.sin(a - a0) / cosc
+    eta = (np.cos(d0) * np.sin(d) - np.sin(d0) * np.cos(d) * np.cos(a - a0)) / cosc
+    j = np.array([[xi[2] - xi[1], xi[4] - xi[3]], [eta[2] - eta[1], eta[4] - eta[3]]]) / (2.0 * h)
+    return float(math.degrees(math.sqrt(abs(float(np.linalg.det(j))))) * 3600.0)
+
+
 def _open(fits_bytes: bytes) -> fits.HDUList:
     if not isinstance(fits_bytes, (bytes, bytearray, memoryview)) or len(fits_bytes) < 2880:
         raise UnsupportedDataError("input is not a FITS file (too short)")
@@ -424,7 +446,12 @@ def _process(hdul, meta: FrameInput, sha256: str, notes: List[str], limitations:
             raise ValueError("no celestial axes")
     except Exception as exc:
         raise UnsupportedDataError(f"IMAGE celestial WCS unusable: {type(exc).__name__}") from exc
-    native_scale_arcsec = float(np.mean(proj_plane_pixel_scales(cel)) * 3600.0)
+    # Reported scale: local TAN-SIP scale at the native image centre (metadata only).
+    native_scale_arcsec = round(native_scale_arcsec_at(cel, (nx - 1) / 2.0, (ny - 1) / 2.0), 4)
+    # Nominal scale from the linear CD/PC matrix only, quoted (to 0.01") in the
+    # human-readable limitation text. Kept on its previous basis so that adopting
+    # the SIP-aware field above changes no other product text.
+    nominal_scale_arcsec = float(np.mean(proj_plane_pixel_scales(cel)) * 3600.0)
 
     # ---- screened position: catalog prediction if a target is given, else query center
     t = meta.target
@@ -603,7 +630,7 @@ def _process(hdul, meta: FrameInput, sha256: str, notes: List[str], limitations:
 
     # ---- limitations attached to this result
     limitations.append(
-        f"Display image is nearest-neighbour resampled from ~{native_scale_arcsec:.2f} arcsec native pixels onto a "
+        f"Display image is nearest-neighbour resampled from ~{nominal_scale_arcsec:.2f} arcsec native pixels onto a "
         f"{size}x{size} grid of {meta.fov_arcmin * 60.0 / size:.3f} arcsec display pixels; it adds no resolution."
     )
     limitations.append("Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.")
