@@ -473,7 +473,7 @@ footer.site-footer a { color: var(--muted); text-decoration: none; }
   body { background: white; }
   .topbar nav, .fixture-banner button, .steps, .comparison-toolbar, .mobile-frame-control, .view-controls,
   .notebook-actions, .notebook .primary, .skip, footer.site-footer, .sequence, .case-steps, .checklist,
-  .panel, .bench-caption, .attached button { display: none !important; }
+  .panel, .bench-caption, .attached button, .target-line button { display: none !important; }
   main { padding: 0; }
   .workspace { display: block; }
   .plates { display: grid !important; grid-template-columns: 1fr 1fr !important; max-width: 600px !important; margin: auto; }
