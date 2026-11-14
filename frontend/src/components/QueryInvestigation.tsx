@@ -260,6 +260,17 @@ export function QueryInvestigation(props: {
                 </button>
               )}
             </div>
+            <p className="field-hint">
+              Need a starting point?{" "}
+              <button
+                type="button"
+                className="link"
+                onClick={() => setInput((p) => ({ ...p, ra: "330.84", dec: "-56.786" }))}
+              >
+                Use Epsilon Indi A, J2000 catalog position (330.84, −56.786)
+              </button>
+              . The star has moved about 2′ from there by 2026; a 6′ field still includes it.
+            </p>
             {notices.map((n) => (
               <p key={n} className="notice" role="note">
                 {n}

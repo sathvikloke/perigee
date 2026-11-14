@@ -119,6 +119,8 @@ export interface ImageRef {
   width: number;
   height: number;
   media_type: string;
+  /** Flag overlays: colour key per category as [r, g, b, a(0-255)], from the processor. */
+  legend?: Record<string, unknown>;
 }
 
 export interface Registration {

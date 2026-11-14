@@ -21,7 +21,7 @@ export function markerXY(m: Marker | null): { x: number; y: number } | null {
 export const QUALITY_CHIP: Record<QualityStatus, string> = {
   clear: "Flag screen passed",
   flagged: "Flagged near target",
-  not_covered: "Target not covered",
+  not_covered: "Position just off image",
   unknown: "Flag screen not run",
 };
 

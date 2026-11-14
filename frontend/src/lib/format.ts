@@ -57,7 +57,7 @@ export const QUALITY_EXPLANATION: Record<QualityStatus, string> = {
   flagged:
     "Problem flags or missing pixels were found near the predicted position. You can look, but brightness and exact position here are not reliable.",
   not_covered:
-    "The predicted position is outside this image. Absence here says nothing about the object.",
+    "The predicted position is just outside this image, so this frame can't show the object there. That is not evidence the object is absent.",
   unknown:
     "The quality screen could not be completed for this frame. Treat it as unchecked.",
 };

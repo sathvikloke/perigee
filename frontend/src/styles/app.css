@@ -77,7 +77,8 @@ input[aria-invalid="true"] { border-color: var(--error-ink); border-width: 2px; 
 .skip:focus { top: 12px; }
 .muted { color: var(--muted); }
 .block { display: block; }
-.mono { font-family: var(--font-mono); font-size: 0.92em; }
+.mono { font-family: var(--font-mono); font-size: max(0.92em, 12px); }
+.phone-only { display: none; }
 .break { overflow-wrap: anywhere; word-break: break-word; }
 [hidden] { display: none !important; }
 
@@ -204,6 +205,10 @@ main:focus { outline: none; }
 .plate-foot { display: flex; align-items: center; gap: 5px; font-size: var(--text-xs); color: var(--muted); padding-top: 9px; flex-wrap: wrap; }
 .prediction-key { font-size: var(--text-lg); color: var(--marker-key); line-height: 1; }
 .release { margin-left: auto; font-size: var(--text-xs); }
+.plate-legend { font-size: var(--text-xs); color: var(--muted); margin-top: 6px; display: grid; gap: 4px; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; }
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; border: 1px solid var(--line-strong); }
+.swatch.hatch { background: repeating-linear-gradient(135deg, var(--sky-hatch-a) 0 2px, var(--sky-hatch-b) 2px 5px); }
 .plate-note { font-size: var(--text-xs); color: var(--amber-ink); margin-top: var(--space-xs); }
 
 .view-controls { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin: 12px 0; font-size: var(--text-xs); color: var(--muted); flex-wrap: wrap; }
@@ -392,6 +397,11 @@ footer.site-footer a { color: var(--muted); text-decoration: none; }
   .steps li { display: block; min-height: 0; padding: 12px 10px; border-radius: 13px; }
   .steps div > span { display: none; }
   .heading-row .eyebrow span { display: none; }
+  .wide-only { display: none; }
+  .phone-only { display: revert; }
+  .topbar nav li:has(> a.wide-only) { display: none; }
+  .target-line > p { display: none; }
+  .real-data.fixture { display: none; }
   .brand-caption, .brand-divider { display: none; }
   .step-num { width: 24px; height: 24px; font-size: var(--text-xs); margin-bottom: var(--space-sm); }
   .target-line { align-items: flex-start; }

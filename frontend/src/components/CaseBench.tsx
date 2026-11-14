@@ -41,7 +41,7 @@ export function CaseBench(props: {
 
   const [showMarker, setShowMarker] = useState(true);
   const [showGuide, setShowGuide] = useState(true);
-  const [showFlags, setShowFlags] = useState(false);
+  const [flagChoice, setShowFlags] = useState<boolean | null>(null);
   const [visible, setVisible] = useState<"first" | "second">("first");
   const [blinking, setBlinking] = useState(false);
   const visibleRef = useRef(visible);
@@ -103,6 +103,8 @@ export function CaseBench(props: {
   const northUp = typeof a?.registration?.orientation === "string" && a.registration.orientation.startsWith("north_up");
 
   const pairFrames = [a, b].filter((f): f is FrameRecord => Boolean(f));
+  // On by default when either frame failed the flag screen (see Plate legend).
+  const showFlags = flagChoice ?? pairFrames.some((f) => f.quality.status !== "clear");
   const statuses = new Set(pairFrames.map((f) => f.quality.status));
   const qualitySummary =
     statuses.size === 1 ? `What does “${QUALITY_CHIP[pairFrames[0].quality.status].toLowerCase()}” mean?` : "What do these quality labels mean?";

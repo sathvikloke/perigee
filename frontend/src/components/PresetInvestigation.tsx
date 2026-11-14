@@ -228,12 +228,20 @@ function PresetLoaded(props: {
             </p>
           </div>
 
-          {caseContent?.background?.short && <p className="background-short">{caseContent.background.short}</p>}
-          {caseContent?.background?.details?.length ? (
+          {caseContent?.background?.short && (
+            <p className="background-short wide-only">{caseContent.background.short}</p>
+          )}
+          {caseContent?.background?.short || caseContent?.background?.details?.length ? (
             <details className="inline-disclosure">
-              <summary>More background</summary>
+              <summary>
+                <span className="wide-only">More background</span>
+                <span className="phone-only">About this target</span>
+              </summary>
+              {caseContent?.background?.short && (
+                <p className="background-short phone-only">{caseContent.background.short}</p>
+              )}
               <ul className="plain-list background-short">
-                {caseContent.background.details.map((d, i) => (
+                {(caseContent?.background?.details ?? []).map((d, i) => (
                   <li key={i}>{d}</li>
                 ))}
               </ul>

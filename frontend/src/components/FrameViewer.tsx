@@ -39,7 +39,10 @@ export function FrameViewer(props: {
   const frame = slot?.frame ?? null;
   const [showMarker, setShowMarker] = useState(true);
   const [showGuide, setShowGuide] = useState(true);
-  const [showFlags, setShowFlags] = useState(false);
+  // Flag overlay defaults on for frames that failed the screen (saturated cores
+  // are transparent and must not read as dimming); the learner's choice wins.
+  const [flagChoice, setShowFlags] = useState<boolean | null>(null);
+  const showFlags = flagChoice ?? (frame != null && frame.quality.status !== "clear");
 
   const [pair, setPair] = useState<[string, string] | null>(null);
   useEffect(() => {

@@ -46,7 +46,8 @@
 
   /* Sky plate */
   --sky-hatch-a: #1d2639;
-  --sky-hatch-b: #273044;
+  /* Lighter than the prototype's #273044 so saturated holes read as "no data", not dark sky (science review). */
+  --sky-hatch-b: #3a4560;
   --sky-label: #e1e5ef;
   --sky-label-bg: #111827b3;
   --marker: #d3ed95;

@@ -4,6 +4,31 @@ import type { FrameRecord } from "../api/types";
 import { QUALITY_CHIP, markerXY, releaseLabel } from "../lib/compare";
 import { formatDateShort, formatMicrons } from "../lib/format";
 
+/** Flag-overlay key read from the record's own legend; colours are never hard-coded. */
+function FlagLegend({ legend }: { legend?: Record<string, unknown> }) {
+  const entries = Object.entries(legend ?? {}).flatMap(([name, v]) => {
+    if (!Array.isArray(v) || v.length < 3 || !v.every((n) => typeof n === "number")) return [];
+    const [r, g, b, a = 255] = v as number[];
+    return [{ name, color: `rgba(${r}, ${g}, ${b}, ${Math.max(0.6, a / 255)})` }];
+  });
+  if (!entries.length) return <p>Flag overlay shown; this frame's processor did not supply a colour key.</p>;
+  return (
+    <p>
+      {entries.map((e) => (
+        <span key={e.name} className="legend-item">
+          <span className="swatch" aria-hidden="true" style={{ background: e.color }} />{" "}
+          {FLAG_LABEL[e.name] ?? e.name.replace(/_/g, " ")}
+        </span>
+      ))}
+    </p>
+  );
+}
+
+const FLAG_LABEL: Record<string, string> = {
+  adverse_flag: "Problem flag",
+  non_finite: "Saturated / non-finite",
+};
+
 /**
  * One registered sky plate (design: `.plate`). Date and wavelength are
  * separately labeled; quality text comes from the FrameRecord; the marker is
@@ -113,6 +138,15 @@ export function Plate(props: {
           </span>
         )}
       </div>
+      {frame && (frame.quality.status !== "clear" || (props.showFlags && frame.flag_image)) && (
+        <div className="plate-legend">
+          <p>
+            <span className="swatch hatch" aria-hidden="true" /> Hatched: no usable data (outside the image, or
+            saturated / non-finite pixels). It is not dark sky.
+          </p>
+          {props.showFlags && frame.flag_image && <FlagLegend legend={frame.flag_image.legend} />}
+        </div>
+      )}
       {frame?._fixture && <p className="plate-note">Development fixture — not NASA data.</p>}
     </article>
   );

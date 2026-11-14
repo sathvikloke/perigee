@@ -123,6 +123,7 @@ export function App() {
             <li>
               <a
                 href="?"
+                className="wide-only"
                 aria-current={route.view !== "query" ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
@@ -141,7 +142,7 @@ export function App() {
                   navigate({ view: "query" });
                 }}
               >
-                Search coordinates
+                Search<span className="wide-only"> coordinates</span>
               </a>
             </li>
             <li>
