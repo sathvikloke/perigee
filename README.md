@@ -18,14 +18,14 @@ Working on a laptop (Vite frontend proxied to the FastAPI backend), using real a
 - Two guided cases: Epsilon Indi B ("is this a fair comparison?") and Barnard's Star (a moving neighbour).
 - Live coordinate search for any RA/Dec through NASA/IPAC IRSA, with real cutouts processed on request. Coordinates in the URL start a search.
 - Evidence card saved in the browser, with JSON export.
-- Tests: backend **263 passed / 16 skipped** without raw data; frontend **38** (vitest).
+- Tests (commit `cd4ef49`, `qa/regression/run.sh`): backend **265 passed / 17 skipped** without raw data (**282 passed** with it); frontend **42** (vitest); 183-frame audit and 189-record science acceptance pass.
 - Science acceptance: **189/189** processed records pass an independent re-derivation from the original FITS files ([review](science/reviews/acceptance/README.md)).
 
 **Not yet verified:**
 
 - **Public URL: TBD (pending production promotion).** The Vercel build succeeds, but every deployment is behind Vercel Authentication, so no public response has been checked. See [deployment notes](docs/DEPLOYMENT.md).
 - This GitHub repository is currently private. A judge-facing link must open without sign-in.
-- The phone layout is still being repaired. Print and "Check your claim against the case guide" have not been exercised end to end, and the exported JSON file's contents have not been inspected by a reviewer.
+- Phone and keyboard checks were done locally in headless Chrome (390 and 320 px, axe-core 0 violations); no physical phone or screen reader. Print was checked in print preview. An exported evidence card was inspected by the regression check (`qa/regression/README.md`, N5). "Check your claim against the case guide" has not been exercised end to end.
 - The Barnard's Star case text still gives the wrong expected marker motion ("about 2 display pixels"); the measured value is about 7 display pixels (about 10″). The correction is held for the science owner in PR #22.
 - There is no automatic "play" control yet; frames are stepped through or blinked.
 
