@@ -1,0 +1,86 @@
+{
+ "case_id": "moving_neighbor",
+ "grid": {
+  "size_px": 72,
+  "scale_arcsec": 5.0,
+  "orientation": "north up, east left",
+  "center": [
+   269.4462585584787,
+   4.768324486236583
+  ],
+  "resampling": "bilinear on IMAGE minus ZODI (inspection only)"
+ },
+ "n_control_stars": 10,
+ "frames": [
+  {
+   "ref": "A",
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "observed_at_utc": "2025-08-25T00:50:31.845",
+   "wavelength_um": 2.006235843264055,
+   "control_median_shift_px": [
+    -0.014,
+    -0.052
+   ],
+   "control_shift_std_px": [
+    0.386,
+    0.379
+   ],
+   "marker_grid_px": [
+    35.443,
+    34.766
+   ],
+   "marker_offset_from_first_arcsec": [
+    0.0,
+    0.0
+   ],
+   "nonfinite_pixels_within_2px_of_marker": 11
+  },
+  {
+   "ref": "B",
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "observed_at_utc": "2026-03-19T09:06:02.748",
+   "wavelength_um": 2.0122664916325355,
+   "control_median_shift_px": [
+    -0.169,
+    -0.126
+   ],
+   "control_shift_std_px": [
+    0.26,
+    0.315
+   ],
+   "marker_grid_px": [
+    35.534,
+    35.94
+   ],
+   "marker_offset_from_first_arcsec": [
+    0.45,
+    5.87
+   ],
+   "nonfinite_pixels_within_2px_of_marker": 10
+  },
+  {
+   "ref": "C",
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "observed_at_utc": "2026-08-19T04:57:42.053",
+   "wavelength_um": 2.0284358707774177,
+   "control_median_shift_px": [
+    -0.125,
+    -0.137
+   ],
+   "control_shift_std_px": [
+    0.28,
+    0.302
+   ],
+   "marker_grid_px": [
+    35.601,
+    36.81
+   ],
+   "marker_offset_from_first_arcsec": [
+    0.79,
+    10.22
+   ],
+   "nonfinite_pixels_within_2px_of_marker": 11
+  }
+ ],
+ "interpretation_limit": "Checks display geometry only. Not a proper-motion measurement."
+}
