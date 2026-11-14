@@ -119,6 +119,8 @@ export interface ImageRef {
   width: number;
   height: number;
   media_type: string;
+  /** Flag overlays: colour key per category as [r, g, b, a(0-255)], from the processor. */
+  legend?: Record<string, unknown>;
 }
 
 export interface Registration {
@@ -126,6 +128,12 @@ export interface Registration {
   center_dec_deg?: number;
   fov_arcmin?: number;
   arcsec_per_pixel?: number;
+  /** Processor/API name for the display grid scale. */
+  scale_arcsec_per_px?: number;
+  /** Identical for frames registered to the same sky grid. */
+  grid_id?: string;
+  width?: number;
+  height?: number;
   orientation?: string;
   method?: string;
   [key: string]: unknown;

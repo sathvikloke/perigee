@@ -1,109 +1,107 @@
+import type { ReactNode } from "react";
 import type { FrameRecord } from "../api/types";
-import {
-  QUALITY_EXPLANATION,
-  QUALITY_LABEL,
-  formatPixelCount,
-  formatUtc,
-  formatWavelength,
-  qualityNotes,
-} from "../lib/format";
+import { QUALITY_CHIP, releaseLabel } from "../lib/compare";
+import { qualityExplanation, formatPixelCount, formatUtc, formatWavelength, qualityNotes } from "../lib/format";
+import { ProcessingNote } from "./CaseBench";
 
-/** Date, wavelength, quality and provenance for one frame. Renders documented fields only. */
-export function FrameDetails({ frame, refLabel }: { frame: FrameRecord; refLabel?: string | null }) {
-  const q = frame.quality;
-  const notes = qualityNotes(q.notes);
-  const prov = frame.provenance;
-  const ack = prov?.acknowledgments
-    ? Array.isArray(prov.acknowledgments)
-      ? prov.acknowledgments
-      : [prov.acknowledgments]
-    : [];
+function Disclosure(props: { icon: string; title: string; children: ReactNode }) {
   return (
-    <section className="frame-details" aria-label="Frame details">
+    <details className="panel">
+      <summary>
+        <span>
+          <span className="section-icon" aria-hidden="true">
+            {props.icon}
+          </span>
+          {props.title}
+        </span>
+        <span className="expand" aria-hidden="true">
+          +
+        </span>
+      </summary>
+      <div className="details-body">{props.children}</div>
+    </details>
+  );
+}
+
+/** Metadata beside the sequence plate: renders documented FrameRecord fields only. */
+export function FrameDetails({ frame }: { frame: FrameRecord }) {
+  const q = frame.quality;
+  const prov = frame.provenance;
+  const ack = prov?.acknowledgments ? (Array.isArray(prov.acknowledgments) ? prov.acknowledgments : [prov.acknowledgments]) : [];
+  return (
+    <>
       <dl className="facts">
         <div>
-          <dt>Observed</dt>
+          <dt>Observed (UTC)</dt>
           <dd>
-            <time dateTime={frame.observed_at_utc}>{formatUtc(frame.observed_at_utc)}</time>
-            <span className="muted"> · MJD {frame.mjd.toFixed(4)}</span>
+            {formatUtc(frame.observed_at_utc)} · MJD {frame.mjd.toFixed(4)}
           </dd>
         </div>
         <div>
           <dt>Wavelength</dt>
+          <dd>{formatWavelength(frame)}</dd>
+        </div>
+        {frame.wavelength_location && (
+          <div>
+            <dt>Measured at</dt>
+            <dd>{frame.wavelength_location}</dd>
+          </div>
+        )}
+        <div>
+          <dt>Release · detector</dt>
           <dd>
-            {formatWavelength(frame)}
-            {frame.wavelength_location && <span className="muted block">Measured at: {frame.wavelength_location}</span>}
+            {releaseLabel(frame.collection_id)} · Detector {frame.detector ?? "n/a"}
           </dd>
         </div>
         <div>
-          <dt>Quality</dt>
-          <dd>
-            <span className="quality" data-status={q.status}>
-              {QUALITY_LABEL[q.status]}
-            </span>
-            <span className="block">{QUALITY_EXPLANATION[q.status]}</span>
-          </dd>
-        </div>
-        <div>
-          <dt>Image</dt>
-          <dd>
-            {refLabel ? `Frame ${refLabel} · ` : ""}
-            <span className="mono">{frame.frame_key}</span>
-            <span className="muted block">
-              Detector {frame.detector ?? "not available"} · {frame.collection_id}
-            </span>
-          </dd>
+          <dt>Frame</dt>
+          <dd className="mono">{frame.frame_key}</dd>
         </div>
       </dl>
-
+      <p>
+        <span className="quality" data-status={q.status}>
+          {QUALITY_CHIP[q.status]}
+        </span>{" "}
+        {qualityExplanation(frame)}
+      </p>
       {frame.display_scale?.mode === "per_frame" && (
-        <p className="notice" role="note">
-          Brightness is not directly comparable: this frame has its own contrast stretch.
-        </p>
+        <p className="notice">Brightness is not directly comparable: this frame has its own contrast stretch.</p>
       )}
-
-      <details className="disclosure">
-        <summary>Quality details</summary>
-        <dl className="facts compact">
-          <div>
-            <dt>Status</dt>
-            <dd className="mono">{q.status}</dd>
-          </div>
+      <Disclosure icon="✓" title="Quality details">
+        <dl className="facts">
           <div>
             <dt>Position covered</dt>
             <dd>{q.covered == null ? "not available" : q.covered ? "yes" : "no"}</dd>
           </div>
           <div>
-            <dt>Usable pixels near position</dt>
+            <dt>Usable pixels near target</dt>
             <dd>{formatPixelCount(q.valid_aperture_pixels)}</dd>
           </div>
           <div>
-            <dt>Problem pixels near position</dt>
+            <dt>Problem pixels near target</dt>
             <dd>{formatPixelCount(q.adverse_aperture_pixels)}</dd>
           </div>
           <div>
-            <dt>Flags</dt>
-            <dd>{q.flag_names.length ? <span className="mono">{q.flag_names.join(", ")}</span> : "none reported"}</dd>
+            <dt>Problem flags</dt>
+            <dd>{q.flag_names.length ? q.flag_names.join(", ") : "none reported"}</dd>
           </div>
         </dl>
-        {notes.length > 0 && (
+        {qualityNotes(q.notes).length > 0 && (
           <ul className="plain-list">
-            {notes.map((n, i) => (
+            {qualityNotes(q.notes).map((n, i) => (
               <li key={i}>{n}</li>
             ))}
           </ul>
         )}
-      </details>
-
-      <details className="disclosure">
-        <summary>Source and processing</summary>
-        <dl className="facts compact">
+      </Disclosure>
+      <Disclosure icon="≡" title="Source & processing">
+        <dl className="facts">
           <div>
             <dt>Original file</dt>
             <dd>
               {frame.source_url ? (
                 <a href={frame.source_url} target="_blank" rel="noreferrer" className="break">
-                  {frame.source_url}
+                  {releaseLabel(frame.collection_id)} / D{frame.detector ?? "?"} FITS ↗
                 </a>
               ) : (
                 "not available"
@@ -119,49 +117,20 @@ export function FrameDetails({ frame, refLabel }: { frame: FrameRecord; refLabel
             <dd>{prov?.retrieved_at_utc ? formatUtc(prov.retrieved_at_utc) : "not available"}</dd>
           </div>
           <div>
-            <dt>File hash</dt>
+            <dt>Source SHA-256</dt>
             <dd className="mono break">{prov?.file_sha256 ?? "not available"}</dd>
           </div>
-          <div>
-            <dt>Processing</dt>
-            <dd>{prov?.processing_version ?? "not available"}</dd>
-          </div>
-          <div>
-            <dt>Display scale</dt>
-            <dd>
-              {frame.display_scale
-                ? `${frame.display_scale.mode === "shared" ? "Shared across frames" : "Per frame"}${
-                    frame.display_scale.method ? ` · ${frame.display_scale.method}` : ""
-                  }`
-                : "not available"}
-            </dd>
-          </div>
-          {frame.registration?.method && (
-            <div>
-              <dt>Sky grid</dt>
-              <dd>{String(frame.registration.method)}</dd>
-            </div>
-          )}
         </dl>
-        {ack.length > 0 && (
-          <ul className="plain-list muted">
-            {ack.map((a, i) => (
-              <li key={i}>{a}</li>
-            ))}
-          </ul>
-        )}
-      </details>
-
-      {frame.limitations.length > 0 && (
-        <details className="disclosure">
-          <summary>Limitations of this frame</summary>
+        <ProcessingNote frame={frame} />
+        {frame.limitations.length > 0 && (
           <ul className="plain-list">
             {frame.limitations.map((l, i) => (
               <li key={i}>{l}</li>
             ))}
           </ul>
-        </details>
-      )}
-    </section>
+        )}
+        {ack.length > 0 && <p>{ack.join(" ")}</p>}
+      </Disclosure>
+    </>
   );
 }

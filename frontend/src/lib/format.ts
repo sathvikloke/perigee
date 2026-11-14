@@ -7,18 +7,16 @@ export function formatUtc(iso: string | null | undefined): string {
   return m ? `${m[1]} ${m[2]} UTC` : iso;
 }
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 /** Short human date, always in UTC so it matches the archive timestamp. */
 export function formatDateShort(iso: string | null | undefined): string {
   if (!iso) return "Unknown date";
   const withZone = /[zZ]|[+-]\d{2}:?\d{2}$/.test(iso) ? iso : `${iso}Z`;
   const d = new Date(withZone);
   if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(d);
+  // Fixed "29 Apr 2026" form (design reference); UTC so it matches the archive.
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 export function formatMicrons(v: number | null | undefined, digits = 4): string {
@@ -59,10 +57,19 @@ export const QUALITY_EXPLANATION: Record<QualityStatus, string> = {
   flagged:
     "Problem flags or missing pixels were found near the predicted position. You can look, but brightness and exact position here are not reliable.",
   not_covered:
-    "The predicted position is outside this image. Absence here says nothing about the object.",
+    "The predicted position is just outside this image, so this frame can't show the object there. That is not evidence the object is absent.",
   unknown:
     "The quality screen could not be completed for this frame. Treat it as unchecked.",
 };
+
+/**
+ * Quality explanation for one frame. Curated frames screen the catalog
+ * prediction; live search frames without a marker screen the query center.
+ */
+export function qualityExplanation(frame: Pick<FrameRecord, "quality" | "marker">): string {
+  const text = QUALITY_EXPLANATION[frame.quality.status];
+  return frame.marker ? text : text.replace(/the predicted position/g, "the searched position");
+}
 
 export function formatPixelCount(v: number | null): string {
   return v == null ? "not available" : String(v);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createHttpApi, type PerigeeApi } from "./api/client";
 import type { FrameRecord, PresetDescriptor } from "./api/types";
 import { Home } from "./components/Home";
@@ -61,6 +61,18 @@ export function App() {
     }
   }, [routeKey]);
 
+  // "My evidence": the notebook on an investigation, or the saved list on the home view.
+  const goToEvidence = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const target = document.getElementById("notebook") ?? document.getElementById("my-evidence");
+    if (target) {
+      target.scrollIntoView();
+      return;
+    }
+    navigate({ view: "home" });
+    window.setTimeout(() => document.getElementById("my-evidence")?.scrollIntoView(), 50);
+  };
+
   const openQueryAt = (preset: PresetDescriptor) =>
     navigate({
       view: "query",
@@ -72,8 +84,8 @@ export function App() {
 
   return (
     <>
-      <a className="skip-link" href="#main">
-        Skip to content
+      <a className="skip" href="#main">
+        Skip to investigation
       </a>
       {fixtureMode && (
         <div className="fixture-banner" role="note">
@@ -83,29 +95,42 @@ export function App() {
           </button>
         </div>
       )}
-      <header className="site-header">
+      <header className="topbar">
         <a
           href={`${window.location.pathname}${fixtureMode ? "?fixtures=1" : ""}`}
           className="brand"
+          aria-label="Perigee home"
           onClick={(e) => {
             e.preventDefault();
             navigate({ view: "home" });
           }}
         >
-          Perigee
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="10" />
+            <ellipse cx="18" cy="18" rx="17" ry="6" transform="rotate(-36 18 18)" />
+            <circle className="satellite" cx="29" cy="9" r="3" />
+          </svg>
+          perigee
+          <span className="brand-divider" aria-hidden="true" />
+          <span className="brand-caption">
+            A closer look at
+            <br />
+            our infrared sky
+          </span>
         </a>
         <nav aria-label="Main">
           <ul>
             <li>
               <a
                 href="?"
-                aria-current={route.view === "home" ? "page" : undefined}
+                className="wide-only"
+                aria-current={route.view !== "query" ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate({ view: "home" });
                 }}
               >
-                Targets
+                Investigations
               </a>
             </li>
             <li>
@@ -117,7 +142,12 @@ export function App() {
                   navigate({ view: "query" });
                 }}
               >
-                Search coordinates
+                Search<span className="wide-only"> coordinates</span>
+              </a>
+            </li>
+            <li>
+              <a href="#my-evidence" onClick={goToEvidence}>
+                My evidence
               </a>
             </li>
           </ul>
@@ -166,12 +196,9 @@ export function App() {
       </main>
 
       <footer className="site-footer">
-        <p>
-          Images: SPHEREx, NASA/IPAC Infrared Science Archive. Perigee shows display images for visual comparison;
-          it does not measure brightness or position.
-        </p>
-        <p className="muted">
-          Perigee {__APP_VERSION__} · data source: {fixtureMode ? "development fixture" : "live API"}
+        <span>
+          PERIGEE <span className="footer-dot">·</span> Explore what the evidence supports{" "}
+          <span className="footer-dot">·</span> v{__APP_VERSION__} · {fixtureMode ? "development fixture" : "live API"}
           {!fixtureMode && import.meta.env.DEV && (
             <>
               {" · "}
@@ -180,7 +207,10 @@ export function App() {
               </button>
             </>
           )}
-        </p>
+        </span>
+        <a href="https://irsa.ipac.caltech.edu/Missions/spherex.html" target="_blank" rel="noreferrer">
+          Explore the SPHEREx archive ↗
+        </a>
       </footer>
     </>
   );
