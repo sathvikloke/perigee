@@ -1,5 +1,7 @@
 # Individual AI coding prompts
 
+For parallel Claude execution, use the [24-task pack and coordinator](parallel/README.md). It includes intentional duplicate implementations across the original roles. Codex owns UI design, and all frontend workers must use Bloody Coconut.
+
 Each file is a complete, individualized master prompt of approximately 18,000 words. The opening assignment, file ownership, ordered work packets and acceptance criteria are specific to its owner. The shared contract, project context and reference scenarios are included so every coding agent has the same facts. The long reference is not a requirement to implement every feature or test every scenario.
 
 Start with the [short sprint brief](../docs/SPRINT_BRIEF.md). **The human should not read 18,000 words before building.** Coding agents should use the role and contract first, then consult deeper reference as needed.
