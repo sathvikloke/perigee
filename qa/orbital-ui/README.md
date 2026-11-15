@@ -1,11 +1,14 @@
 # Orbital UI verification
 
-Frontend branch `codex/orbital-ui`, based on main `0ffff6f`; checked 2026-11-14 America/Chicago. Source state is the commit containing this report. Public production was not changed by this UI pass.
+Frontend branch `codex/orbital-ui`, based on main `0ffff6f`; checked 2026-11-14 America/Chicago. Verified UI source: `5f729e5`. Public production was not changed by this UI pass.
+
+Captures span the review iterations. Final hero/mobile landing, `investigation-desktop.jpg`, `notebook-mobile.jpg` and `comparison-mobile.jpg` establish the repaired layouts. The investigation full-page captures retain the earlier review state, before the compact workflow and notebook shortcuts; `case-failure.jpg` precedes removal of the redundant unavailable-frame message. These historical captures should not be treated as final-state baselines.
 
 ## Build and scope
 
 - Production build passed; 13 Vitest files / 124 tests passed; `git diff --check` passed.
 - Three new regression tests cover cutout request identity, bounded cache size and query-limit URL round trip.
+- GitHub [backend and frontend/Cloudflare CI](https://github.com/sathvikloke/perigee/actions/runs/43678549747) and [deployment-contract check](https://github.com/sathvikloke/perigee/actions/runs/43678549855) passed at `5f729e5`. Backend raw-data tests retain the CI's documented skip when `PERIGEE_DATA_ROOT` is absent. Vercel's separate preview status remains blocked by the existing account build-rate limit.
 - Impeccable static scan returned `[]` for `frontend/src`. This is source-scan coverage, not accessibility certification.
 - Real-data browser walkthrough used `http://127.0.0.1:5184`, with `/api` proxied to the public Cloudflare app. No fixture data was used for the screenshots/exports.
 - A temporary loopback-only proxy on port 8890 and separate dev origin 5185 injected failures into public read requests. Those servers were stopped after verification; no fault mechanism ships in product code.
