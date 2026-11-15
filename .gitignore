@@ -39,4 +39,4 @@ frontend/dist/
 
 # Cloudflare Workers build output and local wrangler state (generated)
 cloudflare/build/
-cloudflare/.wrangler/
+.wrangler/

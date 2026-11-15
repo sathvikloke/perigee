@@ -1,11 +1,11 @@
 {
   // Perigee: Cloudflare Workers static assets + API router (cloudflare/src/index.js).
-  // Build cloudflare/build/ first: see docs/CLOUDFLARE.md. account_id and any
-  // routes/custom domains are added by the deployment owner, not committed here.
+  // Build cloudflare/build/ first: see docs/CLOUDFLARE.md.
   "name": "perigee",
+  "account_id": "a62ce8c4627ecd5dc8770fa7fe42dd3b",
   "main": "src/index.js",
   "compatibility_date": "2026-11-15",
-  // Public URL: https://perigee.<account workers.dev subdomain>.workers.dev.
+  // Public URL: https://perigee.lokesathvik.workers.dev.
   // Preview (version) URLs stay off so unreleased versions are never public.
   "workers_dev": true,
   "preview_urls": false,

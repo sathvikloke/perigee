@@ -14,7 +14,7 @@ This is a release candidate for hosting Perigee on Cloudflare, prompted by the V
 | `GET /api/v1/health`, `POST /api/v1/search`, `POST /api/v1/frame` | **Proxied** to the fixed origin `https://perigee-liard.vercel.app` (the existing public Vercel Python API) | Live archive search and FITS processing stay in Python. Nothing is ported to WASM |
 | anything else under `/api` | Worker | JSON 404 `NOT_FOUND`, never the SPA's HTML |
 
-`wrangler.jsonc` sets `run_worker_first: ["/api", "/api/*"]`, so every API path goes through `cloudflare/src/app.js`. The exported files under `build/public/api/` are reachable **only** through the Worker's routing; for example, `/api/__perigee/catalog-manifest.json` and `/api/v1/presets.json` return JSON 404s. `preview_urls: false` keeps unreleased Worker versions private. `workers_dev: true` serves the `*.workers.dev` URL. `account_id`, routes and custom domains are left for the deployment owner to add.
+`wrangler.jsonc` sets `run_worker_first: ["/api", "/api/*"]`, so every API path goes through `cloudflare/src/app.js`. The exported files under `build/public/api/` are reachable **only** through the Worker's routing; for example, `/api/__perigee/catalog-manifest.json` and `/api/v1/presets.json` return JSON 404s. `preview_urls: false` keeps unreleased Worker versions private. `workers_dev: true` serves the `*.workers.dev` URL. The deployment account is set in `wrangler.jsonc`; no custom domain is configured.
 
 ### Proxy rules (`cloudflare/src/app.js`)
 
@@ -49,7 +49,7 @@ Run from the repository root. You need Python with `backend/requirements.txt` (f
 - refuses to clear any directory that is not a previous build;
 - writes `cloudflare/build/build-info.json` with the source commit, content version, deck hash and counts.
 
-Build on `a8608c6`: content `targets-2026-11-15a` (with the corrected WISE 0855 source label); 5 presets, 2 cases, 2 case frame sets and 952 assets (8.1 MB); 968 static files and 14 MB in total. That should be within the Workers static-assets limits (20,000 files, 25 MiB per file, from memory; not re-checked against the current Cloudflare docs): confirm them for the account's plan.
+Build on `a8608c6`: content `targets-2026-11-15a` (with the corrected WISE 0855 source label); 5 presets, 2 cases, 2 case frame sets and 952 assets (8.1 MB); 968 static files and 14 MB in total. This fits Cloudflare's [documented static-asset limits](https://developers.cloudflare.com/workers/platform/limits/), verified 2026-11-15: 20,000 files on Free (100,000 on Paid), and 25 MiB per file.
 
 ## Tests
 
