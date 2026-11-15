@@ -3,6 +3,8 @@ import { compareChronological, type PerigeeApi } from "../api/client";
 import type { CaseContent, FrameRecord, PresetDescriptor, PresetFramesResult } from "../api/types";
 import { attachPair, createEvidenceCard, type EvidenceCard } from "../evidence/card";
 import { useEvidenceCard } from "../evidence/useEvidenceCard";
+import { presetContextKey } from "../evidence/reopen";
+import { reviewStep } from "../evidence/completion";
 import { CaseBench } from "./CaseBench";
 import { ErrorBlock, useAsync } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
@@ -27,6 +29,7 @@ interface Loaded {
 export function PresetInvestigation(props: {
   api: PerigeeApi;
   presetId: string;
+  caseId?: string;
   onUseFixture?: () => void;
   onQueryPosition: (preset: PresetDescriptor) => void;
   onOpenPreset: (id: string) => void;
@@ -37,7 +40,7 @@ export function PresetInvestigation(props: {
     async (signal) => {
       const presets = await api.presets(signal);
       const preset = presets.find((p) => p.id === presetId) ?? null;
-      const caseId = preset?.case_ids[0] ?? null;
+      const caseId = props.caseId === "none" ? null : props.caseId ?? preset?.case_ids[0] ?? null;
       const [all, caseSet, caseResult] = await Promise.all([
         api.presetFrames(presetId, null, signal),
         caseId ? api.presetFrames(presetId, caseId, signal).then(
@@ -64,7 +67,7 @@ export function PresetInvestigation(props: {
         caseFramesError: caseSet.error,
       };
     },
-    [api, presetId],
+    [api, presetId, props.caseId],
   );
 
   if (state.status === "loading") {
@@ -144,7 +147,7 @@ function PresetLoaded(props: {
     setIndex(a >= 0 ? a : 0);
   }, [slots]);
 
-  const contextKey = `${api.mode}:preset:${presetId}`;
+  const contextKey = presetContextKey(api.mode, presetId, caseContent?.case_id);
   const makeCard = useCallback(
     () =>
       createEvidenceCard({
@@ -200,12 +203,18 @@ function PresetLoaded(props: {
   const stepsCard =
     caseContent && caseContent.steps.length > 0 ? (
             <div className="case-steps">
-              <h3>Your steps</h3>
+              <h3 id="investigation-steps">Your steps</h3>
+              <p className="pair-guidance">Check each step after you review it. Your progress stays with this evidence card.</p>
               {caseRefs.length > 2 && <p className="pair-guidance">Use Blink pair to alternate the two selected observations. Switch comparisons to inspect the other frames.</p>}
               <ol>
                 {caseContent.steps.map((s, i) => (
                   <li key={s.id}>
-                    {s.prompt}
+                    <label className="step-review">
+                      <input type="checkbox" checked={Boolean(ev.card.reviewed_step_ids?.includes(s.id))}
+                        aria-label={`Reviewed step ${i + 1}`}
+                        onChange={(e) => ev.update(withPair(reviewStep(ev.card, s.id, e.target.checked)))} />
+                      <span>{s.prompt}</span>
+                    </label>
                     {s.hint && (
                       <details>
                         <summary>

@@ -73,6 +73,7 @@ export function useEvidenceCard(contextKey: string, makeCard: () => EvidenceCard
       setLoaded({ card: next, restored: false });
       sessionDrafts.set(contextKey, next);
       pending.current = next;
+      setSaveState({ kind: "saving" });
       if (timer.current !== null) window.clearTimeout(timer.current);
       timer.current = window.setTimeout(flush, SAVE_DEBOUNCE_MS);
     },

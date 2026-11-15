@@ -119,7 +119,7 @@ test("catalog documents are served exactly from the export as JSON", async () =>
     docs.push([`/api/v1/presets/${pid}/frames`, p.frames]);
     for (const [cid, rel] of Object.entries(p.cases)) docs.push([`/api/v1/presets/${pid}/frames?case_id=${cid}`, rel]);
   }
-  assert.equal(docs.length, 1 + 2 + 5 + 2);
+  assert.equal(docs.length, 1 + 3 + 5 + 3);
   for (const [p, rel] of docs) {
     const r = await run("GET", p);
     assert.equal(r.status, 200, p);

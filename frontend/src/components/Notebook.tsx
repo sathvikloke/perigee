@@ -4,7 +4,6 @@ import {
   CLAIM_MAX,
   TEXT_MAX,
   printedLimitations,
-  checkCaseRequirements,
   exportFilename,
   serializeEvidenceCard,
   updateEvidenceText,
@@ -12,11 +11,13 @@ import {
   type EvidenceCard,
 } from "../evidence/card";
 import { releaseLabel } from "../lib/compare";
+import { completionIssues } from "../evidence/completion";
 import { formatDateShort, formatMicrons, formatUtc, QUALITY_LABEL } from "../lib/format";
 
 export type SaveState =
   | { kind: "idle" }
   | { kind: "restored" }
+  | { kind: "saving" }
   | { kind: "saved"; at: string }
   | { kind: "failed" };
 
@@ -59,8 +60,7 @@ const FIELDS: { key: Field; label: string; hint: string; placeholder: string; ma
 ];
 
 /**
- * The lavender evidence notebook (design: `.notebook`). The primary action
- * exports an evidence card; it never announces a discovery.
+ * The evidence notebook keeps the learner's claim separate from the reference.
  */
 export function Notebook(props: {
   card: EvidenceCard;
@@ -81,10 +81,14 @@ export function Notebook(props: {
   // Export and print carry the case's own limitations, verbatim, with the frames'.
   const out = withCaseContext(props.exportCard ?? card, caseContent);
   const limitations = printedLimitations(out);
-  const issues = checkCaseRequirements(out, caseContent?.evidence_requirements).filter(
-    (i) => i !== "Write a short claim.",
-  );
   const pairRefs = new Set(out.frames.filter((f) => f.ref).map((f) => f.ref));
+  const saved = props.saveState.kind === "saved" || props.saveState.kind === "restored";
+  const remaining = caseContent ? completionIssues(out, caseContent, saved) : [];
+  const completed = Boolean(caseContent && remaining.length === 0);
+  // Initial reveal requires a saved claim. Once opened, keep the reference
+  // present while a revision autosaves instead of unmounting it each keystroke.
+  const showReference = Boolean(caseContent && card.reference_shown &&
+    completionIssues(out, caseContent, true).length === 0);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -100,13 +104,19 @@ export function Notebook(props: {
       setExportStatus("Attach at least one observation before exporting.");
       return;
     }
-    downloadEvidence(out);
-    setExportStatus("Evidence file downloaded");
+    if (caseContent) {
+      if (!completed) return;
+      props.onChange({ ...out, reference_shown: true, updated_at_utc: new Date().toISOString() });
+      setExportStatus(null);
+    } else {
+      downloadEvidence(out);
+      setExportStatus("Evidence JSON downloaded");
+    }
   };
 
   const status =
     exportStatus ??
-    (props.saveState.kind === "saved"
+    (props.saveState.kind === "saving" ? "Saving on this device…" : props.saveState.kind === "saved"
       ? "Saved on this device"
       : props.saveState.kind === "restored"
         ? "Restored from this device"
@@ -203,19 +213,16 @@ export function Notebook(props: {
             <p>A different-looking image is a question to investigate, not yet a discovery.</p>
           </div>
 
-          {issues.length > 0 && (
-            <div className="checklist">
-              <p>For this investigation:</p>
-              <ul>
-                {issues.map((i) => (
-                  <li key={i}>{i}</li>
-                ))}
-              </ul>
+          {caseContent && (
+            <div className="completion-status" role="status">
+              <strong>{completed ? "Investigation complete" : "Investigation in progress"}</strong>
+              {remaining.length > 0 ? <ul>{remaining.map((item) => <li key={item}>{item}</li>)}</ul> :
+                <p>Your reasoning is saved. Compare it with the reference, then revise it if you wish. Completion does not grade your answer.</p>}
+              {remaining.some((s) => s.startsWith("Review the remaining")) && <a href="#investigation-steps">Back to the steps</a>}
             </div>
           )}
-
-          <button className="primary" type="submit">
-            Export evidence card
+          <button className="primary" type="submit" disabled={Boolean(caseContent && !completed)}>
+            {caseContent ? "Compare with the reference" : "Download evidence JSON"}
           </button>
           <div className="notebook-actions">
             <button
@@ -227,23 +234,19 @@ export function Notebook(props: {
             >
               Print / save PDF
             </button>
+            {caseContent && <button type="button" onClick={() => {
+              downloadEvidence(out); setExportStatus("Evidence JSON downloaded");
+            }}>Download evidence JSON</button>}
             <span role="status">{status}</span>
           </div>
         </form>
 
-        {caseContent?.conclusion_guide && (
-          <details className="panel guide">
-            <summary>
-              <span>
-                <span className="section-icon" aria-hidden="true">
-                  ✓
-                </span>{" "}
-                Check your claim against the case guide
-              </span>
-              <span className="expand" aria-hidden="true">
-                +
-              </span>
-            </summary>
+        {showReference && caseContent?.conclusion_guide && (
+          <section className="reference-review" aria-labelledby={`${id}-reference-title`}>
+            <h3 id={`${id}-reference-title`}>Compare your reasoning</h3>
+            <div className="learner-claim"><strong>Your claim</strong><p>{card.claim}</p></div>
+            <h4>Reference answer (from the case)</h4>
+            <p className="muted">This is a reference for reflection, not an automatic grade. Your words above stay yours.</p>
             <div className="details-body">
               {caseContent.conclusion_guide.supported?.length ? (
                 <div>
@@ -272,11 +275,13 @@ export function Notebook(props: {
                 </div>
               )}
             </div>
-          </details>
+            <a href={`/${card.data_origin === "fixture" ? "?fixtures=1" : ""}#investigations`}>Try another investigation</a>
+          </section>
         )}
 
         <section className="print-provenance" aria-label="Printed observation provenance">
           <h3>Selected observation provenance</h3>
+          <p>Case: {out.case_id ?? "none"} · Target: {out.preset_id ?? "coordinate search"} · Data origin: {out.data_origin}. Revision history is not recorded.</p>
           {out.frames.map((f) => (
             <div key={f.frame_key}>
               <p>

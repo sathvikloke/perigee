@@ -85,6 +85,9 @@ export interface EvidenceCard {
   sources: SourceLink[];
   app_version: string;
   data_origin: DataOrigin;
+  /** Steps the learner marked reviewed; not an assessment of correctness. */
+  reviewed_step_ids?: string[];
+  reference_shown?: boolean;
 }
 
 /**
@@ -142,6 +145,8 @@ export function createEvidenceCard(init: {
     sources: init.sources ?? [],
     app_version: init.app_version,
     data_origin: init.data_origin,
+    reviewed_step_ids: [],
+    reference_shown: false,
   };
 }
 
@@ -301,6 +306,8 @@ const CARD_KEY_ORDER: (keyof EvidenceCard)[] = [
   "uncertainty",
   "case_limitations",
   "sources",
+  "reviewed_step_ids",
+  "reference_shown",
 ];
 
 /** Stable, human-readable JSON for export. Older cards export the new keys as null. */
@@ -389,6 +396,9 @@ export function normalizeEvidenceCard(card: EvidenceCard): EvidenceCard {
   const title = cleanTitle(card.title);
   const raw = card.case_limitations;
   const caseLims = raw == null ? null : cleanLimitations(raw);
+  const reviewed = Array.isArray(card.reviewed_step_ids)
+    ? [...new Set(card.reviewed_step_ids.filter((s): s is string => typeof s === "string" && s.length <= 100))].slice(0, 100) : [];
+  const referenceShown = card.reference_shown === true;
   let framesChanged = false;
   const frames = card.frames.map((f) => {
     const lims = f.limitations == null ? null : cleanLimitations(f.limitations);
@@ -396,8 +406,10 @@ export function normalizeEvidenceCard(card: EvidenceCard): EvidenceCard {
     framesChanged = true;
     return { ...f, limitations: lims };
   });
-  if (card.title === title && sameList(caseLims, raw) && !framesChanged) return card;
-  return { ...card, title, case_limitations: caseLims, frames: framesChanged ? frames : card.frames };
+  if (card.title === title && sameList(caseLims, raw) && !framesChanged &&
+      sameList(reviewed, card.reviewed_step_ids) && referenceShown === card.reference_shown) return card;
+  return { ...card, title, case_limitations: caseLims, frames: framesChanged ? frames : card.frames,
+    reviewed_step_ids: reviewed, reference_shown: referenceShown };
 }
 
 function sameList(a: string[] | null, b: unknown): boolean {

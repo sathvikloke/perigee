@@ -85,6 +85,8 @@ describe("evidence card", () => {
       "uncertainty",
       "case_limitations",
       "sources",
+      "reviewed_step_ids",
+      "reference_shown",
     ]);
     expect(parsed.schema_version).toBe(1);
     // Chronological, with per-frame identity, date, wavelength, quality and source.

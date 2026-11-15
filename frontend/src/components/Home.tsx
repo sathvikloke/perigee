@@ -92,6 +92,7 @@ export function Home(props: {
 const INVESTIGATION_COPY: Record<string, { question: string; description: string }> = {
   barnards_star: { question: "Can you see a star move?", description: "Follow Barnard’s Star across the sky, using the surrounding stars as your reference." },
   epsilon_indi_b: { question: "Is this a fair comparison?", description: "Look at Epsilon Indi B through different infrared wavelengths and separate a change in view from a change in the sky." },
+  wise_0855: { question: "A dot that jumps", description: "A bright dot seems to move. Follow the image flags to find out whether the sky really changed." },
 };
 
 function PresetItem({ api, preset, onOpen, compact = false }: { api: PerigeeApi; preset: PresetDescriptor; onOpen: () => void; compact?: boolean }) {
@@ -100,7 +101,7 @@ function PresetItem({ api, preset, onOpen, compact = false }: { api: PerigeeApi;
   const first = frames[0];
   const last = preset.id === "epsilon_indi_b"
     ? frames.find((frame) => frame.observation_id === first?.observation_id && frame.detector !== first?.detector) ?? frames[frames.length - 1]
-    : frames[frames.length - 1];
+    : preset.id === "wise_0855" && preset.case_ids.length ? frames[1] ?? first : frames[frames.length - 1];
   const copy = INVESTIGATION_COPY[preset.id];
   return <li className={compact ? "open-target" : "investigation-card"}>
     <button type="button" className="target-link" onClick={onOpen}>
