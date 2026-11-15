@@ -1,173 +1,266 @@
-# Perigee: pitch outline and five-minute demo script (DRAFT)
+# Perigee: judge demo handoff (pitch outline, demo script, rehearsal record)
 
-This is a draft for Sathvik, who owns the pitch and makes every final call. It was written by parallel worker 20 on 2026-11-14 against `claude/perigee-integration` @ `007b6aa`.
+For Sathvik, who owns the pitch and makes every final call.
+- The first draft was written by worker 20 at `007b6aa`.
+- This version was refreshed by the coordinator on 2026-11-14/15 against `claude/perigee-integration` @ **`c194d92`**, where the frontend code is unchanged since `a416c9e`.
+- It was checked by a full rehearsal of the narrated journey on that build (see section 6).
 
 Sources of truth:
-- `coordination/claude-dispatch.md`
-- `science/reviews/acceptance/README.md`
-- `science/reviews/barnard/README.md`
-- the two case JSON files
-- the frontend QA screenshots in `screens/`
+- the two case JSON files (`backend/content/cases/`);
+- `science/reviews/acceptance/README.md`, `science/reviews/barnard/README.md` and `science/reviews/epsilon/README.md`;
+- `coordination/claude-dispatch.md`, `docs/DEPLOYMENT.md`, `docs/AI_USE.md`;
+- the rehearsal assets in `rehearsal/`.
 
-**Ground rules applied throughout:**
-- **No invented people or results.** There are no invented users, quotes, learning metrics, discoveries or win claims. The learner below is illustrative, and the script says so.
-- **A passed flag screen is not a detection.** "Flag screen passed" means only that no problem flags were found in a small circle around a *predicted* position.
-- **Brightness is never measured.** Each plate is contrast-stretched for viewing. Perigee does no photometry.
-- **The marker is a prediction.** It is a catalog prediction (SIMBAD/Gaia proper motion), not a position Perigee measured.
-- **Barnard's Star wording uses the corrected science.** The marker moves about 7 display pixels (about 10″, under two SPHEREx pixels) from A to C, August 2025 to August 2026. Sathvik accepted the corrected text (PR #22, `b4fcc8c`), and `moving_neighbor.json` on the integration branch now uses it.
+**Ground rules:**
+- **Nothing invented.** No invented users, quotes, uptake, learning metrics, discoveries, win claims or "first" claims. The learner is illustrative, and the script says so.
+- **"Flag screen passed" is not a detection.** It means only that no problem flags were found in a small circle around a *predicted* position.
+- **No brightness is measured.** Each plate is contrast-stretched for viewing; Perigee does no photometry.
+- **The ring is a prediction.** It is a catalog prediction (SIMBAD/Gaia proper motion), not a position Perigee measured.
+- **Barnard's Star uses the accepted case text:** the marker moves about 4 display px A→B and about 7 display px (about 10″, under two SPHEREx pixels) A→C on the 6′ grid.
 
 ---
 
-## 1. Seven-slide outline
+## 1. Why someone should care
 
-The Space Apps guide allows seven slides including the title. The same deck carries the five-minute local talk, with slide 3 replaced by the live app.
+Two pictures of the same patch of sky can look different for reasons that have nothing to do with the object changing:
+- they were taken at a different infrared wavelength;
+- they were stretched differently for display;
+- a bad pixel sits next to the target.
 
-| # | Slide | On screen | Point to land |
+Perigee gives a learner real NASA SPHEREx observations and walks them through telling those apart. **They separate a real change from wavelength, display and artifact differences, and they leave with an evidence card that says what they saw, what they can't yet tell, and exactly which archive files support it.** A teacher or club can check that card line by line.
+
+This is a learning outcome we designed for. It has not been measured with users (`docs/PITCH.md`: the audiences are product hypotheses).
+
+**Primary story: Epsilon Indi B, "Is this a fair comparison?"** Recommended because it teaches the core skill directly:
+- **A + B** is a fair pair: five months apart at nearly the same wavelength.
+- **A + C** looks very different at the same moment, purely because of wavelength.
+- A dot that "appears" next to the target in A turns out to be a flagged pixel.
+- Every step works offline from the bundled products (section 4).
+
+**Backup story: Barnard's Star, "Follow a nearby moving star."** It is more vivid, because the star's glow visibly shifts against stable field stars over a year. But its core is saturated (flagged), so it can show motion but not measure it. Use it if the audience needs a "something moved" moment, or as slide 6.
+
+---
+
+## 2. Official requirements (verified) versus our local rehearsal
+
+These were read from the official pages on 2026-11-14. Quotes are short.
+
+- **Global submission demo.** The demo is either a slide deck of up to seven slides *including title and intro slides*, or a video of 30 seconds or less. *"Projects that exceed these limits will not be eligible for Global Judging."* ([Project submission guide](https://www.spaceappschallenge.org/resources/project-submission-guide/))
+  - The slides should show an image of the project, describe the user experience, and say how NASA and space-agency data make it possible.
+  - The slides must include the team name, the team members' names and the chosen challenge.
+  - Slides must be in English.
+- **Links.** The demo and final-project links must be publicly accessible, with no password, permission or registration.
+- **Deadline.** Submission closes Sunday 15 November 2026, 11:59 p.m. in the Local Event's time zone ("Submit for Judging").
+- **No minors.** No images or likeness of anyone under 18.
+- **Judging criteria.** Impact, Creativity, Validity, Relevance and Presentation. For Presentation, *"Judges evaluate the demo and full project"*. ([Judging and awards guide](https://www.spaceappschallenge.org/resources/judging-awards-guide/))
+- **Local judging.** Local judging and awards are run by the Local Lead, and their times *may differ* from global submission times. **No official rule found sets the length of a local spoken presentation.** The "five-minute" talk below is our own rehearsal target. Confirm the actual slot with the Local Lead.
+- **AI disclosure.** The guide requires SI use to be indicated in descriptive text and metadata, and AI-generated images or videos to carry a visible watermark. This handoff adds no new disclosure scope; follow `docs/AI_USE.md`. The rehearsal screenshots are captures of the app itself, not generated imagery.
+
+---
+
+## 3. Seven-slide outline (global submission deck)
+
+| # | Slide | On screen (asset) | Point to land |
 |---|---|---|---|
-| 1 | **A real question about a real object** | Title "Perigee: a closer look at our infrared sky". Below it, the case's opening question in large type: *"Did Epsilon Indi B change between April and September 2026?"* Add one line under it: "Epsilon Indi B: a pair of brown dwarfs, about 12 light-years away." | A learner can ask this and answer it with real NASA SPHEREx observations. Label the learner "illustrative". |
-| 2 | **Why the obvious comparison can mislead you** | Three labelled tiles: **Date** (when the picture was taken), **Wavelength** (which infrared color, which varies across each SPHEREx detector), **Image quality** (flags near the object). Under the tiles: "Two pictures of the same spot can differ because of any of these, not only because time passed." | This is the fairness problem. The same detector does not mean the same wavelength, so you must check it at the object's position. |
-| 3 | **Live demo** (local talk) / **the bench** (global deck) | Global deck: request S2 (A+C). Local talk: switch to the app. | Compare, check, explain: the three steps the app shows. |
-| 4 | **The learner's own evidence card** | Request S4: the notebook with claim, observations and uncertainty filled in, plus the exported JSON fields. Add a small inset of the live coordinate search (request S6). | The result is a claim the learner can defend, with the frame IDs, wavelengths, quality status and archive links needed to check it. Any sky coordinate works, as the challenge requires. |
-| 5 | **What Perigee adds next to existing tools** | Two short rows, citing only what the design handoff observed. **IRSA's SPHEREx visualization docs:** a full archive viewer that keeps image metadata close to the image. **Backyard Worlds (Zooniverse):** a concrete human question and an explicit availability status. Under them: "Perigee: one guided bench that keeps date, wavelength, quality and your reasoning together, ending in a claim you wrote." | This is a contribution, not a first. PRODUCT.md says existing viewers and citizen-science tools overlap and that no first-ever claim is established. |
-| 6 | **How we checked the science** | Request S7 (Barnard phone, guide line plus flag legend) or the Barnard `contact_sheet.png`. List three numbers: **189/189** processed records pass independent re-derivation; Gaia DR3 field stars land within a median **0.45 display px**; the Barnard's Star prediction moves **≈7 px (≈10″)** A→C while the Gaia field stars stay within **0.77 px**. | An independent reviewer rebuilt every image from the original FITS bytes and checked it against Gaia DR3. Wavelength, time, flags and provenance were each re-derived separately. |
-| 7 | **What works, what doesn't yet, what's next** | The working-vs-future table from section 3, condensed. Add the source links, acknowledgments (NASA/IPAC IRSA, SPHEREx, CDS/SIMBAD, ESA Gaia) and the team. | Be candid: what runs today, what is still unverified in public, and what we will not claim. |
+| 1 | **Title** | "Perigee: a closer look at our infrared sky". Team name, member names, challenge: *Planet X and SPHEREx*. | Required identification. |
+| 2 | **The question** | *"Did Epsilon Indi B change between April and September 2026?"* with `rehearsal/d02b-eps-AB-bench-1280.jpg` | A learner can ask this of real NASA SPHEREx observations. The learner is illustrative. |
+| 3 | **Why the obvious comparison misleads** | `rehearsal/d03b-eps-AC-bench-1280.jpg` (A + C, "Same moment, a different infrared color") beside the A + B plates | The same moment at a different wavelength looks different. Check date, wavelength and quality before claiming change. |
+| 4 | **Checking quality** | `rehearsal/d04-eps-AB-flags-bench-1280.jpg` plus `d05-flag-screen-meaning-1280.jpg` | The dot by the target is a red "Problem flag" pixel. A passed screen is not a detection. |
+| 5 | **The learner's evidence card** | `rehearsal/d06-notebook-filled-1280.jpg`, a short excerpt of `evidence-card-fair_comparison.json` and page 3 of the print PDF | A claim the learner can defend, with frame IDs, wavelengths, quality, archive links, processing and stated limitations. |
+| 6 | **How NASA data makes it possible, and how we checked it** | `rehearsal/d10-coordinate-search-1280.jpg` (any coordinate → IRSA) and `d09b-barnard-AC-bench-1280.jpg` | Public SPHEREx L2 images from NASA/IPAC IRSA. 189/189 processed records pass independent re-derivation from the original FITS files. Gaia DR3 field stars land a median 0.45 display px from their predicted positions. |
+| 7 | **What works, limits, sources** | The condensed table from section 5, the acknowledgments (NASA/IPAC IRSA, SPHEREx, CDS/SIMBAD, ESA Gaia) and the public links | Candid scope: no photometry, no measured motion, no discovery claims. |
+
+The phone captures (`rehearsal/p0*-390.jpg`) can replace any desktop capture if a slide needs a phone view.
 
 ---
 
-## 2. Five-minute narration (local presentation)
+## 4. Demo script
 
-Times are cumulative. The normal path is about 700 spoken words, roughly 4:40 at a steady pace before clicks, so it is tight. The demo segment is 2:15 long and needs the app already open on the Epsilon Indi B investigation, with **A + B selected**, an **empty notebook**, and the coordinate search tab preloaded in a second browser tab. Square brackets are stage directions.
+Square brackets are stage directions. Labels in **bold** are the app's exact visible text.
 
-### 0:00–0:35 · Slide 1: the question
+**Setup:**
+- The app is open on `/?preset=epsilon_indi_b` with **A + B** selected and an empty notebook.
+- A second tab is on `/?view=query&ra=330.84&dec=-56.786&fov=6`.
+- Use a fresh browser profile, so a presenter's saved notes do not appear.
 
-> "Imagine a student, and this is an illustration, not someone we interviewed, who learns that NASA's SPHEREx telescope photographs the whole sky in infrared, again and again. They pick one object: Epsilon Indi B, a pair of brown dwarfs twelve light-years away. And they ask a simple question: *did it change between April and September?* SPHEREx has pictures from both months. So they can just look. Or can they?"
+**Length.** About 670 spoken words across the slides and the demo, counted from the quotes below. That is 4:10–4:50 at 140–160 words per minute, before clicks and pauses. **This timing is an estimate, not a timed rehearsal with a speaker.**
 
-### 0:35–1:05 · Slide 2: the fairness problem
+### Primary demo: Epsilon Indi B (works without the live archive)
 
-> "Two pictures of the same spot can look different for three reasons. **Time**: something actually changed. **Wavelength**: SPHEREx records a different infrared color depending on where the object lands on the detector, so the same camera doesn't mean the same color. And **image quality**: a cosmic-ray hit or a saturated pixel near the object. Perigee is built around one idea: before you claim a change, check that the comparison is fair."
+**Opening, slide 2 (≈30 s).**
 
-### 1:05–3:20 · Live demo (2 min 15 s)
+> "Imagine a student, and this is an illustration, not someone we interviewed, who hears that NASA's SPHEREx telescope photographs the whole sky in infrared, again and again. They pick Epsilon Indi B, a pair of brown dwarfs about twelve light-years away, and ask: did it change between April and September? SPHEREx has pictures from both months. So they can just look. Or can they?"
 
-**1:05–1:40 · A + B, different dates** [A + B already selected; click **Blink pair**, let it alternate 3–4 times, then pause]
+**Why it misleads, slide 3 (≈30 s).**
 
-> "Real SPHEREx observations from NASA's IRSA archive, on one fixed sky grid. The circle is where star catalogs *predict* Epsilon Indi B should be on each date. It's a prediction, not a detection. Frame A is April 29, frame B is September 27: five months apart. Wavelengths are 2.323 and 2.322 microns, a difference of about a thousandth of a micron, far less than each band's width. Same color, different dates: a fair pair to start with."
+> "Two pictures of one spot can differ because time passed. They can also differ because they record a different infrared color: SPHEREx's wavelength depends on where the object lands on the detector. Or because of image quality: a bad pixel right next to the object. Perigee is built around one habit: check that the comparison is fair before you claim a change."
 
-**1:40–2:05 · A + C, same moment, different wavelength** [click **A + C**]
+**In the app (≈2:15).**
 
-> "Now frame C. It was taken at *the same moment* as A, by a different detector, at 4.94 microns: more than twice the wavelength. Look how different it is. Nothing changed in time here; this is color. Perigee says so right under the plates: *a different appearance is not evidence that time changed the object*. And because each frame has its own contrast stretch, the app says brightness isn't directly comparable."
+1. **A + B** [already selected; click **▷ Blink pair**; it becomes **Ⅱ Pause blink**; let it alternate 3–4 times, then pause].
 
-**2:05–2:25 · Quality disclosure** [back to **A + B**; open the quality panel below the plates, which lists A and B side by side]
+   > "Real SPHEREx observations from NASA's IRSA archive, on one fixed sky grid, north up. The ring is where star catalogs *predict* Epsilon Indi B should be on each date, labelled *Catalog prediction, not a detection*. A is 29 April at 2.3232 microns; B is 27 September at 2.3220 microns. The note under the plates says they're 151 days apart and the wavelengths differ by 0.0012 microns, well inside one band's width. Same color, different dates: a fair pair to start with."
 
-> "Third check: quality. Both A and B pass the flag screen: no problem flags in a small circle around the predicted position, and the panel shows the pixel counts behind that. Notice what that does *not* say. It doesn't say the object was detected, and it doesn't measure how bright it is. It says these pixels are usable for a visual comparison. That's all."
+2. **A + C** [click **A + C**].
 
-**2:25–2:50 · Write and export the evidence card** [type or paste the claim; click **Export evidence card**]
+   > "Frame C was taken at the *same moment* as A, by another detector, at 4.94 microns. Look how different it is: most field stars fade, and Epsilon Indi B stays bright. The app says it plainly: *Same moment, a different infrared color. A different appearance is not evidence that time changed the object.* And each frame here has its own contrast stretch, so brightness isn't comparable."
 
-> "Now the learner writes what they can support." [type:] *"A and B are a fair pair (five months apart, 2.323 and 2.322 µm, no flags at the target), and Epsilon Indi B looks the same in both. A and C look different because C shows 4.94 µm light, where Epsilon Indi B stands out and most stars fade."* (This is the case's accepted example claim, PR #31.) "Export saves an evidence card with the claim plus every frame's ID, detector, release, date, wavelength, quality status and archive link, so a teacher or a club can check it."
+3. **Quality** [click **A + B**, tick **Show flagged pixels**, point at the small red pixel just below and right of the ring in A; then open **What does "flag screen passed" mean?**].
 
-**2:50–3:20 · One live coordinate search** [switch to the preloaded **Search coordinates** tab; click **Use Epsilon Indi A, J2000 catalog position**, then **Search the archive**]
+   > "In A, a bright dot sits right next to the target. Turn on flagged pixels: it's marked red, a problem flag, so it's a bad pixel, not a change. The flag-screen panel lists A and B side by side: 19 and 18 usable pixels at the target, none flagged. That says the pixels are usable for a visual comparison. It does *not* say the object was detected, or how bright it is."
 
-> "The challenge asks for any coordinate, not just our examples. This goes live to the IRSA archive right now and processes each matching image one at a time, in time order. This is the J2000 catalog position of Epsilon Indi A. The star has moved about two arcminutes since then, and the app says so."
+4. **Notebook and evidence card** [type or paste the claim; optionally open **Check your claim against the case guide**; click **↓ Export evidence card**].
 
-**Fallback line if IRSA is slow or errors** (IRSA returned intermittent 502/503 responses during our testing): stop waiting after about 10 seconds.
+   > "Now the learner writes what they can support." [the claim:] *"A and B are a fair pair (five months apart, 2.323 and 2.322 µm, no flags at the target), and Epsilon Indi B looks the same in both. A and C look different because C shows 4.94 µm light, where Epsilon Indi B stands out and most stars fade."*
 
-> "The archive is busy. That happened in our testing too, and Perigee doesn't pretend otherwise. It says the request failed, says it's *not a result about the sky*, and keeps your previous images and notes. Here's the same search, captured earlier today." [show backup screenshot S6, labelled on screen "captured earlier"; do not present it as live]
+   > "The case guide lets them check that against what these images do and don't support. Export saves an evidence card: the claim, every frame's ID, detector, release, time, wavelength, quality, archive link and processing version, plus the case's stated limitations. A teacher can check it."
 
-### 3:20–3:50 · Slide 5: what Perigee adds
+   **Optional, 10 s:** [go to **My evidence**, click **Reopen**]
 
-> "None of this data is new, and we're not the first SPHEREx viewer. IRSA's own tools are far more powerful, and projects like Backyard Worlds already invite the public into real searches. What Perigee adds is a short, guided bench where the date, the wavelength, the quality check and *your reasoning* stay together. It ends in a claim you wrote and can defend."
+   > "It's saved on this device. Reopen brings back the same investigation and notes."
 
-### 3:50–4:25 · Slide 6: how we checked it
+5. **Any coordinate, live** [switch to the second tab; click **Use Epsilon Indi A, J2000 catalog position**, then **Search the archive**].
 
-> "An independent check rebuilt every processed image from the original FITS files: 189 out of 189 records pass. Field stars from ESA's Gaia DR3 catalog land within half a display pixel on average. Our second investigation is Barnard's Star, the fastest-moving star in the sky. Between August 2025 and August 2026 its predicted position moves about seven display pixels, about ten arcseconds, under two SPHEREx pixels. You can see its glow shift while the surrounding stars stay put. Its center is saturated, so we show the shift; we don't measure it."
+   > "The challenge asks for any coordinate. This goes live to NASA's IRSA archive now and processes each matching image in time order. This is Epsilon Indi A's J2000 position; the app notes the star has moved about two arcminutes since."
 
-### 4:25–5:00 · Slide 7: working, limits, next
+   - In the rehearsals this returned **24 of 460 matches**. 20–22 frames processed, and IRSA refused 2–4 frames with 502s.
+   - Each refused frame stayed in its slot, marked failed, with a retry button.
+   - If that happens, say so: *"The archive refused a few images just now. Perigee shows that instead of hiding it."*
 
-> "What works today: two complete investigations, five preset targets, live coordinate search and an exportable evidence card, all on real NASA data. What we don't claim: brightness measurements, measured motion, or discoveries. A clear flag screen is never a detection. Next: more investigations, classroom-ready activity sheets, and revisiting targets as new SPHEREx releases arrive. Perigee is about the moment someone stops following an explanation and makes one of their own. Thank you."
+**What Perigee adds, slide 6 (≈30 s).**
 
-*If running long:* cut the A + C sentence about the contrast stretch and the Gaia sentence on slide 6. *If the app fails entirely:* present slides 3–4 from screenshots S1–S6 and say plainly that they are screenshots.
+> "None of this data is new, and IRSA's own tools are far more powerful. Projects like Backyard Worlds already invite the public into real searches. What Perigee adds is a short, guided bench where the date, the wavelength, the quality check and *your reasoning* stay together, ending in a claim you wrote and can defend. We checked our processing independently: all 189 processed records pass a re-derivation from the original FITS files."
+
+**Limits and close, slide 7 (≈30 s).**
+
+> "What we don't claim: brightness measurements, measured motion, or discoveries. A clear flag screen is never a detection. Next: more investigations, classroom activity sheets, and revisiting targets as new SPHEREx releases arrive. Perigee is about the moment someone stops following an explanation and makes one of their own."
+
+### Fallback when the live archive fails
+
+**The rehearsal confirmed that both investigations need no live archive.** Through the whole Epsilon Indi B and Barnard's Star journey (blink, A + C, flags, notebook, case guide, export, print, My evidence, Reopen, reload), the browser made **zero** `/api/v1/search` or `/api/v1/frame` calls; the case images are bundled products. So during an IRSA outage, run steps 1–4 unchanged and replace step 5 with:
+- `rehearsal/d10-coordinate-search-1280.jpg`, captioned *"captured during rehearsal, 2026-11-15"*;
+- optionally `rehearsal/d11-simulated-archive-failure-1280.jpg`, captioned *"simulated archive failure"*. It shows *"The archive search failed. This is not a result about the sky."*
+
+Never present a screenshot as live.
+
+### Backup story: Barnard's Star (`/?preset=barnards_star`)
+
+The case opens on **A + C** with **Guide line through A** and **Show flagged pixels** already on. Asset: `rehearsal/d09b-barnard-AC-bench-1280.jpg`.
+
+> "Barnard's Star moves across our sky faster than any other known star. Between 25 August 2025 and 19 August 2026, its predicted position moves north by about seven display pixels, about ten arcseconds, under two SPHEREx pixels. Blink it: its glow shifts past the guide line while the field stars stay put. Its core is saturated, flagged near the target in every frame, so we show the shift; we don't measure it."
+
+*If running long:* cut the contrast-stretch sentence in step 2 and the Reopen beat. *If the app fails entirely:* present the rehearsal screenshots and say plainly that they are screenshots.
 
 ---
 
-## 3. Working vs future
+## 5. Working vs future (reconciled 2026-11-15)
 
-"Working" means the dispatch log or a QA screenshot records it being exercised. Everything here is **local** (vite → uvicorn on a laptop) unless stated otherwise.
+"Local" means uvicorn plus a Vite production build on a laptop. **Nothing below has been verified on a public URL.**
 
-| Capability | Status | Evidence / caveat |
+| Capability | Status | Evidence |
 |---|---|---|
-| Five presets with real frame counts | **Working locally** | Dispatch 17:59Z (gate 1) |
-| `fair_comparison`: A+B / A+C switching, blink, per-frame date + wavelength, comparison note | **Working locally** | Frontend A integrated (`6e855a2`, follow-up `41d8b42`); screenshots `after-desktop-1280-AB/AC` |
-| Catalog-prediction marker labelled "not a detection" | **Working locally** | Screenshots; acceptance: marker within 0.0007 display px of independent prediction |
-| Flag screen status + flagged-pixel overlay + legend | **Working locally** | Screenshots incl. Barnard phone view |
-| Evidence card saved with `data_origin: api`, frame_key, detector, DATE-AVG, λ, IRSA URL | **Working locally** | Dispatch 17:59Z (`localStorage['perigee.evidence.v1']`) |
-| Evidence card JSON export | **Partly verified** | At 17:59Z the button was present but the download was not triggered. A later QA screenshot shows the status "Evidence file downloaded". The exported file's contents are not inspected in the log. |
-| Print / save PDF | **Present, not verified** | Button visible; no print check in the log |
-| "Check your claim against the case guide" | **Present, not verified** | Visible in screenshots; not exercised in the log |
-| Live coordinate search → real IRSA frames | **Working locally** | `/search` 330.84, −56.786 → ready, 460 matches (DR1+QR3); `/frame` HTTP 200, 2.5–7.4 s; UI showed 24 of 460 |
-| IRSA failure handling (retry, honest error, keep old images + notes) | **Working locally** | 14 R1: 4/16 live cutout GETs were 503, and after the fix 8/8 returned 200. Screenshot `after-search-failure-keeps-old-1280`. |
-| Science acceptance of processed products | **Done** | 189/189 PASS; 1 UNKNOWN (no Gaia star in fair_comparison C) |
-| `moving_neighbor` (Barnard's Star) imagery | **Done** | Review 10: PASS with display conditions. Corrected case text (PR #22) accepted and merged. |
-| Phone layout | **In progress** | Plate starts ~735 px down at 390×844; worker 17 running |
-| **Public deployment** | **Not verified** | Vercel preview builds (status success), but every path redirects to Vercel Authentication, so no response was checked on a public URL. Judge access, `PERIGEE_TOKEN_SECRET` and the protection setting are open decisions. |
-| Rate limiting | Not implemented | Decision D2 (Vercel Firewall suggested) |
-| Brightness measurement (photometry) | **Not planned for the weekend** | Display stretch only, by design |
-| Measured proper motion / centroiding | **Future** | Barnard's core is saturated; not supported by these images |
-| More investigations, teacher activity sheets, revisits as new SPHEREx releases arrive | **Future** | Product hypotheses, not validated demand |
+| Five presets; two guided investigations (Epsilon Indi B, Barnard's Star) | **Working locally** | Rehearsal `d01`, `d02`–`d09`; regression gate |
+| A + B / A + C switching, blink, per-frame date and wavelength, comparison notes | **Working locally** | Rehearsal `d02b`, `d03b`; notes match the narration word for word |
+| Catalog-prediction ring labelled "Catalog prediction, not a detection" | **Working locally** | Rehearsal; acceptance review: the marker is within 0.0007 display px of an independent prediction |
+| Flag screen, problem-flag overlay and legend; "flag screen passed" explanation | **Working locally** | Rehearsal `d04`, `d05` |
+| Evidence notebook with autosave ("Saved on this device") and the claim-guide check | **Working locally** | Rehearsal `d06`, `d07`; `qa/fresh-pass` (Neeraj) |
+| **Evidence card JSON export** with case and per-frame limitations | **Verified (real files)** | Rehearsal `evidence-card-fair_comparison.json`; `qa/export-limitations/`; Codex checked an actual saved download |
+| **Print / save PDF** | **Verified locally (rendered PDF)** | Rehearsal `evidence-card-fair_comparison-print.pdf`: 3 Letter pages with plates, legend, comparison note, notebook text, provenance for A and B (IDs, detector, release, UTC, wavelength, IRSA URL, processing, SHA-256) and the 5 stated limitations; readable, no clipping. Rendered by Chrome's print engine (`page.pdf` with print media), not the native dialog; the **Print / save PDF** button was confirmed to call `window.print` |
+| My evidence: human titles, Reopen, reload | **Working locally** | Rehearsal `d08`; Reopen restored all three notes and focused the heading; `qa/my-evidence/` |
+| **Phone layout** | **Verified locally (headless Chrome)** | Rehearsal at 390×844 and 320×700: no horizontal overflow (`scrollWidth == innerWidth`) on either case, the notebook or My evidence; `qa/mobile/`; Codex's independent 320 px check. No physical phone, no screen reader |
+| Live coordinate search → real IRSA frames, in time order | **Working locally (live IRSA)** | Rehearsal `d10`: 24 of 460, 20–22 ready, 2–4 IRSA 502s shown as failed with retry |
+| Honest archive-failure handling | **Working locally** | Rehearsal `d11` (simulated); real 502s during rehearsal; `qa/loading-recovery/` |
+| Tests | **Pass** | `qa/regression/run.sh` on `2956e67`: backend 348 with raw data (330 passed / 18 skipped without), frontend 121, 183-frame audit (0 stale), 189-record science acceptance; release smoke 20/20 locally |
+| Science acceptance | **Done** | 189/189 records pass; Gaia DR3 median 0.45 display px; Barnard and Epsilon case reviews merged and accepted |
+| **Public deployment** | **Not working yet** | The registered production domain `https://perigee-liard.vercel.app` returns **404** at `/` and `/api/v1/health` (production builds from `main`, which has no app until PR #27 merges). The preview and team aliases redirect logged-out visitors to Vercel login. The repository is private. See `docs/DEPLOYMENT.md` → Owner actions |
+| Rate limiting | Not implemented | Review D2: per-request bounds only; a Vercel Firewall rule is an owner option |
+| Brightness measurement (photometry) | Not planned | Display stretch only, by design |
+| Measured proper motion | Future | Barnard's core is saturated |
+| More investigations, activity sheets, revisits on new releases | Future | Product hypotheses, not validated demand |
 
 ---
 
-## 4. Screenshot requests for Sathvik
+## 6. Rehearsal record (2026-11-15, coordinator)
 
-Take all of these from the same build you will demo, in a clean browser profile (no stale `localStorage`), at the viewport stated. Use 1280×800 for desktop and 390×844 for phone, at device pixel ratio 2 for slides.
+**Build and environment:**
+- Source `claude/perigee-integration` @ `c194d92`, with a clean worktree.
+- Frontend production build (`npm run build`, served by `vite preview` with its `/api` proxy).
+- Backend `uvicorn backend.main:app` in local dev mode (`PERIGEE_DEV_MODE=1`), which is needed for live search locally.
+- Headless Google Chrome driven by `playwright-core@1.49.1` from a scratch folder.
+- **Fresh browser contexts** on a new local origin (`http://localhost:5299`). No existing saved evidence was read or overwritten.
+- The production build shows no "Use development fixture" button.
 
-| ID | Screen | Exact state | Viewport | Used on |
-|---|---|---|---|---|
-| S1 | Investigations → Epsilon Indi B, "Is this a fair comparison?" | **A + B** selected, blink paused on A, "Show predicted position" on, "Show flagged pixels" off, notebook empty | 1280×800, first viewport only | Slide 3 / fallback |
-| S2 | Same | **A + C** selected, scrolled so both plates **and** the amber "Same moment, a different infrared color" note with "brightness is not directly comparable" are visible | 1280, crop from step strip to bottom of note | Slides 2–3 |
-| S3 | Same | **A + B**, the quality panel below the plates **open**, showing A and B side by side ("Problem flags: none reported", pixel counts) and the "Known limits" line saying a passed screen is not a detection | 1280, crop the panel | Slide 3 / fallback |
-| S4 | Same, notebook | Claim, "What did you notice?" and "What remains uncertain?" filled with the example claim; "Attached observations A + B" | 1280, crop the notebook panel | Slide 4 |
-| S4b | Exported evidence JSON | The downloaded file opened in an editor, showing `data_origin: "api"`, two frames with `frame_key`, `detector`, `collection_id`, `observed_at_utc`, `wavelength_um`, quality status, `source_url` | Editor window, ~1000 px wide | Slide 4 inset |
-| S5 | Print / save PDF | Browser print preview of the same card | Print preview | Optional backup |
-| S6 | Search coordinates | After **Use Epsilon Indi A, J2000 catalog position** → results loaded, "N observations found", frame 1 with its metadata column. Caption it "captured <time>" when used as the fallback. | 1280×800 | Slide 4 inset + demo fallback |
-| S7 | Investigations → Barnard's Star | A ↔ C, "Guide line through A" **on**, "Show flagged pixels" **on**, legend visible. | 390×844 phone (or 1280 if worker 17's phone fix lands late) | Slide 6 |
-| S8 | Search failure state | "The archive search failed. This is not a result about the sky." banner + "Still showing the previous images and notes" | 1280 | Backup only |
-| S9 | Public URL | App loaded in a **logged-out** private window on the production/judge URL | 1280 | Proof of judge access; required before submission |
+**Routes exercised:**
+- `/`
+- `/?preset=epsilon_indi_b`, with A + B, Blink, A + C, flags, the flag-screen panel, the notebook, the claim guide, Export and Print
+- `/` → My evidence → **Reopen** → `/?preset=epsilon_indi_b`, then a reload
+- `/?preset=barnards_star`
+- **Search coordinates** → **Use Epsilon Indi A, J2000 catalog position** → `/?view=query&ra=330.84&dec=-56.786&fov=6`, live
+- the same query route with `/api/v1/search` intercepted to return a 502, as the simulated failure
 
-Draft stand-ins from the QA run are in `screens/`. Use them for layout only. They predate worker 17's phone fixes, and the A+C one already has a claim typed in the notebook.
+**Results:**
+- Every narrated label and quoted sentence matched the screen.
+- Two narration errors were fixed in this document:
+  - the flagged pixel is shown **red ("Problem flag")**, not hatched; hatching means no usable data;
+  - the flag-screen breakdown is the **What does "flag screen passed" mean?** section below the steps, not a panel directly under the plates.
+- The notebook showed 238/280 and "Saved on this device".
+- The export file is `data_origin: api`. Its title is "Is this a fair comparison?". It carries 5 case limitations, and 4 and 5 frame limitations for A and B, with processor 0.1.2, SHA-256 and IRSA URLs.
+- Reopen restored the claim, the observations and the uncertainty, and focused the `h1`; a reload kept them.
+- There were 0 search or frame calls during both cases.
+- At phone width, 390 and 320 px, there was no overflow on any captured view.
+- The console showed a missing `/favicon.ico` (404, cosmetic) and the IRSA 502s for refused live frames.
 
-- `screens/draft-fair-comparison-AC-1280.jpg` (≈ S2)
-- `screens/draft-live-search-1280.jpg` (≈ S6)
-- `screens/draft-barnard-flagged-390.jpg` (≈ S7)
+**Not covered:** a hosted or public URL, a physical phone, a screen reader, the native print dialog (the PDF came from Chrome's print engine), and a timed rehearsal with a human speaker.
+
+**Assets in `rehearsal/`:**
+- **Desktop 1280×800 at 2×:**
+  - `d01-home`
+  - `d02-eps-AB` and `d02b-eps-AB-bench`
+  - `d03-eps-AC` and `d03b-eps-AC-bench`
+  - `d04-eps-AB-flags-bench`
+  - `d05-flag-screen-meaning`
+  - `d06-notebook-filled`
+  - `d07-claim-guide`
+  - `d08-my-evidence`
+  - `d09-barnard-AC-guide-flags` and `d09b-barnard-AC-bench`
+  - `d10-coordinate-search` (live, captured 2026-11-15)
+  - `d11-simulated-archive-failure` (**simulated**)
+- **Phone at 3×:** `p01`–`p06` at 390 and 320 (Epsilon A + B, A + C, flags, notebook, Barnard, My evidence).
+- **Exported card:** `evidence-card-fair_comparison.json`.
+- **Print rendering:** `evidence-card-fair_comparison-print.pdf`.
+- **Step log:** `rehearsal-log.json`.
+
+The earlier stand-ins in `screens/`, which predated the fixes, were removed.
+
+**Still missing:** a capture of the app loaded logged out on the public production URL (former request S9). It can only be taken after the owner steps in `docs/DEPLOYMENT.md`. Until then, do not say "live on the web".
 
 ---
 
-## 5. Source links
+## 7. Source links
 
 - **SPHEREx data at NASA/IPAC IRSA:** https://irsa.ipac.caltech.edu/Missions/spherex.html
 - **IRSA SPHEREx tutorial (spectral image overview):** https://caltech-ipac.github.io/irsa-tutorials/spherex-intro
 - **IRSA SPHEREx visualization docs (as observed in the design handoff):** https://irsa.ipac.caltech.edu/onlinehelp/spherex/spherex/visualization.html
 - **SPHEREx archive access documentation:** https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/
-- **Backyard Worlds: Planet 9 (as observed in the design handoff, landing page only; its classifier was out of data, so no classifier behavior is claimed):** https://www.zooniverse.org/projects/marckuchner/backyard-worlds-planet-9
-- **SIMBAD targets** (CDS SIMBAD via its official CfA Harvard mirror; the Strasbourg site has been offline since a CDS security incident, notice dated 9 Nov 2026; the same `sim-id?Ident=` paths work on `simbad.cds.unistra.fr` once it is restored):
+- **Backyard Worlds: Planet 9** (as observed in the design handoff, landing page only; no classifier behavior is claimed): https://www.zooniverse.org/projects/marckuchner/backyard-worlds-planet-9
+- **SIMBAD targets.** These are CDS SIMBAD links through its official CfA Harvard mirror. The Strasbourg site has been offline since a CDS security incident (notice dated 9 Nov 2026); the same `sim-id?Ident=` paths work on `simbad.cds.unistra.fr` once it is restored.
   - Epsilon Indi B: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=eps+Ind+B
   - Barnard's Star: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Barnard%27s+star
   - WISE 0855: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=WISEA+J085510.74-071442.5
   - RW Aurigae: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RW+Aur
   - R Draconis: https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=R+Dra
-- **Planet X and SPHEREx challenge (cited in both case JSON files):** https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/
-- **Gaia DR3, used for the acceptance and Barnard field-star checks:** https://www.cosmos.esa.int/web/gaia/dr3 (the mission page cited in the Barnard case is https://www.cosmos.esa.int/web/gaia). The queries went to `gaiadr3.gaia_source` through the ESA Gaia archive: https://gea.esac.esa.int/archive/
-- **Judging and awards guide:** https://www.spaceappschallenge.org/resources/judging-awards-guide/
-- **Project submission guide (seven-slide rule):** https://www.spaceappschallenge.org/resources/project-submission-guide/
+- **Planet X and SPHEREx challenge:** https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/
+- **Gaia DR3** (used for the acceptance and Barnard field-star checks): https://www.cosmos.esa.int/web/gaia/dr3, queried via https://gea.esac.esa.int/archive/
+- **Project submission guide** (7-slide or 30-second demo, public links, deadline): https://www.spaceappschallenge.org/resources/project-submission-guide/
+- **Judging and awards guide** (criteria, local versus global judging): https://www.spaceappschallenge.org/resources/judging-awards-guide/
 
 ---
 
-## Open decisions for Sathvik
+## 8. Open decisions for Sathvik
 
-1. ~~**Barnard text (PR #22, `b4fcc8c`)**~~ Accepted and merged. S7 can be taken.
-2. **Judge access:**
-   - Decide whether the public URL comes out from behind Vercel Authentication, and set `PERIGEE_TOKEN_SECRET`.
-   - Until S9 exists, demo from the local build and do not say "live on the web".
-3. **Live-search coordinate:** keep the shipped J2000 link, which the app labels honestly, or switch to the 2026.0 position (330.8925, −56.8043) so Epsilon Indi A sits near the center of the plate?
-4. **Opening hook:** Epsilon Indi B's fairness question (matches the demo, recommended) or Barnard's Star's motion (more vivid; its text is now final)?
-5. **Case-guide check:** show "Check your claim against the case guide" in the demo? It is not yet exercised in the log, and showing it costs about 15 s.
-6. **Team slide:** names and roles, and whether to name the parallel AI-assisted build.
-7. **Timing:** the local presentation slot is still unconfirmed. Rehearse to 4:45.
+1. **Demo format for global judging:** the 7-slide deck (outline above) or a ≤30-second video. Both cannot exceed the limits.
+2. **Local slot:** confirm the length and format with the Local Lead. The 5-minute script is our own target.
+3. **Judge access:** complete the owner steps in `docs/DEPLOYMENT.md` (repo public, signing secret before merge, production protection, merge PR #27), then take the public-URL capture. Until then, demo locally and do not say "live on the web".
+4. **Live-search coordinate:** keep the J2000 link, which the app labels honestly, or use the 2026.0 position (330.8925, −56.8043) to center Epsilon Indi A.
+5. **Opening hook:** Epsilon Indi B (recommended; it matches the demo and works offline) or Barnard's Star.
+6. **Team slide:** names and roles, and how to state the AI-assisted build (per `docs/AI_USE.md`; the `[TO CONFIRM]` items there are the team's to fill).

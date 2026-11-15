@@ -225,3 +225,29 @@ Both were merged with `--no-ff`, keeping the original commits and authors. Revie
 **Owner-step order corrected (from Suhrit's email):** `PERIGEE_TOKEN_SECRET`, and optionally `PERIGEE_PUBLIC_URL`, now come **before** the PR #27 merge that builds production, with an explicit redeploy if they are configured after a build. The automatic trigger is still documented as unverified.
 
 **Not done this round, per instructions:** no merge to `main`, no visibility, access or protection changes, no secrets or variables set, no emails, no comments on teammate PRs.
+
+## Judge demo handoff refreshed (2026-11-15, coordinator) — docs only
+`docs/presentation/README.md` was rewritten against `c194d92`. The frontend code is unchanged since `a416c9e`; no UI or product code changed in this round.
+- **Official rules, re-read from the guides:**
+  - the demo is ≤7 slides including the title and intro slides, or a ≤30 s video, or the project is ineligible for Global Judging;
+  - the slides must show the team name, the members and the challenge;
+  - links must be public;
+  - the deadline is 15 Nov, 11:59 p.m. local event time.
+  No official local talk length was found; the 5-minute script is our own target.
+- **Story:** Epsilon Indi B is the primary story (works offline), Barnard's Star the backup. The human reason to care: telling a real change from wavelength, display and artifact differences, and leaving with a defensible evidence card. No invented users, metrics or "first" claims.
+- **Full narrated journey rehearsed** on the production build in fresh headless-Chrome contexts (`playwright-core@1.49.1`, new local origin; no saved evidence touched):
+  - A+B, Blink, A+C, flags, the flag-screen panel, the notebook, the claim guide, Export, Print, My evidence → Reopen, reload, Barnard, a live coordinate search (24 of 460; 20–22 ready, 2–4 real IRSA 502s shown as failed) and a simulated search failure;
+  - **0 search or frame calls during both cases**, so the curated fallback works during IRSA outages;
+  - no overflow at 390 or 320 px.
+- **Narration fixes from the rehearsal:**
+  - the flagged pixel is red ("Problem flag"), not hatched;
+  - the flag-screen breakdown is under "What does 'flag screen passed' mean?".
+- **Artifacts in `docs/presentation/rehearsal/`:**
+  - 14 desktop and 12 phone captures;
+  - a real exported card (`data_origin: api`, 5 case limitations, per-frame limitations, processor 0.1.2);
+  - a 3-page Letter PDF from Chrome's print engine, inspected page by page: provenance and limitations readable, no clipping. It is not the native print dialog; the button was confirmed to call `window.print`;
+  - `rehearsal-log.json`.
+
+  The old `screens/` stand-ins were removed.
+- **Working/future table reconciled** with: 348/121 tests, the audits, real export and phone QA, and the production domain returning 404.
+- **Not covered:** hosted or public URL, physical phone, screen reader, native print dialog, a timed human rehearsal. Cosmetic: `/favicon.ico` 404 in the console (not changed).
