@@ -1,33 +1,38 @@
 # Perigee technical report
 
-The report is supporting documentation for the project page and seven-slide deck. It contains eight US Letter pages, with methods, case evidence, validation scope, limitations, reproduction commands and references. It is not a peer-reviewed publication.
+The canonical source is `perigee-report.tex`. This supporting technical report uses a research-paper layout: TeX Gyre Pagella text, numbered sections, an abstract, equations, six figures, two tables and linked references. It is supporting project documentation, not a claim of peer-reviewed publication.
 
 ## Build
 
-From the repository root, install the report-only dependencies in a Python environment:
+Install [Tectonic](https://tectonic-typesetting.github.io/en-US/install.html), the LaTeX compiler, and the report's small Python dependency set. The tested compiler is Tectonic 0.17.0. Tectonic downloads required TeX packages on its first build and caches them for subsequent builds.
 
 ```sh
 python -m pip install -r docs/report/requirements-report.txt
 python docs/report/build_report.py
 ```
 
-The default output is `frontend/public/demo/perigee-technical-report.pdf`. To write a review copy elsewhere:
+An explicit compiler path or review destination can be supplied:
 
 ```sh
-python docs/report/build_report.py --output /tmp/perigee-report-review.pdf
+python docs/report/build_report.py --compiler /path/to/tectonic \
+  --output /tmp/perigee-technical-report.pdf
 ```
 
-`TECHNICAL_REPORT.md` is the editable prose source. The page boundaries are intentional. The build fails if the result is not exactly eight pages. It uses the two original processed Barnard case PNGs in the repository, keeps them unchanged and draws the other figures as vector diagrams. It does not download data or rerun the scientific experiments.
+The default destination is `frontend/public/demo/perigee-technical-report.pdf`. Compiler files and extracted text stay in the ignored `build/` directory. The build fails on unresolved citations/references, missing glyphs, overfull boxes, missing author names or implausible page counts. It verifies the retained scientific denominators before generating the registration figure. It does not download astronomical data or rerun experiments.
 
-## Review performed
+## Figures
 
-- Built with ReportLab 4.4.9, Pillow 13.0.0 and pypdf 6.21.4.
-- Rendered all eight pages with Poppler and inspected both four-page contact sheets. No clipped paragraphs, overlapping tables or missing images were found.
-- Extracted text from every page and checked the eight page labels.
-- Confirmed that all six team names appear and that the 183 unique-cutout / 189 historical-record distinction is preserved.
-- The text-hygiene scan found zero suspicious invisible Unicode characters. The local stylometry gauge reported 0.0325, density tier low, and no phrase markers. This is a writing check, not an authorship verdict. The deterministic cleanup changed zero characters; no score-driven rewrite was performed.
-- Reviewed the prose using the technical/documentation guidance in the installed writing skills. Counts, uncertainty, catalog dependence and reported experiment scope were retained.
+1. Current application screenshot from `docs/presentation/standalone-assets/barnard-app.png`.
+2. Vector processing schematic authored in LaTeX/TikZ.
+3. Original Barnard case PNGs, full field, unchanged.
+4. Original Epsilon case PNGs, full field, unchanged; dates and wavelengths come from the case JSON.
+5. Matched WISE-field crops from the published case PNGs, with a second row using the existing problem-flag overlay. Both dates use crop bounds `(86,52,150,116)` on the 256-pixel grid. Enlargement uses nearest-neighbor sampling; it does not invent detail. Each crop spans 90 arcseconds.
+6. Vector registration counts generated from `validator_real_frames.csv`; counts refer to 183 unique cutouts, not 189 product records.
 
-Page renders are in `rendered/page-1.png` through `rendered/page-8.png`; `contact-1.png` and `contact-2.png` show all eight pages. They are review artifacts and do not need to be served by the app.
+`generated/figure-data.json` records source hashes and crop bounds. The manuscript identifies what each comparison supports and preserves the distinction between catalog predictions, visual proxies and independent field-star checks.
 
-The release coordinator must verify the deployed PDF URL after publishing. Producing this local PDF does not establish that it is live.
+## Editorial and visual review
+
+The prose was revised using the installed `avoid-ai-writing` skill and the original [stop-slop skill](https://github.com/hardikpandya/stop-slop). The review focuses on precise explanations, source fidelity and readable sentences, not an authorship-detector score. Scientific qualifications remain where they affect interpretation. `text-review.json` records the editorial passes and checks.
+
+`verification.json` records the final PDF hash, compiler and layout checks. Page renders in `rendered/` support visual inspection. Rebuild, inspect all pages, then verify the public PDF after deployment; a local build alone does not establish publication.

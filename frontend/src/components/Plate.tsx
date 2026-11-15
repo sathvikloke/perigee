@@ -138,7 +138,7 @@ export function Plate(props: {
         ) : null}
         {frame && (
           <span className="release">
-            {releaseLabel(frame.collection_id)} · Detector {frame.detector ?? "n/a"}
+            {releaseLabel(frame.collection_id)}, Detector {frame.detector ?? "n/a"}
           </span>
         )}
       </div>

@@ -34,7 +34,7 @@ export function FrameDetails({ frame }: { frame: FrameRecord }) {
         <div>
           <dt>Observed (UTC)</dt>
           <dd>
-            {formatUtc(frame.observed_at_utc)} · MJD {frame.mjd.toFixed(4)}
+            {formatUtc(frame.observed_at_utc)}, MJD {frame.mjd.toFixed(4)}
           </dd>
         </div>
         <div>
@@ -48,9 +48,9 @@ export function FrameDetails({ frame }: { frame: FrameRecord }) {
           </div>
         )}
         <div>
-          <dt>Release · detector</dt>
+          <dt>Release and detector</dt>
           <dd>
-            {releaseLabel(frame.collection_id)} · Detector {frame.detector ?? "n/a"}
+            {releaseLabel(frame.collection_id)}, Detector {frame.detector ?? "n/a"}
           </dd>
         </div>
         <div>

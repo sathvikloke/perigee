@@ -1,5 +1,5 @@
 // Human titles for saved evidence cards ("My evidence" on the home view):
-// "<target> · <case title>", "<target>", or "Coordinate search · RA …, Dec …".
+// "<target>. <case title>", "<target>", or "Coordinate search. RA …, Dec …".
 // Resolved from the target list and case content already served by the API,
 // then the card's own stored `title`, then the raw ID.
 
@@ -12,7 +12,7 @@ export interface TitleSources {
   cases?: Readonly<Record<string, { title?: string | null; target_id?: string | null } | undefined>> | null;
 }
 
-const SEP = " · ";
+const SEP = ". ";
 
 /** "RA 83.82°, Dec −5.39°": at most three decimals, true minus sign. */
 export function formatPosition(q: Pick<EvidenceQuery, "ra_deg" | "dec_deg">): string {

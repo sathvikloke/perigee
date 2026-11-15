@@ -71,7 +71,7 @@ export function Home(props: {
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
           <p className="hero-description">Compare infrared images from NASA’s SPHEREx mission, check what changed, and record what the evidence supports.</p>
           <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating <span className="hero-cta-arrow" aria-hidden="true">↗</span></button>
-          {props.api.mode === "fixture" && <p className="hero-source">Development fixture · Not NASA observations</p>}
+          {props.api.mode === "fixture" && <p className="hero-source">Development fixture. Not NASA observations.</p>}
         </div>
       </section>
 
@@ -215,12 +215,12 @@ function SavedEvidence(props: {
               <li key={c.id}>
                 <span className="saved-summary">
                   <strong className="saved-title">{title}</strong>
-                  {c.data_origin === "fixture" && <span className="fixture-tag"> · development fixture</span>}
-                  {unsaved && <span className="fixture-tag"> · not saved on this device; export to keep it</span>}
+                  {c.data_origin === "fixture" && <span className="fixture-tag"> (development fixture)</span>}
+                  {unsaved && <span className="fixture-tag"> (not saved on this device; export to keep it)</span>}
                   <span className="muted block">
-                    Updated {formatDateShort(c.updated_at_utc)} · {c.frames.length} observation
+                    Updated {formatDateShort(c.updated_at_utc)}. {c.frames.length} observation
                     {c.frames.length === 1 ? "" : "s"}
-                    {c.claim ? ` · “${c.claim.slice(0, 80)}${c.claim.length > 80 ? "…" : ""}”` : " · no claim yet"}
+                    {c.claim ? `. “${c.claim.slice(0, 80)}${c.claim.length > 80 ? "…" : ""}”` : ". No claim yet."}
                   </span>
                 </span>
                 <span className="actions">

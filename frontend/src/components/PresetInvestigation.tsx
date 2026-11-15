@@ -283,7 +283,7 @@ function PresetLoaded(props: {
                 {caseContent.steps.map((step, index) => <span key={step.id} data-current={index === checkIndex} data-reviewed={Boolean(ev.card.reviewed_step_ids?.includes(step.id))} />)}
               </div>
               <div className="active-check" ref={checkArrival} key={currentCheck.id} aria-live="polite" aria-atomic="true">
-                <p className="check-position">Check {checkIndex + 1} of {checkCount}{currentReviewed ? " · Reviewed" : ""}</p>
+                <p className="check-position">Check {checkIndex + 1} of {checkCount}{currentReviewed ? ". Reviewed" : ""}</p>
                 <p className="check-prompt">{stepPrompt(currentCheck.prompt)}</p>
               </div>
               {currentCheck.hint && <details className="check-help" key={`help-${currentCheck.id}`}>
@@ -336,7 +336,7 @@ function PresetLoaded(props: {
         </summary>
         <div className="details-body">
           {caseContent?.opening_question && <p>{caseContent.opening_question}</p>}
-          {preset?.object_type && <p className="context-target">{preset.display_name} · {preset.object_type}</p>}
+          {preset?.object_type && <p className="context-target">{preset.display_name}, {preset.object_type}</p>}
           {caseContent?.background?.short && <p>{caseContent.background.short}</p>}
           {caseContent?.background?.details?.length ? (
             <ul className="plain-list">

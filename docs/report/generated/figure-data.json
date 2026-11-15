@@ -1,0 +1,29 @@
+{
+  "registration_source": "science/reviews/registration-audit/results/validator_real_frames.csv",
+  "registration_source_sha256": "8615ddfdfe1fcc1795b7cb0eedbf3384437dda416d5f2aaedfc5ee899b4bdf71",
+  "counts": {
+    "PASS": 128,
+    "UNKNOWN": 55
+  },
+  "wise_crop_xyxy": [
+    86,
+    52,
+    150,
+    116
+  ],
+  "wise_sources": [
+    {
+      "frame": "2025W45_2A_0278_1_D2",
+      "png": "backend/content/presets/wise_0855/case-wise_0855_quality_trap/2025W45_2A_0278_1_D2.png",
+      "sha256": "54655c188d831f464ee3064b1488310635f415271de1934bd6fc13800e45dc42",
+      "flag_sha256": "9b77ed913e33dae818d4735e0a69d0536eaf9405273c392c83dda94441bcf6bb"
+    },
+    {
+      "frame": "2025W46_1A_0108_1_D2",
+      "png": "backend/content/presets/wise_0855/case-wise_0855_quality_trap/2025W46_1A_0108_1_D2.png",
+      "sha256": "02d573964cd60e235aad66e48d17af55d0645eb4d6ff804b8d5c095b67560e00",
+      "flag_sha256": "28531b8ce3eb9e166520e6c96dfdce2f49ecd4a5fc1975b26d6a4bac9abd1055"
+    }
+  ],
+  "resampling": "nearest; source pixel values retained; existing flag overlay only"
+}

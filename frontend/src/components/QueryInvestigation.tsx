@@ -453,7 +453,7 @@ export function QueryInvestigation(props: {
               {field("dec", "Declination (Dec)", "Degrees or ±DD:MM:SS, such as +4.7683 or +04:46:06.")}
             </div>}
             <details className="search-advanced" open={advancedOpen} onToggle={(e) => setAdvancedOpen(e.currentTarget.open)}>
-              <summary>Search options <span>{input.fov || FOV_DEFAULT}′ field · up to {input.limit || LIMIT_DEFAULT} images</span></summary>
+              <summary>Search options <span>{input.fov || FOV_DEFAULT}′ field, up to {input.limit || LIMIT_DEFAULT} images</span></summary>
               <div className="query-fields coordinate-fields">
                 {field("fov", "Image width", `${FOV_MIN}–${FOV_MAX} arcminutes. Changes the cutout size, not which observations cover the center.`)}
                 {field("limit", "Maximum images", `${LIMIT_MIN}–${LIMIT_MAX}. Start with ${LIMIT_DEFAULT} to keep loading manageable.`, true)}
@@ -476,14 +476,14 @@ export function QueryInvestigation(props: {
             </div>
             {resolving && <p className="lookup-status" role="status">Finding the object’s sky position…</p>}
             {resolved && <details className="resolved-position">
-              <summary>{resolved.name} · {resolved.search_center.kind === "finder_prediction" ? `${resolved.search_center.epoch_jyear.toFixed(0)} finder position` : `catalog epoch ${resolved.search_center.epoch_jyear.toFixed(0)}`}</summary>
+              <summary>{resolved.name}, {resolved.search_center.kind === "finder_prediction" ? `${resolved.search_center.epoch_jyear.toFixed(0)} finder position` : `catalog epoch ${resolved.search_center.epoch_jyear.toFixed(0)}`}</summary>
               <p>{resolved.note}</p>
               <p>Search center: RA {resolved.search_center.ra_deg.toFixed(6)}°, Dec {resolved.search_center.dec_deg.toFixed(6)}° (epoch {resolved.search_center.epoch_jyear.toFixed(1)}).</p>
               <p>Catalog: RA {resolved.catalog_position.ra_deg.toFixed(6)}°, Dec {resolved.catalog_position.dec_deg.toFixed(6)}° (epoch {resolved.catalog_position.epoch_jyear.toFixed(1)}). <a href={resolved.source_url} target="_blank" rel="noreferrer">{resolved.source}</a></p>
             </details>}
             {phase.kind === "searching" && <SearchProgress query={phase.query} startedAt={phase.startedAt} />}
             {processing && <div className="archive-progress frame-progress">
-              <div className="archive-progress-heading"><SearchIcon busy /><div><strong>Loading observation images</strong><p>{counts.ready} of {slots.length} ready{counts.error ? ` · ${counts.error} could not be processed` : ""}</p></div></div>
+              <div className="archive-progress-heading"><SearchIcon busy /><div><strong>Loading observation images</strong><p>{counts.ready} of {slots.length} ready{counts.error ? `, ${counts.error} could not be processed` : ""}</p></div></div>
               <progress aria-label="Images ready" value={counts.ready} max={slots.length} />
             </div>}
             {notices.map((n) => (
@@ -670,10 +670,10 @@ function SearchSummary({
       <p>
         <strong>
           {response.returned_count} observation{response.returned_count === 1 ? "" : "s"} found
-        </strong>{" "}
-        · <span className="ready-result-count" ref={readyCue}>{counts.ready} ready</span>{counts.pending + counts.loading ? ` · ${counts.pending + counts.loading} loading` : ""}
-        {counts.error - stopped > 0 ? ` · ${counts.error - stopped} couldn’t load` : ""}
-        {stopped ? ` · ${stopped} stopped by a newer search` : ""}.
+        </strong>.{" "}
+        <span className="ready-result-count" ref={readyCue}>{counts.ready} ready</span>{counts.pending + counts.loading ? `, ${counts.pending + counts.loading} loading` : ""}
+        {counts.error - stopped > 0 ? `, ${counts.error - stopped} couldn’t load` : ""}
+        {stopped ? `, ${stopped} stopped by a newer search` : ""}.
       </p>
       {firstReadyIndex >= 0 && <a className="first-image-link" href="#query-results" onClick={() => onJump(firstReadyIndex)}>View first ready image <span aria-hidden="true">↓</span></a>}
       {failedIdx.length > 0 && (

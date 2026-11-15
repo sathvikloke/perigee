@@ -235,18 +235,18 @@ describe("failed and not-loaded frames are marked, not hidden", () => {
 
   it("keeps failed frames selectable in the blink picker, with their status in the option text", () => {
     const html = render(live());
-    expect(html).toContain("#2 · 1 Jun 2026 · not loaded yet</option>");
-    expect(html).toContain("#3 · 1 Jun 2026 · failed to load</option>");
-    expect(html).toContain("#4 · 1 Jun 2026 · not loaded (stopped)</option>");
-    expect(html).toContain("#1 · 1 Jan 2026 · 2.32 µm</option>");
+    expect(html).toContain("#2, 1 Jun 2026, not loaded yet</option>");
+    expect(html).toContain("#3, 1 Jun 2026, failed to load</option>");
+    expect(html).toContain("#4, 1 Jun 2026, not loaded (stopped)</option>");
+    expect(html).toContain("#1, 1 Jan 2026, 2.32 µm</option>");
     const picker = html.slice(html.indexOf('class="pair-picker"'));
     expect(picker).not.toMatch(/<option[^>]*disabled/);
   });
 
   it("shows the status of the current frame next to the slider and in its spoken value", () => {
     const html = render(live(), 2);
-    expect(html).toContain('<span class="counter-tag"> · failed to load</span>');
-    expect(html).toContain('aria-valuetext="#3 · 1 Jun 2026 · failed to load"');
+    expect(html).toContain('<span class="counter-tag">, failed to load</span>');
+    expect(html).toContain('aria-valuetext="#3, 1 Jun 2026, failed to load"');
     expect(html).toContain("Wavelength unknown (not loaded)");
     expect(html).not.toContain("Wavelength pending");
   });

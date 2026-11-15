@@ -6,22 +6,22 @@
   ],
   "typeface": "Avenir Next",
   "artifact_page": "page_c2bdc1167fb481918cc92fabeb2bfc58",
-  "pdf_sha256": "374db109ddc403ff55ed35fef0ca2842cb0041091c7a9ea7c3ebe39069895ed1",
+  "pdf_sha256": "a4d072c59a6691f671f617b75ff7351f978919127932571eaff232d7a13747a3",
   "native_pdf_export": "Unavailable for local Avenir font; public PDF assembled from reviewed live slide renders. Spaces text remains editable.",
-  "render_review": "All seven self-contained slides inspected; widened case explanations and corrected heading/paragraph spacing. Essential content appears on slides, not only in notes.",
-  "visible_words_per_slide": [
-    160,
-    160,
-    198,
-    212,
-    173,
-    191,
-    172
-  ],
+  "render_review": "All seven updated slide renders inspected after replacing phrase separators. No overlap or clipping observed; all explanatory content is on the slides. Technical report link now states 10 pages.",
   "pdf_links": [
     "https://perigee.lokesathvik.workers.dev/",
     "https://github.com/sathvikloke/perigee",
     "https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf"
   ],
-  "guide_checked": "2026-11-15"
+  "guide_checked": "2026-11-15",
+  "visible_words_per_slide": [
+    154,
+    155,
+    193,
+    208,
+    170,
+    190,
+    171
+  ]
 }
