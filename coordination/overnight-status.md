@@ -39,10 +39,10 @@
 
 - **Head:** see `git log -1`; PR [sathvikloke/perigee#50](https://github.com/sathvikloke/perigee/pull/50).
 - **State:** N1–N9 done. Nothing deployed; nothing merged.
-- **Exact-head CI:** see the PR checks. The `Vercel` check fails with "Deployment rate limited — retry in 24 hours", a platform quota rather than a code failure; it was not retried.
+- **Exact-head CI (`cc52c87`), all green:** `backend` (1m4s), `check`, `frontend-cloudflare`, `Vercel` ("Deployment has completed", 04:53:23Z) and `Vercel Preview Comments`. Runs [43678659205](https://github.com/sathvikloke/perigee/actions/runs/43678659205) and [43678659195](https://github.com/sathvikloke/perigee/actions/runs/43678659195). The earlier `ead104a` preview had been rate-limited (Vercel `api-deployments-free-per-day`) and was not retried. Any commit after `cc52c87` is ledger-only.
 - **Remaining, owned by Codex (each with its concrete cause):**
   1. Merge the PR after review.
-  2. Python origin redeploy for D1: blocked by the Vercel rate limit until it resets.
+  2. Python origin redeploy for D1, by merging to `main`. Vercel's daily free-deployment quota was hit at 04:51Z, but the `cc52c87` preview deployed at 04:53Z, so check the production build status after merging.
   3. Cloudflare content redeploy for the `fair_comparison` wording: release `548e7202…` → `c5f419e0…`. It can ride with the UI deploy.
   4. Correct the stale origin line in `docs/DEPLOYMENT.md` (it says `058a2a6`).
   5. UI work and the third case: `coordination/overnight-ui-handoff.md` §7.
@@ -58,6 +58,6 @@
 - [x] N6 backend faults and resource limits checked, P1 D1 fixed and verified failing-first, origin status recorded (`0ffff6f`, B4 live, D1 not).
 - [x] N7 case admission exercised: 3 cases admit, 18 broken copies fail, and R Draconis and RW Aurigae stay rejected with reasons.
 - [x] N8 contribution/story/claims artifact grounded in results, with no human-user requirement.
-- [x] N9 integrated review, relevant tests, PR and handoff. Exact-head GitHub CI: see the PR (`Vercel` fails on the rate limit only).
+- [x] N9 integrated review, relevant tests, PR and handoff. Exact-head CI on `cc52c87` is all green (5/5).
 - [x] No frontend changes, no unintended deployment, no invented measurements, no hidden failures. The illustrative learner text is labelled illustrative.
 - [x] Every unresolved dependency names its concrete cause and smallest next action (resume block above).

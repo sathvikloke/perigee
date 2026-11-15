@@ -30,7 +30,7 @@ There are **no** changes to `frontend/**`, `cloudflare/**`, any image or frame p
 
 **D1 is not live.** The origin runs `0ffff6f`, which predates the fix.
 
-**Vercel is rate-limited again.** The PR's Vercel preview status for `ead104a` (04:51:05Z) was a failure with the description "Deployment rate limited — retry in 24 hours". This is a platform quota, not a build or test failure. It was not retried. A production build of the merge commit will probably hit the same limit until it resets. Until then, the smallest source-vs-production difference on the Python origin is D1 alone.
+**Vercel quota is close to its limit.** The PR's Vercel preview for `ead104a` (04:51:05Z) failed with "Deployment rate limited — retry in 24 hours" (`api-deployments-free-per-day`). That is a platform quota, not a build or test failure, and it was not retried. The next push's preview (`cc52c87`) then completed successfully at 04:53:23Z. The production build of the merge commit may still hit the daily limit, so confirm its status. Until it deploys, the only source-vs-production difference on the Python origin is D1.
 
 - **User impact:** a damaged cutout transfer from IRSA would crash the function. The Worker then shows its generic 502 `UPSTREAM_UNAVAILABLE` envelope instead of a frame with "wavelength unavailable".
 - **Who can trigger it:** it needs a damaged file from the allowlisted archive. A user cannot trigger it by choosing a URL. No such file has been seen in production.
