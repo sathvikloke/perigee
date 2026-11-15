@@ -48,6 +48,8 @@ export function FrameViewer(props: {
   index: number;
   onIndexChange: (i: number) => void;
   selectedKeys: Set<string>;
+  /** Active guided-comparison frames are included by the comparison, not a removable extra. */
+  requiredKeys?: Set<string>;
   onToggleEvidence: (frame: FrameRecord, ref: string | null) => void;
   onRetry?: (index: number) => void;
   guideLine?: boolean;
@@ -466,13 +468,13 @@ export function FrameViewer(props: {
         <div className="sequence-side">
           {frame ? (
             <>
-              <button
+              {props.requiredKeys?.has(frame.frame_key) ? <p className="comparison-attached">Included with your comparison. Choose a different pair above to change it.</p> : <button
                 type="button"
                 aria-pressed={inEvidence}
                 onClick={() => props.onToggleEvidence(frame, slot?.ref ?? null)}
               >
-                {inEvidence ? "✓ Attached to notebook · remove" : "+ Attach this frame to notebook"}
-              </button>
+                {inEvidence ? "Attached to notebook · remove" : "Attach this frame to notebook"}
+              </button>}
               <FrameDetails frame={frame} />
             </>
           ) : (

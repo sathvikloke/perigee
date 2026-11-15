@@ -21,6 +21,7 @@ interface Loaded {
   warnings: string[];
   caseContent: CaseContent | null;
   caseError: unknown;
+  caseFramesError: unknown;
 }
 
 export function PresetInvestigation(props: {
@@ -39,7 +40,10 @@ export function PresetInvestigation(props: {
       const caseId = preset?.case_ids[0] ?? null;
       const [all, caseSet, caseResult] = await Promise.all([
         api.presetFrames(presetId, null, signal),
-        caseId ? api.presetFrames(presetId, caseId, signal).catch(() => null) : Promise.resolve(null),
+        caseId ? api.presetFrames(presetId, caseId, signal).then(
+          (value) => ({ value, error: null as unknown }),
+          (error: unknown) => ({ value: null, error }),
+        ) : Promise.resolve({ value: null, error: null }),
         caseId
           ? api.caseContent(caseId, signal).then(
               (c) => ({ c, err: null as unknown }),
@@ -51,12 +55,13 @@ export function PresetInvestigation(props: {
         presets,
         preset,
         sequence: all.frames,
-        caseFrames: caseSet?.frames ?? [],
-        status: all.frames.length || caseSet?.frames.length ? all.status : "missing",
-        reason: all.reason ?? caseSet?.reason ?? null,
-        warnings: [...all.warnings, ...(caseSet?.warnings ?? [])],
+        caseFrames: caseSet.value?.frames ?? [],
+        status: all.frames.length || caseSet.value?.frames.length ? all.status : "missing",
+        reason: all.reason ?? caseSet.value?.reason ?? null,
+        warnings: [...all.warnings, ...(caseSet.value?.warnings ?? [])],
         caseContent: caseResult.c,
         caseError: caseResult.err,
+        caseFramesError: caseSet.error,
       };
     },
     [api, presetId],
@@ -87,6 +92,7 @@ export function PresetInvestigation(props: {
       onQueryPosition={props.onQueryPosition}
       onOpenPreset={props.onOpenPreset}
       onOpenQuery={props.onOpenQuery}
+      onRetry={retry}
     />
   );
 }
@@ -98,18 +104,17 @@ function PresetLoaded(props: {
   onQueryPosition: (preset: PresetDescriptor) => void;
   onOpenPreset: (id: string) => void;
   onOpenQuery: () => void;
+  onRetry: () => void;
 }) {
   const { data, api, presetId } = props;
   const { preset, caseContent } = data;
 
-  // Comparison plates use the case product set (shared stretch); fall back to
-  // the preset set only for a frame the case set lacks.
+  // Authored comparisons require their own products and scale. General
+  // per-frame products must never silently substitute for a missing case.
   const framesByRef = useMemo(() => {
     const m = new Map<string, FrameRecord>();
     for (const cf of caseContent?.frames ?? []) {
-      const f =
-        data.caseFrames.find((x) => x.frame_key === cf.frame_key) ??
-        data.sequence.find((x) => x.frame_key === cf.frame_key);
+      const f = data.caseFrames.find((x) => x.frame_key === cf.frame_key);
       if (f) m.set(cf.ref, f);
     }
     return m;
@@ -196,6 +201,7 @@ function PresetLoaded(props: {
     caseContent && caseContent.steps.length > 0 ? (
             <div className="case-steps">
               <h3>Your steps</h3>
+              {caseRefs.length > 2 && <p className="pair-guidance">Use Blink pair to alternate the two selected observations. Switch comparisons to inspect the other frames.</p>}
               <ol>
                 {caseContent.steps.map((s, i) => (
                   <li key={s.id}>
@@ -264,7 +270,7 @@ function PresetLoaded(props: {
         mode={api.mode}
       />
       <div className="workspace">
-        <section className="bench" aria-label="Observation comparison">
+        <section className="bench" id="observations" tabIndex={-1} aria-label="Observation comparison">
           {hasCase && <WorkflowStrip />}
           <div className="target-line">
             <div>
@@ -280,7 +286,7 @@ function PresetLoaded(props: {
                 <>
                   <br />
                   <button type="button" className="link" onClick={() => props.onQueryPosition(preset)}>
-                    Search the archive here ↗
+                    Search the archive here
                   </button>
                 </>
               )}
@@ -288,8 +294,9 @@ function PresetLoaded(props: {
           </div>
 
           {data.caseError != null && !caseContent && (
-            <ErrorBlock title="The investigation text could not be loaded. The frames below still work." error={data.caseError} />
+            <ErrorBlock title="The investigation text could not be loaded. The frames below still work." error={data.caseError} onRetry={props.onRetry} />
           )}
+          {data.caseFramesError != null && <ErrorBlock title="The guided comparison could not be loaded. General frames below use their own display scales." error={data.caseFramesError} onRetry={props.onRetry} />}
 
           {hasCase && caseContent && otherRef && (
             <CaseBench
@@ -307,11 +314,11 @@ function PresetLoaded(props: {
               }}
             />
           )}
-          {!hasCase && caseContent && caseGuidance}
-          {missingRefs.length > 0 && (
+          {!hasCase && caseContent && data.caseFramesError == null && caseGuidance}
+          {missingRefs.length > 0 && data.caseFramesError == null && (
             <p className="notice" role="note">
               Case frame{missingRefs.length > 1 ? "s" : ""} {missingRefs.map((m) => `${m.ref} (${m.frame_key})`).join(", ")}{" "}
-              {missingRefs.length > 1 ? "are" : "is"} not among the published frames yet.
+              {missingRefs.length > 1 ? "are" : "is"} not available in this comparison.
             </p>
           )}
           {data.status === "partial" && (
@@ -343,6 +350,7 @@ function PresetLoaded(props: {
               index={Math.min(index, slots.length - 1)}
               onIndexChange={setIndex}
               selectedKeys={selected}
+              requiredKeys={new Set(pair.map(({ frame }) => frame.frame_key))}
               onToggleEvidence={(frame, ref) => ev.toggleFrame(frame, hasCase ? null : ref)}
               guideLine={Boolean(caseContent?.display_requirements?.reference_line)}
               blinkTool={!hasCase}

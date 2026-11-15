@@ -245,6 +245,7 @@ export function CaseBench(props: {
         )}
       </div>
 
+      <a className="notebook-jump" href="#notebook">Record your evidence</a>
       {props.afterShell}
 
       {pairFrames.length > 0 && (

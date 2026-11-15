@@ -53,6 +53,8 @@ export function Plate(props: {
   const { frame } = props;
   const img = frame?.image ?? null;
   const [failed, setFailed] = useState<string | null>(null);
+  const [flagFailed, setFlagFailed] = useState<string | null>(null);
+  const flagUnavailable = Boolean(frame?.flag_image && flagFailed === frame.flag_image.src);
   useEffect(() => setFailed(null), [img?.src]);
   const xy = frame ? markerXY(frame.marker) : null;
   const reg = frame?.registration;
@@ -99,8 +101,8 @@ export function Plate(props: {
               onError={() => setFailed(img.src)}
               draggable={false}
             />
-            {props.showFlags && frame.flag_image && (
-              <img className="flag-overlay" src={resolveAssetSrc(frame.flag_image.src)} alt="" aria-hidden="true" />
+            {props.showFlags && frame.flag_image && !flagUnavailable && (
+              <img className="flag-overlay" src={resolveAssetSrc(frame.flag_image.src)} alt="" aria-hidden="true" onError={() => setFlagFailed(frame.flag_image!.src)} />
             )}
             {props.guideY != null && (
               <span className="guide-line" aria-hidden="true" style={{ top: `${(props.guideY / img.height) * 100}%` }} />
@@ -140,13 +142,15 @@ export function Plate(props: {
           </span>
         )}
       </div>
-      {frame && (frame.quality.status !== "clear" || (props.showFlags && frame.flag_image)) && (
+      {frame && (frame.quality.status !== "clear" || props.showFlags) && (
         <div className="plate-legend">
           <p>
             <span className="swatch hatch" aria-hidden="true" /> Hatched: no usable data (outside the image, or
             saturated / non-finite pixels). It is not dark sky.
           </p>
-          {props.showFlags && frame.flag_image && <FlagLegend legend={frame.flag_image.legend} />}
+          {props.showFlags && frame.flag_image && !flagUnavailable && <FlagLegend legend={frame.flag_image.legend} />}
+          {props.showFlags && flagUnavailable && <p className="notice" role="alert">The flag overlay could not be loaded. The quality label still applies; no overlay does not mean clear pixels. <button type="button" className="link" onClick={() => setFlagFailed(null)}>Retry flag overlay</button></p>}
+          {props.showFlags && !frame.flag_image && <p className="notice">No flag overlay is provided for this frame. Check its quality details before interpreting the image.</p>}
         </div>
       )}
       {frame?._fixture && <p className="plate-note">Development fixture — not NASA data.</p>}

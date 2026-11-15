@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "da406d9e-1e72-4ba8-83bb-da3acce5d2d7",
+  "created_at_utc": "2026-11-15T04:36:17.082Z",
+  "updated_at_utc": "2026-11-15T04:37:32.682Z",
+  "app_version": "0.1.0",
+  "data_origin": "api",
+  "case_id": null,
+  "preset_id": null,
+  "title": null,
+  "query": {
+    "ra_deg": 269.4462585584787,
+    "dec_deg": 4.768324486236583,
+    "fov_arcmin": 10
+  },
+  "frames": [
+    {
+      "ref": null,
+      "frame_key": "2025W33_2C_0321_1_D3",
+      "frame_id": "2025W33_2C_0321_1_D3",
+      "observation_id": "2025W33_2C_0321_1",
+      "detector": 3,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-08-15T20:46:08.897Z",
+      "mjd": 60902.865380749,
+      "wavelength_um": 2.3077116385385246,
+      "bandwidth_um": 0.057337495007777406,
+      "wavelength_location": "Spectral WCS (key W) sampled at the query center (native pixel x=72.95, y=72.71). Other pixels in the image record other wavelengths.",
+      "quality_status": "flagged",
+      "quality_flag_names": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "display_scale_mode": "per_frame",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W33_2C/l2b-v27-2026-228/3/level2_2025W33_2C_0321_1D3_spx_l2b-v27-2026-228.fits",
+      "limitations": [
+        "Display image is nearest-neighbour resampled from ~6.15 arcsec native pixels onto a 256x256 grid of 2.344 arcsec display pixels; it adds no resolution.",
+        "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+        "Per-frame stretch: brightness is not directly comparable with other frames.",
+        "The quality screen checks flags in a small circle around one position. A clear result is not a detection."
+      ],
+      "processing": {
+        "processing_version": "perigee-processor-a/0.1.2",
+        "pipeline_version": "l2b-v27-2026-228",
+        "file_sha256": "6892edb87d21c1c83b0985aa0a8ab41d21c84fc3a166794ebcc035fc19ea475d",
+        "registration_method": "nearest_neighbour",
+        "display_scale_method": "asinh",
+        "marker_kind": null
+      }
+    }
+  ],
+  "claim": "UI verification: coordinate query at a 10 arcminute field.",
+  "observations": "Same observation, new cutout size: 10 arcminutes.",
+  "uncertainty": "Flagged pixels prevent a precision measurement.",
+  "case_limitations": null,
+  "sources": [
+    {
+      "label": "SPHEREx data at NASA/IPAC IRSA",
+      "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"
+    }
+  ]
+}

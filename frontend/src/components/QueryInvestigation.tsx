@@ -37,6 +37,7 @@ import { Elapsed, ErrorBlock, errorInfo, useNow } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook } from "./Notebook";
 import { PageHeading } from "./PageHeading";
+import { frameCacheKey, rememberFrame } from "../lib/frameCache";
 
 type Phase =
   | { kind: "idle" }
@@ -54,7 +55,7 @@ const describe = (q: ValidQuery) => `RA ${q.ra_deg}°, Dec ${q.dec_deg}°, ${q.f
 
 export function QueryInvestigation(props: {
   api: PerigeeApi;
-  initial: { ra?: string; dec?: string; fov?: string; caseId?: string };
+  initial: { ra?: string; dec?: string; fov?: string; limit?: string; caseId?: string };
   frameCache: Map<string, FrameRecord>;
   onQueryChange: (q: ValidQuery) => void;
   onUseFixture?: () => void;
@@ -65,7 +66,7 @@ export function QueryInvestigation(props: {
     ra: props.initial.ra ?? "",
     dec: props.initial.dec ?? "",
     fov: props.initial.fov ?? String(FOV_DEFAULT),
-    limit: String(LIMIT_DEFAULT),
+    limit: props.initial.limit ?? String(LIMIT_DEFAULT),
   });
   const [errors, setErrors] = useState<QueryErrors>({});
   const [notices, setNotices] = useState<string[]>([]);
@@ -90,12 +91,12 @@ export function QueryInvestigation(props: {
 
   const patchSlot = (i: number, patch: Partial<FrameSlot>) =>
     setSlots((prev) => prev.map((s, j) => (j === i ? { ...s, ...patch } : s)));
-  const cacheKey = (key: string) => `${api.mode}:${key}`;
 
   const loadFrame = useCallback(
-    async (ticketId: number, signal: AbortSignal, i: number, token: string, key: string) => {
+    async (ticketId: number, signal: AbortSignal, i: number, token: string, key: string, query: ValidQuery) => {
       const live = () => frameGate.current.isCurrent(ticketId);
-      const cached = frameCache.get(cacheKey(key));
+      const identity = frameCacheKey(api.mode, key, token, query);
+      const cached = frameCache.get(identity);
       if (cached) {
         if (live()) patchSlot(i, { status: "ready", frame: cached, error: null, startedAt: null });
         return;
@@ -106,7 +107,7 @@ export function QueryInvestigation(props: {
           if (live()) patchSlot(i, { status: "loading", startedAt: Date.now() });
           return api.frame(token, signal);
         }, signal);
-        frameCache.set(cacheKey(key), frame);
+        rememberFrame(frameCache, identity, frame);
         if (live()) patchSlot(i, { status: "ready", frame, error: null, startedAt: null });
       } catch (err) {
         if (isAbortError(err) || !live()) return;
@@ -152,7 +153,7 @@ export function QueryInvestigation(props: {
         setSlots(
           response.observations.map((o) => {
             const key = o.frame_key ?? o.observation_id;
-            const cached = frameCache.get(cacheKey(key));
+            const cached = frameCache.get(frameCacheKey(api.mode, key, o.frame_token, query));
             return {
               key,
               ref: null,
@@ -167,7 +168,7 @@ export function QueryInvestigation(props: {
         await runWithConcurrency(
           response.observations,
           FRAME_CONCURRENCY,
-          (o, i) => loadFrame(frames.id, frames.signal, i, o.frame_token, o.frame_key ?? o.observation_id),
+          (o, i) => loadFrame(frames.id, frames.signal, i, o.frame_token, o.frame_key ?? o.observation_id, query),
           frames.signal,
         );
       } catch (err) {
@@ -237,7 +238,7 @@ export function QueryInvestigation(props: {
       FRAME_CONCURRENCY,
       (i) => {
         const o = obs[i];
-        return o ? loadFrame(ticket.id, ticket.signal, i, o.frame_token, o.frame_key ?? o.observation_id) : Promise.resolve();
+        return o && shown ? loadFrame(ticket.id, ticket.signal, i, o.frame_token, o.frame_key ?? o.observation_id, shown.query) : Promise.resolve();
       },
       ticket.signal,
     );
@@ -250,7 +251,8 @@ export function QueryInvestigation(props: {
   const makeCard = useCallback(
     () =>
       createEvidenceCard({
-        case_id: props.initial.caseId ?? null,
+        // A live coordinate query is not the authored case, even at the same position.
+        case_id: null,
         query: q ? { ra_deg: q.ra_deg, dec_deg: q.dec_deg, fov_arcmin: q.fov_arcmin } : null,
         sources: [{ label: "SPHEREx data at NASA/IPAC IRSA", url: "https://irsa.ipac.caltech.edu/Missions/spherex.html" }],
         app_version: __APP_VERSION__,
@@ -309,7 +311,7 @@ export function QueryInvestigation(props: {
         mode={api.mode}
       />
       <div className={`workspace${notesQuery ? "" : " single"}`}>
-        <section className="bench" aria-label="Coordinate search">
+        <section className="bench" id="observations" tabIndex={-1} aria-label="Coordinate search">
           <form className="comparison-shell query-form" onSubmit={submit} noValidate aria-label="Sky position">
             <div className="query-fields">
               {field("ra", "Right ascension", "Degrees, 0 to under 360 (ICRS).")}

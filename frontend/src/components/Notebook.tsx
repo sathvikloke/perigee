@@ -115,7 +115,7 @@ export function Notebook(props: {
           : "Notes stay on this device");
 
   return (
-    <aside className="notebook" id="notebook" aria-labelledby={`${id}-title`}>
+    <aside className="notebook" id="notebook" tabIndex={-1} aria-labelledby={`${id}-title`}>
       <div className="notebook-heading">
         <span className="notebook-icon" aria-hidden="true">
           ▤
@@ -126,6 +126,7 @@ export function Notebook(props: {
         </div>
       </div>
       <div className="notebook-body">
+        <a className="notebook-jump return-to-images" href="#observations">Back to observations</a>
         <p className="notebook-intro">
           A useful answer includes what you saw <em>and</em> what you still can’t tell.
         </p>
@@ -214,7 +215,7 @@ export function Notebook(props: {
           )}
 
           <button className="primary" type="submit">
-            <span aria-hidden="true">↓</span> Export evidence card
+            Export evidence card
           </button>
           <div className="notebook-actions">
             <button
