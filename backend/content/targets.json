@@ -116,7 +116,7 @@
       },
       "default_fov_arcmin": 6,
       "case_ids": [],
-      "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths. A cataloged field star, Gaia DR3 5756956644387831296 (G 16.3), lies 4.5 to 11.8 arcsec from the predicted position in these 34 frames (observed 2025-05-05 to 2026-05-11; Gaia DR3 positions compared with the catalog track at each frame time, Perigee target audit 2026-11-15), so it can fall in the marker's neighbourhood. A spot near the marker does not by itself identify WISE 0855.",
+      "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths. A nearby cataloged field star lies 4.5–11.8 arcsec from the predicted position in these observations. A spot near the marker alone does not identify WISE 0855.",
       "retained_frames": {"total": 34, "clear": 21, "flagged": 13, "not_covered": 0}
     },
     {
