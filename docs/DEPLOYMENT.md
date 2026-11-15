@@ -4,7 +4,7 @@
 
 **App:** https://perigee.lokesathvik.workers.dev · **Third investigation:** https://perigee.lokesathvik.workers.dev/?preset=wise_0855 · **Deck:** https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf · **Source:** https://github.com/sathvikloke/perigee
 
-PRs [#50](https://github.com/sathvikloke/perigee/pull/50) and [#51](https://github.com/sathvikloke/perigee/pull/51) are merged and released. Both runtime layers use source **`4db9eff40714633dabc3da92bd988b3ae237060b`**. Documentation-only commits afterward do not change this deployed source identity.
+PRs [#50](https://github.com/sathvikloke/perigee/pull/50) and [#51](https://github.com/sathvikloke/perigee/pull/51) are merged and released. Both layers were verified at source **`4db9eff40714633dabc3da92bd988b3ae237060b`**. This identifies the verified runtime release; later documentation-only Vercel deployments may have newer commit/deployment IDs with identical runtime inputs. Cloudflare remains a manual release.
 
 - **Cloudflare:** Worker `perigee`, version **`3263fb1d-ab12-45e2-8a64-67abcf58b99c`**, built from clean release inputs. Release digest **`f655b567420a31aa2b86629586ffd914c291c7cb95f937463f85c9d9aace1c21`**. Five presets, three investigations, 968 assets, content `targets-2026-11-15b`.
 - **Python origin:** https://perigee-liard.vercel.app, Vercel deployment **`dpl_9ULajTQKdW4sZ26PQVptMCNVnw3U`**. Connected deployment API verified `READY`, production target, matching source and production alias. The malformed spectral-table crash fix is live. PR preview builds hit quota; both production merges succeeded.

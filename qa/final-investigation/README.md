@@ -36,7 +36,7 @@ Retain the current black, white and citron visual system. The highest-value foll
 
 ## Production release, 2026-11-15
 
-Both layers now run source `4db9eff40714633dabc3da92bd988b3ae237060b` (PR #51 merged after PR #50):
+Both layers were verified at source `4db9eff40714633dabc3da92bd988b3ae237060b` (PR #51 merged after PR #50):
 
 - Cloudflare version `3263fb1d-ab12-45e2-8a64-67abcf58b99c` at https://perigee.lokesathvik.workers.dev.
 - Release digest `f655b567420a31aa2b86629586ffd914c291c7cb95f937463f85c9d9aace1c21`.
@@ -45,4 +45,4 @@ Both layers now run source `4db9eff40714633dabc3da92bd988b3ae237060b` (PR #51 me
 - Logged-out [release smoke](release-smoke.txt): 29/29, including live NASA archive search and a processed PNG.
 - Public browser: third case title, six steps, reviewed images and flags rendered without broken images. [Live screenshot](production.jpg).
 
-The [build identity](build-info.json) records deployed source/content hashes. Documentation-only commits afterward do not change that runtime identity.
+The [build identity](build-info.json) records deployed source/content hashes. Later documentation-only Vercel builds may have newer source IDs with identical runtime inputs; the Cloudflare identity stays fixed until its next manual release.
