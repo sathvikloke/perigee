@@ -67,7 +67,7 @@ Build on `a8608c6`: content `targets-2026-11-15a` (with the corrected WISE 0855 
 
 CI (`.github/workflows/ci.yml`, secret-free) runs the steps below on PRs that touch `backend/`, `frontend/`, `cloudflare/`, `tools/ingest/`, `science/reviews/acceptance/`, the Vercel config or the workflows, and on pushes to `main`:
 - a backend job: `pytest backend`, with raw-data tests reported as skips;
-- a frontend + Cloudflare job: typecheck, Vitest, build, then export, then `pytest cloudflare/tests`, then `node --test cloudflare/test/`.
+- a frontend + Cloudflare job: typecheck, Vitest, build, then export, then `pytest cloudflare/tests`, then `node --test cloudflare/test/*.test.mjs`.
 
 It makes no live archive calls and does not deploy.
 
@@ -76,7 +76,7 @@ Run in this order:
 
 ```bash
 .venv/bin/python -m pytest -q cloudflare/tests    # export == FastAPI (TestClient); writes build/route-expectations.json
-node --test cloudflare/test/                      # Worker logic against the real build
+node --test cloudflare/test/*.test.mjs                      # Worker logic against the real build
 ```
 
 - **`cloudflare/tests/test_export_parity.py`** (7 tests). It builds into a temporary directory and compares, against the real FastAPI app:
@@ -118,7 +118,7 @@ Results on 2026-11-15 (build of `a8608c6` plus this branch):
 
 ```bash
 (cd frontend && npm ci && npm run build) && .venv/bin/python cloudflare/build.py
-.venv/bin/python -m pytest -q cloudflare/tests && node --test cloudflare/test/
+.venv/bin/python -m pytest -q cloudflare/tests && node --test cloudflare/test/*.test.mjs
 cd cloudflare && npx wrangler@4.162.0 deploy          # account_id via wrangler.jsonc or CLOUDFLARE_ACCOUNT_ID
 ```
 

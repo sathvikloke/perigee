@@ -1,5 +1,5 @@
 // Worker tests (Node's built-in runner; no dependencies):
-//   node --test cloudflare/test/
+//   node --test cloudflare/test/*.test.mjs
 // Needs cloudflare/build/ (python cloudflare/build.py) and
 // cloudflare/build/route-expectations.json (written by pytest cloudflare/tests).
 import { test } from "node:test";

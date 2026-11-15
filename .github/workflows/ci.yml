@@ -87,7 +87,7 @@ jobs:
       - name: Export parity with FastAPI and build identity (pytest; writes route expectations)
         run: python -m pytest -q cloudflare/tests
       - name: Worker tests (node --test; replays the recorded FastAPI answers)
-        run: node --test cloudflare/test/
+        run: node --test cloudflare/test/*.test.mjs
       - name: Report the CI build identity
         if: always()
         run: |

@@ -43,15 +43,15 @@ With a malformed manifest (`{"schema_version":1}`) on this branch:
 
 - **`.github/workflows/ci.yml` (new, secret-free).** It runs on PRs touching `backend/`, `frontend/`, `cloudflare/`, `tools/ingest/`, `science/reviews/acceptance/`, the Vercel config or the workflows, and on pushes to `main`.
   - **Backend job:** `pytest backend -q -rs`, reporting raw-data skips in the summary.
-  - **Frontend + Cloudflare job:** `npm ci`, typecheck, Vitest, build, then `cloudflare/build.py`, `pytest cloudflare/tests`, `node --test cloudflare/test/`. The CI build's identity is written to the job summary.
+  - **Frontend + Cloudflare job:** `npm ci`, typecheck, Vitest, build, then `cloudflare/build.py`, `pytest cloudflare/tests`, `node --test cloudflare/test/*.test.mjs`. The CI build's identity is written to the job summary.
   - It uses no new third-party actions; the existing pinned checkout, setup-python and setup-node SHAs are reused.
 - **`.github/workflows/cloudflare-release-verify.yml` (new, manual).** It builds the expected release from `ref`, then runs `smoke_local.py --cloudflare-edge` and `smoke --expect-build` against `base`. Secret-free. One live search and frame run only if `live` is set.
 - **`release-smoke.yml`:** a Vercel-status-triggered run now says plainly that it does not show Cloudflare serves that commit, and points to the verify workflow.
 - **Checks:**
   - `actionlint` 1.7.7 passes all four workflows.
   - `test_workflows_pin_actions_to_full_shas` now checks every workflow file.
-  - A deliberately failing test makes the CI commands exit non-zero: `node --test cloudflare/test/` exited 1, and `set -o pipefail; pytest backend -q -rs | tee …` exited 1. The temporary test files were removed.
-  - Not run on GitHub before this PR; this PR's own CI run is the first real execution.
+  - A deliberately failing test makes the CI commands exit non-zero: `node --test cloudflare/test/*.test.mjs` exited 1, and `set -o pipefail; pytest backend -q -rs | tee …` exited 1. The temporary test files were removed.
+  - **First real CI run (run 43666247129): `backend` passed and `frontend-cloudflare` failed.** On Node 22 (CI), `node --test cloudflare/test/` treats the directory as a module path (`Cannot find module …/cloudflare/test`); Node 26 (local) accepts a directory. Every earlier step in that job passed (typecheck, Vitest, build, export, `pytest cloudflare/tests`). Fixed by passing the files explicitly (`node --test cloudflare/test/*.test.mjs`) in CI and in the docs; see the follow-up run on this PR.
 
 ## B3: Deployed build identity
 
@@ -102,7 +102,7 @@ With a malformed manifest (`{"schema_version":1}`) on this branch:
 | Backend (without raw data) | 340 passed, 18 skipped |
 | Frontend | typecheck ok; Vitest 121/121; build ok (no frontend change) |
 | `pytest cloudflare/tests` | 13 passed (7 parity + 6 identity) |
-| `node --test cloudflare/test/` | 21/21 |
+| `node --test cloudflare/test/*.test.mjs` | 21/21 |
 | actionlint | 4 workflows clean |
 
 ## Deployment status (separate from source)
