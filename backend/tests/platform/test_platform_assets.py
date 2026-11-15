@@ -18,6 +18,23 @@ from backend.platform.catalog_assets import (
 FIXTURE_PNG = FIXTURE_PRESETS / "epsilon_indi_b" / "FIXTURE_0001_1_D3.png"
 
 
+def _can_symlink() -> bool:
+    """Windows needs Developer Mode or admin rights to create symlinks."""
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as d:
+        try:
+            os.symlink(os.path.join(d, "target"), os.path.join(d, "link"))
+            return True
+        except (OSError, NotImplementedError):
+            return False
+
+
+needs_symlinks = pytest.mark.skipif(
+    not _can_symlink(), reason="this OS user cannot create symlinks (Windows without Developer Mode); runs on Linux/macOS"
+)
+
+
 def test_index_contains_only_allowlisted_files_with_versioned_ids(fixture_store):
     entries = fixture_store.assets.entries()
     rel = sorted(e.relative_path for e in entries)
@@ -88,6 +105,7 @@ def test_is_valid_asset_id_rejects_unsafe(value):
     assert not is_valid_asset_id(value)
 
 
+@needs_symlinks
 def test_symlinks_and_disallowed_files_are_never_indexed(tmp_path):
     outside = tmp_path / "outside"
     outside.mkdir()
@@ -127,6 +145,7 @@ def test_asset_changed_after_indexing_is_not_served(fixture_root):
     assert resp.json()["error"]["code"] == "ASSET_NOT_FOUND"
 
 
+@needs_symlinks
 def test_asset_replaced_by_symlink_after_indexing_is_not_served(fixture_root, tmp_path):
     store = CatalogStore(fixture_root)
     (entry,) = store.assets.for_preset("epsilon_indi_b", "image/png")
