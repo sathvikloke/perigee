@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "content_version": "targets-2026-11-14a",
+  "content_version": "targets-2026-11-15a",
   "owner": "sathvik",
   "verified_with": "science/check_frames.py (science-check-1) against research/build_data/metadata/*_sesame.xml",
   "coordinate_conventions": {
@@ -90,7 +90,7 @@
         "epoch_jyear": 2000.0,
         "source": "SIMBAD via CDS Sesame",
         "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5",
-        "astrometry_reference": "CatWISE2020 (2021ApJS..253....7K)"
+        "astrometry_reference": "Kirkpatrick et al. 2021, 20 pc census (2021ApJS..253....7K)"
       },
       "astrometry": {
         "pm_ra_cosdec_masyr": -8123.7,
@@ -116,7 +116,7 @@
       },
       "default_fov_arcmin": 6,
       "case_ids": [],
-      "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths.",
+      "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths. A cataloged field star, Gaia DR3 5756956644387831296 (G 16.3), lies 4.5 to 11.8 arcsec from the predicted position in these 34 frames (observed 2025-05-05 to 2026-05-11; Gaia DR3 positions compared with the catalog track at each frame time, Perigee target audit 2026-11-15), so it can fall in the marker's neighbourhood. A spot near the marker does not by itself identify WISE 0855.",
       "retained_frames": {"total": 34, "clear": 21, "flagged": 13, "not_covered": 0}
     },
     {

@@ -104,7 +104,7 @@
   "epoch_mjd": 61162.337622451,
   "epoch_utc": "2026-05-02T08:06:10.580Z",
   "propagated": true,
-  "source": "SIMBAD via CDS Sesame (CatWISE2020 (2021ApJS..253....7K)), propagated from epoch J2000.0 with catalog proper motion and parallax distance to this frame's mid-exposure time (annual parallax and binary orbits not modeled)."
+  "source": "SIMBAD via CDS Sesame (Kirkpatrick et al. 2021, 20 pc census (2021ApJS..253....7K)), propagated from epoch J2000.0 with catalog proper motion and parallax distance to this frame's mid-exposure time (annual parallax and binary orbits not modeled)."
  },
  "provenance": {
   "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
