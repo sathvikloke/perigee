@@ -1,0 +1,21 @@
+{
+  "fresh_backend_10_arcmin": {
+    "frame_key": "2025W36_2B_0338_1_D1",
+    "registration": {
+      "center_ra_deg": 83.82208,
+      "center_dec_deg": -5.39111,
+      "fov_arcmin": 10.0,
+      "scale_arcsec_per_px": 2.34375,
+      "native_scale_arcsec_per_px": 6.1363,
+      "grid_id": "f3ea9086a3a4521c",
+      "orientation": "north_up_east_left",
+      "projection": "TAN",
+      "method": "nearest_neighbour",
+      "width": 256,
+      "height": 256,
+      "method_detail": "Each display pixel takes the value of the native pixel containing its sky position, via the IMAGE TAN-SIP WCS. Pixels outside the image or non-finite are transparent.",
+      "pixel_convention": "origin at the top-left corner of the PNG, x right, y down, display pixels"
+    },
+    "wavelength_um": 1.0605451419655152
+  }
+}

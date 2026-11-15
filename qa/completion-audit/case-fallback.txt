@@ -1,0 +1,220 @@
+- link "Skip to investigation":
+  - /url: "#main"
+- banner:
+  - link "Perigee home":
+    - /url: /
+    - text: perigee
+    - text: A closer look at
+    - text: our infrared sky
+  - navigation "Main":
+    - list:
+      - link "Investigations":
+        - /url: "?"
+      - link "Search coordinates":
+        - /url: "?view=query"
+        - generic: Search coordinates
+      - link "My evidence":
+        - /url: "#my-evidence"
+- main:
+  - generic "Change investigation, target or coordinates":
+    - generic: ⌖
+    - text: Change investigation, target or coordinates
+    - generic: +
+  - paragraph: SPHEREx investigationEpsilon Indi B
+  - heading "Is this a fair comparison?" [active] [level=1]
+  - paragraph: "Did Epsilon Indi B change between April and September 2026? Blink the pictures and work out what causes each difference you see: time, color of light, or image quality."
+  - generic: ✦
+  - text: Real NASA / IPAC observations
+  - region "Observation comparison":
+    - list "Investigation workflow":
+      - generic: "1"
+      - strong: Compare
+      - generic: Time and wavelength
+      - generic: "2"
+      - strong: Check
+      - generic: Quality and context
+      - generic: "3"
+      - strong: Explain
+      - generic: What the evidence says
+    - text: Your target
+    - heading "Epsilon Indi B Pair of brown dwarfs (T1 + T6), unresolved in SPHEREx" [level=2]:
+      - text: Epsilon Indi B
+      - generic: Pair of brown dwarfs (T1 + T6), unresolved in SPHEREx
+    - paragraph:
+      - text: 44 processed frames
+      - button "Search the archive here ↗"
+    - group "Choose comparison":
+      - button "A + B Different dates" [pressed]:
+        - text: A + B
+        - generic: Different dates
+      - button "A + C Different wavelengths":
+        - text: A + C
+        - generic: Different wavelengths
+    - button "▷ Blink pair"
+    - article "Earlier observation":
+      - generic: A
+      - heading "Earlier observation" [level=3]
+      - generic: ✓ Flag screen passed
+      - paragraph:
+        - time: 29 Apr 2026
+        - generic: Wavelength
+        - text: 2.3232 µm
+      - img "SPHEREx image of frame 2026W18_1A_0516_1_D3, observed 29 Apr 2026 at 2.3232 micrometers. Hatched areas are outside the image."
+      - generic: N ↑ E ←
+      - generic: 6 arcmin field
+      - generic: ⊕
+      - text: Catalog prediction, not a detection
+      - generic: DR1 · Detector 3
+    - article "Later observation":
+      - generic: B
+      - heading "Later observation" [level=3]
+      - generic: ✓ Flag screen passed
+      - paragraph:
+        - time: 27 Sep 2026
+        - generic: Wavelength
+        - text: 2.3220 µm
+      - img "SPHEREx image of frame 2026W39_2A_0597_4_D3, observed 27 Sep 2026 at 2.3220 micrometers. Hatched areas are outside the image."
+      - generic: N ↑ E ←
+      - generic: 6 arcmin field
+      - generic: ⊕
+      - text: Catalog prediction, not a detection
+      - generic: QR3 · Detector 3
+    - checkbox "Show predicted position" [checked]
+    - text: Show predicted position
+    - checkbox "Show flagged pixels"
+    - text: Show flagged pixels
+    - generic: Same sky grid · north up, east left
+    - generic: ↔
+    - strong: Different dates, nearly the same wavelength
+    - paragraph: 151 days (about 5.0 months) apart. The wavelengths differ by 0.0012 µm, well inside one band's width, so this pair passes the first checks for a fair comparison of change over time.
+    - list:
+      - listitem: Each frame has its own contrast stretch, so brightness is not directly comparable.
+      - listitem: The frames come from different data releases (DR1 and QR3).
+    - heading "Your steps" [level=3]
+    - list:
+      - text: Blink A and B. Check each frame's date and wavelength, then watch Epsilon Indi B at the marker and the stars around it. What changes?
+      - generic "Hint for step 1":
+        - text: Hint
+        - generic: for step 1
+      - text: "One thing does come and go: a bright dot just below and to the right of Epsilon Indi B in A. Turn on 'Show flagged pixels'. What is it?"
+      - generic "Hint for step 2":
+        - text: Hint
+        - generic: for step 2
+      - text: Now choose A + C. They were taken at the same moment, at 2.32 and 4.94 µm. Which spots stay bright in C, and which fade?
+      - generic "Hint for step 3":
+        - text: Hint
+        - generic: for step 3
+    - generic "About Epsilon Indi B and this investigation":
+      - generic: "?"
+      - text: About Epsilon Indi B and this investigation
+      - generic: +
+    - generic "What does “flag screen passed” mean?":
+      - generic: ✓
+      - text: What does “flag screen passed” mean?
+      - generic: +
+    - generic "Observation sources & processing":
+      - generic: ≡
+      - text: Observation sources & processing
+      - generic: +
+    - region "All 44 frames in time order":
+      - heading "All 44 frames in time order" [level=2]
+      - paragraph: Use ← → to step. Each frame keeps its own date, wavelength and quality.
+      - group "Step through frames in time order":
+        - button "▷ Play"
+        - button "Earlier frame": ← Earlier
+        - generic: Frame position
+        - slider "Frame position": "34"
+        - button "Later frame": Later →
+        - generic: 35 / 44
+      - generic: Wavelengths to step and play
+      - combobox "Wavelengths to step and play":
+        - option "All wavelengths" [selected]
+        - option "Near 2.32 µm (within one band width)"
+        - option "Detector 3 only"
+      - paragraph: Frame 35 of 44. 29 Apr 2026. 2.3232 µm. Passes the flag screen.
+      - article "Case frame A":
+        - generic: A
+        - heading "Case frame A" [level=3]
+        - generic: ✓ Flag screen passed
+        - paragraph:
+          - time: 29 Apr 2026
+          - generic: Wavelength
+          - text: 2.3232 µm
+        - img "SPHEREx image of frame 2026W18_1A_0516_1_D3, observed 29 Apr 2026 at 2.3232 micrometers. Hatched areas are outside the image."
+        - generic: N ↑ E ←
+        - generic: 6 arcmin field
+        - generic: ⊕
+        - text: Catalog prediction, not a detection
+        - generic: DR1 · Detector 3
+      - checkbox "Show predicted position" [checked]
+      - text: Show predicted position
+      - checkbox "Show flagged pixels"
+      - text: Show flagged pixels
+      - group "Jump to case frame":
+        - button "Frame A" [pressed]
+        - button "Frame C"
+        - button "Frame B"
+      - button "✓ Attached to notebook · remove" [pressed]
+      - term: Observed (UTC)
+      - definition: 2026-04-29 12:05:47 UTC · MJD 61159.5040
+      - term: Wavelength
+      - definition: 2.3232 µm (band width 0.0577 µm)
+      - term: Measured at
+      - definition: Spectral WCS (key W) sampled at the catalog-predicted position of Epsilon Indi B at this frame's mid-exposure time (native pixel x=28.58, y=28.67). Other pixels in the image record other wavelengths.
+      - term: Release · detector
+      - definition: DR1 · Detector 3
+      - term: Frame
+      - definition: 2026W18_1A_0516_1_D3
+      - paragraph:
+        - generic: Flag screen passed
+        - text: No problem flags were found in a small circle around the predicted position. The frame is usable for a visual comparison. This is not a detection and not a brightness measurement.
+      - paragraph: "Brightness is not directly comparable: this frame has its own contrast stretch."
+      - generic "Quality details":
+        - generic: ✓
+        - text: Quality details
+        - generic: +
+      - generic "Source & processing":
+        - generic: ≡
+        - text: Source & processing
+        - generic: +
+  - complementary "Evidence notebook":
+    - generic: ▤
+    - paragraph: Make your reasoning visible
+    - heading "Evidence notebook" [level=2]
+    - paragraph:
+      - text: A useful answer includes what you saw
+      - emphasis: and
+      - text: what you still can’t tell.
+    - generic: Attached observations
+    - strong: A + B
+    - generic: What’s your claim?
+    - generic: Which pair is a fair test of change over time, and what did you see change? What caused each difference?
+    - textbox "What’s your claim?":
+      - /placeholder: I think these observations…
+    - paragraph: 0 / 280
+    - generic: What did you notice?
+    - generic: Point to dates, wavelengths or visible details.
+    - textbox "What did you notice?":
+      - /placeholder: The evidence that supports this is…
+    - generic: What remains uncertain?
+    - generic: What would you need before saying more?
+    - textbox "What remains uncertain?":
+      - /placeholder: I can’t conclude… because…
+    - generic: ✧
+    - paragraph: A different-looking image is a question to investigate, not yet a discovery.
+    - button "Export evidence card":
+      - generic: ↓
+      - text: Export evidence card
+    - button "Print / save PDF"
+    - status: Notes stay on this device
+    - generic "Check your claim against the case guide":
+      - generic: ✓
+      - text: Check your claim against the case guide
+      - generic: +
+- contentinfo:
+  - generic: PERIGEE · Explore what the evidence supports · v0.1.0 · live API
+  - link "Explore the SPHEREx archive ↗":
+    - /url: https://irsa.ipac.caltech.edu/Missions/spherex.html
+  - paragraph:
+    - link "Built with AI-assisted development (Claude Code, Codex). No AI runs in this app; all science checked against original NASA files.":
+      - /url: https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md
