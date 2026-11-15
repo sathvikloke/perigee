@@ -1,0 +1,181 @@
+{
+ "base": "https://perigee-liard.vercel.app",
+ "searches": [
+  {
+   "q": [
+    330.84,
+    -56.786
+   ],
+   "status": 200,
+   "ms": 1837,
+   "bytes": 6636,
+   "result": "ready",
+   "total": 460,
+   "returned": 6
+  },
+  {
+   "q": [
+    83.822,
+    -5.391
+   ],
+   "status": 200,
+   "ms": 1595,
+   "bytes": 6627,
+   "result": "ready",
+   "total": 377,
+   "returned": 6
+  },
+  {
+   "q": [
+    330.84,
+    -56.786
+   ],
+   "status": 200,
+   "ms": 2854,
+   "bytes": 6636,
+   "result": "ready",
+   "total": 460,
+   "returned": 6
+  }
+ ],
+ "frames": [
+  {
+   "key": "2025W17_4B_0017_1_D2",
+   "status": 200,
+   "ms": 5378,
+   "bytes": 19452,
+   "code": null,
+   "img_b64_bytes": 13102
+  },
+  {
+   "key": "2025W19_1B_0344_4_D6",
+   "status": 200,
+   "ms": 2542,
+   "bytes": 22657,
+   "code": null,
+   "img_b64_bytes": 14542
+  },
+  {
+   "key": "2025W40_2B_0107_1",
+   "status": 502,
+   "ms": 1806,
+   "bytes": 286,
+   "code": "UPSTREAM_UNAVAILABLE",
+   "img_b64_bytes": 0
+  },
+  {
+   "key": "2025W36_2B_0338_1_D1",
+   "status": 200,
+   "ms": 2311,
+   "bytes": 19798,
+   "code": null,
+   "img_b64_bytes": 14214
+  },
+  {
+   "key": "2025W37_2A_0368_1_D1",
+   "status": 200,
+   "ms": 3671,
+   "bytes": 21210,
+   "code": null,
+   "img_b64_bytes": 15482
+  },
+  {
+   "key": "2026W10_2B_0202_4_D2",
+   "status": 200,
+   "ms": 3145,
+   "bytes": 17214,
+   "code": null,
+   "img_b64_bytes": 10814
+  },
+  {
+   "key": "2025W17_4B_0017_1_D2",
+   "status": 200,
+   "ms": 3966,
+   "bytes": 19452,
+   "code": null,
+   "img_b64_bytes": 13102
+  },
+  {
+   "key": "2025W19_1B_0344_4_D6",
+   "status": 200,
+   "ms": 3664,
+   "bytes": 22657,
+   "code": null,
+   "img_b64_bytes": 14542
+  },
+  {
+   "key": "2025W40_2B_0107_1_D2",
+   "status": 200,
+   "ms": 5528,
+   "bytes": 17491,
+   "code": null,
+   "img_b64_bytes": 9074
+  }
+ ],
+ "static": {
+  "/": {
+   "status": 200,
+   "ms": 181,
+   "bytes": 509,
+   "cache": "public, max-age=0, must-revalidate",
+   "vercel_cache": "HIT"
+  },
+  "/api/v1/health": {
+   "status": 200,
+   "ms": 78,
+   "bytes": 484,
+   "cache": "no-store",
+   "vercel_cache": "MISS"
+  },
+  "/api/v1/presets": {
+   "status": 200,
+   "ms": 162,
+   "bytes": 8185,
+   "cache": "public, max-age=0, must-revalidate",
+   "vercel_cache": "MISS"
+  },
+  "/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison": {
+   "status": 200,
+   "ms": 131,
+   "bytes": 15935,
+   "cache": "public, max-age=0, must-revalidate",
+   "vercel_cache": "MISS"
+  },
+  "/assets/index-yzmhwLOW.js": {
+   "status": 200,
+   "transfer_bytes": null,
+   "decoded_bytes": 105250,
+   "encoding": "br",
+   "cache": "public, max-age=0, must-revalidate"
+  },
+  "/assets/index-BsH9V2Qd.css": {
+   "status": 200,
+   "transfer_bytes": null,
+   "decoded_bytes": 7476,
+   "encoding": "br",
+   "cache": "public, max-age=0, must-revalidate"
+  }
+ },
+ "summary": {
+  "search_ms": [
+   1837,
+   1595,
+   2854
+  ],
+  "frame_ms_ok": [
+   5378,
+   2542,
+   2311,
+   3671,
+   3145,
+   3966,
+   3664,
+   5528
+  ],
+  "frame_ms_median": 3667.5,
+  "frame_bytes_median": 19625.0,
+  "frame_errors": [
+   "UPSTREAM_UNAVAILABLE"
+  ]
+ }
+}

@@ -1,0 +1,314 @@
+{
+ "targets": {
+  "barnards_star": {
+   "simbad_main_id": "NAME Barnard's star",
+   "simbad_vs_repo": {
+    "ra_arcsec": 1.144999685326866e-11,
+    "pmra_masyr": 0.0,
+    "pmdec_masyr": 0.0,
+    "plx_mas": 0.0,
+    "rv_simbad": -110.11,
+    "rv_repo": -110.11,
+    "rv_manifest": -110.11,
+    "coo_bibcode": "2020yCat.1350....0G",
+    "pm_bibcode": "2020yCat.1350....0G",
+    "coo_qual": "A",
+    "repo_astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+   },
+   "query_center_check": {
+    "recomputed_minus_repo_arcsec": 0.00010250232058407254,
+    "recomputed_with_manifest_rv_minus_repo_arcsec": 0.00010250232058407254,
+    "j2000_to_query_center_arcsec": 270.6606215831357,
+    "total_pm_masyr": 10393.348518010785
+   },
+   "products": {
+    "n_records": 37,
+    "registration_center_equals_query_center": true,
+    "mismatched_center": [],
+    "fov_equals_default": true,
+    "marker_recomputed_max_diff_display_px": 0.0007088224357450662,
+    "mjd_range": [
+     60903.140524094,
+     61277.795361444
+    ],
+    "status_counts": {
+     "clear": 0,
+     "flagged": 34,
+     "not_covered": 0
+    }
+   },
+   "alternatives_marker_shift": {
+    "gaia_dr3_own_row_from_2016": {
+     "median_display_px": 0.26547584656132833,
+     "max_display_px": 0.271904915633411,
+     "min_display_px": 0.25695411691543235
+    },
+    "gaia_dr3_ruwe": 1.0848505
+   },
+   "annual_parallax_not_modeled_display_px": {
+    "median": 0.36447327106349253,
+    "max": 0.3872035357331107
+   }
+  },
+  "epsilon_indi_b": {
+   "simbad_main_id": "* eps Ind B",
+   "simbad_vs_repo": {
+    "ra_arcsec": 2.289999370653732e-11,
+    "pmra_masyr": 0.0,
+    "pmdec_masyr": 0.0,
+    "plx_mas": 0.0,
+    "rv_simbad": null,
+    "rv_repo": null,
+    "rv_manifest": null,
+    "coo_bibcode": "2020yCat.1350....0G",
+    "pm_bibcode": "2020yCat.1350....0G",
+    "coo_qual": "A",
+    "repo_astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+   },
+   "query_center_check": {
+    "recomputed_minus_repo_arcsec": 1.026904216236906e-05,
+    "recomputed_with_manifest_rv_minus_repo_arcsec": 1.026904216236906e-05,
+    "j2000_to_query_center_arcsec": 121.78829804197893,
+    "total_pm_masyr": 4684.164914342043
+   },
+   "products": {
+    "n_records": 47,
+    "registration_center_equals_query_center": true,
+    "mismatched_center": [],
+    "fov_equals_default": true,
+    "marker_recomputed_max_diff_display_px": 0.0006336705927700469,
+    "mjd_range": [
+     60790.261636745,
+     61315.137654939
+    ],
+    "status_counts": {
+     "clear": 29,
+     "flagged": 14,
+     "not_covered": 1
+    }
+   },
+   "alternatives_marker_shift": {
+    "gaia_dr3_own_row_from_2016": {
+     "median_display_px": 0.040515506266803676,
+     "max_display_px": 0.04203487579732168,
+     "min_display_px": 0.039776761972458864
+    },
+    "gaia_dr3_ruwe": 4.2955413,
+    "pm_2016ApJS..224...36K_(AllWISE_motion_survey)_pivot_gaia_2016": {
+     "median_display_px": 0.23639763716360768,
+     "max_display_px": 0.2586838555567831,
+     "min_display_px": 0.2255690112572015
+    },
+    "pm_2018MNRAS.481.3548S_(PARSEC)_pivot_gaia_2016": {
+     "median_display_px": 0.7994648478360918,
+     "max_display_px": 0.8766230399377254,
+     "min_display_px": 0.7619503700343374
+    }
+   },
+   "annual_parallax_not_modeled_display_px": {
+    "median": 0.1920321938884519,
+    "max": 0.19389437405224655
+   }
+  },
+  "wise_0855": {
+   "simbad_main_id": "WISEA J085510.74-071442.5",
+   "simbad_vs_repo": {
+    "ra_arcsec": 0.0,
+    "pmra_masyr": 0.0,
+    "pmdec_masyr": 0.0,
+    "plx_mas": 0.0,
+    "rv_simbad": null,
+    "rv_repo": null,
+    "rv_manifest": null,
+    "coo_bibcode": "2021ApJS..253....7K",
+    "pm_bibcode": "2021ApJS..253....7K",
+    "coo_qual": "C",
+    "repo_astrometry_reference": "CatWISE2020 (2021ApJS..253....7K)"
+   },
+   "query_center_check": {
+    "recomputed_minus_repo_arcsec": 1.7870694232738e-05,
+    "recomputed_with_manifest_rv_minus_repo_arcsec": 1.7870694232738e-05,
+    "j2000_to_query_center_arcsec": 211.94021026633234,
+    "total_pm_masyr": 8151.545861368872
+   },
+   "products": {
+    "n_records": 34,
+    "registration_center_equals_query_center": true,
+    "mismatched_center": [],
+    "fov_equals_default": true,
+    "marker_recomputed_max_diff_display_px": 0.0006280231713620853,
+    "mjd_range": [
+     60800.70069465,
+     61171.567858446
+    ],
+    "status_counts": {
+     "clear": 21,
+     "flagged": 13,
+     "not_covered": 0
+    }
+   },
+   "alternatives_marker_shift": {
+    "pm_2019ApJS..240...19K_pivot_2000.0": {
+     "median_display_px": 0.14271246687211941,
+     "max_display_px": 0.14548542651999763,
+     "min_display_px": 0.13988084407154772
+    },
+    "pm_2019ApJS..240...19K_pivot_2015.405": {
+     "median_display_px": 0.053822613144654564,
+     "max_display_px": 0.05640961466451687,
+     "min_display_px": 0.05118083977371654
+    }
+   },
+   "annual_parallax_not_modeled_display_px": {
+    "median": 0.31265776769908493,
+    "max": 0.31506745847520296
+   },
+   "challenge_coordinate": {
+    "sexagesimal_check_arcsec": 9.086860717385393e-11,
+    "sep_from_catalog_propagation_at_2010.5_arcsec": 0.44114559967515954,
+    "closest_epoch_jyear": 2010.45,
+    "closest_sep_arcsec": 0.19644670455472463,
+    "sep_from_query_center_arcsec": 126.74426226607683,
+    "sep_from_shipped_markers_arcsec": [
+     121.38132296204712,
+     129.65821541073694
+    ],
+    "min_fov_arcmin_to_contain_object_on_shipped_epochs": 4.306613002165794
+   },
+   "neighbour_gaia_dr3_5756956644387831296": {
+    "G": 16.314917,
+    "sep_from_shipped_markers_arcsec": [
+     4.469491886899353,
+     11.810344810917593
+    ],
+    "closest_approach_arcsec": 3.2295709439151468,
+    "closest_approach_jyear": 2026.735,
+    "sep_at_2026.75_arcsec": 3.2313248789943074
+   },
+   "catwise2020_fragments_vs_repo_at_2015.405": [
+    {
+     "name": "J085507.96-071439.3",
+     "sep_arcsec": 0.6615264795706095,
+     "pmra_asyr": -8.0212,
+     "pmdec_asyr": 1.0357
+    },
+    {
+     "name": "J085508.34-071439.2",
+     "sep_arcsec": 0.432514454921544,
+     "pmra_asyr": -7.965,
+     "pmdec_asyr": 0.8062
+    },
+    {
+     "name": "J085506.91-071437.5",
+     "sep_arcsec": 1.1818653617248538,
+     "pmra_asyr": -7.9199,
+     "pmdec_asyr": 0.4939
+    }
+   ]
+  },
+  "rw_aurigae": {
+   "simbad_main_id": "V* RW Aur",
+   "simbad_vs_repo": {
+    "ra_arcsec": 1.1094320473448445e-08,
+    "pmra_masyr": 0.0,
+    "pmdec_masyr": 0.0,
+    "plx_mas": 0.0,
+    "rv_simbad": 15.0,
+    "rv_repo": 15.0,
+    "rv_manifest": 15.0,
+    "coo_bibcode": "2007A&A...474..653V",
+    "pm_bibcode": "2007A&A...474..653V",
+    "coo_qual": "A",
+    "repo_astrometry_reference": "2007A&A...474..653V"
+   },
+   "query_center_check": {
+    "recomputed_minus_repo_arcsec": 4.73945531993146e-08,
+    "recomputed_with_manifest_rv_minus_repo_arcsec": 4.73945531993146e-08,
+    "j2000_to_query_center_arcsec": 0.5610075566051219,
+    "total_pm_masyr": 21.577344600297785
+   },
+   "products": {
+    "n_records": 35,
+    "registration_center_equals_query_center": true,
+    "mismatched_center": [],
+    "fov_equals_default": true,
+    "marker_recomputed_max_diff_display_px": 0.0006271668519692619,
+    "mjd_range": [
+     60920.032297069,
+     61298.881971733
+    ],
+    "status_counts": {
+     "clear": 1,
+     "flagged": 32,
+     "not_covered": 2
+    }
+   },
+   "alternatives_marker_shift": {
+    "gaia_dr3_156430817820015232_G13.04_ruwe16.4": {
+     "median_display_px": 0.12628441428082013,
+     "max_display_px": 0.1281173056150556,
+     "min_display_px": 0.12454648563756329
+    },
+    "gaia_dr3_156430822114424576_G12.18_ruwe1.5": {
+     "median_display_px": 1.1744948129714277,
+     "max_display_px": 1.1770720942134822,
+     "min_display_px": 1.1720538371600018
+    }
+   },
+   "annual_parallax_not_modeled_display_px": {
+    "median": 0.010934838781500035,
+    "max": 0.011040495128373193
+   }
+  },
+  "r_draconis": {
+   "simbad_main_id": "V* R Dra",
+   "simbad_vs_repo": {
+    "ra_arcsec": 0.0,
+    "pmra_masyr": 0.0,
+    "pmdec_masyr": 0.0,
+    "plx_mas": 0.0,
+    "rv_simbad": -132.8,
+    "rv_repo": null,
+    "rv_manifest": -132.8,
+    "coo_bibcode": "2020yCat.1350....0G",
+    "pm_bibcode": "2020yCat.1350....0G",
+    "coo_qual": "A",
+    "repo_astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+   },
+   "query_center_check": {
+    "recomputed_minus_repo_arcsec": 2.5215624469959054e-06,
+    "recomputed_with_manifest_rv_minus_repo_arcsec": 4.776234919684958e-08,
+    "j2000_to_query_center_arcsec": 0.5600256526475421,
+    "total_pm_masyr": 21.5393511972854
+   },
+   "products": {
+    "n_records": 36,
+    "registration_center_equals_query_center": true,
+    "mismatched_center": [],
+    "fov_equals_default": true,
+    "marker_recomputed_max_diff_display_px": 0.0005631551106131826,
+    "mjd_range": [
+     60815.694838874,
+     61234.072540333
+    ],
+    "status_counts": {
+     "clear": 0,
+     "flagged": 35,
+     "not_covered": 1
+    }
+   },
+   "alternatives_marker_shift": {
+    "gaia_dr3_own_row_from_2016": {
+     "median_display_px": 6.07932787482188e-06,
+     "max_display_px": 6.260595861891203e-06,
+     "min_display_px": 5.915389601617095e-06
+    },
+    "gaia_dr3_ruwe": 1.297982
+   },
+   "annual_parallax_not_modeled_display_px": {
+    "median": 0.0009000368644675404,
+    "max": 0.0009035861280582958
+   }
+  }
+ }
+}
