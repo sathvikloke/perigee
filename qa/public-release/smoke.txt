@@ -1,0 +1,21 @@
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.3557932Z PASS  access (logged-out visitor): no Vercel login redirect
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.4241081Z PASS  frontend /: 200 text/html root=yes
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.4933680Z PASS  frontend /?preset=barnards_star: 200 text/html root=yes
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.5116331Z PASS  frontend /?view=query&ra=83.822&dec=-5.391&fov=6: 200 text/html root=yes
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.6238860Z PASS  frontend /smoke/unknown/client/path: 200 text/html root=yes
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.7351427Z PASS  health is JSON: 200 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.7353263Z PASS  health token signing from env secret: token_signing=env (expect 'env'; 'missing'/'too_short' means PERIGEE_TOKEN_SECRET is not set for this environment; 'dev_secret_refused'/'dev_mode_refused' mean the public dev secret or PERIGEE_DEV_MODE reached a hosted deployment)
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.7355148Z PASS  health status ok: status=ok api_version=0.1.0 processor=backend.data.process.process_frame (processor-a adapter)
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.8476343Z PASS  presets is JSON: 200 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.8480955Z PASS  five presets: ['barnards_star', 'epsilon_indi_b', 'wise_0855', 'rw_aurigae', 'r_draconis']
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.9044882Z PASS  barnards_star frames is JSON: 200 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:26.9059128Z PASS  barnards_star frames listed: 34 frames, 34 with image src
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.0275257Z PASS  preset image asset is PNG: /api/v1/assets/barnards_star--frames-2025W33_2C_0386_4_D3--2943e1fd593d.png -> 200 image/png 7795 B cache=public, max-age=31536000, immutable
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.0875268Z PASS  case fair_comparison is JSON: 200 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.0875983Z PASS  case fair_comparison content: case_id=fair_comparison limitations=5
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.1495175Z PASS  JSON 404 /api/v1/__smoke_unknown__: 404 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.1982050Z PASS  JSON 404 /api/__smoke_unknown__: 404 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:27.2671156Z PASS  JSON 404 /api/v1/assets/..%2F..%2Fmain.py: 404 application/json
+smoke	Smoke check (logged out)	2026-11-15T00:28:29.3490482Z PASS  live non-preset /search: 200 status=ready total=377 observations=2 usable=2 collections=['spherex_dr1', 'spherex_qr3'] query=83.822,-5.391 2.1s
+smoke	Smoke check (logged out)	2026-11-15T00:28:33.8103663Z PASS  live /frame: 200 2025W36_2B_0338_1 quality=flagged lambda=1.06052968057377 4.5s 19 KB png=10642 B
+smoke	Smoke check (logged out)	2026-11-15T00:28:33.8105512Z RESULT: PASS 20/20. Logged-out access verified.

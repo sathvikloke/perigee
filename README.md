@@ -10,22 +10,23 @@ Perigee lets a learner compare real NASA SPHEREx images of the same patch of sky
 
 Built for the NASA Space Apps 2026 challenge [Planet X and SPHEREx](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/).
 
-## Status (verified locally, 2026-11-14)
+## Try Perigee
 
-Working on a laptop (Vite frontend proxied to the FastAPI backend), using real archive data:
+**[Open the public web app](https://perigee-liard.vercel.app)** — no login required. Start with **Epsilon Indi B** to investigate a fair comparison, or **Barnard's Star** to follow a nearby moving star.
 
-- Five challenge presets with real frame counts: Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and R Draconis.
-- Two guided cases: Epsilon Indi B ("is this a fair comparison?") and Barnard's Star (a moving neighbour).
-- Live coordinate search for any RA/Dec through NASA/IPAC IRSA, with real cutouts processed on request. Coordinates in the URL start a search.
-- Evidence card saved in the browser, with JSON export.
-- Tests (`qa/regression/run.sh`, integration after PR #34): backend **330 passed** with raw data (313 passed / 17 skipped without); frontend **121** (vitest); 183-frame audit and 189-record science acceptance pass; release smoke check 20/20 on a local frontend+API origin.
-- Science acceptance: **189/189** processed records pass an independent re-derivation from the original FITS files ([review](science/reviews/acceptance/README.md)).
+Verified release on `main`: **`ef29890`**, published 2026-11-15. The [production smoke check](https://github.com/sathvikloke/perigee/actions/runs/43658316997) passed **20/20** without login, including a live non-preset archive search and processed image. Preview deployments remain protected. See [deployment details](docs/DEPLOYMENT.md).
 
-**Not yet verified:**
+Working features:
 
-- **Public URL: TBD (pending production promotion).** The hosted Preview builds and starts: an authenticated check of deployment `bc03f40` returned the app HTML, `/api/v1/health` JSON and the case endpoint. Live search and frames there are off until `PERIGEE_TOKEN_SECRET` is set. The preview and team aliases redirect logged-out visitors to Vercel login, and the registered production domain `https://perigee-liard.vercel.app` returns 404 until the app is on `main`, so judge access is not verified. See [deployment notes](docs/DEPLOYMENT.md).
-- This GitHub repository is currently private. A judge-facing link must open without sign-in.
-- Phone and keyboard checks were done locally in headless Chrome (390 and 320 px, axe-core 0 violations); no physical phone or screen reader. Print was checked in print preview. An exported evidence card was inspected by the regression check (`qa/regression/README.md`, N5). "Check your claim against the case guide" was exercised in the fresh-user pass (`qa/fresh-pass`, issue #6).
+- Five challenge targets with bundled observations: Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and R Draconis.
+- Two guided investigations, with date/wavelength comparisons, predicted positions, and quality overlays.
+- Live coordinate search through NASA/IPAC IRSA, with bounded cutouts processed on request.
+- Evidence notebooks saved in the browser; reopen, JSON export, and print/save PDF.
+- A [rehearsed demo package](docs/presentation/README.md) with screenshots, an exported evidence card and a visually checked three-page PDF.
+
+Release-candidate checks: **348 backend tests** with raw data (**330 passed / 18 skipped** without it), **121 frontend tests**, a passing build, a 183-frame audit with no stale records, and **189/189** records passing independent re-derivation from original FITS files ([science review](science/reviews/acceptance/README.md)). These are code/data checks, separate from the hosted smoke run.
+
+Known limits: live searches depend on IRSA availability; curated investigations use bundled products. Notes remain on the current device unless exported. No photometry, measured proper motion, or discovery claim is produced. Local browser checks covered 320/390 px and keyboard use; physical-phone and screen-reader testing have not been performed. The [public browser pass](qa/public-release/README.md) verified comparison switching, quality overlays, notebook saving/reopen and a real JSON export separately from the HTTP smoke check.
 
 ## Run locally
 
@@ -99,7 +100,7 @@ Read the [short two-day sprint brief](docs/SPRINT_BRIEF.md) first. The [integrat
 | [Build specification](docs/BUILD.md) | Required product behavior, backend contract, acceptance checks and cut order |
 | [Data guide](docs/DATA.md) | What is downloaded, source links and scientific limits |
 | [Research](docs/RESEARCH.md) | Data audit and competing-work findings |
-| [Deployment](docs/DEPLOYMENT.md) | Vercel Services configuration and open access decisions |
+| [Deployment](docs/DEPLOYMENT.md) | Vercel Services configuration and verified public release |
 | [Pitch](docs/PITCH.md) and [pitch draft](docs/presentation/README.md) | Story, seven-slide outline and five-minute demo script |
 | [Source index](docs/REFERENCES.md) | Challenge, archive, scientific and competitor references |
 | [Dispatch log](coordination/claude-dispatch.md) | Which agent tasks ran, what was selected and integrated, and open decisions |
