@@ -1,41 +1,36 @@
-# Draft transfer exercise: "Did anything near WISE 0855 change?"
+# Transfer exercise: "Did anything near WISE 0855 change?"
 
-**Status: DRAFT. Human and science review pending (Sathvik, Sagar).** This is not a shipped case. Nothing under `backend/content/` was changed. The answers below were written by an AI agent from the data. No learner or teacher has tried this exercise yet, so nothing here measures learning.
+**Status: computationally reviewed answer key, with a staged candidate case. Not shipped.** Nothing under `backend/content/` was changed. The answer key is an inspectable scientific interpretation of real SPHEREx frames. It is a computational review, not a learner outcome: no learner or teacher result is claimed, and nothing here measures learning.
 
-Prepared 2026-11-15 (UTC) for work packet B5 on branch `claude/b5-contribution-evidence`, from `origin/main` at `9cb850b`.
+History:
+- Drafted 2026-11-15 (UTC) for work packet B5 on `claude/b5-contribution-evidence` from `origin/main` at `9cb850b`; its numbers were re-checked by the coordinator and merged in PR #47.
+- Rewritten 2026-11-15 for overnight package N1 on `claude/n1-n7-case`. This pass fixed seven reasoning defects in the questions, reference answer and rubric (listed in [Second review pass](#second-review-pass)). It added machine-readable evidence per answer (`answer_evidence.json`) and new measured checks to `check_transfer.py`. It also staged a candidate third investigation (`science/staging/wise_0855_quality_trap/`).
 
-**Coordinator review (2026-11-15, integrated into PR #47):**
-- **Independently re-checked from the shipped WISE 0855 records and `research/build_data/manifest.json`:**
-  - dates, wavelengths, band widths and quality states, including Q's `PERSIST` on 2 of 19 screened pixels;
-  - SHA-256 prefixes (`fbcca340`, `044658e7`, `ad926a67`), which agree between record and manifest;
-  - P–Q: 2.655 days, Δλ 0.00005 µm;
-  - P–R: 184.8 days, Δλ 0.1871 µm, which is 6.22 band widths.
-- **Re-ran `check_transfer.py`:** exit 0. It reproduced wavelength, quality, stretch, marker and PNG bytes for P, Q and R, and the regenerated outputs matched the commit.
-- **Wording tightened:** the spot near the marker is a positional association with the Gaia star, not an identification. The jumping dot is a *flagged* detector pixel, with its cause not established. The "not visible" claims are now stated as visual or cited, not measured.
+## What the exercise uses
 
-## Verdict: the retained data supports one sound exercise
-
-This exercise uses a different target, different frames and different traps from the two taught cases:
+The exercise uses a different target, frames and traps from the two taught cases:
 
 - **Taught cases:** `fair_comparison` (Epsilon Indi B, A/B/C) and `moving_neighbor` (Barnard's Star, A/B/C).
-- **This exercise:** three frames of the WISE 0855 field, already shipped in the `wise_0855` preset. Every frame is a shipped processor-A record. All three are served unchanged by the live release (`GET /api/v1/presets/wise_0855/frames`, checked at 2026-11-15T02:11Z).
+- **This exercise:** three frames of the WISE 0855 field, already shipped in the `wise_0855` preset. Every frame is a shipped processor-A record. B5 observed all three served unchanged by the live release (`GET /api/v1/presets/wise_0855/frames`, 2026-11-15T02:11Z); that live check was not repeated in this pass.
 
-The learner must decide what causes each difference: time, wavelength, display stretch or a flagged pixel. Unlike the taught cases, two of the visible differences look like a moving or new object, and **neither is in the sky**.
+The learner decides what explains each visible difference: time, wavelength, display stretch or flagged pixels. Two of the differences look like a moving or new object. The checked evidence (flags, single native pixels, detector position) gives no support for identifying either as a new or moving astronomical source. That statement is about these two features only. It is not a claim that nothing in the sky changed.
 
-Two other targets were considered and rejected:
+Two other targets were considered and rejected (B5, unchanged here; see `science/staging/README.md`):
 
-- **R Draconis:** all 35 covered frames are saturated and flagged at the star (BLOOM, OVERFLOW, and mostly non-finite pixels). The only defensible answer would be "cannot tell", so the exercise would test nothing else.
+- **R Draconis:** all 35 covered frames are saturated and flagged at the star (BLOOM, OVERFLOW, mostly non-finite pixels). The only defensible answer would be "cannot tell", so the exercise would test nothing else.
 - **RW Aurigae:** 32 of 35 frames are flagged at the target, with only 1 clear frame. There is no clean same-wavelength pair to anchor the reasoning.
 
 ## Frames
 
-All three frames are D2 (`spherex_dr1`), on the fixed grid `f448bdf044c35cf1` (6′ field, 256 px, 1.406″/display px, north up). Dates and times come from the IMAGE header `DATE-AVG`/`MJD-AVG`, and match the records.
+All three frames are D2 (`spherex_dr1`), on the fixed grid `f448bdf044c35cf1` (6′ field, 256 px, 1.406″ per display px, north up, east left). Dates and times are the IMAGE header `DATE-AVG`/`MJD-AVG` and match the records. In the staged case the refs are A = P, B = Q, C = R.
 
-| Ref | frame_key | Observed (UTC, mid-exposure) | MJD | λ at marker (µm) | Band width (µm) | Quality at marker | Per-frame stretch low–high (MJy/sr) | Raw cutout SHA-256 |
+| Ref | frame_key | Observed (UTC, mid-exposure) | MJD | λ at marker (µm) | Band width (µm) | Quality at marker | Pipeline build | Raw cutout SHA-256 |
 |---|---|---|---|---|---|---|---|---|
-| P | `2025W45_2A_0278_1_D2` | 2025-11-07 18:48:11.654 | 60986.783468 | 1.25719 | 0.03005 | clear (0 of 20 screened pixels) | 0.238–2.749 | `fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0` |
-| Q | `2025W46_1A_0108_1_D2` | 2025-11-10 10:31:39.500 | 60989.438652 | 1.25725 | 0.03005 | flagged: PERSIST (2 of 19) | 0.229–2.250 | `044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f` |
-| R | `2026W20_1A_0214_1_D2` | 2026-05-11 13:37:42.970 | 61171.567858 | 1.44425 | 0.03534 | clear (0 of 19) | 0.207–2.229 | `ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388` |
+| P | `2025W45_2A_0278_1_D2` | 2025-11-07 18:48:11.654 | 60986.783468 | 1.257192 | 0.030051 | clear (0 of 20 screened pixels) | `l2b-v27-2026-247` | `fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0` |
+| Q | `2025W46_1A_0108_1_D2` | 2025-11-10 10:31:39.500 | 60989.438652 | 1.257247 | 0.030053 | flagged: PERSIST (2 of 19) | `l2b-v27-2026-206` | `044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f` |
+| R | `2026W20_1A_0214_1_D2` | 2026-05-11 13:37:42.970 | 61171.567858 | 1.444252 | 0.035339 | clear (0 of 19) | `l2b-v27-2026-246` | `ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388` |
+
+Shipped preset display stretch (per frame, asinh, MJy/sr): P 0.238–2.749, Q 0.229–2.250, R 0.207–2.229. Staged case products put P and Q on one shared stretch, 0.232–2.672, and R on its own.
 
 **Source URLs (IRSA):**
 
@@ -43,136 +38,206 @@ All three frames are D2 (`spherex_dr1`), on the fixed grid `f448bdf044c35cf1` (6
 - Q: <https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits>
 - R: <https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits>
 
-**Provenance:** for each frame, the record's `provenance.sha256`, the `research/build_data/manifest.json` entry and the SHA-256 of the raw file all agree. Re-running processor A (`perigee-processor-a/0.1.2`) on the raw FITS reproduces the following exactly: the wavelength (to 1e-9 µm), the quality block, the display scale, the marker and the **PNG bytes**. See `results.json` → `frames.*.sha256` and `frames.*.reproduced`.
+**Provenance:** for each frame, three values agree: the record's `provenance.sha256`, the `research/build_data/manifest.json` entry and the SHA-256 of the raw file. Re-running processor A (`perigee-processor-a/0.1.2`) on the raw FITS reproduces the wavelength (to 1e-9 µm), the quality block, the display scale, the marker and the PNG bytes exactly (`results.json` → `frames.*.sha256`, `frames.*.reproduced`).
 
-## Measured facts the answer rests on
+## Measured facts the answer key rests on
 
-All values come from `results.json`, generated by `check_transfer.py`.
+All values come from `results.json`, generated by `check_transfer.py`. `answer_evidence.json` repeats them per answer, with frame keys, flag values, coordinates, the calculation and the limit.
 
 | Check | P vs Q | P vs R |
 |---|---|---|
 | **Time apart** | 2.655 days | 184.8 days |
-| **Wavelength difference** | 0.00005 µm, 0.002 of the band width. Same detector, and the target falls on the same detector pixel | 0.187 µm, about 6 band widths |
-| **WISE 0855 predicted shift** (catalog, not measured) | 0.06″ (0.04 display px) | 4.1″ (2.9 display px), under one 6.17″ native pixel |
-| **Display stretch** | Per-frame in both; `high` differs by 18% (2.749 vs 2.250) | Per-frame in both |
+| **Wavelength difference at the marker** | 0.00005 µm, 0.2% of the band width; same detector | 0.187 µm, 6.2 band widths |
+| **WISE 0855 predicted shift** (catalog, not measured) | 0.06″ (0.04 display px) | 4.1″ (2.9 display px) |
+| **Still different** | pointing (0.87 native px; 5.36″ at detector pixel (1709, 1364)), pipeline build, Q's PERSIST flag at the marker, per-frame stretch in the preset products | all of those, plus wavelength and a field rotation of about 180° |
+| **Same** | detector, release (`spherex_dr1`), field rotation | detector, release |
 
 ### Bright spots
 
-There are 24 bright spot entries across P, Q and R. A spot is a native local maximum that its own frame's stretch draws pure white.
+The census covers native local maxima that their own frame's stretch draws pure white: 24 entries across P, Q and R.
 
-**18 entries are cataloged stars:**
-- They are 6 Gaia DR3 stars (from the G < 17 cache), each seen in all three frames.
-- Each entry lies within 3.6″ of its Gaia star.
+- **18 entries are cataloged stars.** They are 6 Gaia DR3 stars from the G < 17 cache, each seen in all three frames. Each peak lies within 3.6″ of its Gaia position. Peaks are quantized to the ~6.15″ native pixels, so they move by up to a native pixel between frames even though the stars do not.
+- **The other 6 entries have no Gaia DR3 star within 9″.** They are 4 distinct features (`results.json` → `flagged_features`):
 
-**The other 6 entries have no Gaia DR3 star within 9″.** They are 4 distinct features:
+| Where (display px) | Native morphology (3×3 around peak) | FLAGS value and bits | Header meaning of each adverse bit | Same sky position in other frames |
+|---|---|---|---|---|
+| P (114.9, 82.9), Q (117.9, 80.6) | **One** native pixel above 5× the frame median: 234.6 (P) and 237.9 (Q) MJy/sr; 700–760× its brightest neighbour. **The same detector pixel (1709, 1364)** in both frames | P 2097221 (bits 0, 2, 6, 21), Q 69 (bits 0, 2, 6): NONFUNC, TRANSIENT, SUR_ERROR; P's bit 21 is SOURCE, informational, "Pixel mapped to a known source" | NONFUNC "Permanently unusable"; TRANSIENT "Transient detected during SUR"; SUR_ERROR "Error in onboard processing" | R: 0.30 MJy/sr at that sky position. R's cutout does **not** contain detector pixel (1709, 1364), so this is a statement about the sky only |
+| P (32.4, 111.8) | **Two** adjacent native pixels, 12.6 and 8.4 MJy/sr | 268959749: TRANSIENT, OUTLIER, HALO, SUR_ERROR | OUTLIER "Pixel flagged by Detect Outliers"; HALO "Pixel part of a transient halo" | Q and R: 0.29 (background) at that sky position. The same detector pixel (1689, 1364) in Q reads 0.27 MJy/sr, unflagged (N2) |
+| R (22.4, 209.7) | One native pixel at the cutout edge, 2.9 MJy/sr | 69: NONFUNC, TRANSIENT, SUR_ERROR | as above | P 0.33, Q 0.30 |
+| Q (128.7, 30.4), R (128.3, 32.3) | Star-like, 2.2–2.5 MJy/sr in **all three** frames | SOURCE only (no adverse flag) | none | P 2.43 |
 
-| Where (display px) | What the raw FITS shows | FITS-header flag meaning | In other frames (same sky position, ±9″) |
-|---|---|---|---|
-| P (114.9, 82.9) and Q (117.9, 80.6) | **One** native pixel: 234.6 (P) and 237.9 (Q) MJy/sr, about 700× its brightest neighbour. It is **the same detector pixel (1709, 1364)** in both frames. Flags: NONFUNC, TRANSIENT, SUR_ERROR. The shipped flag overlay marks it in P and Q. Between P and Q it shifts 3.8 display px (5.3″) while the stars stay put | NONFUNC = "Permanently unusable"; TRANSIENT = "Transient detected during SUR"; SUR_ERROR = "Error in onboard processing" | R: 0.30 MJy/sr (background) |
-| P (32.4, 111.8) | 12.6 MJy/sr over two native pixels; not star-shaped. Flags: TRANSIENT, OUTLIER, HALO, SUR_ERROR. Marked by the shipped overlay | OUTLIER = "Pixel flagged by Detect Outliers"; HALO = "Pixel part of a transient halo" | Q and R: 0.29 (background) |
-| R (22.4, 209.7) | A single native pixel at the cutout edge, 2.9 MJy/sr. Flags: NONFUNC, TRANSIENT, SUR_ERROR. Marked by the overlay | as above | P: 0.33, Q: 0.30 |
-| Q (128.7, 30.4) and R (128.3, 32.3) | 2.2–2.5 MJy/sr in **all three** frames; star-like; no adverse flag | none | P: 2.43 |
+The shipped flag overlay marks the first three features in red. The last feature is steady in every frame. It is a sky source missing from the G < 17 Gaia cache, and it is not identified here.
 
-The last spot is steady in every frame. It is a sky source missing from the G < 17 Gaia cache, and it is not identified here.
+**The jumping pixel.** The same detector pixel (1709, 1364) lands on sky positions 5.36″ apart in P and Q, which is the 3.81 display px shift seen on the grid. The N2 controls (`origin/claude/n2-controls` @ `45ee56b`, `science/reviews/overnight-controls/results/``B_field_sources.csv`) give an independent check. Three strict-quality Gaia field stars agree between P and Q to a median of 0.40″ (max 0.76″). Their detector shift (about −0.83, −0.28 native px) predicts 5.38″ for a detector-fixed pixel, matching the 5.36″ measured here. Registration lines up the sky, so a feature tied to one detector pixel moves on the sky grid while the stars stay put.
 
 ### Near the marker
 
-- **WISE 0855 itself:** at 1.26–1.44 µm it is expected to be far below SPHEREx sensitivity (`science/reviews/targets/README.md` §6). That statement is not re-tested here.
-- **The dot closest to the marker coincides in position with the catalogued static star Gaia DR3 `5756956644387831296`** (G 16.3): the measured spot lies within 3.6″ of that star's position in all three frames, and 7.9″ from the marker in P and Q (4.5″ in R). This is a positional association, not an identification; a spot near the marker does not by itself identify WISE 0855.
-- **Q's "flagged" status at the marker** comes from 2 of 19 screened pixels with PERSIST ("Persistent charge above threshold"). It tells you not to trust those pixels. It does not say that something appeared.
+- **The marker** is the catalog prediction of WISE 0855's position at each frame's time (`marker.kind = catalog_prediction`). It is not an image detection.
+- **The nearest dot** is the brightest native local maximum within 3 native px of the marker, located with a crude 3×3 first moment (`results.json` → `near_marker`):
+  - It lies 0.7–0.8″ from the cached Gaia DR3 position of `5756956644387831296` (G 16.3, nearly static) in all three frames.
+  - It lies 8.7″ (P), 7.9″ (Q) and 4.2″ (R) from the marker.
+  - Its peak is 16–33 times the frame's robust pixel scatter above the frame median.
 
-### Stretch probe
+  This is a **positional association** with that catalogued star. It is not an identification, a detection test or photometry.
+- **Q's "flagged" status at the marker** comes from 2 of 19 screened pixels flagged PERSIST ("Persistent charge above threshold"): native (30, 30) and (30, 31). They sit next to the nearby dot's peak at (30, 29). The flag says not to trust those pixels. It does not say that something appeared.
+- **WISE 0855 itself is expected to be far below SPHEREx sensitivity at 1.26–1.44 µm.** This is a **sourced expectation**, not something measured here:
+  - Faherty et al. 2014 (ApJL 793, L16; arXiv:1408.4671) report J3 = 24.8 (+0.33/−0.53) mag at 2.6σ, equivalently J3 > 23.8 mag at 5σ (Vega).
+  - Schneider et al. 2016 (arXiv:1605.05618) report HST F125W = 26.41 ± 0.27 mag (Vega).
+  - The SPHEREx design paper, Doré et al. 2014 (arXiv:1412.4872), gives an all-sky point-source requirement of about 18.5 AB mag (5σ) per spectral element after the full survey. A single exposure is shallower than that.
 
-The same sky value is drawn at different grey levels, because each frame's stretch is computed from that frame alone (`results.json` → `stretch_probe`):
+  No noise, PSF or selection model was fitted to these frames. So no detection limit or upper limit is quoted, and "not seen" is not a measured non-detection.
 
-| Sky value (MJy/sr) | Grey in P | Grey in Q | Grey in R |
-|---|---|---|---|
-| 1.0 | 156 | 174 | 177 |
-| 2.0 | 225 | 244 | 245 |
+### Stretch probe and frame background
 
-`contact_sheet.png` shows each frame with its own stretch, P and Q on one shared stretch (an illustration for reviewers only), and the shipped flag overlays. Magenta circles mark the catalog prediction; yellow boxes mark the six unmatched spot entries.
+Each shipped preset frame computes its stretch from that frame alone, so the same input radiance is drawn at different grey levels (`results.json` → `stretch_probe`, `case_stretch_probe`):
+
+| Sky value (MJy/sr) | P (preset) | Q (preset) | R (preset and case) | P and Q (staged case, shared) |
+|---|---|---|---|---|
+| 1.0 | 156 | 174 | 177 | 159 |
+| 2.0 | 225 | 244 | 245 | 228 |
+
+The frame backgrounds were also measured (`frame_background`), as medians of the display-grid values: P 0.286, Q 0.278 and R 0.253 MJy/sr. Q's median is 0.971 of P's, yet the preset stretch draws it lighter: grey 20 against 16. Under the shared P+Q stretch the order reverses (P 19, Q 16), matching N2 (`origin/claude/n2-controls` @ `45ee56b`, `science/reviews/overnight-controls/results/``A_stretch_probes.csv`, `results.json`). The small physical difference has no established cause. These medians are descriptive. They have no calibration check, background model or uncertainty.
+
+`contact_sheet.png` has two rows:
+
+- **Top:** each frame with its own preset stretch, then P and Q on one shared stretch.
+- **Bottom:** the shipped flag overlays.
+
+Magenta circles mark the catalog prediction. Yellow boxes mark the six unmatched spot entries.
 
 ![contact sheet](contact_sheet.png)
 
-## The exercise (learner-facing draft)
+## The exercise (learner-facing)
 
-**Opening question:** "SPHEREx photographed the sky around the cold brown dwarf WISE 0855 on 7 November 2025 (P), 10 November 2025 (Q) and 11 May 2026 (R). Blink P and Q. One bright dot jumps while the stars stay still, and another dot is only in P. Did something move or appear in the sky? Then decide whether P and R are a fair test of whether WISE 0855 moved."
+**Opening question:** "SPHEREx photographed the sky around the cold brown dwarf WISE 0855 on 7 November 2025 (P), 10 November 2025 (Q) and 11 May 2026 (R). Blink P and Q. One bright dot jumps while the stars stay still, and another dot is only in P. Did something move or appear in the sky? Before you decide, check each frame's date, wavelength, display stretch and pixel quality. Then decide whether P and R can show whether WISE 0855 moved."
 
 **Steps:**
 
-1. **Fair pair?** Read each frame's date and its wavelength at the marker. Which pair differs only in time?
-2. **Blink P and Q.** Find the dot that jumps, and the dot that is only in P. Turn on **Show flagged pixels**. What covers each one?
-3. **Check R.** Is the jumping dot there in R, at the same place among the stars?
-4. **Brightness.** Q looks a little brighter overall than P. Is that the sky? (Check how each image was stretched.)
-5. **The marker.** Is the dot near the marker WISE 0855?
-6. **Claim.** Write a claim, the observations that support it, and the uncertainty. Name what caused each difference: time, wavelength, display stretch or quality.
+1. **Matched pair.** Read each frame's date and its wavelength at the marker. Which pair has closely matched wavelength, so it is the better pair for looking for a change over time? What else still differs between those two frames?
+2. **Blink P and Q.** Find the dot that jumps and the dot that is only in P. Turn on **Show flagged pixels**. What covers each one, and how many pixels wide is each?
+3. **Check R.** Is the jumping dot in R at the same place among the stars? Why does that say nothing about the detector pixel? (R's cutout does not include that detector pixel.)
+4. **Brightness.** Q looks a little lighter overall than P. Can you tell from the grey levels whether the sky got brighter? (Check how each image was stretched.)
+5. **The marker.** What is the marker? Is the dot near it WISE 0855?
+6. **Claim.** Write a claim, the observations that support it, and the uncertainty. Say what explains each difference (time, wavelength, display stretch or flagged pixels) and what these images cannot tell you.
 
-**Reference answer and rationale** (agent-written, not tested with learners):
+**Reference answer and rationale.** These are the authors' interpretation, traceable to `answer_evidence.json`. The answer ids are A1–A7.
 
-- **P/Q is the fair pair for time.** It is 2.7 days apart on the same detector at 1.25719 vs 1.25725 µm, a difference of 0.2% of the band width. Over 2.7 days WISE 0855 is predicted to move only 0.06″, so no motion is expected.
-- **The jumping dot is a flagged detector pixel, not a moving source.** (Its physical cause is not established here; see Limitations.)
-  - It is one pixel, flagged NONFUNC/TRANSIENT/SUR_ERROR and covered by the red overlay in both P and Q.
-  - It is the same detector pixel (1709, 1364) in both frames.
-  - It is absent from R.
-  - It "moves" 5.3″ because the two pointings differ slightly. Registration lines up the sky, so a defect that is fixed on the detector shifts on the sky grid.
-- **The dot only in P is a flagged transient** (TRANSIENT/OUTLIER/HALO/SUR_ERROR). It is not a new object, and it is absent from Q and R.
-- **"Q looks brighter" is the display stretch.** Each frame has its own stretch: 1.0 MJy/sr is drawn as grey 156 in P and 174 in Q. Grey levels cannot be compared between these frames, and nothing was measured.
-- **The dot near the marker coincides with a catalogued field star** (Gaia DR3 5756956644387831296, 7.9″ from the marker in P and Q), so it is not evidence of WISE 0855. The targets review expects WISE 0855 to be far below sensitivity at these wavelengths (not re-tested here). Q's PERSIST flag at the marker is a caution about pixels, not a detection.
-- **P/R is not a fair test of motion.**
-  - It mixes about 185 days with a 0.187 µm wavelength change (about 6 band widths).
-  - The predicted 4.1″ shift is under one native pixel.
-  - No separate source is seen at the predicted position in these frames (a visual statement, not a measured non-detection).
-- **Supported conclusion:** "Nothing in these images shows the sky changing between 7 and 10 November. The jumping dot and the P-only dot are flagged detector problems. The brightness difference is display stretch. These images cannot show whether WISE 0855 moved."
+- **P/Q is the better pair for looking at change over time (A1).** P and Q are 2.655 days apart at 1.257192 and 1.257247 µm, a difference of 0.2% of the band width, on the same detector and grid. They do **not** differ only in time:
+  - Q is flagged PERSIST at the marker;
+  - the pointing differs by about 5.4″;
+  - they come from different pipeline builds;
+  - the preset products stretch each frame separately.
+
+  Matched wavelength removes one major confound. It does not make the pair a pure time comparison.
+- **The jumping dot is one flagged native pixel (A2).**
+  - **Flags:** NONFUNC ("Permanently unusable"), TRANSIENT ("Transient detected during SUR") and SUR_ERROR ("Error in onboard processing"). The red overlay covers it in P and Q.
+  - **Morphology:** a single native pixel, 700–760 times its brightest neighbour.
+  - **Detector position:** the same detector pixel (1709, 1364) in both frames.
+  - **Apparent motion:** its 5.3″ jump on the grid matches the 5.36″ pointing difference for that pixel.
+
+  These observations do not justify identifying it as a moving or new astronomical source. The flags and morphology do not establish its physical cause. No cosmic ray, hot pixel or other mechanism is claimed. Its absence from R is a statement about the sky at that position only. It is not evidence about the detector pixel, because R's cutout does not contain detector pixel (1709, 1364).
+- **The P-only dot is flagged data (A3).** It covers two adjacent native pixels flagged TRANSIENT, OUTLIER, HALO and SUR_ERROR, and Q and R show background at that sky position. It gives no support for a new astronomical source. Its cause is not established.
+- **"Q looks lighter" (A5).** The per-frame stretch draws the same 1.0 MJy/sr as grey 156 in P and 174 in Q. Under one shared stretch both get grey 159. Q's background median is in fact slightly lower (0.971 of P's), yet the per-frame stretch draws it lighter (grey 20 against 16); under the shared stretch the order reverses (P 19, Q 16). This shows a display effect is present. It does not show that every frame-wide difference has only that cause. The small physical difference has no established cause, and no brightness change or constancy is measured.
+- **The marker and the dot near it (A6).** The marker is a catalog prediction, not an image detection. The nearest dot lies 0.7–0.8″ from the catalogued Gaia DR3 star `5756956644387831296` and 4.2–8.7″ from the marker. That is a positional association with the star, not an identification. It is not evidence of WISE 0855. WISE 0855 is expected to be far below SPHEREx sensitivity here, a sourced expectation (see [Near the marker](#near-the-marker)), not a measured non-detection or upper limit. Q's PERSIST flag at the marker is a caution about two pixels, not a detection.
+- **P/R does not establish WISE 0855 motion here (A7).**
+  - WISE 0855 is not securely detected or identified in these frames, and no astrometric fit was made, so there is no measured target position to compare.
+  - The pair also mixes about 185 days with a 0.187 µm wavelength change (6.2 band widths). The wavelength change alters which sources appear and how they look.
+  - No universal rule is implied. Positions can be compared across wavelengths, and shifts below one native pixel can be measured, given a detected source, adequate signal, PSF knowledge and a proper fit. Here the first requirement already fails.
+- **Supported conclusion:** "P and Q are the better pair (2.7 days apart at the same wavelength). The two dots that change between them are flagged detector pixels: one is a single flagged pixel at the same detector position in both frames, the other is two flagged pixels only in P. So the features I checked give no support for a new or moving object. The per-frame display stretch draws the same value lighter in Q, so the grey levels cannot show that the sky got brighter; the small measured difference in background has no established cause. The dot near the marker lines up with a catalogued star, not WISE 0855, which is expected to be too faint here. These images cannot show whether WISE 0855 moved."
 - **Not supported:**
-  - "A new object appeared or moved."
-  - "WISE 0855 is the dot by the marker."
-  - "Q is brighter than P."
-  - "P and R show WISE 0855's motion."
+  - "A new object appeared or moved." (The changing features are flagged pixels.)
+  - "Nothing in the sky changed." (Only the brightest compact features were inspected; this is not an exhaustive search.)
+  - "The jumping dot was a cosmic ray." (No cause is established.)
+  - "WISE 0855 is the dot by the marker." (Positional association with a catalogued star; position alone does not prove identity.)
+  - "The marker shows where WISE 0855 was detected." (It is a catalog prediction.)
+  - "Q is brighter than P." or "Q's lighter look is only the stretch." (Neither is measured.)
+  - "P and R show WISE 0855's motion." (Target not identified; no fit.)
+  - "WISE 0855 is proven absent here, or its detection limit is known." (The faintness is a sourced expectation, not a measurement.)
+  - "Different wavelengths or sub-pixel shifts can never be compared." (False as a general rule.)
 
-## Rubric (draft, 0–2 per row, 12 points)
+## Rubric (0–2 per row, 12 points)
+
+The rubric is an authoring aid for judging a written claim. It has not been calibrated on learners.
 
 | Criterion | 2 | 1 | 0 |
 |---|---|---|---|
-| **Time vs wavelength** | Picks P/Q as the fair pair, citing both the dates and the matched λ | Picks P/Q without the λ evidence | Picks P/R or ignores λ |
-| **Jumping dot** | Calls it a flagged detector pixel, citing the overlay or flag and its absence in R | Says "artifact" without evidence | Claims a moving or new object |
-| **P-only dot** | Calls it a flagged transient | Says "probably not real" with no check | Calls it a new source |
-| **Display stretch** | Says grey levels aren't comparable because the stretch is per-frame | Hedges about brightness without the reason | Claims a brightness change |
-| **Marker identity** | Says the nearby dot is not shown to be WISE 0855 (field star, or object too faint here) | Is unsure but makes no claim | Says the dot is WISE 0855 |
-| **Claim discipline** | The claim is limited to what the images support, with uncertainty stated (P/R confounded; no measurement) | Partly bounded | Over-claims motion, discovery or brightness |
+| **Matched pair and controls** | Picks P/Q as the better pair, citing the dates and the matched λ, and names at least one remaining difference (quality flag, pointing, pipeline build or stretch) | Picks P/Q with the λ evidence but treats it as differing only in time | Picks P/R, or ignores λ |
+| **Jumping dot** | Says it is flagged data and not evidence of a moving source, citing the overlay or flags and its one-pixel size or same detector position; does not name a cause as fact | Says "artifact" without evidence, or asserts a specific cause (for example "cosmic ray") | Claims a moving or new object |
+| **P-only dot** | Calls it flagged data, citing the overlay or flags; makes no new-source claim | Says "probably not real" with no check | Calls it a new source |
+| **Display stretch** | Says grey levels are not comparable because each frame has its own stretch, and does not claim that the stretch explains everything | Hedges about brightness without the reason | Claims a brightness change, or claims the stretch is proven to be the only cause |
+| **Marker identity** | Says the marker is a catalog prediction, and the nearby dot matches a catalogued star in position, so it is not shown to be WISE 0855 | Unsure, but makes no identity claim | Says the dot is WISE 0855, or that the marker is a detection |
+| **Claim discipline** | Limits the claim to the inspected features, states the uncertainty (P/R confounded and target not identified; nothing measured), and makes no exhaustive "nothing changed" or "not there" claim | Partly bounded | Over-claims motion, discovery, brightness, absence or a detection limit |
 
 ## Running it in the current app (not verified for this exercise)
 
-The general preset view already has the needed parts:
+The general preset view already has the parts the exercise needs:
 
 - **The WISE 0855 preset:** `/?preset=wise_0855`, with all 34 frames.
-- **Per-frame date and wavelength labels.**
+- **Per-frame labels:** date and wavelength on each frame.
 - **The blink pair picker:** its options show each frame's date and λ (`qa/quality-controls/README.md` §2).
 - **The "Show flagged pixels" overlay.**
 
-The learner must pick P, Q and R by date and wavelength. Two other frames share P's and Q's dates (D5 at 4.01 µm), so picking by wavelength is part of the task.
+The learner must pick P, Q and R by date and wavelength. Two other frames share P's and Q's dates (D5 at 4.01 µm), so picking by wavelength is part of the task. This path was not driven in a browser for this review, and the evidence-card export from a non-case preset view was not checked.
 
-**Not yet checked:**
-- This exact path was **not driven in a browser** for this draft.
-- The evidence-card export from a non-case preset view was not checked for this exercise.
-
-Making this a guided case would need frontend instructions and science approval. It is out of scope here.
+The guided version is staged at `science/staging/wise_0855_quality_trap/` (refs A/B/C = P/Q/R) and passes `tools/ingest/admit_case.py`. Its integration requirements for Codex are in `science/staging/README.md`. It is not shipped.
 
 ## Reproduce
 
 ```sh
 .venv/bin/python science/reviews/transfer-exercise/check_transfer.py \
-    --data-root "/path/to/research/build_data"
+    --data-root "/path/to/research/build_data" [--out /clean/output/dir]
 ```
 
-The script reads the shipped records, `manifest.json` and the raw FITS (read only), and imports processor A from `backend/data/process.py`. It writes `results.json` and `contact_sheet.png` in this folder. It was run on 2026-11-15 with numpy 2.5.4 and astropy 8.0.2.
+The script reads three inputs: the shipped records, `manifest.json` and the raw FITS (read only). It imports processor A from `backend/data/process.py`. It writes `results.json`, `answer_evidence.json` and `contact_sheet.png` to `--out` (default: this folder).
+
+**N1 regeneration check (2026-11-15, final run after the N2 cross-check):**
+
+- **Environment:** numpy 2.5.4, astropy 8.0.2, Pillow 13.0.0.
+- **Clean run:** run into an empty scratch directory. Exit 0. All three frames reproduced (SHA-256 equal; wavelength, quality, display scale, marker and PNG bytes equal).
+- **Comparison with the committed files:** every key that existed in the committed `results.json` was unchanged except `flag_descriptions_from_FITS_header`, which now also lists SOURCE. The new keys are `flagged_features`, `detector_pixel_1709_1364`, `near_marker`, `frame_background`, `case_stretch_probe` and `pipeline_builds`. `contact_sheet.png` was byte-identical.
+- **Committed outputs:** the files in this folder were then regenerated in place. They are byte-identical to the clean run.
+- **Cross-check with N2:** the N2 control outputs (`origin/claude/n2-controls` @ `45ee56b`, `science/reviews/overnight-controls/results/`) were read and agree with this run: the 5.36″ jump and 3.81 display px; flag bits; the P-only dot's two pixels; the grey-level probes; the background-order reversal; and the pair differences (Δλ = 0.0018 band widths for P/Q). `answer_evidence.json` cites those files under `n2_controls_crosscheck` instead of re-deriving the star-based pointing check.
+
+## Second review pass
+
+### The seven N1 defects
+
+A separate pass, made after the rewrite, re-read the README, `answer_evidence.json` and the staged `case.json` against `results.json`. It hunted specifically for conclusions the evidence does not support. Each defect below is listed before → after.
+
+1. **"Which pair differs only in time?"** This was false: P/Q also differ in quality, per-frame scaling, pipeline build and pointing. **Now:** "Which pair has closely matched wavelength … What else still differs?" The answer and rubric require the remaining controls (A1).
+2. **"Nothing in these images shows the sky changing" / "neither is in the sky"** overclaimed exhaustive absence. **Now:** limited to the inspected features. Their flags, native-pixel behaviour and detector position give no support for identifying them as new or moving sources. "Nothing at all changed" is listed as not supported.
+3. **The TRANSIENT flag was read as a cause.** **Now:** the answer quotes the exact header meaning of every flag, the FLAGS integer and the measured 3×3 morphology. It says no physical cause is established, and "it was a cosmic ray" is listed as not supported (the admission validator also rejects that wording).
+4. **"P/R … predicted 4.1″ shift is under one native pixel"** implied a universal rule. **Now:** P/R fails because the target is not securely detected or identified and no astrometric fit was made. The answer states explicitly that cross-wavelength and sub-pixel astrometry are possible in general (A7).
+5. **The dot near the marker.** **Now:** measured, not assumed. The nearest local maximum's first moment lies 0.7–0.8″ from the Gaia star in all three frames; previously "within 3.6″" was asserted without a stored measurement. The text says "positional association, not identification", and the marker is labelled a catalog prediction, not a detection (A6).
+6. **The stretch probe was presented as the whole explanation.** **Now:** it is stated to prove that a display effect exists, not that it is the sole cause. The measured background medians are added, and both "Q is brighter" and "it is only the stretch" are not supported (A5).
+7. **"Expected far below sensitivity"** cited only an internal review. **Now:** a sourced expectation with three named references (Faherty et al. 2014; Schneider et al. 2016; Doré et al. 2014). The text states explicitly that it is not a measured non-detection or an upper limit, and no detection limit is calculated.
+
+The stale completion gate ("Testing status … with Sathvik and Sagar") was removed. The distinction between computational review and learner outcome is kept at the top of this file and in `answer_evidence.json` → `status`.
+
+### Further findings and changes
+
+- **"While the stars stay put"** could be misread, because native-pixel peaks of stars also shift by up to a native pixel between frames. **Changed:** the evidence for the jump is now the same detector pixel plus the measured pointing difference (5.36″). The stars are described as staying within 3.6″ of their Gaia positions at native-pixel sampling.
+- **"Absent from R"** was used as evidence for a detector feature. **Changed:** R's cutout does not contain detector pixel (1709, 1364) (confirmed by N2), so absence from R is now only a statement about the sky at that position.
+- **Q's PERSIST pixels.** The previous text did not say where they are. **Added:** they are adjacent to the nearby dot's peak, (30, 30) and (30, 31) next to (30, 29). The staged case still keeps the flag interpretation to "do not trust those pixels".
+- **Brightness wording.** The earlier "at least partly the stretch" was still too loose. **Changed:** the answer now says that the per-frame stretch draws the same value lighter in Q, that the shared stretch reverses the background order, and that the small physical difference has no established cause.
+- **A leading question in the staged case.** "Does C's sky look a little lighter?" was false under the case stretch (background grey 19 in A, 16 in B, 19 in C). **Changed** to a neutral question about whether grey levels can be compared.
+- **Selection bias.** The spot census only covers features drawn white by each frame's stretch. **Added** as a limitation in both the README and the case.
+- **Faint changes.** Nothing claims that fainter changes are absent.
+
+### Still open
+
+These remain open and are honest residuals, not defects:
+
+- The faintness expectation compares Vega J-band measurements with an AB-magnitude design requirement. The roughly 5-magnitude margin makes the qualitative expectation robust, but no conversion or per-exposure depth was computed.
+- The "positional association" uses a crude first moment on undersampled pixels.
+- The live app path for this exercise was not browser-checked.
 
 ## Limitations
 
-- **Not photometry.** Nothing in this exercise is photometry, a detection test or a measured proper motion.
-  - The raw values quoted (for example 234.6 MJy/sr) only show that a spot is a single flagged pixel rather than star-shaped.
-  - They are not learner-facing brightness claims.
+- **Not photometry.** Nothing in this exercise is photometry, a detection test or a measured proper motion. Raw values (for example 234.6 MJy/sr) only show that a spot is one or two flagged pixels rather than star-shaped.
 - **Gaia matching is limited.** It uses the cached G < 17 cone (`science/reviews/acceptance/gaia/wise_0855.csv`, radius 0.075°). Fainter or very red sources are absent from it, such as the steady unflagged spot at (128, 31).
-- **Flag names are from the pipeline.** The meanings quoted come from each FITS FLAGS header (`MSKD*`). The physical cause of a given NONFUNC or TRANSIENT pixel is not established here.
-- **Faintness of WISE 0855 is not re-tested.** It comes from the earlier targets review.
-- **P and Q come from different pipeline builds** (`l2b-v27-2026-247` and `-206`), both in DR1.
-- **Testing status.** No human has done this exercise. Whether an unfamiliar learner can apply the taught reasoning here is the open question it is meant to test, with Sathvik and Sagar.
+- **Flag names are from the pipeline.** The meanings quoted come from each FITS FLAGS header (`MSKN*`/`MSKD*`). The physical cause of a given NONFUNC or TRANSIENT pixel is not established here.
+- **The census is selective.** It covers only spots drawn white by their own frame's stretch, so it is not a search for all changes.
+- **Pipeline builds differ.** P, Q and R come from different builds within DR1 (`l2b-v27-2026-247`, `-206` and `-246`).
+- **The faintness of WISE 0855 is not measured here.** It is a sourced expectation, not a limit.
+- **No learner data.** The rubric and answer key are computationally reviewed interpretations. Whether an unfamiliar learner can apply the taught reasoning here is not measured, and is not a completion requirement for this package.
