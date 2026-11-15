@@ -1,71 +1,73 @@
 # Perigee submission draft
 
-Status: first draft for team-owner review. Saving this page is separate from submitting for judging.
+**Review status:** Prepared for owner review. Saving this draft does not submit it for judging.
 
-## Project name
+## Project title
 
 Perigee: Investigating the Infrared Sky
 
-## Summary
+## Project summary
 
-Perigee gives students, teachers and amateur astronomers a way to investigate NASA SPHEREx images and explain what they see. Start with Barnard's Star: play two observations and watch a bright source shift against the surrounding stars. Then check the dates, infrared wavelengths and pixel quality before writing a conclusion. Three guided cases explore apparent motion, differences between wavelengths and a misleading flagged feature. Each investigation ends with an evidence card that keeps the learner's explanation beside the observations, display settings and archive links. A teacher or classmate can follow the reasoning and inspect its sources. Built for the browser, Perigee connects the curiosity of noticing something in the sky with the care needed to interpret it.
+Perigee turns an object name or sky position into a sequence of NASA SPHEREx images that anyone can explore in a browser. A student watches Barnard's Star shift between observations, then asks whether the images support that conclusion. Perigee puts the dates, infrared wavelengths and pixel-quality checks beside the comparison. Three guided investigations help learners recognize apparent motion, choose a fair comparison and investigate a misleading dot. The learner finishes with an explanation linked to the exact observations, display settings and archive sources. A teacher or astronomy-club leader can inspect both the conclusion and its evidence. We tested the viewer across all five challenge target fields and retained reproducible processing checks. Our contribution connects public data access with a short investigation whose reasoning can be saved, shared and questioned.
 
-## Project demonstration
+## Detailed project description
 
-https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf
+### A public sky viewer with a question to investigate
 
-## Project
+Perigee answers the Planet X and SPHEREx challenge with a browser viewer for SPHEREx observations over time. Enter an object name or sky coordinates, retrieve the available observations from NASA/IPAC IRSA, and play or inspect the images on a common sky grid. Search accepts decimal and sexagesimal coordinates. Five prepared target fields provide an immediate starting point, and three guided investigations help a beginner decide what an apparent change means.
 
-https://perigee.lokesathvik.workers.dev/
+Imagine a student opening Barnard's Star. They press Play comparison and see the bright glow shift against the surrounding stars. Before calling it motion, they need to know when the images were taken, which infrared wavelengths they show and whether the relevant pixels are reliable. Perigee puts those checks beside the image and follows them with a notebook. The student leaves with an explanation and the observations behind it. A teacher can ask why the student reached that conclusion and inspect the same evidence.
 
-## Project details
+### Three investigations with useful decisions
 
-### From noticing a change to explaining it
+Barnard's Star teaches a supported reading of apparent motion. Images from 25 August 2025 and 19 August 2026 show the glow shifting north at similar infrared wavelengths. Our visual controls reproduce the direction and approximate size of the catalog prediction while surrounding stars remain nearly fixed. The center is saturated, so the case supports a qualitative conclusion about the visible shift rather than a precise position or speed measurement.
 
-Open the Barnard's Star investigation, press Play comparison, and watch the bright source change position relative to its neighbors. The next step is to work out what that change supports. Perigee keeps the dates, infrared wavelengths and pixel-quality checks beside the images, then asks the learner to record an explanation. For the Planet X and SPHEREx challenge, we built this experience for students, teachers and amateur astronomers: a short investigation that ends with reasoning another person can inspect.
+Epsilon Indi B teaches how to choose a comparison that answers the question. One pair spans about five months at similar wavelengths. Another comes from the same exposure at 2.3232 and 4.9399 micrometers. The same-time pair explores wavelength differences. It cannot establish change over time, and its display scales must be considered before comparing gray levels. The learner records which comparison supports their explanation.
 
-A student opening public astronomy data has several choices to make before interpreting a difference. Images taken months apart and images taken at the same instant through different wavelength bands answer different questions. Display contrast can change apparent brightness, and a flagged pixel can resemble an interesting source. We put those distinctions into the task itself, so a beginner has a reason to check each piece of information before deciding what happened.
+The WISE 0855 field teaches how to investigate a convincing apparent jump. A bright feature changes its sky position by 5.36 arcseconds between two observations, but occupies the same detector pixel in both. Three usable field stars imply a 5.38-arcsecond apparent shift for a detector-fixed feature as the pointing changes, while their own sky positions agree within 0.76 arcseconds. The feature also carries adverse mission quality flags. Together, these checks support a detector-fixed explanation for the apparent jump. They do not establish the pixel's physical cause or identify the feature as WISE 0855. The learner can reject an unsupported moving-object claim with specific evidence.
 
-### Three investigations, three scientific judgments
+### What Perigee contributes
 
-Barnard's Star compares observations from August 2025 and August 2026 at similar infrared wavelengths. The bright glow shifts north relative to the surrounding stars, consistent with its catalog-predicted motion. Its saturated center limits the precision of that comparison. A supported explanation describes the visible shift and acknowledges that limit.
+Archive viewers and astronomy education projects already provide image comparison, quality information and guided activities. Perigee's contribution is the continuous path from a SPHEREx comparison to a learner-written explanation with its exact sources attached. The notebook begins with what the learner noticed, then asks what it supports and what remains uncertain. A reference explanation appears after the learner records their own reasoning.
 
-Epsilon Indi B asks the learner to distinguish a change in observation date from a change in wavelength. One pair spans about five months at similar wavelengths; another shares an exposure but uses different wavelengths and detectors. The same-time pair cannot establish change over time. Its display scales also differ, so the learner needs to account for contrast before interpreting brightness.
-
-In the WISE 0855 field, a bright dot appears to jump between SPHEREx observations taken three days apart. The quality overlay marks the relevant pixel as unreliable, and our control check locates the feature at the same detector pixel in both exposures. These images do not establish a moving celestial object. The case gives a student a concrete reason to examine quality information even when an image looks convincing.
-
-### An explanation someone else can inspect
-
-The notebook begins with what the learner noticed. They record an observation, an explanation and remaining uncertainty, then compare their response with the case reference. Notes save in the browser. An exported evidence card keeps those words with the selected frame identifiers, dates, wavelengths, quality results and display settings, plus archive links and processing records. A teacher can inspect which observations a student used and how they reached the conclusion. A classmate can revisit the source images and question the interpretation.
-
-The app opens without an account or installation. A teacher or astronomy club can use one case for a short activity, while an interested learner can return to the other cases, explore five named target fields, or search by object name or coordinates. Curated investigations contain processed archive observations. Live searches load frames as they become available, with limited concurrency, retries for transient failures and caching of completed frames.
+Notes save in the browser. The completed evidence record retains the learner's words, selected frame identifiers, observation dates, wavelengths, quality results and display settings. Archive links, file fingerprints and processing records allow someone else to revisit the inputs. JSON preserves the structured evidence, while print or Save as PDF creates a readable record. This makes a conclusion inspectable outside the app, with enough context for a teacher or classmate to challenge it.
 
 ### NASA data and implementation
 
-NASA/IPAC's Infrared Science Archive supplies SPHEREx Level 2 images from DR1 and QR3. Our Python processor places observations on a fixed sky grid, reads wavelength at the catalog-predicted native target position and preserves mission quality flags. It retains source URLs and file hashes so a reviewer can trace a displayed comparison back to its archive inputs. SIMBAD supplies catalog information and target astrometry; Gaia DR3 provides field stars for an independent alignment check.
+NASA/IPAC's Infrared Science Archive supplies SPHEREx Level 2 images from Data Release 1 and Quick Release 3. Our Python processor uses the FITS coordinate information to place observations on a fixed north-up sky grid, reads wavelength at the catalog-predicted detector position and preserves mission quality flags. Source URLs and raw-file SHA-256 fingerprints connect the displayed images to their archive inputs. SIMBAD supplies target information and astrometry. Gaia DR3 supplies field stars for an independent alignment check.
 
-We built the browser interface with React, TypeScript and Vite, and the archive service with Python and FastAPI. Astropy, NumPy and Pillow support FITS processing and image generation. Cloudflare hosts the frontend, and Vercel hosts the Python service. The running application uses deterministic processing rather than an AI model to interpret observations.
+React, TypeScript and Vite provide the browser interface. Python, FastAPI, Astropy, NumPy and Pillow handle archive requests and image processing. Cloudflare serves the frontend and prepared cases, while Vercel hosts the Python service. Live search limits concurrent frame requests, retries transient failures and caches completed frames. The first ready image appears while the remaining observations load. Scientific processing is deterministic.
 
-### Checks behind the comparisons
+### Testing across the five challenge targets
 
-We checked processing consistency against the original FITS files and tested image alignment against Gaia field stars. Across 183 unique cutouts, the independent registration check returned 128 PASS, 55 UNKNOWN and no FAIL verdicts. UNKNOWN means too few supporting stars for a verdict. Tests with deliberate displacements caught all nine tested combinations of three frames and shifts of 1, 2 and 5 native pixels. The technical report contains the methods, figures and conditions under which those checks apply.
+We reviewed the identities, catalog positions, epochs, propagated markers and shipped frame records for Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and R Draconis. The review gives each field a useful role. Barnard's Star supports apparent-motion comparison. Epsilon Indi B supports time-versus-wavelength comparisons. WISE 0855 provides the detector-fixed counterexample. RW Aurigae demonstrates why an unresolved binary needs system-level interpretation. R Draconis demonstrates the need to inspect saturation before a brightness comparison. Viewing the latter two fields does not by itself establish variability.
 
-### Intended impact
+The historical source-file audit covered 189 processed records: 183 unique cutouts and six case re-renders. A separate code path re-derived timestamps, wavelengths, quality information, display mapping and provenance from the original FITS inputs. The independent field-star alignment audit of the 183 unique cutouts returned 128 PASS, 55 UNKNOWN and zero FAIL verdicts. UNKNOWN means too few usable supporting stars. These verdicts assess alignment, not source identity or the scientific validity of every comparison. Deliberate shifts of 1, 2 and 5 native pixels were rejected on all three tested real-frame fixtures, covering nine tested combinations.
 
-Our contribution is the connection between a learner's explanation and the observations used to support it. A completed investigation gives a student something they can explain and a teacher something they can question: a conclusion with its evidence attached. The same workflow can support classroom discussion, astronomy-club activities and independent exploration of public NASA data.
+### Who can use the result
+
+A teacher can give a class the same pair of observations and ask students to explain what changed. Their saved records show which dates, wavelengths and quality evidence informed each answer. An astronomy club can debate the WISE feature, then use the retained control to test competing explanations. An independent learner can reopen notes, try a second case or search another object without installing software or creating an account.
+
+The intended benefit is practice in turning an observation into a defensible explanation. The three cases exercise different decisions, so returning means investigating another question. Public name and coordinate search extends exploration beyond the prepared examples. The portable evidence record gives the activity a concrete result that can be discussed or reused.
 
 ### Development and image credits
 
-Claude Code and OpenAI Codex assisted implementation, testing, scientific review scripts and writing. OpenAI image generation produced the labelled decorative telescope and rocket artwork. Investigation images come from the SPHEREx archive. The repository documents the tools and assistance used. We acknowledge NASA/JPL/Caltech and NASA/IPAC IRSA for SPHEREx data, CDS for SIMBAD, and ESA and the Gaia collaboration for Gaia DR3.
+Sathvik Loke, Sagar Raut, Akshobya Rao, Aditya Raut, Suhrit Bestavemula and Neeraj Movva built Perigee. Our team developed the idea through its research. Claude Code and OpenAI Codex assisted implementation, tests, scientific review scripts and writing. We monitored the work AI completed and kept revising. OpenAI image generation produced the labeled decorative telescope and rocket artwork. The investigation images come from the SPHEREx archive. We acknowledge NASA/JPL/Caltech and NASA/IPAC IRSA for SPHEREx data, CDS for SIMBAD and Sesame, and ESA and the Gaia collaboration for Gaia DR3. The linked resource list and AI-use notes record the tools and assistance used.
 
 ### Supporting materials
 
 - [Seven-slide demonstration](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf)
-- [Technical report: methods, figures and validation](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
-- [Source code and scientific checks](https://github.com/sathvikloke/perigee)
+- [Technical report (10 pages): methods, figures and validation](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
+- [Source code and reproducible scientific checks](https://github.com/sathvikloke/perigee)
 - [AI-use notes](https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md)
 
-## NASA data
+## Submission links
+
+- **Link to Final Project:** https://perigee.lokesathvik.workers.dev/
+- **Link to Project Demo:** https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf
+- The seven-slide deck is the current demo link. Add a recorded video only after its public URL and duration are verified.
+
+## NASA resources
 
 - [SPHEREx DR1 Spectral Images - dataset DOI](https://www.ipac.caltech.edu/doi/10.26131/IRSA678)
 - [SPHEREx QR3 Spectral Images - dataset DOI](https://www.ipac.caltech.edu/doi/10.26131/IRSA662)
@@ -74,7 +76,7 @@ Claude Code and OpenAI Codex assisted implementation, testing, scientific review
 - [IRSA SPHEREx Image Tutorial](https://caltech-ipac.github.io/irsa-tutorials/spherex-intro)
 - [JPL SPHEREx Spacecraft Reference](https://www.jpl.nasa.gov/press-kits/spherex/mission-overview/spacecraft/)
 
-## Space agency partner and other resources
+## Other resources
 
 - [ESA Gaia DR3 - field-star reference catalog](https://www.cosmos.esa.int/web/gaia/dr3)
 - [CDS SIMBAD - target catalog (Harvard mirror)](https://simbad.cfa.harvard.edu/simbad/)
@@ -100,14 +102,17 @@ Claude Code and OpenAI Codex assisted implementation, testing, scientific review
 - [Avoid AI Writing - editorial instructions](https://github.com/conorbronsdon/avoid-ai-writing)
 - [Stop Slop - editorial instructions](https://github.com/hardikpandya/stop-slop)
 - [Tectonic - LaTeX compiler](https://tectonic-typesetting.github.io/)
-- [Complete software, design, document and tool credits](https://github.com/sathvikloke/perigee/blob/main/docs/SUBMISSION_RESOURCES.md)
+- [Project dependency manifests and complete tool credits](https://github.com/sathvikloke/perigee/blob/main/docs/SUBMISSION_RESOURCES.md)
 
-The form permits 25 partner/other-resource rows. The final link includes ReportLab, pypdf and Sharp, along with the full dependency and tool list.
+## Scientific and editorial source record
 
-## Existing SI-use selections
+- [Five-target review](../science/reviews/targets/README.md).
+- [Source-file acceptance](../science/reviews/acceptance/README.md).
+- [Independent alignment audit](../science/reviews/registration-audit/README.md).
+- [Retained controls and numerical results](../science/reviews/overnight-controls/README.md).
+- [Comparison with existing work](../science/reviews/contribution/README.md).
+- [Demo content requirements](presentation/SUBMISSION_CONTENT_RULES.md).
 
-Coding, Debugging, or Troubleshooting; Visual Design or Image Creation; Presentation, Video, or Audio; Other Project-Related SI Use. These describe the existing selections in the form. They do not assert that a video has been recorded.
+## Form handoff
 
-## Review and submission
-
-The team owner must review the saved draft before submitting. The current form lists the deadline as 15 November 2026 at 11:59 PM in the Chicago local-event time zone. No Submit for Judging action is authorized in this draft task.
+Retain the six NASA rows and 25 other-resource rows above. The final other-resource link preserves the complete credits, including ReportLab, pypdf and Sharp. Keep the existing SI selections for coding/debugging, visual design, presentation/video/audio and other assistance. The owner must review the responses and required attestations before any Submit for Judging action.

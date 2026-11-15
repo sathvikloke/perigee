@@ -441,6 +441,8 @@ function PresetLoaded(props: {
         <Notebook
           card={ev.card}
           exportCard={exportCard}
+          previewFrames={exportCard.frames.flatMap((f) =>
+            (f.ref && caseRefs.includes(f.ref) ? data.caseFrames : data.sequence).filter((record) => record.frame_key === f.frame_key))}
           onChange={(c) => ev.update(withPair(c))}
           onRemoveFrame={ev.removeFrame}
           saveState={ev.saveState}

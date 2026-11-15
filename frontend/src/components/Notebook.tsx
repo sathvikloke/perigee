@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import type { CaseContent } from "../api/types";
+import type { CaseContent, FrameRecord } from "../api/types";
+import { EvidencePreview } from "./EvidencePreview";
+import { ReferenceReview } from "./ReferenceReview";
 import {
   CLAIM_MAX,
   TEXT_MAX,
@@ -78,6 +80,8 @@ export function Notebook(props: {
   onRemoveFrame: (frameKey: string) => void;
   /** Card to export/print, e.g. with the current comparison pair attached. */
   exportCard?: EvidenceCard;
+  /** Current products for exported observations; images are not stored in the card. */
+  previewFrames?: readonly FrameRecord[];
   saveState: SaveState;
   caseContent?: CaseContent | null;
   attachedLabel?: string | null;
@@ -88,6 +92,7 @@ export function Notebook(props: {
   const { card, caseContent } = props;
   const id = useId();
   const [exportStatus, setExportStatus] = useState<string | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const refs = useRef<Partial<Record<Field, HTMLTextAreaElement | null>>>({});
   const requestedReference = useRef(false);
   const notebookArrival = useContentCue<HTMLDivElement>("notebook", card.id);
@@ -104,6 +109,19 @@ export function Notebook(props: {
     completionIssues(out, caseContent, true).length === 0);
   const referenceRef = useContentCue<HTMLElement>("reference", showReference);
   const canExport = out.frames.length > 0 && FIELDS.every((f) => card[f.key].trim());
+  const previewVisible = previewOpen && canExport;
+  const previewRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!previewVisible) return;
+    previewRef.current?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    previewRef.current?.focus({ preventScroll: true });
+  }, [previewVisible]);
+  const printEvidence = () => { props.onBeforePrint?.(); window.print(); };
+  const download = () => { downloadEvidence(out); setExportStatus("Evidence JSON downloaded"); };
+  const editNotes = () => {
+    setPreviewOpen(false);
+    window.requestAnimationFrame(() => { refs.current.observations?.focus(); });
+  };
   const groups = caseContent?.evidence_requirements?.must_include_refs_any_of ?? [];
   const needsRequiredPair = groups.length > 0 && !groups.some((group) => group.every((ref) => pairRefs.has(ref)));
   const pairRecovery = needsRequiredPair ? props.requiredPair : undefined;
@@ -157,7 +175,7 @@ export function Notebook(props: {
           : "Notes stay on this device");
 
   return (
-    <aside className="notebook" id="notebook" tabIndex={-1} aria-labelledby={`${id}-title`}>
+    <aside className="notebook" data-evidence-preview={previewVisible} id="notebook" tabIndex={-1} aria-labelledby={`${id}-title`}>
       <div className="notebook-heading" ref={notebookArrival}>
         <span className="notebook-icon" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -213,12 +231,14 @@ export function Notebook(props: {
             {pairRecovery.onSelect ? <button type="button" onClick={() => {
               pairRecovery.onSelect?.();
               setExportStatus(null);
-              refs.current.observations?.focus({ preventScroll: true });
+              setPreviewOpen(false);
+              window.requestAnimationFrame(() => refs.current.observations?.focus({ preventScroll: true }));
             }}>Use images {pairRecovery.refs.join(" + ")}</button> : <p>The required images are unavailable. Reload the comparison before finishing; you can still download your notes.</p>}
           </div>
         )}
 
         <form onSubmit={submit} noValidate={false}>
+          <div className="notebook-editor">
           {FIELDS.map((f) => {
             const hint = f.hint;
             return (
@@ -265,8 +285,9 @@ export function Notebook(props: {
             <p>A visual difference alone does not establish a discovery.</p>
           </div>
 
+          </div>
           {caseContent && (
-            <div className="completion-status" role="status">
+            <div className="completion-status" data-ready={completed} role="status">
               <strong>{completed ? "Ready to compare your reasoning" : "Before you view the reference"}</strong>
               {completed ? <p>Your notes are saved. The reference is a guide for reflection, not a grade.</p> : <>
                 {unreviewedCount > 0 && <p>Review {unreviewedCount === 1 ? "the remaining check" : `the remaining ${unreviewedCount} checks`} beside the images.</p>}
@@ -281,17 +302,20 @@ export function Notebook(props: {
               </>}
             </div>
           )}
-          <button className="primary" type="submit" disabled={caseContent ? !completed : !canExport}>
+          {canExport && !previewVisible && <div className="notebook-preview-entry">
+            <p>Your notes and selected observations are ready to view together.</p>
+            <button type="button" className="primary" onClick={() => setPreviewOpen(true)}>Preview your evidence card</button>
+          </div>}
+          {previewVisible && <EvidencePreview id={id} card={out} frames={props.previewFrames} previewRef={previewRef}
+            onEdit={editNotes} onPrint={printEvidence} onDownload={download} status={status} />}
+          {(caseContent || !previewVisible) && <button className={canExport ? "reference-action" : "primary"} type="submit" disabled={caseContent ? !completed : !canExport}>
             {caseContent ? "Compare with the reference" : "Download evidence JSON"}
-          </button>
+          </button>}
           {!canExport && <p className="export-hint" id={`${id}-export-hint`}>Add an image and complete the three note fields to download your evidence.</p>}
-          <div className="notebook-actions">
+          {!previewVisible && <div className="notebook-actions">
             <button
               type="button"
-              onClick={() => {
-                props.onBeforePrint?.();
-                window.print();
-              }}
+              onClick={printEvidence}
             >
               Print / save PDF
             </button>
@@ -299,45 +323,11 @@ export function Notebook(props: {
               downloadEvidence(out); setExportStatus("Evidence JSON downloaded");
             }}>Download evidence JSON</button>}
             <span role="status">{status}</span>
-          </div>
+          </div>}
         </form>
 
         {showReference && caseContent?.conclusion_guide && (
-          <section className="reference-review" ref={referenceRef} tabIndex={-1} aria-labelledby={`${id}-reference-title`}>
-            <h3 id={`${id}-reference-title`}>Compare your reasoning</h3>
-            <div className="learner-claim"><strong>Your claim</strong><p>{card.claim}</p></div>
-            <h4>Reference answer (from the case)</h4>
-            <p className="muted">This is a reference for reflection, not an automatic grade. Your words above stay yours.</p>
-            <div className="details-body">
-              {caseContent.conclusion_guide.supported?.length ? (
-                <div>
-                  <strong>Supported by these images</strong>
-                  <ul className="plain-list">
-                    {caseContent.conclusion_guide.supported.map((s, i) => (
-                      <li key={i}>{s}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {caseContent.conclusion_guide.not_supported?.length ? (
-                <div>
-                  <strong>Not supported</strong>
-                  <ul className="plain-list">
-                    {caseContent.conclusion_guide.not_supported.map((s, i) => (
-                      <li key={i}>{s}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {caseContent.conclusion_guide.example_claim && (
-                <div>
-                  <strong>Example claim</strong>
-                  <p>{caseContent.conclusion_guide.example_claim}</p>
-                </div>
-              )}
-            </div>
-            <a href={`/${card.data_origin === "fixture" ? "?fixtures=1" : ""}#investigations`}>Try another investigation</a>
-          </section>
+          <ReferenceReview id={id} card={out} caseContent={caseContent} reviewRef={referenceRef} />
         )}
 
         <section className="print-provenance" aria-label="Printed observation provenance">

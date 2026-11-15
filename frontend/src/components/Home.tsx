@@ -69,7 +69,7 @@ export function Home(props: {
         <LandingObservatory active={heroRevealed} animateEntrance={arrival} onReplayIntro={replayIntro} />
         <div className="hero-copy" ref={heroCopy}>
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
-          <p className="hero-description">Compare infrared images from NASA’s SPHEREx mission, check what changed, and record what the evidence supports.</p>
+          <p className="hero-description">Compare NASA’s SPHEREx infrared images and check what changed. Keep your explanation with the observations and sources behind it.</p>
           <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating <span className="hero-cta-arrow" aria-hidden="true">↗</span></button>
           {props.api.mode === "fixture" && <p className="hero-source">Development fixture. Not NASA observations.</p>}
         </div>
@@ -94,13 +94,13 @@ export function Home(props: {
         </section>
 
         <section className="evidence-intro" aria-labelledby="evidence-intro-title">
-          <div><p className="section-label">Compare, check, explain</p><h2 id="evidence-intro-title">Check what the images support</h2><p>A different wavelength, a flagged pixel, or the way an image is displayed can change what you see. Check those clues, write what the evidence supports, and take your sources with you.</p><a href="#my-evidence" className="text-action">Find your saved evidence</a></div>
+          <div><p className="section-label">Your evidence card</p><h2 id="evidence-intro-title">An explanation someone else can check</h2><p>Save what you noticed and why you think it happened. Your card keeps the selected observations, dates, wavelengths and archive links beside your words, so a teacher or classmate can follow the evidence.</p><a href="#my-evidence" className="text-action">Find your saved evidence</a></div>
           <article className="example-evidence" aria-label="Example reasoning about Barnard's Star">
             <p className="example-heading"><span>Example reasoning</span><span>Barnard’s Star</span></p>
             <h3>The glow shifts north</h3>
             <p>Against the surrounding stars, the bright glow shifts between the two dates.</p>
             <div className="example-observations"><span><b>A</b>25 Aug 2025<small>2.0062 µm</small></span><span><b>C</b>19 Aug 2026<small>2.0284 µm</small></span></div>
-            <div className="example-uncertainty"><span>What I still can’t tell</span><p>The core is saturated. These images don’t measure the star’s exact speed or brightness.</p></div>
+            <div className="example-uncertainty"><span>Evidence and uncertainty</span><p>The dates are a year apart at similar wavelengths. The saturated core limits how precisely we can locate the star.</p></div>
             <button type="button" className="link" onClick={() => props.onOpenPreset("barnards_star")}>Inspect the source observations</button>
           </article>
         </section>
@@ -117,8 +117,8 @@ export function Home(props: {
 
 const INVESTIGATION_COPY: Record<string, { question: string; description: string }> = {
   barnards_star: { question: "Can you see a star move?", description: "Follow Barnard’s Star across the sky, using the surrounding stars as your reference." },
-  epsilon_indi_b: { question: "Is this a fair comparison?", description: "Look at Epsilon Indi B through different infrared wavelengths and separate a change in view from a change in the sky." },
-  wise_0855: { question: "A dot that jumps", description: "A bright dot seems to move. Follow the image flags to find out whether the sky really changed." },
+  epsilon_indi_b: { question: "Is this a fair comparison?", description: "Check whether two images differ in time, infrared wavelength, or display contrast." },
+  wise_0855: { question: "A dot that jumps", description: "Use the image flags and detector checks to investigate an apparent jump." },
 };
 
 function PresetItem({ api, preset, onOpen, compact = false }: { api: PerigeeApi; preset: PresetDescriptor; onOpen: () => void; compact?: boolean }) {

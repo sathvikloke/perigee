@@ -574,6 +574,7 @@ export function QueryInvestigation(props: {
           <div hidden={!notebookVisible} className="query-notebook">
           <Notebook
             card={ev.card}
+            previewFrames={slots.flatMap((slot) => slot.frame ? [slot.frame] : [])}
             onChange={ev.update}
             onRemoveFrame={ev.removeFrame}
             saveState={ev.saveState}
