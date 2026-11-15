@@ -1,6 +1,6 @@
 # Perigee: seven-slide project demo
 
-Updated 15 November 2026. This replaces the historical deck.
+Updated 15 November 2026. This self-contained edition explains the project without a presenter.
 
 [Editable presentation](https://chatgpt.com/space/page_c2bdc1167fb481918cc92fabeb2bfc58) · [Public PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) · [Technical report](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
 
@@ -8,236 +8,208 @@ The deck uses Avenir Next, the app’s black/citron palette and original process
 
 ## Slide 1
 
-PERIGEE   /   THE IDEA
+PERIGEE   /   PROJECT & PURPOSE
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 1 / 7
 
 Perigee
 
-Investigate change in
-NASA’s infrared sky
+Investigate change in NASA’s infrared sky
 
-A moving dot can be a star, a different infrared view, or an unreliable pixel.
+A free web app for students, teachers and astronomy clubs to compare observations from NASA’s SPHEREx infrared telescope and explain what the evidence supports.
 
-Perigee guides learners through SPHEREx observations. They explain what changed and save the evidence behind their conclusion.
+The problem
 
-AUG 2025
+Two images of the same sky can look different because a star moved, the telescope sampled another infrared wavelength, or a pixel is unreliable. Seeing a change is only the start; the observer needs a way to decide what caused it.
 
-AUG 2026
+What we built
 
-Same field. A year apart.
-What does the change support?
+Perigee combines aligned images, guided comparison checks and a saved evidence notebook. A learner finishes with their own explanation, the observations behind it and links back to NASA’s archive. Three cases teach the process; five targets and live search extend it.
 
-NASA/IPAC SPHEREx images
-Saturated centers: visual comparison only
+Team Perigee · Planet X and SPHEREx challenge
 
-Sagar Raut · Akshobya Rao · Aditya Raut · Neeraj Movva · Sathvik Loke · Suhrit Bestavemula
+Sathvik Loke · Sagar Raut · Akshobya Rao · Aditya Raut · Suhrit Bestavemula · Neeraj Movva
 
 ## Slide 2
 
-PERIGEE   /   THE LEARNER’S JOURNEY
+PERIGEE   /   PRODUCT WALKTHROUGH
 
-Follow Barnard’s Star across a year
+From a first look to a supported explanation
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 2 / 7
 
-A · 25 AUG 2025
+1  Choose and play
 
-C · 19 AUG 2026
+Open a guided case and press Play comparison. The two images alternate in the same position, making small changes easier to spot against nearby stars.
 
-2.0062 µm
+2  Check the comparison
 
-2.0284 µm
+Barnard’s Star is shown on 25 Aug 2025 and 19 Aug 2026 at nearly the same infrared wavelength. Its glow shifts north against the field stars, consistent with the catalog prediction of about seven display pixels (10 arcseconds).
 
-NASA/IPAC SPHEREx · same sky grid · saturated centers
+3  Explain and keep the evidence
 
-NOTICE
+The learner records what they noticed, what it supports and what is uncertain. After the checks and notes are complete, a reference answer helps them reflect. Their own words remain saved and can be reopened, printed or exported.
 
-Play the comparison. Watch the glow shift against the surrounding field stars on a fixed sky grid.
-
-CHECK
-
-Read dates, wavelengths and flags. The catalog predicts about 10 arcseconds of movement; saturation limits exact position measurements.
-
-RECORD
-
-Save what you noticed, your explanation and its limits. Reopen, export or print the source-linked notebook.
+Actual app screenshot · NASA/IPAC SPHEREx images · The ring is a catalog prediction; the saturated center limits precise position measurements.
 
 ## Slide 3
 
-PERIGEE   /   THREE CASES
+PERIGEE   /   THREE GUIDED INVESTIGATIONS
 
-A visible difference has several explanations
+Each case teaches a different comparison
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 3 / 7
 
+Wavelength is the “color” of infrared light, measured here in micrometers (µm). Problem flags mark pixels the mission pipeline considers unreliable.
+
 25 Aug 2025 / 19 Aug 2026
 
-CHANGE OVER TIME
+Barnard’s Star · Can you see a star move?
 
-Barnard’s Star
+Across a year near 2.0 µm, the glow shifts north while field stars stay nearly fixed. This agrees with the predicted motion. The bright core overloads the detector, limiting its exact image position.
 
-A year apart, near 2.0 µm. The glow shifts relative to field stars, consistent with the catalog prediction. Its saturated center limits precise measurements.
+Same exposure · 29 Apr 2026
 
-29 Apr 2026 · A / C wavelengths
+Epsilon Indi B · Is this a fair comparison?
 
-CHANGE IN WAVELENGTH
-
-Epsilon Indi B
-
-A+B: nearly the same wavelength, five months apart. A+C: the same moment at 2.3232 and 4.9399 µm. Different stretches prevent a brightness ratio.
+One pair compares dates five months apart near 2.323 µm. Another compares 2.3232 and 4.9399 µm at the same moment. The latter tests wavelength, not time. The learner also checks display contrast before interpreting a difference in gray level.
 
 7 Nov 2025 / 10 Nov 2025
 
-UNRELIABLE EVIDENCE
+WISE 0855 field · A dot that jumps
 
-WISE 0855
-
-A bright dot jumps over three days at closely matched wavelength. Quality flags make it unreliable evidence for motion; they do not identify the physical cause.
-
-Images: NASA/IPAC SPHEREx. Transparent / missing values are not dark sky. Sources and case records in speaker notes.
+A bright dot appears to jump over three days at closely matched wavelength. The quality overlay identifies the unreliable feature. The learner can explain why this apparent jump is insufficient evidence for a moving celestial object.
 
 ## Slide 4
 
-PERIGEE   /   DATA & METHOD
+PERIGEE   /   NASA DATA & IMPLEMENTATION
 
-Trace each comparison back to NASA data
+How archive files become a usable investigation
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 4 / 7
 
-01
+1  Retrieve the data
 
-Archive
+NASA/IPAC’s Infrared Science Archive (IRSA) provides SPHEREx Level 2 observations from Data Release 1 and Quick Release 3. We retrieve small FITS cutouts: scientific files containing pixels, observation times, wavelength information and quality flags.
 
-NASA/IPAC IRSA supplies SPHEREx Level 2 FITS cutouts from DR1 and QR3: science pixels, times, wavelength maps and quality masks.
+Object names resolve through SIMBAD/Sesame. Search also accepts decimal or sexagesimal sky coordinates, such as hours:minutes:seconds.
 
-02
+2  Process consistently
 
-Processing
+Python uses each file’s sky coordinates to place observations on one fixed, north-up grid. It reads the wavelength at the target’s detector position, converts pixel values into a stated display contrast, and preserves quality information.
 
-Python maps images to a common north-up grid, computes target-position wavelength, decodes quality flags and records contrast mapping.
+Display contrast maps measurements to gray; different scales can make the same value look different. The target marker is a catalog prediction.
 
-03
+3  Deliver in the browser
 
-Investigation
+React and TypeScript provide comparison playback, optional flag overlays, guided checks and the notebook. Cloudflare serves the app and prepared cases; a Python/FastAPI service on Vercel handles live archive requests.
 
-Curated cases or a live name / coordinate search lead to a learner-written explanation, attached to the exact observations and their limitations.
+Two frame requests run at once, with bounded retries and a cache of completed results. The first ready image is usable while others load.
 
-EVIDENCE EXPORT
-
-IDs · dates · wavelengths · quality · archive URLs · raw-file hashes · processing version
-
-SIMBAD: target context · Gaia DR3: field-star checks · Resampling adds no spatial resolution · React / FastAPI / Cloudflare
+NASA/IPAC IRSA: irsa.ipac.caltech.edu/Missions/spherex.html · SIMBAD: target context · ESA Gaia DR3: independent field-star checks
 
 ## Slide 5
 
-PERIGEE   /   VALIDATION
+PERIGEE   /   PROCESSING & SCIENTIFIC VALIDATION
 
-What the checks establish
+Checks that make the comparisons inspectable
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 5 / 7
 
-189
+We checked the processed images against their source files and tested alignment against an external star catalog. The checks answer different questions.
 
-PRODUCTS IN THE PROCESSING AUDIT
+189 image records
 
-183 unique cutouts + six case re-renders
+SOURCE-FILE CONSISTENCY
 
-The 14–15 November sweep recomputed wavelengths, times, flags, coverage, contrast mapping and provenance. Image reconstruction checked consistency with the FITS headers.
+The 14–15 November processing sweep covered 183 unique cutouts plus six case re-renders. A separate code path recomputed wavelengths, timestamps, quality flags, coverage, display mapping and source records. The results matched the published products, so the displayed evidence can be traced back to the original files.
 
-183 unique cutouts
+128 PASS · 55 UNKNOWN · 0 FAIL
 
-INDEPENDENT FIELD-STAR REGISTRATION
+183 UNIQUE CUTOUTS · EXTERNAL ALIGNMENT
 
-128
+Independent field-star detections were compared with Gaia DR3 positions. PASS means the alignment met the validator’s thresholds; UNKNOWN means too few usable stars supported a verdict. Unknown cases stay visible as uncertainty. This check tests the sky grid separately from the moving target.
 
-55
+Deliberate error test
 
-0
-
-PASS
-
-UNKNOWN
-
-FAIL
-
-UNKNOWN means too few usable field stars.
-It is not a pass.
-
-Negative controls
-
-Every injected 1-, 2- and 5-pixel shift was detected in the tested fixtures. Scripts and results are public.
-
-Audit scope: 14–15 Nov 2026. Methods, retained results and validation scripts are published in science/reviews.
+The validator rejected every injected 1-, 2- and 5-native-pixel shift on the three tested real-frame fixtures.
 
 ## Slide 6
 
-PERIGEE   /   CONTRIBUTION & AUDIENCE
+PERIGEE   /   OUR CONTRIBUTION
 
-Reasoning that stays connected to its sources
+A saved explanation with the data behind it
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 6 / 7
 
-Notice → explain → revisit
+One continuous investigation
 
-Perigee brings observations, comparison checks and a written explanation into one guided workflow. Every conclusion stays attached to the images that support it.
+Perigee connects image comparison, scientific checks and learner-written reasoning in one workflow. The learner chooses an interpretation and explains it using the selected observations. The reference appears after they record their own thinking.
 
-Keep the result
+Someone else can inspect the reasoning
 
-Reopen saved reasoning, export the observations as JSON, or print an evidence card for discussion. Follow another target or a new archive query.
+Each export retains the observation IDs, dates, wavelengths, quality results, archive URLs, raw-file SHA-256 fingerprints and processing details. The notes autosave in the browser. JSON preserves the structured record; printing creates a PDF for a teacher, classmate or club.
 
-EXAMPLE EVIDENCE RECORD
+EXAMPLE COMPLETED EVIDENCE CARD
 
-I noticed…
+Observation
 
-The bright glow shifts north against field stars.
+In images A and C, the bright glow shifts north relative to the surrounding stars.
 
-This supports…
+Explanation
 
-Motion consistent with the catalog prediction.
+The shift is consistent with Barnard’s Star moving across the sky, as the catalog predicts.
 
-Limit: saturation prevents a precise position.
+Evidence and uncertainty
 
-Students · teachers · astronomy clubs
+A: 25 Aug 2025, 2.0062 µm. C: 19 Aug 2026, 2.0284 µm. The core is saturated, so its exact center is uncertain. The exported card links both observations to IRSA.
 
-Five targets, three guided cases and live archive search give learners several ways to continue exploring.
-
-Example evidence record. Observation IDs, archive URLs and processing details travel with the exported reasoning.
+Illustrative completed record, not a user testimonial. The contribution is the integrated reasoning workflow and retained provenance.
 
 ## Slide 7
 
-PERIGEE   /   IMPACT & NEXT STEP
+PERIGEE   /   PEOPLE, REUSE & PROJECT LINKS
 
-Turn a sky image into an explanation you can check
+Why this is useful beyond a single demonstration
 
-NASA Space Apps 2026   ·   Planet X and SPHEREx
+NASA Space Apps 2026 · Planet X and SPHEREx
 
 7 / 7
 
-A complete investigation
+For a student
 
-Notice an apparent change. Check the dates, wavelengths and image quality. Write an explanation, compare it with the case reference, and keep the observations and sources together.
+Start with a concrete question and real NASA images. Practice separating what is visible from the explanation it supports. Leave with a written conclusion that can be discussed, rather than only a screenshot.
 
-The result is a piece of scientific reasoning that another person can inspect and discuss.
+For a teacher or astronomy club
 
-Why it matters
+Use a guided case as a short activity. Compare explanations against the same observations, then discuss how dates, wavelengths or unreliable pixels shaped the conclusion. No account or installation is needed.
 
-Learners can practice explaining evidence. Teachers and astronomy clubs can discuss both the conclusion and how it was reached.
+A reason to return
+
+Reopen saved notes or try another target: Barnard’s Star, Epsilon Indi B, WISE 0855, RW Aurigae or R Draconis. Live search extends the workflow to your own object or coordinates.
+
+OPEN THE PROJECT
 
 perigee.lokesathvik.workers.dev
 
-Code, methods and validation: github.com/sathvikloke/perigee
+Start with Barnard’s Star. Play the comparison, follow the checks, then save an evidence card.
 
-Three guided cases · Five targets · Saved evidence · Reproducible processing · Public methods and validation
+READ THE METHODS & CODE
+
+github.com/sathvikloke/perigee
+
+Technical report (8 pages)
+
+Processing, experiments, source links and reproduction instructions are public.
