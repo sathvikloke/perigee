@@ -29,6 +29,8 @@ python cloudflare/tests/smoke_local.py --base https://perigee.lokesathvik.worker
 python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev
 ```
 
+A separate [GitHub Actions run](https://github.com/sathvikloke/perigee/actions/runs/43662439693) also passed 20/20 at 01:18 UTC against the Cloudflare URL. It returned 377 search matches (1.6 s) and a valid frame (2.9 s). The repository homepage and `PERIGEE_PUBLIC_URL` now point to Cloudflare.
+
 ## Browser check
 
 A fresh Cloudflare browser origin had no saved notes. The following were checked in the in-app browser:

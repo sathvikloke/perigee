@@ -8,7 +8,7 @@ Cloudflare Worker `perigee`, version **`979e0619-e17e-4471-bce1-1144129f7a33`**,
 
 The frontend, five presets, two investigations and all curated image/metadata assets are served on Cloudflare. Only live search, frame processing and health are proxied to **https://perigee-liard.vercel.app**, the existing Vercel Python deployment at `058a2a6` (`dpl_EaxvN8GkokTssAN2hsNrCN7uUJL3`). Vercel's build quota prevented the later documentation and label releases; its running API remains healthy. Do not delete that project while it supplies the live path.
 
-**Verified logged out:** release smoke 20/20 (377 live Orion results and a valid processed PNG), Cloudflare hosting smoke 24/24, exact PDF bytes, and browser comparison/flags/notebook save/reopen/JSON download. [Evidence and the two edge-level differences](../qa/cloudflare-release/README.md).
+**Verified logged out:** [GitHub Actions release smoke](https://github.com/sathvikloke/perigee/actions/runs/43662439693) 20/20 (377 live Orion results and a valid processed PNG), Cloudflare hosting smoke 24/24, exact PDF bytes, and browser comparison/flags/notebook save/reopen/JSON download. [Evidence and the two edge-level differences](../qa/cloudflare-release/README.md).
 
 **Deployment is manual.** Merging GitHub changes does not publish a new Cloudflare version. Rebuild the frontend and export the catalog, then run Wrangler using [the Cloudflare handoff](CLOUDFLARE.md). After every Cloudflare deploy, run both smoke commands there. `PERIGEE_PUBLIC_URL` points to Cloudflare; Vercel's status-triggered smoke therefore tests that primary app, but is not evidence that Cloudflare redeployed.
 
