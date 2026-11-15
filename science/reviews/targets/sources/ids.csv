@@ -1,0 +1,21 @@
+# simbad https://simbad.cfa.harvard.edu/simbad/sim-tap/sync retrieved 2026-11-15T00:28:10Z
+# ADQL: SELECT b.main_id, i2.id FROM basic b JOIN ident i ON i.oidref=b.oid JOIN ident i2 ON i2.oidref=b.oid WHERE i.id IN ('NAME Barnard''s star','* eps Ind B','* eps Ind A','WISEA J085510.74-071442.5','V* RW Aur','V* R Dra') AND (i2.id LIKE 'Gaia DR3%' OR i2.id LIKE 'HIP %' OR i2.id LIKE 'CWISE%' OR i2.id LIKE 'WISE %' OR i2.id LIKE '2MASS%' OR i2.id LIKE 'NAME%' OR i2.id LIKE 'GJ %')
+main_id,id
+"* eps Ind B","GJ 845 B"
+"* eps Ind B","GJ 845 C"
+"* eps Ind B","Gaia DR3 6412596012146801152"
+"* eps Ind B","2MASS J22041052-5646577"
+"* eps Ind B","WISE J220415.65-564723.6"
+"NAME Barnard's star","GJ 699"
+"NAME Barnard's star","HIP 87937"
+"NAME Barnard's star","Gaia DR3 4472832130942575872"
+"NAME Barnard's star","2MASS J17574849+0441405"
+"NAME Barnard's star","NAME Barnard's star"
+"NAME Barnard's star","NAME Barnard Star"
+"V* R Dra","HIP 81014"
+"V* R Dra","Gaia DR3 1648328016354496384"
+"V* R Dra","2MASS J16324023+6645180"
+"V* RW Aur","HIP 23873"
+"V* RW Aur","2MASS J05074953+3024050"
+"V* RW Aur","WISE J050749.55+302404.9"
+"WISEA J085510.74-071442.5","WISE J085510.83-071442.5"

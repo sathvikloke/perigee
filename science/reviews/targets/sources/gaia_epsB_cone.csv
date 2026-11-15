@@ -1,0 +1,4 @@
+# gaia https://gea.esac.esa.int/tap-server/tap/sync retrieved 2026-11-15T00:29:00Z
+# ADQL: SELECT source_id, ra, dec, pmra, pmdec, parallax, ruwe, astrometric_params_solved, phot_g_mean_mag, DISTANCE(POINT(ra,dec), POINT(331.0763,-56.7954))*3600 AS sep FROM gaiadr3.gaia_source WHERE 1=CONTAINS(POINT(ra,dec), CIRCLE(331.0763,-56.7954, 0.002))
+source_id,ra,dec,pmra,pmdec,parallax,ruwe,astrometric_params_solved,phot_g_mean_mag,sep
+6412596012146801152,331.07645259656397,-56.79381206688221,3981.97666296105,-2466.8318147663504,270.6580324694526,4.2955413,95,18.030664,5.724470069541228
