@@ -1,0 +1,227 @@
+{
+ "frame_key": "2026W18_1A_0516_1_D6",
+ "same_exposure_sibling": "2026W18_1A_0516_1_D3",
+ "same_time": true,
+ "legacy_funnel": {
+  "catalog_rows": 17,
+  "near_target": 0,
+  "outside_footprint": 5,
+  "attempted": 7,
+  "edge": 5,
+  "nonfinite": 1,
+  "low_snr": 6,
+  "snr_eligible": 0,
+  "retained": 0,
+  "max_snr_attempted": 8.585335
+ },
+ "attempted_catalog_stars": [
+  {
+   "gaia": 6412593435166417536,
+   "G": 13.931794,
+   "snr": 8.585335,
+   "native_r_px": 0.290102,
+   "ambiguous": false,
+   "adverse_in_window": 0
+  },
+  {
+   "gaia": 6412595973491218944,
+   "G": 15.813786,
+   "snr": 6.623162,
+   "native_r_px": 0.994981,
+   "ambiguous": false,
+   "adverse_in_window": 1
+  },
+  {
+   "gaia": 6412596183945494144,
+   "G": 15.765998,
+   "snr": 3.656291,
+   "native_r_px": 0.297495,
+   "ambiguous": false,
+   "adverse_in_window": 0
+  },
+  {
+   "gaia": 6412594397239098752,
+   "G": 16.195631,
+   "snr": 3.090648,
+   "native_r_px": 1.110027,
+   "ambiguous": false,
+   "adverse_in_window": 0
+  },
+  {
+   "gaia": 6412594706476744832,
+   "G": 16.045214,
+   "snr": 2.224331,
+   "native_r_px": 1.610616,
+   "ambiguous": false,
+   "adverse_in_window": 0
+  },
+  {
+   "gaia": 6412596493183196544,
+   "G": 16.372126,
+   "snr": 1.691452,
+   "native_r_px": 0.678421,
+   "ambiguous": false,
+   "adverse_in_window": 0
+  }
+ ],
+ "lower_snr_thresholds": {
+  "10.0": {
+   "n_eligible": 0,
+   "n_within_1px": 0,
+   "native_r_px": []
+  },
+  "8.0": {
+   "n_eligible": 1,
+   "n_within_1px": 1,
+   "native_r_px": [
+    0.290102
+   ]
+  },
+  "5.0": {
+   "n_eligible": 2,
+   "n_within_1px": 2,
+   "native_r_px": [
+    0.290102,
+    0.994981
+   ]
+  }
+ },
+ "sibling_A_retained": {
+  "n": 4,
+  "median_native_r_px": 0.226153
+ },
+ "validator": {
+  "A": {
+   "verdict": "PASS",
+   "n_detections": 7,
+   "best_support": 4,
+   "best_offset_px": [
+    -0.039777,
+    -0.184585
+   ]
+  },
+  "C": {
+   "verdict": "UNKNOWN",
+   "n_detections": 1,
+   "best_support": 1,
+   "best_offset_px": [
+    3.486623,
+    -0.008592
+   ],
+   "reasons": [
+    "only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence"
+   ]
+  }
+ },
+ "relative_control_target": {
+  "A": {
+   "stage": "ok",
+   "snr": 188.139908,
+   "adverse_in_window": 0,
+   "native_offset_from_prediction_px": [
+    -0.000394,
+    -0.111892
+   ],
+   "sky_offset_from_prediction_arcsec": [
+    0.283957,
+    -0.624858
+   ],
+   "ra": 331.097469,
+   "dec": -56.801045
+  },
+  "C": {
+   "stage": "ok",
+   "snr": 118.017026,
+   "adverse_in_window": 0,
+   "native_offset_from_prediction_px": [
+    -0.001624,
+    -0.087801
+   ],
+   "sky_offset_from_prediction_arcsec": [
+    0.22968,
+    -0.488143
+   ],
+   "ra": 331.097441,
+   "dec": -56.801007
+  },
+  "C_minus_A_sky_arcsec": [
+   -0.054276,
+   0.136715
+  ],
+  "C_minus_A_abs_arcsec": 0.147095,
+  "C_minus_A_abs_native_px": 0.023861
+ },
+ "relative_control_field": {
+  "A_detections_snr15": 7,
+  "C_detections_snr8": 4,
+  "matched_within_1_native_px": 1,
+  "pairs": [
+   {
+    "C_snr": 8.585335,
+    "A_snr": 152.275448,
+    "sep_arcsec": 1.913698,
+    "dra_arcsec": 1.250489,
+    "ddec_arcsec": -1.448625,
+    "ambiguous": false
+   }
+  ],
+  "median_C_minus_A_arcsec": [
+   1.250489,
+   -1.448625
+  ],
+  "note": "C detections at SNR 8 are below the legacy 15 threshold; a 1 native px sky match radius with few sources can include chance pairs, so this is a consistency indication, not an identification."
+ },
+ "calibration_same_exposure_target_pairs": {
+  "n": 6,
+  "abs_arcsec": {
+   "n": 6,
+   "min": 0.147095,
+   "max": 2.074279,
+   "mean": 0.761024,
+   "p50": 0.478508,
+   "p90": 1.558698,
+   "p95": 1.816489
+  },
+  "pairs": [
+   {
+    "obs": "2025W17_4B_0468_1",
+    "pair": "D1/D4",
+    "preset": "epsilon_indi_b",
+    "target_sky_diff_arcsec": 1.043118
+   },
+   {
+    "obs": "2025W23_2B_0258_2",
+    "pair": "D2/D5",
+    "preset": "epsilon_indi_b",
+    "target_sky_diff_arcsec": 0.344637
+   },
+   {
+    "obs": "2025W40_1A_0489_2",
+    "pair": "D3/D6",
+    "preset": "epsilon_indi_b",
+    "target_sky_diff_arcsec": 0.519276
+   },
+   {
+    "obs": "2026W17_1B_0337_3",
+    "pair": "D1/D4",
+    "preset": "epsilon_indi_b",
+    "target_sky_diff_arcsec": 0.43774
+   },
+   {
+    "obs": "2026W18_1A_0516_1",
+    "pair": "D3/D6",
+    "preset": "epsilon_indi_b",
+    "target_sky_diff_arcsec": 0.147095
+   },
+   {
+    "obs": "2026W19_1A_0227_1",
+    "pair": "D1/D4",
+    "preset": "wise_0855",
+    "target_sky_diff_arcsec": 2.074279
+   }
+  ],
+  "selection": "both centroids SNR >= 15 with no adverse flag in the 5x5 window"
+ },
+ "verdict": "unknown",
+ "verdict_reason": "No Gaia DR3 field star reaches the legacy SNR 15 in C (4.94 um), and the WCS-free validator finds too few detections, so no independent field-star registration check exists for this frame. Header-WCS reconstruction of the PNG is not independent validation. The relative controls (the target centroid in C vs its Gaia-checked same-exposure sibling A, and field sources common to A and C) are consistency checks on the same instant through a different detector; they do not replace an independent reference."
+}

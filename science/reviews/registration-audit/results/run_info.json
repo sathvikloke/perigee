@@ -1,0 +1,24 @@
+{
+ "command": "audit_registration.py --data-root <research/build_data> --out-dir <empty dir>",
+ "python": "3.12.16",
+ "numpy": "2.5.4",
+ "astropy": "8.0.2",
+ "pillow": "13.0.0",
+ "manifest_sha256": "671e025e5a1816f725293c58153727e1beb93dc6a43fce02c58bfedfaa79f3dd",
+ "gaia_csv_sha256": {
+  "barnards_star.csv": "8944f4ab43cabdcc28a01bf59f67c942bf974634a4948cd06475ef0a82a655c2",
+  "epsilon_indi_b.csv": "3311ca6ee7d0f6ccd5e9bb7cf964e48e88c7fbda22db85e36d65f97ad36ca4ba",
+  "r_draconis.csv": "932c7f96083f9d1039e1c3f55482310bebc1cf79ea3142eedc5475c8a4d2c11b",
+  "rw_aurigae.csv": "4086435fdc63b6000eade4def84a187def28fbfea5a19931a5f670ec3e6dc3b6",
+  "wise_0855.csv": "4fff0b9b0a8cec96fc588843ca4fc1bc5cfbe9e7490086b6e8ac3ed38aae75e3"
+ },
+ "products_frames_json_sha256": {
+  "barnards_star/case-moving_neighbor/frames.json": "bea0857e2a59f9b5af1ff23b8283f438c52c0e9cad6b3de7c850072cce05d2d3",
+  "barnards_star/frames/frames.json": "e162b2a31a8e8322134483c245cbf43224ebbec31255e26d808637eef3fb00f4",
+  "epsilon_indi_b/case-fair_comparison/frames.json": "11ecf2bd000dd90f3f27c298982a4d0bf9d40acb2543802caa9b9ed59e44317b",
+  "epsilon_indi_b/frames/frames.json": "26749822176d428687d18b58ab07c0c7ed5326d511eb18bb1939e1ac2828dc45",
+  "r_draconis/frames/frames.json": "e4bc43dcba9d68ec8dc7824eefc52eb82d3dc228320bad67474335dc2b5603bf",
+  "rw_aurigae/frames/frames.json": "915a16cb275335f077eceb6dce642e341c26e40d14997930e58d81981d4a0e5d",
+  "wise_0855/frames/frames.json": "62954a6b73f543644d7830c9675812a44aab20e51447dba810a4f532052d2f09"
+ }
+}
