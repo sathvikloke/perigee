@@ -1,0 +1,8 @@
+{
+ "partial_search": "backend/tests/api/examples/search_response.partial.fixture.json",
+ "empty_search": "backend/tests/api/examples/search_response.empty.fixture.json",
+ "token_expired": "backend/tests/api/examples/error.token_expired.json",
+ "upstream_unavailable": "backend/tests/api/examples/error.upstream_unavailable.json",
+ "invalid_coordinates": "backend/tests/api/examples/error.invalid_coordinates.json",
+ "invalid_field_of_view": "backend/tests/api/examples/error.invalid_field_of_view.json"
+}

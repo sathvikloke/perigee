@@ -17,7 +17,7 @@
 | N1 | Seven answer-key defects fixed; candidate reviewed; regenerates | not started | — | — |
 | N2 | Stretch, flag, wavelength, positive-motion and information-removal controls reproducible | not started | — | — |
 | N3 | Selection, exclusion and unknown audit; negative registration control | not started | — | — |
-| N4 | UI handoff with exact case/evidence fixtures and failure-state fixtures | not started | — | needs N1 |
+| N4 | UI handoff with exact case/evidence fixtures and failure-state fixtures | in progress | `qa/ui-fixtures/make_fixtures.mjs` produces failure fixtures from the real Worker code (fault-injected assets): missing overlay (404 ASSET_NOT_FOUND), case unavailable (503), unknown case (404), live origin down (curated 200, proxied 502), no coverage (real record `2025W17_4B_0077_2_D1`), plus pointers to the existing partial/empty/expired/invalid examples | changed-FOV and stale-selection fixtures from the N5 worker; case and evidence fixtures from N1 |
 | N5 | Route-to-processor parity; request-geometry identity tuple | not started | — | — |
 | N6 | Faults/resources measured; origin state; release handoff | in progress | **Origin check (once, 04:00Z):** GitHub Vercel status on `main` `0ffff6f` = success (03:26Z). `GET perigee-liard…/api/v1/health` = ok, `token_signing: env`. One search (83.822, −5.391, limit 1) returns the **corrected B4 wording**, so the Python origin now runs code including PR #47 (the quota reset); it is no longer `058a2a6`. | worker measuring local faults; coordinator writes the release handoff |
 | N7 | Admission validator exercised on the candidate | not started | — | needs N1 |

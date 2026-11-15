@@ -1,0 +1,42 @@
+{
+ "scenario": "Target position not covered by this image (real shipped record)",
+ "frame_key": "2025W17_4B_0077_2_D1",
+ "record_excerpt": {
+  "quality": {
+   "status": "not_covered",
+   "covered": false,
+   "screen_radius_native_px": 2.5,
+   "screened_pixels": null,
+   "valid_aperture_pixels": null,
+   "adverse_aperture_pixels": null,
+   "nonfinite_aperture_pixels": null,
+   "flag_names": [],
+   "flag_counts": {},
+   "informational_flags": [
+    "FULLSAMPLE",
+    "SOURCE"
+   ],
+   "notes": [
+    "The screened position is outside this image (geometric coverage check)."
+   ]
+  },
+  "wavelength_um": null,
+  "wavelength_location": "Not sampled: the catalog-predicted target position lies outside this image, and the spectral WCS is not extrapolated.",
+  "marker": {
+   "kind": "catalog_prediction",
+   "label": "Catalog prediction (not a detection)",
+   "x": 129.945,
+   "y": 126.797,
+   "on_grid": true,
+   "ra_deg": 331.0952813864499,
+   "dec_deg": -56.8001793498052,
+   "epoch_mjd": 60790.261636745,
+   "epoch_utc": "2025-04-25T06:16:45.415Z",
+   "propagated": true,
+   "source": "SIMBAD via CDS Sesame (Gaia EDR3 (2020yCat.1350....0G)), propagated from epoch J2000.0 with catalog proper motion and parallax distance to this frame's mid-exposure time (annual parallax and binary orbits not modeled)."
+  }
+ },
+ "expected_ui": [
+  "Say the target is outside this image; show no wavelength at target; do not call it 'flagged' or 'clear'."
+ ]
+}

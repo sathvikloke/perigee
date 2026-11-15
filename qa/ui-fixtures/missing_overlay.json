@@ -1,0 +1,52 @@
+{
+ "scenario": "Quality overlay asset unavailable for a frame whose record is fine",
+ "requests": [
+  {
+   "method": "GET",
+   "path": "/api/v1/assets/epsilon_indi_b--case-fair_comparison-2026W18_1A_0516_1_D3_flags--759c181c4d77.png",
+   "status": 404,
+   "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-store",
+    "x-request-id": "ui-fixture-0001",
+    "x-perigee-worker": "4a4073ba9fd628fc3ea2ef85601819165fce8de938234c9e13dde31e18fa3016"
+   },
+   "body": {
+    "schema_version": 1,
+    "request_id": "ui-fixture-0001",
+    "error": {
+     "code": "ASSET_NOT_FOUND",
+     "message": "Unknown or unavailable asset.",
+     "retryable": false,
+     "details": null
+    }
+   }
+  }
+ ],
+ "frame_record_quality": {
+  "status": "clear",
+  "covered": true,
+  "screen_radius_native_px": 2.5,
+  "screened_pixels": 19,
+  "valid_aperture_pixels": 19,
+  "adverse_aperture_pixels": 0,
+  "nonfinite_aperture_pixels": 0,
+  "flag_names": [],
+  "flag_counts": {
+   "SOURCE": 19
+  },
+  "informational_flags": [
+   "FULLSAMPLE",
+   "SOURCE"
+  ],
+  "notes": [
+   "No adverse flags or non-finite pixels within the screen circle. This is a screening result, not a detection or a brightness measurement.",
+   "Informational flags present (not treated as problems): SOURCE."
+  ]
+ },
+ "expected_ui": [
+  "Keep the frame's quality status from the record (here clear); do NOT change it to 'clear' or 'no flags'.",
+  "Disable the 'Show flagged pixels' control for this frame and say the overlay could not be loaded (F3).",
+  "Do not show a legend that implies an overlay is drawn."
+ ]
+}
