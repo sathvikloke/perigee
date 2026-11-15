@@ -8,7 +8,7 @@ Subject: `backend/content/targets.json` (`targets-2026-11-14a`) and the 189 ship
 
 No catalog discrepancy moves a marker by 0.5 display px or more when the repo's own convention is used. Two things are worth acting on:
 - **WISE 0855 provenance label.** It names the wrong paper (row 1).
-- **WISE 0855 field star.** In the 2026 frames, a Gaia field star lies 4.5–8″ from the WISE 0855 marker, and it passes within 3.2″ in late 2026. A spot near the marker is that star, not WISE 0855 (row 8).
+- **WISE 0855 field star.** A cataloged Gaia DR3 field star lies 4.5–11.8″ from the WISE 0855 marker in the 34 shipped frames (observed 2025-05-05 to 2026-05-11). Propagation predicts a closest approach of 3.2″ at about J2026.735, after the last shipped frame. A spot near the marker therefore does not by itself identify WISE 0855 (row 8). This review does not identify any detection.
 
 One measured offset is just above 0.5 px: Epsilon Indi B, 0.56 px (row 2). It is under a quarter of a native SPHEREx pixel and changes no quality screen.
 
@@ -18,14 +18,14 @@ One measured offset is just above 0.5 px: Epsilon Indi B, 0.56 px (row 2). It is
 
 | # | Preset · field | Repo value | Primary-source value | Delta | Marker impact (display px) | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | wise_0855 · `catalog_position.astrometry_reference` (and the `marker.source` text in all 34 wise_0855 records) | "CatWISE2020 (2021ApJS..253....7K)" | 2021ApJS..253....7K is Kirkpatrick et al. 2021, *The field substellar mass function based on the full-sky 20 pc census of 525 L, T, and Y dwarfs*. CatWISE2020 is 2021ApJS..253....8M (SIMBAD `ref` table) | Label only | 0 | **Fix the label** (candidate patch). The record text updates at the next rebuild; no numbers change. |
+| 1 | wise_0855 · `catalog_position.astrometry_reference` (and the `marker.source` text in all 34 wise_0855 records) | "CatWISE2020 (2021ApJS..253....7K)" | 2021ApJS..253....7K is Kirkpatrick et al. 2021, *The field substellar mass function based on the full-sky 20 pc census of 525 L, T, and Y dwarfs*. CatWISE2020 is 2021ApJS..253....8M (SIMBAD `ref` table) | Label only | 0 | **Fixed in PR #41** (`a5522ea`): the label was corrected and the 34 records regenerated (`marker.source` only; no numbers change). |
 | 2 | epsilon_indi_b · proper motion | Gaia DR3 (3981.977, −2466.832) mas/yr, the same as SIMBAD | Gaia DR3 6412596012146801152 has RUWE 4.30 (unresolved Ba+Bb, 11-year orbit), so its 5-parameter motion is photocentric. Other SIMBAD values: 2016ApJS..224...36K (4003.2, −2490.6); 2018MNRAS.481.3548S (4004.97, −2575.05) | 32 and 111 mas/yr | Other catalog PMs: 0.24 and 0.80 px. **Measured:** the native centroid sits **0.56 ± 0.07 px** (+0.37″ E, −0.70″ N) from the marker, consistently in SWIR and MWIR and in 2025 and 2026 (32 frames, Gaia-registered) | Real, but 0.13 native px. The screen (r = 2.5 native px) is unaffected. **Keep the values**: a better prediction needs an orbit model, which is out of scope. The existing note ("binary orbital motion ... not modeled") covers it. |
 | 3 | barnards_star · propagation convention | SIMBAD J2000 position, propagated *with* RV −110.11 km/s | SIMBAD's J2000 position equals Gaia DR3 at 2016.0 propagated *without* RV (agrees to 6e-10″). Gaia DR3 4472832130942575872 propagated from 2016.0 with RV is the self-consistent prediction | 0.37″ north at 2026 (perspective acceleration applied over 2000–2016 although SIMBAD did not) | 0.26–0.27 px | Below threshold. The Barnard review saw this as "within 0.32 px". No change. If it is ever rebuilt, propagate from Gaia's 2016.0 epoch. |
 | 4 | rw_aurigae · identity and position | "V* RW Aur": Hipparcos (2007A&A...474..653V) system position and PM | Gaia DR3 resolves A (156430817820015232: G 13.04, RUWE 16.4) and B (156430822114424576: G 12.18, 1.49″ at PA ≈ 254°) | A: 0.18″. B: 1.65″ | A: 0.13 px. B: 1.17 px. **Measured** native centroid: 0.56 ± 0.11 px toward the west, as expected for an A+B blend | Expected: SPHEREx sees the blended pair, and `object_type` already says "system". No change. |
 | 5 | r_draconis · `radial_velocity_kms` | `null` in targets.json; −132.8 in manifest.json (used for the markers) | SIMBAD −132.8 km/s (1953GCRV, quality E) | Field inconsistency | < 1e-5 px (parallax 1.25 mas) | Harmless. No change. |
 | 6 | wise_0855 · catalog position | SIMBAD, J2000, quality **C**, no stated error | CatWISE2020 (IRSA) splits the object into 3 fast-moving fragments. They lie 0.43, 0.66 and 1.18″ from the repo track at 2015.405. Alternative PM 2019ApJS..240...19K (−8118.9, 679.3) | ≤ 1.2″ (fragments); ≤ 0.2″ (PM) | PM: ≤ 0.15 px. Fragments: ≤ 0.84 px at 2015.4 (coarse, apparent-motion fits) | Consistent. No change. |
 | 7 | wise_0855 · `challenge_supplied_coordinate` | 133.795129°, −7.245147° ("08h55m10.831s −07d14m42.53s") | Challenge page: "08h55m10.831s, declination -7d14m42.53s" (no epoch given) | 0 (value). The best match on the catalog track is epoch 2010.45 (0.20″). It is 0.44″ from the track at 2010.5 | 121–130″ from the shipped markers (86–92 px), 126.7″ from `query_center`. A field of at least 4.3′ holds the object at the shipped epochs; the repo says "~4.5′" | Correct, and correctly kept separate from `query_center`. No change. |
-| 8 | wise_0855 · interpretation (new) | `quality_summary` says passing the screen ≠ detection | Gaia DR3 5756956644387831296 (G 16.3, nearly static) is 4.5–11.8″ from the WISE 0855 marker in the shipped frames: 7.9″ at 2025.85 and 4.5″ at 2026.36. It reaches a minimum of **3.2″ at ≈ 2026.73** (QR3) | Not a catalog error | My centroid routine locked onto this star in 11 of 34 frames. The offsets track the Gaia position (for example −4.94/+2.83 px measured vs −4.99/+2.71 px predicted) | **Add one sentence** to the wise_0855 `quality_summary` (candidate patch). This matters for live searches and the optional coverage case. |
+| 8 | wise_0855 · interpretation (new) | `quality_summary` says passing the screen ≠ detection | Gaia DR3 5756956644387831296 (G 16.3, nearly static) is 4.5–11.8″ from the WISE 0855 marker in the shipped frames: 7.9″ at 2025.85 and 4.5″ at 2026.36. It reaches a minimum of **3.2″ at ≈ 2026.73** (QR3) | Not a catalog error | My centroid routine locked onto this star in 11 of 34 frames. The offsets track the Gaia position (for example −4.94/+2.83 px measured vs −4.99/+2.71 px predicted) | **Applied in PR #41** (`a5522ea`) with conservative wording. The note gives the 4.5–11.8″ range over the shipped frames (2025-05-05 to 2026-05-11) and says that a spot near the marker does not by itself identify WISE 0855. The predicted 3.2″ approach falls after the shipped frames, so it matters for live searches. |
 
 Also confirmed, with no discrepancy:
 
@@ -77,12 +77,14 @@ python3 science/reviews/targets/check_targets.py
   --data-root "/Users/sathvikloke/Documents/ChatGPT/NASA Space Comp/research/build_data"
 ```
 
-## 4. Candidate patch (separate commit; needs Sathvik's approval)
+## 4. Candidate patch: superseded by PR #41
+
+> **Status, 2026-11-15:** the reference-label correction was applied in PR #41 (`a5522ea`), on the release coordinator's authorization. That PR used more conservative field-star wording than the candidate below. It also **regenerated** the 34 wise_0855 records through `tools.ingest.ingest`, so `marker.source` no longer carries the wrong label: all 68 PNGs are byte-identical and the only JSON change is `marker.source`. The candidate commit `487bf8a` was not merged. The original candidate is described below for the record.
 
 `backend/content/targets.json` only:
 - `content_version` goes from `targets-2026-11-14a` to `targets-2026-11-14b`.
 - wise_0855 `astrometry_reference` becomes "Kirkpatrick et al. 2021, 20 pc census (2021ApJS..253....7K)".
-- One sentence is added to the wise_0855 `quality_summary` about the Gaia DR3 field star.
+- One sentence is added to the wise_0855 `quality_summary` about the Gaia DR3 field star. The candidate said a nearby spot is "likely" that star; PR #41 instead says the star "can fall in the marker's neighbourhood" and that a spot near the marker "does not by itself identify WISE 0855".
 
 **Effect on shipped products.**
 - No coordinates, query centers or markers change, and no product needs rebuilding for correctness.
@@ -118,6 +120,6 @@ Changes to coordinate values were considered and **not recommended**:
 
   Medians over many frames are meaningful at about 0.1 px; single frames are not.
 - I did not use an Eps Ind Ba/Bb orbit (for example, published dynamical-mass astrometry), so row 2 attributes the offset to the binary as the most plausible cause. It is not proven.
-- At SWIR wavelengths, WISE 0855 itself is far below SPHEREx sensitivity. I did not test whether it is detected in the MWIR frames (≈ 4–5 µm). Row 8 only shows that the field star dominates whatever is near the marker in the frames where my routine found a source.
+- At SWIR wavelengths, WISE 0855 itself is far below SPHEREx sensitivity. I did not test whether it is detected in the MWIR frames (≈ 4–5 µm). Row 8 shows only that, in the frames where my centroid routine found a source near the marker, that source's position matched this cataloged star. That is consistent with the star, but it does not show what dominates the light there.
 - SIMBAD gives no position uncertainty for WISE 0855 (quality C). The 2010.45 epoch match in row 7 is consistent with, but does not prove, the challenge coordinate's epoch.
 - I did not check the live `/api/v1/frame` path or frontend rendering of the marker.
