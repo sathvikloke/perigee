@@ -1,6 +1,6 @@
 # Five-preset identity and coordinate audit
 
-Reviewer: parallel worker 11, 2026-11-14 (~18:25–19:00 CST; sources retrieved 2026-11-15 00:27–00:38 UTC). Review only. Products and case texts were not changed. A small candidate patch to `backend/content/targets.json` is in a separate commit and needs Sathvik's approval (§4).
+Reviewer: parallel worker 11. Recorded times, 2026-11-15 UTC: the first source retrieval was at 00:27:04; the review commit `49f4f8c` was at 00:39:45 (18:39:45 CST on 2026-11-14); the provenance-link check was at 00:37. Review only. Products and case texts were not changed. A small candidate patch to `backend/content/targets.json` is in a separate commit and needs Sathvik's approval (§4).
 
 Subject: `backend/content/targets.json` (`targets-2026-11-14a`) and the 189 shipped product records under `backend/content/presets/**`, on `claude/perigee-integration` @ `54137e0`.
 
