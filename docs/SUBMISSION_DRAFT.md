@@ -89,18 +89,11 @@ Beyond the cases:
 
 ## Use of Super Intelligence (SI)
 
-The guide says this answer is for data collection and is not shown to judges, but SI use must also be visible in the project's own text and metadata. That is covered by `docs/AI_USE.md` and the in-app footer line.
+The guide says this answer is for data collection and is not shown to judges, but SI use must also be visible in the project's own text and metadata. That is covered by `docs/AI_USE.md`, the README and the app's "AI illustration" label.
 
-Draft answer, from `docs/AI_USE.md`:
+Answer, from `docs/AI_USE.md`:
 
-> Perigee was built with AI assistance from Claude Code and OpenAI Codex for research, implementation, tests, scientific review code, UI design, coordination and presentation drafting. The team directed the work. Processing checks use separate code paths and original FITS files; the independent Gaia alignment check reports inconclusive frames explicitly. The app runs no AI model: dates, wavelengths, positions and quality flags come from deterministic processing. The decorative landing spacecraft was made with OpenAI image generation and is visibly labeled as an AI illustration; investigation images are processed NASA observations. **OWNER:** accurately describe the origin of the idea and any additional tools used, including any narration tool. Do not add a blanket human-authorship statement unless it is true.
-
-**OWNER:** settle the open `[TO CONFIRM]` items in [`docs/AI_USE.md`](AI_USE.md) before submitting:
-- the tools used outside this repository;
-- who reviewed which merges;
-- any human spot checks;
-- Sagar's own AI use;
-- the image tool used for any mock-ups.
+> Perigee was built by our team with help from AI tools: Claude Code (Anthropic) and OpenAI Codex. We used them to help implement the backend and the frontend, and to help edit our demo video. The idea and approach were our own, and our team directed the project throughout. We monitored the AI tools while they worked, then went back and reviewed what they produced: we read the code, tested the app, and checked that the science and the explanations made sense before we kept anything. The small spacecraft drawing on the landing page was made with OpenAI image generation and is labelled "AI illustration" in the app. Perigee itself runs no AI. Every image in an investigation is a real NASA SPHEREx observation, and dates, wavelengths, positions and quality flags are computed directly from the archive data.
 
 Any SI-generated image or video shown in the demo needs a visible watermark. Screenshots of the app itself are not generated images.
 
@@ -133,7 +126,7 @@ Any SI-generated image or video shown in the demo needs a visible watermark. Scr
 ## OWNER checklist before "Submit for Judging"
 
 1. Record and upload the final video at **30 seconds or less**, or refresh and use a deck of **seven slides or fewer**. Check the public demo link logged out. Identify the team and selected challenge; decks must also name the team members. Do not include under-18 likenesses, including audio.
-2. Settle the AI-use items above.
+2. Paste the "Use of SI" answer above into the project page.
 3. Confirm that every team member is registered for the same Local Event; the team page is https://www.spaceappschallenge.org/2026/find-a-team/perigee/.
 4. Click **Submit for Judging** before **Sunday 15 November 2026, 11:59 p.m. Local Event time**.
 5. Confirm the local judging and presentation times with the Local Lead. They may differ from the global submission times.

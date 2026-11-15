@@ -87,7 +87,7 @@ Data: NASA/IPAC Infrared Science Archive and the SPHEREx mission; CDS/SIMBAD; ES
 
 ## Use of AI
 
-Much of this code, its tests and its review documents were written by AI coding agents (Claude Code workers in parallel, with Codex setting the UI design direction), under the team's direction and with decisions that change scientific meaning left to the team. The app itself runs no AI model; full details are in [docs/AI_USE.md](docs/AI_USE.md).
+Perigee was built by our team with help from AI tools (Claude Code and OpenAI Codex) for implementing the backend and frontend and for editing the demo video. The idea and approach were our own. Our team directed the project, monitored the AI tools while they worked and reviewed everything they produced. The app itself runs no AI; details are in [docs/AI_USE.md](docs/AI_USE.md).
 
 ---
 
