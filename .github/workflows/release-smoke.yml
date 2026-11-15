@@ -5,8 +5,9 @@ name: release-smoke
 # and needs no secrets (Suhrit, PR #36; hardened in review).
 #
 # Setup (owner, once production is public): add a repository VARIABLE
-#   PERIGEE_PUBLIC_URL = https://perigee-liard.vercel.app
-# (the project's registered production domain; never perigee.vercel.app).
+#   PERIGEE_PUBLIC_URL = https://perigee.lokesathvik.workers.dev
+# This is the current primary app. Cloudflare deploys are manual; a Vercel
+# status triggers a check of this URL but does not imply a Cloudflare redeploy.
 # Until it is set, the automatic run is skipped with a notice.
 #
 # Triggers:

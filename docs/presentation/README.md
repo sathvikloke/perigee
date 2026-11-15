@@ -1,6 +1,6 @@
 # Perigee: judge demo handoff
 
-**Current release:** the [app](https://perigee-liard.vercel.app), [source code](https://github.com/sathvikloke/perigee), and [seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf) are public. The [deck notes and validation](DECK.md) describe the finished presentation. Nothing has been submitted for judging.
+**Current release:** the [app](https://perigee.lokesathvik.workers.dev), [source code](https://github.com/sathvikloke/perigee), and [seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) are public. The [deck notes and validation](DECK.md) describe the finished presentation. Nothing has been submitted for judging.
 
 For Sathvik, who owns the pitch and makes every final call. The rehearsal below remains a historical record of its stated build; the production evidence is linked in section 5.
 - The first draft was written by worker 20 at `007b6aa`.
@@ -37,7 +37,7 @@ This is a learning outcome we designed for. It has not been measured with users 
 - **A + B** is a fair pair: five months apart at nearly the same wavelength.
 - **A + C** looks very different at the same moment, because of wavelength. Each of A and C also has its own contrast stretch, so their brightness is not directly comparable.
 - A dot that "appears" next to the target in A turns out to be a flagged pixel.
-- Every step works offline from the bundled products (section 4).
+- Every curated step works without the live archive, using bundled products (section 4).
 
 **Backup story: Barnard's Star, "Follow a nearby moving star."** It is more vivid, because the star's glow visibly shifts against stable field stars over a year. But its core is saturated (flagged), so it can show motion but not measure it. Use it if the audience needs a "something moved" moment, or as slide 6.
 
@@ -157,7 +157,7 @@ The case opens on **A + C** with **Guide line through A** and **Show flagged pix
 
 ## 5. Working vs future (reconciled 2026-11-15)
 
-The app is released at **https://perigee-liard.vercel.app** with no login. [Production journey](../../qa/production-journey/README.md) and [independent public-release verification](../../qa/public-release/README.md) record the logged-out checks. The older local rehearsal is retained in section 6. Neither run substitutes for a physical-phone or screen-reader test.
+The app is released at **https://perigee.lokesathvik.workers.dev** with no login. The [Cloudflare release check](../../qa/cloudflare-release/README.md) records the current hosting verification; the Vercel checks below are earlier evidence. [Production journey](../../qa/production-journey/README.md) and [independent public-release verification](../../qa/public-release/README.md) record the logged-out checks. The older local rehearsal is retained in section 6. Neither run substitutes for a physical-phone or screen-reader test.
 
 | Capability | Status | Evidence |
 |---|---|---|
@@ -265,5 +265,5 @@ The earlier stand-ins in `screens/`, which predated the fixes, were removed.
 2. **Local slot:** confirm the length and format with the Local Lead. The 5-minute script is our own target.
 3. **Judge access:** completed. App, repository and deck have public links. Previews remain protected; use the production URL.
 4. **Live-search coordinate:** keep the J2000 link, which the app labels honestly, or use the 2026.0 position (330.8925, −56.8043) to center Epsilon Indi A.
-5. **Opening hook:** Epsilon Indi B (recommended; it matches the demo and works offline) or Barnard's Star.
+5. **Opening hook:** Epsilon Indi B (recommended; it matches the demo and works without the live archive) or Barnard's Star.
 6. **Team slide:** names and roles, and how to state the AI-assisted build (per `docs/AI_USE.md`; the `[TO CONFIRM]` items there are the team's to fill).

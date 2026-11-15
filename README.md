@@ -12,11 +12,11 @@ Built for the NASA Space Apps 2026 challenge [Planet X and SPHEREx](https://www.
 
 ## Try Perigee
 
-**[Open the public web app](https://perigee-liard.vercel.app)** — no login required. Start with **Epsilon Indi B** to investigate a fair comparison, or **Barnard's Star** to follow a nearby moving star.
+**[Open the public web app](https://perigee.lokesathvik.workers.dev)** — no login required. Start with **Epsilon Indi B** to investigate a fair comparison, or **Barnard's Star** to follow a nearby moving star.
 
-**Presentation:** [seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf) · [presenter notes and sources](docs/presentation/DECK.md).
+**Presentation:** [seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) · [presenter notes and sources](docs/presentation/DECK.md).
 
-Verified release on `main`: **`ef29890`**, published 2026-11-15. The [production smoke check](https://github.com/sathvikloke/perigee/actions/runs/43658316997) passed **20/20** without login, including a live non-preset archive search and processed image. Preview deployments remain protected. See [deployment details](docs/DEPLOYMENT.md).
+Cloudflare release verified on 2026-11-15: public smoke **20/20**, hosting checks **24/24**, and a browser pass covering comparisons, flags, notebook restore and an actual JSON download. The frontend, curated catalog and PDF run on Cloudflare; live search and frame processing use the existing Vercel Python API. See [deployment details](docs/DEPLOYMENT.md) and [release evidence](qa/cloudflare-release/README.md).
 
 Working features:
 

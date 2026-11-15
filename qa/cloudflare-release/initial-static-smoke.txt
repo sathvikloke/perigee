@@ -1,0 +1,25 @@
+PASS  SPA /: 200 text/html
+PASS  SPA /?preset=epsilon_indi_b: 200 text/html
+PASS  SPA /some/client/route: 200 text/html
+PASS  demo PDF: 200 application/pdf 2369713 B
+PASS  favicon: 200 image/svg+xml
+PASS  JS bundle: 200 327624 B
+PASS  catalog /api/v1/presets: 200 application/json
+PASS  catalog /api/v1/cases/fair_comparison: 200 application/json
+PASS  catalog /api/v1/cases/moving_neighbor: 200 application/json
+PASS  catalog /api/v1/presets/barnards_star/frames: 200 application/json
+PASS  catalog /api/v1/presets/barnards_star/frames?case_id=moving_neighbor: 200 application/json
+PASS  catalog /api/v1/presets/epsilon_indi_b/frames: 200 application/json
+PASS  catalog /api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison: 200 application/json
+PASS  catalog /api/v1/presets/wise_0855/frames: 200 application/json
+PASS  catalog /api/v1/presets/rw_aurigae/frames: 200 application/json
+PASS  catalog /api/v1/presets/r_draconis/frames: 200 application/json
+FAIL  asset application/json canonical=True: 200 application/json public, max-age=31536000, immutable
+PASS  asset image/png canonical=False: 200 image/png public, max-age=300, must-revalidate
+PASS  asset image/png canonical=True: 200 image/png public, max-age=31536000, immutable
+FAIL  route parity (58 recorded FastAPI answers): GET /api/v1/assets/x%00.png -> 400 text/html None
+PASS  internal path hidden /api/__perigee/catalog-manifest.json: 404 application/json
+PASS  internal path hidden /api/v1/presets.json: 404 application/json
+PASS  internal path hidden /api/v1/presets/epsilon_indi_b/frames.json: 404 application/json
+
+RESULT: FAIL 21/23

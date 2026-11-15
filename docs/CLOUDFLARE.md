@@ -1,6 +1,6 @@
 # Perigee on Cloudflare Workers (static assets + API router)
 
-This is a release candidate for hosting Perigee on Cloudflare, prompted by the Vercel deployment quota. **Nothing here deploys anything**: the deployment owner runs Wrangler. The planned public URL is `https://perigee.lokesathvik.workers.dev`; it must be verified after deploy.
+**Public release:** https://perigee.lokesathvik.workers.dev. The deployment owner verified the final bundle on 2026-11-15; see [deployment identity](DEPLOYMENT.md) and [public checks](../qa/cloudflare-release/README.md). The earlier local candidate results below are retained with their build/date.
 
 ## What runs where
 
@@ -26,8 +26,10 @@ This is a release candidate for hosting Perigee on Cloudflare, prompted by the V
 - **Timeout:** 70 s (the Python function's `maxDuration` is 60 s). On timeout the response is 504 `UPSTREAM_TIMEOUT`; on a transport error it is 502 `UPSTREAM_UNAVAILABLE`, both `retryable: true`, in the API's usual error envelope.
 - **Passthrough:** upstream status codes (for example 410 `TOKEN_EXPIRED`, 422, 429, 503) and the `content-type`, `cache-control`, `retry-after` and `x-request-id` headers pass through unchanged. `set-cookie` does not.
 
-### Differences from the Vercel deployment (intentional)
+### Differences from the Vercel deployment
 
+- On the deployed edge, Cloudflare converts the strong ETag to a weak ETag for compressed JSON. Decompressed bytes still match SHA-256; `Accept-Encoding: identity` preserves the strong ETag. [Cloudflare ETag documentation](https://developers.cloudflare.com/cache/reference/etag-headers/).
+- An encoded NUL (`/api/v1/assets/x%00.png`) is rejected by Cloudflare with HTTP 400 HTML before the Worker runs. Ordinary unknown API routes still return JSON 404. The deployed smoke uses `--cloudflare-edge` to check these two narrow differences explicitly.
 - `/api/v1/docs` and `/api/v1/openapi.json` are not exposed on Cloudflare: they return a JSON 404. They remain available on the Python origin.
 - Proxied request bodies over 64 KiB are refused with 413. The Python API has no explicit body cap.
 - Catalog JSON is sent with `Cache-Control: public, max-age=0, must-revalidate`, the value Vercel adds in production.
@@ -106,7 +108,7 @@ cd cloudflare && npx wrangler@4.162.0 deploy          # account_id via wrangler.
 Then verify the deployed origin logged out:
 
 ```bash
-.venv/bin/python cloudflare/tests/smoke_local.py --base https://perigee.lokesathvik.workers.dev
+.venv/bin/python cloudflare/tests/smoke_local.py --base https://perigee.lokesathvik.workers.dev --cloudflare-edge
 .venv/bin/python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev
 ```
 
