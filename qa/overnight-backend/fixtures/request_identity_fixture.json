@@ -1,0 +1,90 @@
+{
+ "description": "One SPHEREx observation requested at different geometries. frame_key is identical; geometry, grid_id and image bytes are not. A client frame cache must key on the full request identity, not frame_key. Real retained Eps Ind B cutout via the live route; hashes only, no pixels.",
+ "frame_key": "2026W18_1A_0516_1_D3",
+ "requests": [
+  {
+   "name": "fov2",
+   "request_identity": {
+    "observation_id": "2026W18_1A_0516_1",
+    "detector": 3,
+    "collection_id": "spherex_dr1",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+    "ra_deg": 331.0966687831005,
+    "dec_deg": -56.80064917516836,
+    "fov_arcmin": 2.0,
+    "grid_px": 256,
+    "processing_version": "perigee-processor-a/0.1.2"
+   },
+   "expect": {
+    "registration.grid_id": "b038ca97a9ce825e",
+    "registration.scale_arcsec_per_px": 0.46875,
+    "quality.status": "clear",
+    "wavelength_um": 2.3230763007390793,
+    "image_png_sha256": "de5212565d67f037e6b6e3bc8f6cf50a6c438d2efc24052a407832d95237cbb3"
+   }
+  },
+  {
+   "name": "fov10",
+   "request_identity": {
+    "observation_id": "2026W18_1A_0516_1",
+    "detector": 3,
+    "collection_id": "spherex_dr1",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+    "ra_deg": 331.0966687831005,
+    "dec_deg": -56.80064917516836,
+    "fov_arcmin": 10.0,
+    "grid_px": 256,
+    "processing_version": "perigee-processor-a/0.1.2"
+   },
+   "expect": {
+    "registration.grid_id": "d93587c261ed4894",
+    "registration.scale_arcsec_per_px": 2.34375,
+    "quality.status": "clear",
+    "wavelength_um": 2.3230763007390793,
+    "image_png_sha256": "2be54d7cf9f289d64591cafdb5d62a5cd1e4d1c43d1f950a031faa159e7aafed"
+   }
+  },
+  {
+   "name": "shifted_0.5arcmin_NE",
+   "request_identity": {
+    "observation_id": "2026W18_1A_0516_1",
+    "detector": 3,
+    "collection_id": "spherex_dr1",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+    "ra_deg": 331.1118879893323,
+    "dec_deg": -56.79231584183503,
+    "fov_arcmin": 6.0,
+    "grid_px": 256,
+    "processing_version": "perigee-processor-a/0.1.2"
+   },
+   "expect": {
+    "registration.grid_id": "0997f148b5deaaaf",
+    "registration.scale_arcsec_per_px": 1.40625,
+    "quality.status": "clear",
+    "wavelength_um": 2.32190160157696,
+    "image_png_sha256": "d2efbf3660c4a2638cd6d3b73cbb7f1b5c122352a2d25bd4b226aef79190bb8b"
+   }
+  },
+  {
+   "name": "off_cutout_4arcmin_E",
+   "request_identity": {
+    "observation_id": "2026W18_1A_0516_1",
+    "detector": 3,
+    "collection_id": "spherex_dr1",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits",
+    "ra_deg": 331.21842243295464,
+    "dec_deg": -56.80064917516836,
+    "fov_arcmin": 6.0,
+    "grid_px": 256,
+    "processing_version": "perigee-processor-a/0.1.2"
+   },
+   "expect": {
+    "registration.grid_id": "9ab867c47322daf5",
+    "registration.scale_arcsec_per_px": 1.40625,
+    "quality.status": "not_covered",
+    "wavelength_um": null,
+    "image_png_sha256": "7d37b31d1f8e0b7bbdf0c295d35a2d07b7404d81704729bd16a2e52f0ab77682"
+   }
+  }
+ ]
+}
