@@ -1,0 +1,516 @@
+{
+ "generated_by": "qa/ui-fixtures/make_case_evidence_fixture.mjs",
+ "data_root_checked": true,
+ "passed": 72,
+ "failed": 0,
+ "checks": [
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): record exists",
+   "ok": true,
+   "detail": "2025W45_2A_0278_1_D2"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): observation_id",
+   "ok": true,
+   "detail": {
+    "case": "2025W45_2A_0278_1",
+    "record": "2025W45_2A_0278_1"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): detector",
+   "ok": true,
+   "detail": {
+    "case": 2,
+    "record": 2
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): collection_id",
+   "ok": true,
+   "detail": {
+    "case": "spherex_dr1",
+    "record": "spherex_dr1"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): source_url",
+   "ok": true,
+   "detail": {
+    "case": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+    "record": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): mjd",
+   "ok": true,
+   "detail": {
+    "case": 60986.783468215,
+    "record": 60986.783468215
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): time_basis",
+   "ok": true,
+   "detail": {
+    "case": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+    "record": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): observed_at_utc",
+   "ok": true,
+   "detail": {
+    "case": "2025-11-07T18:48:11.654",
+    "record": "2025-11-07T18:48:11.654Z"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): wavelength_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 1.2572,
+    "record": 1.257192202600437
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): bandwidth_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 0.0301,
+    "record": 0.030050855013517876
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): quality status",
+   "ok": true,
+   "detail": {
+    "case": "clear",
+    "record": "clear",
+    "flags": []
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): cutout sha256 = record provenance.sha256",
+   "ok": true,
+   "detail": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): display_scale unit",
+   "ok": true,
+   "detail": "MJy / sr"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): grid shared with case grid_id",
+   "ok": true,
+   "detail": "f448bdf044c35cf1"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): marker is a catalog prediction",
+   "ok": true,
+   "detail": "catalog_prediction"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): processing_version",
+   "ok": true,
+   "detail": "perigee-processor-a/0.1.2"
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2025W45_2A_0278_1_D2.png",
+    "sha256": "54655c188d831f464ee3064b1488310635f415271de1934bd6fc13800e45dc42"
+   }
+  },
+  {
+   "name": "frame A (2025W45_2A_0278_1_D2): flag_image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2025W45_2A_0278_1_D2.flags.png",
+    "sha256": "9b77ed913e33dae818d4735e0a69d0536eaf9405273c392c83dda94441bcf6bb"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): record exists",
+   "ok": true,
+   "detail": "2025W46_1A_0108_1_D2"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): observation_id",
+   "ok": true,
+   "detail": {
+    "case": "2025W46_1A_0108_1",
+    "record": "2025W46_1A_0108_1"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): detector",
+   "ok": true,
+   "detail": {
+    "case": 2,
+    "record": 2
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): collection_id",
+   "ok": true,
+   "detail": {
+    "case": "spherex_dr1",
+    "record": "spherex_dr1"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): source_url",
+   "ok": true,
+   "detail": {
+    "case": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+    "record": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): mjd",
+   "ok": true,
+   "detail": {
+    "case": 60989.438651617,
+    "record": 60989.438651617
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): time_basis",
+   "ok": true,
+   "detail": {
+    "case": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+    "record": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): observed_at_utc",
+   "ok": true,
+   "detail": {
+    "case": "2025-11-10T10:31:39.500",
+    "record": "2025-11-10T10:31:39.500Z"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): wavelength_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 1.2572,
+    "record": 1.2572468098336553
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): bandwidth_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 0.0301,
+    "record": 0.030053123908964603
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): quality status",
+   "ok": true,
+   "detail": {
+    "case": "flagged",
+    "record": "flagged",
+    "flags": [
+     "PERSIST"
+    ]
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): cutout sha256 = record provenance.sha256",
+   "ok": true,
+   "detail": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): display_scale unit",
+   "ok": true,
+   "detail": "MJy / sr"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): grid shared with case grid_id",
+   "ok": true,
+   "detail": "f448bdf044c35cf1"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): marker is a catalog prediction",
+   "ok": true,
+   "detail": "catalog_prediction"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): processing_version",
+   "ok": true,
+   "detail": "perigee-processor-a/0.1.2"
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2025W46_1A_0108_1_D2.png",
+    "sha256": "02d573964cd60e235aad66e48d17af55d0645eb4d6ff804b8d5c095b67560e00"
+   }
+  },
+  {
+   "name": "frame B (2025W46_1A_0108_1_D2): flag_image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2025W46_1A_0108_1_D2.flags.png",
+    "sha256": "28531b8ce3eb9e166520e6c96dfdce2f49ecd4a5fc1975b26d6a4bac9abd1055"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): record exists",
+   "ok": true,
+   "detail": "2026W20_1A_0214_1_D2"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): observation_id",
+   "ok": true,
+   "detail": {
+    "case": "2026W20_1A_0214_1",
+    "record": "2026W20_1A_0214_1"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): detector",
+   "ok": true,
+   "detail": {
+    "case": 2,
+    "record": 2
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): collection_id",
+   "ok": true,
+   "detail": {
+    "case": "spherex_dr1",
+    "record": "spherex_dr1"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): source_url",
+   "ok": true,
+   "detail": {
+    "case": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits",
+    "record": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): mjd",
+   "ok": true,
+   "detail": {
+    "case": 61171.567858446,
+    "record": 61171.567858446
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): time_basis",
+   "ok": true,
+   "detail": {
+    "case": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+    "record": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): observed_at_utc",
+   "ok": true,
+   "detail": {
+    "case": "2026-05-11T13:37:42.970",
+    "record": "2026-05-11T13:37:42.970Z"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): wavelength_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 1.4443,
+    "record": 1.4442523414907646
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): bandwidth_um (case rounds to 4 dp)",
+   "ok": true,
+   "detail": {
+    "case": 0.0353,
+    "record": 0.035338719018344886
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): quality status",
+   "ok": true,
+   "detail": {
+    "case": "clear",
+    "record": "clear",
+    "flags": []
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): cutout sha256 = record provenance.sha256",
+   "ok": true,
+   "detail": "ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): display_scale unit",
+   "ok": true,
+   "detail": "MJy / sr"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): grid shared with case grid_id",
+   "ok": true,
+   "detail": "f448bdf044c35cf1"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): marker is a catalog prediction",
+   "ok": true,
+   "detail": "catalog_prediction"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): processing_version",
+   "ok": true,
+   "detail": "perigee-processor-a/0.1.2"
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2026W20_1A_0214_1_D2.png",
+    "sha256": "42dc34fc1c3e60399ca4bb22072a8a163bf98c2dca91897d66f4a3b82c370087"
+   }
+  },
+  {
+   "name": "frame C (2026W20_1A_0214_1_D2): flag_image asset present",
+   "ok": true,
+   "detail": {
+    "path": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/2026W20_1A_0214_1_D2.flags.png",
+    "sha256": "0769084f14c6e28c5aaf8c33bc5f9005ee347b17258dfd0bb727cbee2a351413"
+   }
+  },
+  {
+   "name": "A/B share one stretch (mode shared, identical low/high)",
+   "ok": true,
+   "detail": {
+    "low": 0.23187221586704254,
+    "high": 2.671905517578125
+   }
+  },
+  {
+   "name": "C has its own stretch (mode per_frame)",
+   "ok": true,
+   "detail": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "asinh_softening": 10,
+    "low": 0.20695532858371735,
+    "high": 2.2293758392333984,
+    "unit": "MJy / sr",
+    "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames.",
+    "background_subtraction": null,
+    "clipping": "values below low map to black, above high to white"
+   }
+  },
+  {
+   "name": "case display_requirements says A/B shared, C own stretch",
+   "ok": true,
+   "detail": "A and B share one asinh stretch (case-wise_0855_quality_trap products). C has its own stretch and is labeled 'Brightness not directly comparable'."
+  },
+  {
+   "name": "frame A: retained raw cutout on disk hashes to sha256_of_retained_cutout",
+   "ok": true,
+   "detail": "raw/wise_0855/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits"
+  },
+  {
+   "name": "frame B: retained raw cutout on disk hashes to sha256_of_retained_cutout",
+   "ok": true,
+   "detail": "raw/wise_0855/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits"
+  },
+  {
+   "name": "frame C: retained raw cutout on disk hashes to sha256_of_retained_cutout",
+   "ok": true,
+   "detail": "raw/wise_0855/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits"
+  },
+  {
+   "name": "initial card passes the shipped validateEvidenceCard",
+   "ok": true,
+   "detail": "ok"
+  },
+  {
+   "name": "initial claim within CLAIM_MAX (280)",
+   "ok": true,
+   "detail": 117
+  },
+  {
+   "name": "initial card claim is not the case's reference example_claim",
+   "ok": true,
+   "detail": "learner text is separate from the reference answer"
+  },
+  {
+   "name": "initial card meets evidence_requirements (A and B attached)",
+   "ok": true,
+   "detail": [
+    "A",
+    "B"
+   ]
+  },
+  {
+   "name": "initial card frame A: fields equal the record",
+   "ok": true,
+   "detail": {
+    "frame_key": "2025W45_2A_0278_1_D2",
+    "quality_status": "clear",
+    "display_scale_mode": "shared"
+   }
+  },
+  {
+   "name": "initial card frame B: fields equal the record",
+   "ok": true,
+   "detail": {
+    "frame_key": "2025W46_1A_0108_1_D2",
+    "quality_status": "flagged",
+    "display_scale_mode": "shared"
+   }
+  },
+  {
+   "name": "revised card passes the shipped validateEvidenceCard",
+   "ok": true,
+   "detail": "ok"
+  },
+  {
+   "name": "revised claim within CLAIM_MAX (280)",
+   "ok": true,
+   "detail": 195
+  },
+  {
+   "name": "revised card claim is not the case's reference example_claim",
+   "ok": true,
+   "detail": "learner text is separate from the reference answer"
+  },
+  {
+   "name": "revised card meets evidence_requirements (A and B attached)",
+   "ok": true,
+   "detail": [
+    "A",
+    "B"
+   ]
+  },
+  {
+   "name": "revised card frame A: fields equal the record",
+   "ok": true,
+   "detail": {
+    "frame_key": "2025W45_2A_0278_1_D2",
+    "quality_status": "clear",
+    "display_scale_mode": "shared"
+   }
+  },
+  {
+   "name": "revised card frame B: fields equal the record",
+   "ok": true,
+   "detail": {
+    "frame_key": "2025W46_1A_0108_1_D2",
+    "quality_status": "flagged",
+    "display_scale_mode": "shared"
+   }
+  }
+ ]
+}
