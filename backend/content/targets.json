@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "content_version": "targets-2026-11-15a",
+  "content_version": "targets-2026-11-15b",
   "owner": "sathvik",
   "verified_with": "science/check_frames.py (science-check-1) against research/build_data/metadata/*_sesame.xml",
   "coordinate_conventions": {
@@ -115,7 +115,7 @@
         "note": "This is the object's position around its 2010 WISE discovery (0.4 arcsec from the catalog propagation to 2010.5). By 2026 the object is about 127 arcsec (2.1 arcmin) west of it. A query centered here must use a field of view of at least ~4.5 arcmin to include the object; the default 6 arcmin does. Test this input separately from the preset query_center."
       },
       "default_fov_arcmin": 6,
-      "case_ids": [],
+      "case_ids": ["wise_0855_quality_trap"],
       "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths. A nearby cataloged field star lies 4.5–11.8 arcsec from the predicted position in these observations. A spot near the marker alone does not identify WISE 0855.",
       "retained_frames": {"total": 34, "clear": 21, "flagged": 13, "not_covered": 0}
     },

@@ -63,7 +63,7 @@ export function App() {
   // land in context. A preset renders its heading only once its frames have
   // loaded, so focus follows the heading when it mounts.
   const mainRef = useRef<HTMLElement>(null);
-  const routeKey = route.view === "preset" ? `preset:${route.presetId}` : route.view;
+  const routeKey = route.view === "preset" ? `preset:${route.presetId}:${route.caseId ?? "default"}` : route.view;
   useEffect(() => (mainRef.current ? focusHeadingIn(mainRef.current) : undefined), [routeKey]);
 
   const pendingEvidence = useRef(window.location.hash === "#my-evidence");
@@ -176,9 +176,10 @@ export function App() {
         )}
         {route.view === "preset" && (
           <PresetInvestigation
-            key={`${api.mode}:${route.presetId}`}
+            key={`${api.mode}:${route.presetId}:${route.caseId ?? "default"}`}
             api={api}
             presetId={route.presetId}
+            caseId={route.caseId}
             onUseFixture={useFixture}
             onQueryPosition={openQueryAt}
             onOpenPreset={(id) => navigate({ view: "preset", presetId: id })}

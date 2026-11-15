@@ -53,6 +53,7 @@ ROUTE_CASES = [
     ("GET", "/api/v2/presets"),
     ("GET", "/api/v1/cases/fair_comparison"),
     ("GET", "/api/v1/cases/moving_neighbor"),
+    ("GET", "/api/v1/cases/wise_0855_quality_trap"),
     ("GET", "/api/v1/cases/fair%5Fcomparison"),
     ("GET", "/api/v1/cases/nope"),
     ("GET", "/api/v1/cases/"),
@@ -67,6 +68,7 @@ ROUTE_CASES = [
     ("GET", "/api/v1/presets/r_draconis/frames"),
     ("GET", "/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison"),
     ("GET", "/api/v1/presets/barnards_star/frames?case_id=moving_neighbor"),
+    ("GET", "/api/v1/presets/wise_0855/frames?case_id=wise_0855_quality_trap"),
     ("GET", "/api/v1/presets/epsilon_indi_b/frames?case_id=moving_neighbor"),
     ("GET", "/api/v1/presets/epsilon_indi_b/frames?case_id="),
     ("GET", "/api/v1/presets/epsilon_indi_b/frames?case_id=zzz&case_id=fair_comparison"),
@@ -121,7 +123,7 @@ def _doc(out: Path, rel: str):
 def test_counts_and_frontend_copied(built):
     out, info, manifest = built
     assert info["counts"]["presets"] == 5
-    assert info["counts"]["cases"] == 2
+    assert info["counts"]["cases"] == 3
     assert (out / "public" / "index.html").read_bytes() == (DIST / "index.html").read_bytes()
     assert (out / "public" / "demo/perigee-demo.pdf").read_bytes() == (DIST / "demo/perigee-demo.pdf").read_bytes()
     assert not list((out / "public").rglob("*.fits*")), "raw FITS must never be exported"
@@ -134,7 +136,7 @@ def test_presets_document_matches_api(built, client):
 
 def test_cases_match_api(built, client):
     out, _, manifest = built
-    assert sorted(manifest["cases"]) == ["fair_comparison", "moving_neighbor"]
+    assert sorted(manifest["cases"]) == ["fair_comparison", "moving_neighbor", "wise_0855_quality_trap"]
     for cid, rel in manifest["cases"].items():
         assert _doc(out, rel) == client.get(f"/api/v1/cases/{cid}").json()
 
@@ -149,6 +151,7 @@ def test_frames_and_case_frames_match_api(built, client):
             assert r.status_code == 200 and _doc(out, rel) == r.json()
     assert set(manifest["presets"]["epsilon_indi_b"]["cases"]) == {"fair_comparison"}
     assert set(manifest["presets"]["barnards_star"]["cases"]) == {"moving_neighbor"}
+    assert set(manifest["presets"]["wise_0855"]["cases"]) == {"wise_0855_quality_trap"}
 
 
 def test_every_asset_matches_api_bytes_hash_and_type(built, client):

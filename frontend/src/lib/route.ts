@@ -3,13 +3,13 @@
 
 export type Route =
   | { view: "home" }
-  | { view: "preset"; presetId: string }
+  | { view: "preset"; presetId: string; caseId?: string }
   | { view: "query"; ra?: string; dec?: string; fov?: string; limit?: string; caseId?: string };
 
 export function parseRoute(search: string): Route {
   const p = new URLSearchParams(search);
   const preset = p.get("preset");
-  if (preset) return { view: "preset", presetId: preset };
+  if (preset) return { view: "preset", presetId: preset, ...(p.has("case") ? { caseId: p.get("case")! } : {}) };
   if (p.get("view") === "query" || p.has("ra") || p.has("dec")) {
     return {
       view: "query",
@@ -26,7 +26,10 @@ export function parseRoute(search: string): Route {
 /** Builds a query string, preserving the development-fixture flag if set. */
 export function routeToSearch(route: Route, keepFixture: boolean): string {
   const p = new URLSearchParams();
-  if (route.view === "preset") p.set("preset", route.presetId);
+  if (route.view === "preset") {
+    p.set("preset", route.presetId);
+    if (route.caseId) p.set("case", route.caseId);
+  }
   if (route.view === "query") {
     p.set("view", "query");
     if (route.ra) p.set("ra", route.ra);

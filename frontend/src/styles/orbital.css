@@ -120,6 +120,24 @@ button.hero-cta { display: inline-flex; min-height: 50px; padding-inline: 27px; 
 .attached strong { color: #d5f96e; }
 .comparison-insight { background: #192024; }
 .case-steps, .panel { background: #101214; }
+.step-review { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.step-review input { flex: 0 0 auto; margin-top: 5px; accent-color: var(--blue); }
+.completion-status { margin-block: 20px; padding: 16px; border-radius: 12px; background: var(--surface); font-size: 14px; }
+.completion-status > strong { color: var(--blue); }
+.completion-status ul { margin: 10px 0; padding-left: 18px; }
+.completion-status p { margin-top: 8px; }
+.reference-review { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; }
+.reference-review h3 { font-size: 22px; margin-bottom: 16px; }
+.reference-review h4 { margin: 24px 0 8px; }
+.reference-review .learner-claim { padding: 16px; border-radius: 12px; background: var(--surface); }
+.reference-review .learner-claim p { margin-top: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.reference-review .details-body { padding-inline: 0; }
+.notebook-actions { flex-wrap: wrap; }
+.notebook-actions > [role="status"] { flex-basis: 100%; }
+@media print {
+  .completion-status, .reference-review > a, .notebook-actions { display: none !important; }
+  .reference-review { break-before: page; }
+}
 .panel > summary { font-size: 13px; }
 .query-form { padding: 28px; }
 .query-fields .field { display: grid; grid-template-rows: subgrid; grid-row: span 4; gap: 6px; }

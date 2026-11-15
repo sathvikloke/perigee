@@ -69,7 +69,13 @@ def test_preset_case_associations(tmp_path):
         "available": True,
         "frames_available": False,
     }]
-    for pid in ("wise_0855", "rw_aurigae", "r_draconis"):
+    assert presets["wise_0855"]["cases"] == [{
+        "case_id": "wise_0855_quality_trap",
+        "title": load_real("cases/wise_0855_quality_trap.json")["title"],
+        "available": True,
+        "frames_available": False,
+    }]
+    for pid in ("rw_aurigae", "r_draconis"):
         assert presets[pid]["cases"] == []
 
 
@@ -82,6 +88,7 @@ def test_presets_report_missing_frames_honestly_for_real_content(real_client):
 
 def test_listed_case_without_file_is_marked_unavailable(tmp_path):
     root = build_content_root(tmp_path, with_fixture_presets=False)
+    (root / "cases" / "wise_0855_quality_trap.json").unlink()
     doc = json.loads((root / "targets.json").read_text())
     doc["targets"][2]["case_ids"] = ["coverage_is_not_detection"]  # test copy only
     (root / "targets.json").write_text(json.dumps(doc))
@@ -104,7 +111,7 @@ def test_presets_503_when_targets_missing_but_cases_still_served(tmp_path):
 
 
 def test_cases_served_verbatim(real_client):
-    for case_id in ("fair_comparison", "moving_neighbor"):
+    for case_id in ("fair_comparison", "moving_neighbor", "wise_0855_quality_trap"):
         resp = real_client.get("/api/v1/cases/{}".format(case_id))
         assert resp.status_code == 200
         assert resp.headers["content-type"].startswith("application/json")
@@ -114,14 +121,14 @@ def test_cases_served_verbatim(real_client):
 def test_unknown_case_is_404_envelope(real_client):
     for case_id in ("coverage_is_not_detection", "FAIR_COMPARISON", "fair_comparison.json", "x" * 300):
         body = assert_error(real_client.get("/api/v1/cases/{}".format(case_id)), 404, "CASE_NOT_FOUND")
-        assert body["error"]["details"]["available_case_ids"] == ["fair_comparison", "moving_neighbor"]
+        assert body["error"]["details"]["available_case_ids"] == ["fair_comparison", "moving_neighbor", "wise_0855_quality_trap"]
 
 
 def test_case_with_mismatched_id_is_not_served(tmp_path):
     root = build_content_root(tmp_path, with_fixture_presets=False)
     shutil.copy2(root / "cases" / "fair_comparison.json", root / "cases" / "renamed.json")
     store = CatalogStore(root)
-    assert store.case_ids() == ["fair_comparison", "moving_neighbor"]
+    assert store.case_ids() == ["fair_comparison", "moving_neighbor", "wise_0855_quality_trap"]
     assert any("renamed.json" in issue for issue in store.load_issues)
 
 

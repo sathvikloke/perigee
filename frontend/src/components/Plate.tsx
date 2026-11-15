@@ -142,6 +142,7 @@ export function Plate(props: {
           </span>
         )}
       </div>
+      {frame?.display_scale?.mode === "per_frame" && <p className="plate-note">Brightness not directly comparable: this image has its own contrast stretch.</p>}
       {frame && (frame.quality.status !== "clear" || props.showFlags) && (
         <div className="plate-legend">
           <p>
