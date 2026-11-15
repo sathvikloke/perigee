@@ -49,7 +49,7 @@ describe("third investigation release", () => {
     const card = { ...complete(), reference_shown: true };
     const html = render(card);
     expect(html).toContain("Reference answer (from the case)");
-    expect(html).toContain("Your claim");
+    expect(html).toContain("What do you think the images show?");
     expect(html).toContain("My own claim");
     expect(JSON.parse(serializeEvidenceCard(card)).claim).toBe("My own claim");
     expect(normalizeEvidenceCard({ ...card, reviewed_step_ids: undefined, reference_shown: undefined }).reviewed_step_ids).toEqual([]);

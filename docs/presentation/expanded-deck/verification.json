@@ -6,22 +6,9 @@
   ],
   "typeface": "Avenir Next",
   "artifact_page": "page_c2bdc1167fb481918cc92fabeb2bfc58",
-  "pdf_sha256": "a4d072c59a6691f671f617b75ff7351f978919127932571eaff232d7a13747a3",
+  "pdf_sha256": "3c1158f554e0b812a9a42cfb3db9cf00f33a76d5ed16cc96280049bb86892ab3",
   "native_pdf_export": "Unavailable for local Avenir font; public PDF assembled from reviewed live slide renders. Spaces text remains editable.",
-  "render_review": "All seven updated slide renders inspected after replacing phrase separators. No overlap or clipping observed; all explanatory content is on the slides. Technical report link now states 10 pages.",
-  "pdf_links": [
-    "https://perigee.lokesathvik.workers.dev/",
-    "https://github.com/sathvikloke/perigee",
-    "https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf"
-  ],
-  "guide_checked": "2026-11-15",
-  "visible_words_per_slide": [
-    154,
-    155,
-    193,
-    208,
-    170,
-    190,
-    171
-  ]
+  "render_review": "All seven renders independently inspected. Corrected source-context wording and evidence-card screenshot crops. No clipping or overlap observed. Slide 6 shows genuine completed-card excerpts; body prose stays readable without speaker notes.",
+  "artifact_state_version": 47,
+  "artifact_ref": "artifact_external_4748cb45-3498-4455-a53d-be2d1e4a09d1"
 }

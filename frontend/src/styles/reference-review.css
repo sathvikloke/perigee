@@ -1,0 +1,70 @@
+.reference-review.reference-review-compact {
+  font-size: var(--text-md);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.reference-review-compact h3 { margin-bottom: var(--space-md); }
+.reference-review-compact .reference-context {
+  margin-bottom: var(--space-sm);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.reference-review-compact .reference-takeaway h4 {
+  margin: 0 0 var(--space-sm);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 550;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.reference-takeaway > p + p { margin-top: var(--space-md); }
+.reference-review-compact .reference-boundary,
+.reference-review-compact .reference-reflection { color: var(--muted); font-size: var(--text-sm); }
+.reference-review-compact .reference-reflection { margin-block: var(--space-lg); }
+.reference-review-compact .reference-details { border-top: 1px solid var(--line); }
+.reference-review-compact .reference-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-height: var(--target-min);
+  padding-block: 12px;
+  color: var(--blue);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1.45;
+  list-style: none;
+}
+.reference-disclosure-icon { flex: 0 0 auto; font-size: 20px; line-height: 1; }
+.reference-details[open] > summary .reference-disclosure-icon { transform: rotate(45deg); }
+.reference-review-compact .reference-detail-body {
+  display: grid;
+  gap: var(--space-md);
+  padding-block: var(--space-xs) var(--space-lg);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+.reference-review-compact .reference-detail-body h4 {
+  margin: 0 0 var(--space-sm);
+  color: var(--ink);
+  font-size: var(--text-sm);
+}
+.reference-review-compact .reference-detail-body .plain-list li + li { margin-top: 12px; }
+.reference-review-compact .reference-detail-body strong { color: var(--ink); }
+.reference-measurements { margin: 0; }
+.reference-measurements > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); padding-block: var(--space-sm); }
+.reference-measurements > div + div { border-top: 1px solid var(--line); }
+.reference-measurements dt { flex: 1 1 10rem; }
+.reference-measurements dd { flex: 0 0 auto; margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+.reference-next { display: inline-flex; align-items: center; min-height: var(--target-min); margin-top: var(--space-md); font-size: var(--text-sm); }
+@media print {
+  .reference-review-compact .reference-context,
+  .reference-review-compact .reference-boundary,
+  .reference-review-compact .reference-reflection,
+  .reference-review-compact .reference-detail-body { color: var(--ink); }
+  .reference-details::details-content { content-visibility: visible; height: auto; }
+  .reference-detail-body { display: grid !important; }
+  .reference-disclosure-icon { display: none; }
+}

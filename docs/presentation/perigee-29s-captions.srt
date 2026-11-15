@@ -1,35 +1,24 @@
 1
-00:00:00,000 --> 00:00:04,000
-That star seems to move.
-How would a student know?
+00:00:00,000 --> 00:00:04,500
+A student sees a star shift.
+What would convince them?
 
 2
-00:00:04,000 --> 00:00:09,000
-NASA's images are public.
-Making sense of them takes guidance.
+00:00:04,500 --> 00:00:10,000
+Perigee opens NASA SPHEREx images
+by object name or sky position.
 
 3
-00:00:09,000 --> 00:00:13,000
-Perigee turns real SPHEREx observations
-into short investigations.
+00:00:10,000 --> 00:00:15,000
+Play the observations. Check the dates,
+wavelengths and unreliable pixels.
 
 4
-00:00:13,000 --> 00:00:17,500
-Compare images. Check dates, wavelengths,
-and unreliable pixels.
+00:00:15,000 --> 00:00:21,000
+Then write an explanation and
+keep the exact sources with it.
 
 5
-00:00:17,500 --> 00:00:21,000
-Then record what the evidence supports,
-
-6
-00:00:21,000 --> 00:00:24,000
-with sources and uncertainty attached.
-
-7
-00:00:24,000 --> 00:00:26,200
-Students practice explaining a conclusion.
-
-8
-00:00:26,200 --> 00:00:29,000
-Teachers can see the reasoning behind it.
+00:00:21,000 --> 00:00:29,000
+The student has a conclusion to defend.
+Their teacher can follow the evidence.
