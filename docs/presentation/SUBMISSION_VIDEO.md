@@ -131,8 +131,8 @@ These are working targets for the remaining day, not organizer deadlines. Start 
 | Edit, caption and export. | 45 minutes | One 29-second MP4 with clear audio or complete captions. |
 | Upload and check links logged out on desktop and phone. | 20 minutes | App, demo, report and code open without an access request. |
 | Owner reviews the populated project form and declarations. | 20 minutes | The approved demo link, credits and six-person roster are correct. |
-| Owner submits for judging after review. | Target by 6:00 p.m. | Save the actual confirmation. **Save Progress** alone does not submit. |
-| Final access and submission-state check. | By 9:00 p.m. | The intended version is submitted and all public links work. |
+| Owner submits for judging after review. | Target by 9:00 p.m. | Save the actual confirmation. **Save Progress** alone does not submit. |
+| Final access and submission-state check. | By 10:00 p.m. | The intended version is submitted and all public links work. |
 | **Official platform closes.** | **11:59 p.m. local Chicago time** | **Finish earlier and retain time to recover from problems.** |
 
 Do not take the Submit for Judging action until Sathvik has reviewed and approved the final responses. Saving an editable draft is authorized.
