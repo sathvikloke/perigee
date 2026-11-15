@@ -50,6 +50,10 @@ DEFAULT_OUT = REPO / "cloudflare" / "build"
 DEFAULT_DIST = REPO / "frontend" / "dist"
 DEFAULT_CONTENT = REPO / "backend" / "content"
 MANIFEST_REL = "api/__perigee/catalog-manifest.json"
+IDENTITY_REL = "perigee-build.json"  # public, non-secret build identity (served as a static file)
+IDENTITY_SCHEMA = 1
+# Inputs whose uncommitted changes would make the commit an inaccurate label for the build.
+BUILD_INPUT_PATHS = ("frontend", "backend/content", "backend/platform", "cloudflare")
 REQUIRED_DIST_FILES = ("index.html", "demo/perigee-demo.pdf")
 
 
@@ -69,6 +73,66 @@ def _git_commit() -> str | None:
         return out.stdout.strip() or None
     except (OSError, subprocess.SubprocessError):
         return None
+
+
+def _git_tree_clean() -> bool | None:
+    """True when the build inputs have no uncommitted or untracked changes; None if git is unavailable.
+    Generated/ignored output (frontend/dist, cloudflare/build) does not count."""
+    try:
+        out = subprocess.run(
+            ["git", "status", "--porcelain", "--untracked-files=normal", "--", *BUILD_INPUT_PATHS],
+            cwd=REPO, capture_output=True, text=True, timeout=20,
+        )
+        if out.returncode != 0:
+            return None
+        return out.stdout.strip() == ""
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+def _tree_digest(root: Path, rels) -> tuple[str, int]:
+    """SHA-256 over sorted 'relative/path<TAB>sha256' lines: stable for identical content,
+    independent of timestamps, build time or file order."""
+    lines = sorted(f"{rel}\t{_sha256((root / rel).read_bytes())}" for rel in rels)
+    return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest(), len(lines)
+
+
+def build_identity(public: Path, dist_rels, api_rels, content_version) -> Dict[str, Any]:
+    """Public build identity. Content digests only (no timestamps); the source commit is a
+    separate label so identical content keeps the same release digest across rebuilds."""
+    frontend_digest, frontend_files = _tree_digest(public, dist_rels)
+    catalog_digest, catalog_files = _tree_digest(public, api_rels)
+    index_html = (public / "index.html").read_bytes()
+    entries = sorted(p.relative_to(public).as_posix() for p in (public / "assets").glob("index-*.js"))
+    pdf = (public / "demo/perigee-demo.pdf").read_bytes()
+    commit, clean = _git_commit(), _git_tree_clean()
+    if commit is None:
+        label = "unknown (no git)"
+    elif clean is True:
+        label = commit
+    elif clean is False:
+        label = f"{commit}+uncommitted"  # built from a working tree with changes not in that commit
+    else:
+        label = f"{commit}+unverified"
+    return {
+        "schema_version": IDENTITY_SCHEMA,
+        "release_digest": hashlib.sha256(f"frontend:{frontend_digest}\ncatalog:{catalog_digest}".encode()).hexdigest(),
+        "source": {"commit": commit, "tree_clean": clean, "label": label},
+        "frontend": {
+            "digest": frontend_digest,
+            "files": frontend_files,
+            "index_html_sha256": _sha256(index_html),
+            "entry_scripts": {rel: _sha256((public / rel).read_bytes()) for rel in entries},
+        },
+        "catalog": {"digest": catalog_digest, "files": catalog_files, "content_version": content_version},
+        "demo_pdf": {"path": "demo/perigee-demo.pdf", "media_type": "application/pdf", "bytes": len(pdf), "sha256": _sha256(pdf)},
+        "api": {
+            "served_here": ["/api/v1/presets", "/api/v1/cases/*", "/api/v1/presets/*/frames", "/api/v1/assets/*"],
+            "proxied_to": "https://perigee-liard.vercel.app",
+            "proxied": ["/api/v1/health", "/api/v1/search", "/api/v1/frame"],
+            "note": "The proxied Python API is deployed separately; this identity does not describe its version.",
+        },
+    }
 
 
 def _all_asset_entries(store: CatalogStore) -> Dict[str, AssetEntry]:
@@ -104,6 +168,7 @@ def _build_into(out: Path, dist: Path, content: Path) -> Dict[str, Any]:
         shutil.rmtree(out)
     public = out / "public"
     shutil.copytree(dist, public)
+    dist_rels = sorted(p.relative_to(public).as_posix() for p in public.rglob("*") if p.is_file())
 
     store = CatalogStore(content.resolve())
     api = public / "api" / "v1"
@@ -190,9 +255,13 @@ def _build_into(out: Path, dist: Path, content: Path) -> Dict[str, Any]:
         "assets": assets,
     }
     _write_json(public / MANIFEST_REL, manifest)
+    api_rels = sorted(p.relative_to(public).as_posix() for p in (public / "api").rglob("*") if p.is_file())
+    identity = build_identity(public, dist_rels, api_rels, manifest["content_version"])
+    _write_json(public / IDENTITY_REL, identity)
 
     info = {
-        "source_commit": _git_commit(),
+        "source_commit": identity["source"]["commit"],
+        "identity": identity,
         "content_version": manifest["content_version"],
         "frontend_dist": str(dist.relative_to(REPO)) if dist.is_relative_to(REPO) else str(dist),
         "demo_pdf_sha256": _sha256((dist / "demo/perigee-demo.pdf").read_bytes()),

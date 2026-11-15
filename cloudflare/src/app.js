@@ -101,23 +101,72 @@ export function resetManifestCache() {
   manifestPromise = null;
 }
 
+class ContentUnavailable extends Error {}
+const unavailable = (rid) => envelope(rid, 503, "CONTENT_UNAVAILABLE", "Bundled catalog content is unavailable.");
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const isStr = (v) => typeof v === "string" && v.length > 0;
+const isStrArray = (v) => Array.isArray(v) && v.every((x) => typeof x === "string");
+const SHA256 = /^[0-9a-f]{64}$/;
+
+/** Structural check of the exported route table; throws ContentUnavailable when unusable. */
+export function validateManifest(m) {
+  const bad = (why) => {
+    throw new ContentUnavailable(`catalog manifest: ${why}`);
+  };
+  if (!isObj(m) || m.schema_version !== 1) bad("not a schema_version 1 object");
+  if (!isStr(m.presets_document)) bad("presets_document");
+  if (!isStrArray(m.preset_ids) || !isStrArray(m.case_ids)) bad("id lists");
+  if (!isObj(m.presets) || !isObj(m.cases) || !isObj(m.assets)) bad("route maps");
+  for (const [id, p] of Object.entries(m.presets)) {
+    if (!isObj(p) || !isStr(p.frames) || !isObj(p.cases) || !isStrArray(p.available_case_ids)) bad(`preset ${id}`);
+    if (!Object.values(p.cases).every(isStr)) bad(`preset ${id} cases`);
+  }
+  if (!Object.values(m.cases).every(isStr)) bad("cases");
+  for (const [id, a] of Object.entries(m.assets)) {
+    if (!isObj(a) || !isStr(a.path) || !isStr(a.media_type) || !SHA256.test(a.sha256 ?? "") || typeof a.canonical !== "boolean") {
+      bad(`asset ${id}`);
+    }
+  }
+  return m;
+}
+
 function loadManifest(env) {
   if (!manifestPromise) {
-    manifestPromise = env.ASSETS.fetch(new Request(`https://assets.invalid${MANIFEST_PATH}`)).then(async (r) => {
-      if (!r.ok) throw new Error(`catalog manifest unavailable (${r.status})`);
-      return r.json();
-    });
+    manifestPromise = (async () => {
+      const data = await readAsset(env, MANIFEST_PATH.slice(1)); // throws ContentUnavailable on binding errors
+      if (data === null) throw new ContentUnavailable("catalog manifest missing");
+      let doc;
+      try {
+        doc = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(data));
+      } catch {
+        throw new ContentUnavailable("catalog manifest is not JSON");
+      }
+      return validateManifest(doc);
+    })();
     manifestPromise.catch(() => {
-      manifestPromise = null; // retry on the next request
+      manifestPromise = null; // never cache a failure; retry on the next request
     });
   }
   return manifestPromise;
 }
 
+/**
+ * Bytes of one exported file, or null when the binding answers non-2xx.
+ * A binding that throws is a server-side problem: ContentUnavailable.
+ */
 async function readAsset(env, relPath) {
-  const r = await env.ASSETS.fetch(new Request(`https://assets.invalid/${relPath}`));
-  if (!r.ok) return null;
-  return new Uint8Array(await r.arrayBuffer());
+  let r;
+  try {
+    r = await env.ASSETS.fetch(new Request(`https://assets.invalid/${relPath}`));
+    if (!r.ok) {
+      await r.body?.cancel().catch(() => {});
+      return null;
+    }
+    return new Uint8Array(await r.arrayBuffer());
+  } catch (e) {
+    console.error("perigee catalog: asset binding failed", relPath, e?.name, e?.message);
+    throw new ContentUnavailable("asset binding failed");
+  }
 }
 
 async function sha256Hex(bytes) {
@@ -125,9 +174,24 @@ async function sha256Hex(bytes) {
   return Array.from(d, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-async function jsonDocument(env, rid, relPath) {
+// Minimal shape each exported document must have (the FastAPI response models' required fields).
+const DOC_SHAPES = {
+  presets: (d) => isObj(d) && d.schema_version === 1 && Array.isArray(d.presets) && Number.isInteger(d.count),
+  case: (d) => isObj(d) && isStr(d.case_id) && isStr(d.title) && isStr(d.target_id),
+  frames: (d) => isObj(d) && isStr(d.preset_id) && isStr(d.status) && Array.isArray(d.frames) && Number.isInteger(d.frame_count),
+};
+
+/** Serve an exported JSON document byte-for-byte, after checking it parses to the expected shape. */
+async function jsonDocument(env, rid, relPath, kind) {
   const data = await readAsset(env, relPath);
-  if (data === null) return envelope(rid, 503, "CONTENT_UNAVAILABLE", "Bundled catalog content is unavailable.");
+  if (data === null) return unavailable(rid);
+  let doc;
+  try {
+    doc = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(data));
+  } catch {
+    return unavailable(rid);
+  }
+  if (!DOC_SHAPES[kind](doc)) return unavailable(rid);
   return new Response(data, {
     status: 200,
     headers: {
@@ -140,13 +204,17 @@ async function jsonDocument(env, rid, relPath) {
 }
 
 async function serveCatalog(route, url, env, rid) {
-  let manifest;
   try {
-    manifest = await loadManifest(env);
-  } catch {
-    return envelope(rid, 503, "CONTENT_UNAVAILABLE", "Bundled catalog content is unavailable.");
+    return await serveCatalogInner(route, url, env, rid);
+  } catch (e) {
+    if (e instanceof ContentUnavailable) return unavailable(rid);
+    throw e;
   }
-  if (route.kind === "presets") return jsonDocument(env, rid, manifest.presets_document);
+}
+
+async function serveCatalogInner(route, url, env, rid) {
+  const manifest = await loadManifest(env);
+  if (route.kind === "presets") return jsonDocument(env, rid, manifest.presets_document, "presets");
 
   if (route.kind === "case") {
     if (!hasOwn(manifest.cases, route.id)) {
@@ -154,7 +222,7 @@ async function serveCatalog(route, url, env, rid) {
         details: { available_case_ids: manifest.case_ids },
       });
     }
-    return jsonDocument(env, rid, manifest.cases[route.id]);
+    return jsonDocument(env, rid, manifest.cases[route.id], "case");
   }
 
   if (route.kind === "frames") {
@@ -165,14 +233,14 @@ async function serveCatalog(route, url, env, rid) {
     }
     const preset = manifest.presets[route.id];
     const requested = url.searchParams.getAll("case_id");
-    if (requested.length === 0) return jsonDocument(env, rid, preset.frames);
+    if (requested.length === 0) return jsonDocument(env, rid, preset.frames, "frames");
     const caseId = requested[requested.length - 1]; // FastAPI/Starlette: last value wins; "" is a value
     if (!hasOwn(preset.cases, caseId)) {
       return envelope(rid, 404, "CASE_NOT_FOUND", "Unknown case for this preset.", {
         details: { available_case_ids: preset.available_case_ids },
       });
     }
-    return jsonDocument(env, rid, preset.cases[caseId]);
+    return jsonDocument(env, rid, preset.cases[caseId], "frames");
   }
 
   // asset
@@ -282,6 +350,14 @@ async function proxy(request, pathname, rid, deps) {
       }
       return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API is unavailable right now.", { retryable: true });
     }
+    try {
+      JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(data));
+    } catch {
+      // Labelled JSON but unusable: never pass it on as a success or as an upstream error body.
+      return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API returned an unexpected response.", {
+        retryable: true,
+      });
+    }
     const out = new Headers({ "x-content-type-options": "nosniff" });
     for (const h of UPSTREAM_PASS_HEADERS) {
       const v = upstream.headers.get(h);
@@ -297,6 +373,17 @@ async function proxy(request, pathname, rid, deps) {
 // ------------------------------------------------------------------ entry
 
 export async function handle(request, env, deps = {}) {
+  try {
+    return await dispatch(request, env, deps);
+  } catch (e) {
+    // Last resort, like FastAPI's unexpected-error handler. Logs name/message only.
+    console.error("perigee worker: unexpected error", e?.name, e?.message);
+    const rid = requestIdFor(request);
+    return envelope(rid, 500, "INTERNAL_ERROR", "Unexpected server error.", { retryable: true });
+  }
+}
+
+async function dispatch(request, env, deps) {
   const url = new URL(request.url);
   const path = url.pathname;
   if (path !== "/api" && !path.startsWith("/api/")) return env.ASSETS.fetch(request); // not reached with run_worker_first

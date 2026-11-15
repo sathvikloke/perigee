@@ -302,3 +302,90 @@ test("the default fetch is called unbound (Workers rejects fetch with a foreign 
     globalThis.fetch = original;
   }
 });
+
+// ------------------------------------------------------------------ B1: unusable content obeys the API contract
+
+/** ASSETS stand-in whose answers for chosen paths are replaced. */
+function overridingAssets(overrides) {
+  const base = assetsBinding();
+  return {
+    async fetch(req) {
+      const p = decodeURIComponent(new URL(req.url).pathname);
+      if (overrides.has(p)) return overrides.get(p)(req);
+      return base.fetch(req);
+    },
+  };
+}
+
+const htmlOk = () => new Response("<!doctype html><div id=root></div>", { status: 200, headers: { "content-type": "text/html" } });
+
+async function expectEnvelope(r, status, code) {
+  assert.equal(r.status, status);
+  assert.equal(r.headers.get("content-type"), "application/json");
+  assert.equal(r.headers.get("cache-control"), "no-store");
+  assert.ok(r.headers.get("x-request-id"));
+  const b = await r.json();
+  assert.equal(b.schema_version, 1);
+  assert.equal(b.error.code, code);
+  assert.equal(b.request_id, r.headers.get("x-request-id"));
+  return b;
+}
+
+test("B1.1 a catalog document that comes back as HTML 200 is a JSON 503, not a 200", async () => {
+  for (const [p, rel] of [["/api/v1/presets", manifest.presets_document], ["/api/v1/cases/fair_comparison", manifest.cases.fair_comparison], ["/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison", manifest.presets.epsilon_indi_b.cases.fair_comparison]]) {
+    const env = { ASSETS: overridingAssets(new Map([[`/${rel}`, htmlOk]])) };
+    await expectEnvelope(await run("GET", p, { env }), 503, "CONTENT_UNAVAILABLE");
+  }
+});
+
+test("B1.1b a catalog document that is valid JSON of the wrong shape is a JSON 503", async () => {
+  const wrong = () => new Response("[1,2,3]", { status: 200 });
+  const env = { ASSETS: overridingAssets(new Map([[`/${manifest.presets.wise_0855.frames}`, wrong]])) };
+  await expectEnvelope(await run("GET", "/api/v1/presets/wise_0855/frames", { env }), 503, "CONTENT_UNAVAILABLE");
+});
+
+test("B1.2 an asset binding that throws while reading a document or asset gives a JSON envelope", async () => {
+  const boom = () => {
+    throw new Error("binding exploded");
+  };
+  let env = { ASSETS: overridingAssets(new Map([[`/${manifest.cases.moving_neighbor}`, boom]])) };
+  await expectEnvelope(await run("GET", "/api/v1/cases/moving_neighbor", { env }), 503, "CONTENT_UNAVAILABLE");
+  const [aid, a] = Object.entries(manifest.assets)[0];
+  env = { ASSETS: overridingAssets(new Map([[`/${a.path}`, boom]])) };
+  await expectEnvelope(await run("GET", `/api/v1/assets/${aid}`, { env }), 503, "CONTENT_UNAVAILABLE");
+});
+
+test("B1.3 a proxied answer labelled JSON that is not JSON is a JSON 502, not a success", async () => {
+  for (const status of [200, 503]) {
+    const f = recordingFetch(() => new Response("not-json", { status, headers: { "content-type": "application/json" } }));
+    const b = await expectEnvelope(await run("POST", "/api/v1/search", { deps: { fetch: f }, body: "{}" }), 502, "UPSTREAM_UNAVAILABLE");
+    assert.equal(b.error.retryable, true);
+  }
+  const empty = recordingFetch(() => new Response("", { status: 200, headers: { "content-type": "application/json" } }));
+  await expectEnvelope(await run("GET", "/api/v1/health", { deps: { fetch: empty } }), 502, "UPSTREAM_UNAVAILABLE");
+});
+
+test("B1.4 a missing, non-JSON or malformed manifest is a JSON 503 and is retried later", async () => {
+  const mpath = "/api/__perigee/catalog-manifest.json";
+  for (const bad of [htmlOk, () => new Response("{", { status: 200 }), () => new Response('{"schema_version":1}', { status: 200 }), () => new Response('{"schema_version":1,"presets":[],"cases":{},"assets":{},"preset_ids":[],"case_ids":[],"presets_document":"x"}', { status: 200 })]) {
+    const env = { ASSETS: overridingAssets(new Map([[mpath, bad]])) };
+    await expectEnvelope(await run("GET", "/api/v1/presets", { env }), 503, "CONTENT_UNAVAILABLE");
+  }
+  // A bad manifest is not cached: the next request with a good binding works.
+  resetManifestCache();
+  const flaky = { n: 0 };
+  const env = { ASSETS: overridingAssets(new Map([[mpath, (req) => (flaky.n++ === 0 ? htmlOk() : assetsBinding().fetch(req))]])) };
+  await expectEnvelope(await handle(new Request("http://localhost/api/v1/presets"), env, { fetch: noFetch() }), 503, "CONTENT_UNAVAILABLE");
+  const ok = await handle(new Request("http://localhost/api/v1/presets"), env, { fetch: noFetch() });
+  assert.equal(ok.status, 200);
+});
+
+test("B1.5 a failed asset fetch (5xx or HTML) is never served as the asset", async () => {
+  const [aid, a] = Object.entries(manifest.assets).find(([, v]) => v.media_type === "image/png");
+  for (const bad of [() => new Response("oops", { status: 500 }), htmlOk]) {
+    const env = { ASSETS: overridingAssets(new Map([[`/${a.path}`, bad]])) };
+    const r = await run("GET", `/api/v1/assets/${aid}`, { env });
+    assert.ok([404, 503].includes(r.status), String(r.status));
+    assert.equal(r.headers.get("content-type"), "application/json");
+  }
+});

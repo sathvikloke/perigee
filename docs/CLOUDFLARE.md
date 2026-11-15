@@ -22,9 +22,19 @@
 - **Methods:** `GET` for health, `POST` for search and frame. Any other method gets a local 405 `METHOD_NOT_ALLOWED` and the upstream is never contacted.
 - **Redirects:** `redirect: "manual"`, so redirects are never followed. A 3xx answer from upstream becomes a 502 `UPSTREAM_UNAVAILABLE`, and its `Location` is not passed on.
 - **Request bodies:** at most 64 KiB, otherwise 413 `INVALID_REQUEST`. Real search and frame bodies are under 2 KiB.
-- **Upstream bodies:** at most 8 MiB (Vercel caps responses at 4.5 MB). A larger body, or a non-JSON answer, becomes a 502 envelope.
+- **Upstream bodies:** at most 8 MiB (Vercel caps responses at 4.5 MB). A larger body, a non-JSON content type, or a body labelled `application/json` that does not parse as JSON becomes a 502 `UPSTREAM_UNAVAILABLE` envelope (`retryable: true`). It is never passed on as a success or as an upstream error body.
 - **Timeout:** 70 s (the Python function's `maxDuration` is 60 s). On timeout the response is 504 `UPSTREAM_TIMEOUT`; on a transport error it is 502 `UPSTREAM_UNAVAILABLE`, both `retryable: true`, in the API's usual error envelope.
 - **Passthrough:** upstream status codes (for example 410 `TOKEN_EXPIRED`, 422, 429, 503) and the `content-type`, `cache-control`, `retry-after` and `x-request-id` headers pass through unchanged. `set-cookie` does not.
+
+### Unusable bundled content (backend next pass, B1)
+
+The Worker never answers a catalog route with content it cannot vouch for:
+- **Manifest:** the route table (`/api/__perigee/catalog-manifest.json`) is parsed and structurally validated on first use. A missing, non-JSON or malformed manifest gives 503 `CONTENT_UNAVAILABLE` and is not cached, so the next request tries again.
+- **Catalog documents:** each one is parsed and must have its response model's required shape. Presets need `schema_version`, `presets` and `count`; a case needs `case_id`, `title` and `target_id`; frames need `preset_id`, `status`, `frames` and `frame_count`. A document that comes back as HTML, invalid JSON or the wrong shape gives a JSON 503 `CONTENT_UNAVAILABLE`. Valid documents are still served byte-for-byte.
+- **Asset binding:** if the static-assets binding throws while reading, the response is 503 `CONTENT_UNAVAILABLE`. A non-2xx answer, or bytes that fail the SHA-256 check, give 404 `ASSET_NOT_FOUND`, as the Python asset route does.
+- **Last resort:** any unexpected error returns 500 `INTERNAL_ERROR` (`retryable: true`), the same as FastAPI's handler. Logs carry the error name and message only, never headers, cookies or tokens.
+
+All of these keep the request ID and `Cache-Control: no-store`.
 
 ### Differences from the Vercel deployment
 
@@ -54,6 +64,13 @@ Run from the repository root. You need Python with `backend/requirements.txt` (f
 Build on `a8608c6`: content `targets-2026-11-15a` (with the corrected WISE 0855 source label); 5 presets, 2 cases, 2 case frame sets and 952 assets (8.1 MB); 968 static files and 14 MB in total. This fits Cloudflare's [documented static-asset limits](https://developers.cloudflare.com/workers/platform/limits/), verified 2026-11-15: 20,000 files on Free (100,000 on Paid), and 25 MiB per file.
 
 ## Tests
+
+CI (`.github/workflows/ci.yml`, secret-free) runs the steps below on PRs that touch `backend/`, `frontend/`, `cloudflare/`, `tools/ingest/`, `science/reviews/acceptance/`, the Vercel config or the workflows, and on pushes to `main`:
+- a backend job: `pytest backend`, with raw-data tests reported as skips;
+- a frontend + Cloudflare job: typecheck, Vitest, build, then export, then `pytest cloudflare/tests`, then `node --test cloudflare/test/`.
+
+It makes no live archive calls and does not deploy.
+
 
 Run in this order:
 
@@ -105,12 +122,32 @@ Results on 2026-11-15 (build of `a8608c6` plus this branch):
 cd cloudflare && npx wrangler@4.162.0 deploy          # account_id via wrangler.jsonc or CLOUDFLARE_ACCOUNT_ID
 ```
 
-Then verify the deployed origin logged out:
+Then verify the deployed origin logged out, **against the build you just deployed**:
 
 ```bash
 .venv/bin/python cloudflare/tests/smoke_local.py --base https://perigee.lokesathvik.workers.dev --cloudflare-edge
-.venv/bin/python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev
+.venv/bin/python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev --expect-build cloudflare/build/build-info.json
 ```
+
+Alternatively, run the **cloudflare-release-verify** GitHub workflow (manual; inputs `base`, `ref`, `live`). It rebuilds the expected release from `ref` in CI and runs both checks above, without secrets.
+
+## Build identity (backend next pass, B3)
+
+`cloudflare/build.py` writes a public, non-secret identity to `/perigee-build.json`, and the same object to `cloudflare/build/build-info.json` under `identity`:
+- `release_digest`: a SHA-256 over the frontend digest and the catalog digest;
+- `frontend.digest` and `catalog.digest`: each a SHA-256 over sorted `path<TAB>sha256` lines, covering every file copied from `frontend/dist` (including the deck PDF) and every exported `api/` file respectively;
+- `frontend.index_html_sha256` and `frontend.entry_scripts`;
+- `demo_pdf`: path, `application/pdf`, size and SHA-256;
+- `catalog.content_version`;
+- `source`: `commit`, `tree_clean` and `label`. The label is `<commit>` only when the build inputs (`frontend`, `backend/content`, `backend/platform`, `cloudflare`) have no uncommitted or untracked changes. Otherwise it is `<commit>+uncommitted`, `<commit>+unverified` when git cannot tell, or `unknown (no git)`.
+
+The identity contains no timestamps, so identical content always gets the same digests. The commit is reported separately and is not part of the digest.
+
+`backend.platform.smoke --expect-build PATH` (or `--expect-release-digest HEX`) fetches `/perigee-build.json` and compares the release, frontend and catalog digests. It also checks that the **served** `index.html` and entry scripts hash to what the identity claims, and that the deck PDF is served as `application/pdf` with the expected SHA-256. Any mismatch, or a missing identity, fails the run.
+
+The report prints the static release (this origin) and the live Python API (Vercel; `/health` does not expose its commit) as **separate** sections, and never as one version. The identity is a separate static file; `/api/v1/health`'s v1 contract is unchanged.
+
+Note: the deployment at `979e0619…` (source `fd7933d`) predates this file. Until it is redeployed, `--expect-build` against it fails with "no identity published", and that failure is accurate.
 
 ## Limits and dependencies
 

@@ -102,8 +102,10 @@ jobs:
               echo "- Deployment reported by the event: commit \`$DEPLOYED_SHA\`, environment \`$DEPLOYED_ENV\`, URL \`$REPORTED_URL\`"
               echo "- Not verified: that \`$BASE\` was serving that commit when tested."
             elif [ "$EVENT" = "status" ]; then
-              echo "- Vercel reported a completed build of main commit \`$STATUS_SHA\` ($STATUS_URL)"
-              echo "- Not verified: that \`$BASE\` was serving that commit when tested."
+              echo "- Triggered by a Vercel status for main commit \`$STATUS_SHA\` ($STATUS_URL)."
+              echo "- Cloudflare deploys are manual: this run does **not** show that \`$BASE\` serves that commit."
+              echo "  Its static release identity is printed below; use the cloudflare-release-verify workflow to"
+              echo "  compare it with a specific build. The live Python API checked here is the Vercel deployment."
             else
               echo "- Manual run: no deployment commit is known for this origin."
             fi

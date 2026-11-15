@@ -291,3 +291,76 @@ def test_select_evenly_properties():
     assert select_evenly(items, 1) == [items[0]]
     picked = select_evenly(items, 4)
     assert picked[0] == items[0] and picked[-1] == items[-1] and len(picked) == 4
+
+
+# ---------------------------------------------------------------------------
+# Backend next pass B4: the guidance describes the real search (coverage of the
+# query position, evenly spaced sample, limit up to 48); FOV does not narrow it.
+
+
+def _many(n=40):
+    return [fixture_descriptor(f"2026W18_1A_{i:04d}_1", 2, 61000.0 + i) for i in range(n)]
+
+
+def test_subset_warning_describes_the_sample_not_a_narrower_search(client, harness):
+    harness.search = FakeSearch({"spherex_dr1": _many(), "spherex_qr3": []})
+    d = client.post(URL, json=body(limit=5)).json()
+    assert d["status"] == "ready" and d["truncated"] is True and d["total_matches"] == 40
+    w = [x for x in d["warnings"] if x.startswith("Showing 5 of 40")]
+    assert len(w) == 1
+    assert "evenly spaced in time from the earliest to the latest" in w[0]
+    assert "Raising the limit (up to 48) shows more" in w[0]
+    assert "the field of view sets the cutout size, not which images match" in w[0]
+    for misleading in ("Narrow", "narrow", "smaller field"):
+        assert all(misleading not in x for x in d["warnings"]), misleading
+
+
+def test_capped_warning_does_not_suggest_a_smaller_field(client, harness):
+    harness.search = FakeSearch(
+        {"spherex_dr1": CollectionResult("spherex_dr1", _many(3), overflow=True), "spherex_qr3": []}
+    )
+    d = client.post(URL, json=body()).json()
+    assert d["status"] == "partial" and d["total_matches"] is None and d["truncated"] is True
+    capped = [x for x in d["warnings"] if "maximum number of records" in x]
+    assert len(capped) == 1 and "not which images match" in capped[0]
+    assert all("smaller field" not in x and "Narrow" not in x for x in d["warnings"])
+
+
+def test_fov_does_not_change_which_observations_are_returned(client, harness):
+    harness.search = FakeSearch({"spherex_dr1": _many(), "spherex_qr3": []})
+    a = client.post(URL, json=body(fov_arcmin=2, limit=7)).json()
+    b = client.post(URL, json=body(fov_arcmin=10, limit=7)).json()
+    c = client.post(URL, json=body(fov_arcmin=10, limit=7)).json()
+    ids = lambda d: [o["observation_id"] for o in d["observations"]]  # noqa: E731
+    assert ids(a) == ids(b) == ids(c)  # deterministic, FOV-independent sample
+    assert a["total_matches"] == b["total_matches"] == 40
+    assert ids(a)[0] == "2026W18_1A_0000_1" and ids(a)[-1] == "2026W18_1A_0039_1"  # first and last kept
+    assert a["query"]["fov_arcmin"] == 2 and b["query"]["fov_arcmin"] == 10
+
+
+def test_archive_query_position_is_independent_of_fov():
+    import asyncio
+
+    import httpx
+
+    from backend.routes import _archive
+
+    from .test_platform_protocol import VOTABLE
+
+    seen = []
+
+    def handler(request):
+        seen.append(sorted(request.url.params.multi_items()))
+        return httpx.Response(200, content=VOTABLE, headers={"content-type": "text/xml"})
+
+    async def run(fov):
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            return await _archive.irsa_search_collection(
+                client, ra_deg=83.822, dec_deg=-5.391, fov_arcmin=fov, collection_id="spherex_dr1", deadline_s=10
+            )
+
+    asyncio.run(run(2.0))
+    asyncio.run(run(10.0))
+    assert len(seen) == 2 and seen[0] == seen[1]
+    pos = dict(seen[0])["POS"]
+    assert pos == f"CIRCLE 83.822 -5.391 {_archive.SEARCH_RADIUS_DEG}"
