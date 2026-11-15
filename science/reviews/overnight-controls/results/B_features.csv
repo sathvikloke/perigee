@@ -1,0 +1,7 @@
+feature,frame,covered,native_xy,detector_xy,ra_deg,dec_deg,display_xy,value_MJy_sr,flags_adverse,peak_over_brightest_neighbour
+F1,P,True,"[29, 40]","[1709, 1364]",133.764927,-7.224568,"[114.89, 82.91]",234.547,NONFUNC|SUR_ERROR|TRANSIENT,698.1
+F1,Q,True,"[30, 40]","[1709, 1364]",133.763743,-7.223653,"[117.9, 80.57]",237.912,NONFUNC|SUR_ERROR|TRANSIENT,760.1
+F1,R,False,,,,,,,,
+F2,P,True,"[9, 40]","[1689, 1364]",133.797395,-7.235856,"[32.44, 111.81]",12.552,HALO|OUTLIER|SUR_ERROR|TRANSIENT,1.5
+F2 same detector px,Q,True,"[10, 40]","[1689, 1364]",,,"[35.45, 109.47]",0.27,,0.9
+F2 same detector px,R,False,,"[1689, 1364]",,,,,,

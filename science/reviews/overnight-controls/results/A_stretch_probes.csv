@@ -1,0 +1,8 @@
+value_MJy_sr,grey_P_per_frame,grey_Q_per_frame,grey_P_shared,grey_Q_shared,per_frame_Q_minus_P,shared_Q_minus_P,n_real_pixels_P,observed_grey_P_per_frame,formula_grey_range_over_bin_P_per_frame,observed_grey_P_shared,formula_grey_range_over_bin_P_shared,n_real_pixels_Q,observed_grey_Q_per_frame,formula_grey_range_over_bin_Q_per_frame,observed_grey_Q_shared,formula_grey_range_over_bin_Q_shared
+0.25,4,9,6,6,5,0,13752,0-11,0-11,0-13,0-13,20880,0-17,0-17,0-13,0-13
+0.5,78,94,81,81,16,0,113,73-79,73-82,76-82,76-85,169,89-96,89-99,76-83,76-85
+1.0,156,174,159,159,18,0,76,154-157,153-158,157-160,156-161,19,175-175,172-176,159-159,156-161
+1.5,197,216,200,200,19,0,0,,196-198,,199-201,0,,215-217,,199-201
+2.0,225,244,228,228,19,0,0,,224-226,,227-229,18,244-244,243-245,228-228,227-229
+2.5,246,255,249,249,9,0,17,247-247,245-247,249-249,248-250,0,,255-255,,248-250
+3.0,255,255,255,255,0,0,0,,255-255,,255-255,0,,255-255,,255-255

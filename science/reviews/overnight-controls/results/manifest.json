@@ -1,0 +1,556 @@
+{
+ "command": "python science/reviews/overnight-controls/run_controls.py --data-root <research/build_data> --out <clean dir>",
+ "argv": [
+  "run_controls.py",
+  "--data-root",
+  "<data_root>",
+  "--out",
+  "results"
+ ],
+ "run_utc": "2026-11-15T04:19:10Z",
+ "runtime_s": 1.3,
+ "environment": {
+  "python": "3.12.16",
+  "numpy": "2.5.4",
+  "astropy": "8.0.2",
+  "pillow": "13.0.0",
+  "platform": "macOS-26.5.1-arm64-arm-64bit"
+ },
+ "inputs": {
+  "data_root:manifest.json": {
+   "sha256": "671e025e5a1816f725293c58153727e1beb93dc6a43fce02c58bfedfaa79f3dd",
+   "bytes": 292223
+  },
+  "data_root:raw/barnards_star/level2_2025W33_2C_0386_4D3_spx_l2b-v27-2026-228.fits": {
+   "sha256": "e6e2148dd2384b2722986a3ca115281f7d7b411af4a36859e4fb55a98cf6106c",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2025W34_2B_0557_1D5_spx_l2b-v27-2026-229.fits": {
+   "sha256": "8403ffbd35c978d66defe3f00ea0968418f61b1e7aaeef5e9b18f3ac620363f1",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2025W34_2B_0557_4D2_spx_l2b-v27-2026-229.fits": {
+   "sha256": "b346260d8984ad1a7d27346eb6ee757c2bd1237584ac2c0f108d666e74d6475e",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2025W35_1A_0008_1D3_spx_l2b-v27-2026-230.fits": {
+   "sha256": "e7c0a6f7c4c69cebc5b8fd5b7db21c0ddbc5e4046dd9d7ba3b6a424d99770562",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2025W35_1A_0444_3D5_spx_l2b-v27-2026-230.fits": {
+   "sha256": "4bb4589301d1c5ca5fb8646e296086f52bde28e4991d6561c9d60883a4361883",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2025W35_1A_0444_4D2_spx_l2b-v27-2026-230.fits": {
+   "sha256": "0de06b56f4853a6618c4c5952d2ce5c71e452128b2033c2e497396158bc3bb1e",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2025W35_2A_0233_1D1_spx_l2b-v27-2026-231.fits": {
+   "sha256": "808f8255960c8ad1d2c89aebc427065f7b1c76973204344479ca4610283353a9",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2025W35_2A_0233_1D4_spx_l2b-v27-2026-231.fits": {
+   "sha256": "8b059ee5884ba15530132b3bc84ac3f3fa75f825dca16fe9274bc1ca32dc897e",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2025W36_1A_0024_1D1_spx_l2b-v27-2026-232.fits": {
+   "sha256": "a578c2748af4e49616a6127d112cc50b0d2a8aba569ad3df5aafd3b35b0f43e6",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2025W36_1A_0024_1D4_spx_l2b-v27-2026-232.fits": {
+   "sha256": "d67c6ff54c717923214eeac3f3b2a9ac57d7d6363158a17f9b8d0f8266c3c6a4",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W11_1A_0511_1D1_spx_l2b-v27-2026-232.fits": {
+   "sha256": "22c3302a31204be1eaba67570664ec0dae66983469671ea7608ca1cd59c8419b",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W11_1A_0511_1D4_spx_l2b-v27-2026-232.fits": {
+   "sha256": "b91386d97e774fc74b143e43aae3db4a4caefa53aa1df2e59f8582b4bdb6f297",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W11_1A_0556_1D1_spx_l2b-v27-2026-232.fits": {
+   "sha256": "afbfe730ad7af1cf8044e87ed6259b62dcca8a3e69109d891445f2ffa3a8117a",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W11_1A_0556_1D4_spx_l2b-v27-2026-232.fits": {
+   "sha256": "504157be9991e209b6ae890beda676419b7e4400e5b4bde1a429fbbdc8743773",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W11_2A_0513_1D2_spx_l2b-v27-2026-234.fits": {
+   "sha256": "194ed4d50696c10cfa2abf3412b0f3582bf478c543df544d36a5bd4ac9322d2a",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W11_2A_0513_1D5_spx_l2b-v27-2026-234.fits": {
+   "sha256": "9661d3071a69ff7e6165099b6d1c3c19eeae812a9ecb4e4b573da7df268e73b3",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W12_1A_0311_4D2_spx_l2b-v27-2026-235.fits": {
+   "sha256": "1ec645e62c5a7fb2e74420d819a489bbaf4eb39f1616911dc9c2b248b729179d",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W12_1A_0311_4D5_spx_l2b-v27-2026-235.fits": {
+   "sha256": "46bd1fba90d1ecaaa9305909da0e1ca57bb518ab3cb04c9094459afd63b01fca",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W12_1A_0610_2D3_spx_l2b-v27-2026-235.fits": {
+   "sha256": "9f047b3b75bbc8db69ea5d7c4d4f525860f6de0980829e3dd467b1ee13c55fa5",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2026W12_1A_0610_2D6_spx_l2b-v27-2026-235.fits": {
+   "sha256": "83410f2324ace265e918d71818bcd4e054686d001d40969c483a3f8444f70327",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W13_1A_0129_4D3_spx_l2b-v27-2026-236.fits": {
+   "sha256": "7042dc397c5f908780a6c96ff622f9e3cbbdba3b94bef2089efd2bb803914f8c",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2026W13_1A_0129_4D6_spx_l2b-v27-2026-236.fits": {
+   "sha256": "e044eb472260fec1f03c5d50aad0410a565ddda76f474e61f2af2e5e4aeb16f2",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W34_1A_0007_3D6_spx_l2b-v27-2026-243.fits": {
+   "sha256": "412a57cfdf03a997e231dd2cd7330e72f571613ccf9ace13e8704fb4a9575d78",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W34_1A_0007_4D3_spx_l2b-v27-2026-243.fits": {
+   "sha256": "a409c602b200daa374bbf55b904132bd60f687191916b769239e1596e416f803",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2026W34_1A_0431_1D3_spx_l2b-v27-2026-243.fits": {
+   "sha256": "ea3ecdd6d0742276767228a051b7fdbea2ed04181bde6e40701aa608753ec032",
+   "bytes": 4083840
+  },
+  "data_root:raw/barnards_star/level2_2026W34_1A_0431_1D6_spx_l2b-v27-2026-243.fits": {
+   "sha256": "c17a6215cb2dd8d545c7a824c997cbc53af5ce4be8a9c9a0dde95be3f80d40a7",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W34_2A_0178_3D2_spx_l2b-v27-2026-243.fits": {
+   "sha256": "abaa48f6a5d562dd3b9921771d2e4c12cd1e36240c1aa3a22366f184577a4af9",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W34_2A_0178_3D5_spx_l2b-v27-2026-243.fits": {
+   "sha256": "19854db62798c8a9efdc9d5679dfb3af0ee4eaa63f26926813be0ae6f05e8442",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W34_2A_0249_3D2_spx_l2b-v27-2026-243.fits": {
+   "sha256": "3d669da17b69b12fa60947d4a87c4f72b4245e35c3309a5fb2305078291c4c5b",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W34_2A_0249_3D5_spx_l2b-v27-2026-243.fits": {
+   "sha256": "4d75b52abb506b250f5f84b7b4e04b08423a119fdd7c7daf8855647d1c003c82",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W35_1A_0079_1D1_spx_l2b-v27-2026-243.fits": {
+   "sha256": "a56fc83383dbfe277b8becabe4c7e3cd1bceec27e34401235a08ee4ee3a23bd0",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W35_1A_0079_1D4_spx_l2b-v27-2026-243.fits": {
+   "sha256": "8f0be913281e291198356b92ea374540a9017a86eab951ffb88a2031d0d7a17e",
+   "bytes": 3997440
+  },
+  "data_root:raw/barnards_star/level2_2026W35_1A_0375_4D1_spx_l2b-v27-2026-243.fits": {
+   "sha256": "1ece486a69c9f544b4ecfda4e608849afa55f20655bf4ad6183bf87abc7c8428",
+   "bytes": 4000320
+  },
+  "data_root:raw/barnards_star/level2_2026W35_1A_0375_4D4_spx_l2b-v27-2026-243.fits": {
+   "sha256": "f1ffd7d8cbcf2d85ceba9c9e282ff1c5356e2265d67cc3329dd7b169c4ee5add",
+   "bytes": 3997440
+  },
+  "data_root:raw/epsilon_indi_b/level2_2026W18_1A_0516_1D3_spx_l2b-v27-2026-244.fits": {
+   "sha256": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+   "bytes": 4083840
+  },
+  "data_root:raw/epsilon_indi_b/level2_2026W18_1A_0516_1D6_spx_l2b-v27-2026-244.fits": {
+   "sha256": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+   "bytes": 3997440
+  },
+  "data_root:raw/epsilon_indi_b/level2_2026W39_2A_0597_4D3_spx_l2b-v27-2026-271.fits": {
+   "sha256": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+   "bytes": 4083840
+  },
+  "data_root:raw/wise_0855/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits": {
+   "sha256": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0",
+   "bytes": 4000320
+  },
+  "data_root:raw/wise_0855/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits": {
+   "sha256": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f",
+   "bytes": 4000320
+  },
+  "data_root:raw/wise_0855/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits": {
+   "sha256": "ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388",
+   "bytes": 4000320
+  },
+  "repo:backend/content/cases/fair_comparison.json": {
+   "sha256": "3afe8c7206a0ab00c44d1d00a4f323b0e41c96445a798011aadfbbca965a27a5",
+   "bytes": 11529
+  },
+  "repo:backend/content/cases/moving_neighbor.json": {
+   "sha256": "18f7e6afb0059893f0e6b5e4719aa47e8971f3017808ef5d073c75e35083e133",
+   "bytes": 10817
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2025W35_1A_0008_1_D3.flags.png": {
+   "sha256": "0b6714c4a0978a69b5d78aa09f3a07d2fdf00c2977465a35762dbdaa4e9a3ef3",
+   "bytes": 1016
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2025W35_1A_0008_1_D3.json": {
+   "sha256": "526445e1d616045962ec2617d0c692c6fcfd452bfb1bad66e25d599f9b4c621b",
+   "bytes": 5621
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2025W35_1A_0008_1_D3.png": {
+   "sha256": "9367590a52d8ce3fbaf4b526a4c138e9241246d9fb90778153135202a9d4cee2",
+   "bytes": 7490
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W12_1A_0610_2_D3.flags.png": {
+   "sha256": "902596bd61a09d4e8c7b5037d802500d5de6a2c192a57af64b729e0aa0d8ccf3",
+   "bytes": 1678
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W12_1A_0610_2_D3.json": {
+   "sha256": "97f5f021822216bdb45f26ca0838bd66a90b657d377b7fbb8b00166aa121423b",
+   "bytes": 5652
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W12_1A_0610_2_D3.png": {
+   "sha256": "bd93504243c37952c6ba393b07fa228eb27b85253829959c4c6d2ce6e5a9cf74",
+   "bytes": 5425
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W34_1A_0431_1_D3.flags.png": {
+   "sha256": "37cbc0cb79062d2248f54a514900d2d41fbe3936a96761630f63de61c7574550",
+   "bytes": 792
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W34_1A_0431_1_D3.json": {
+   "sha256": "1ad55f3b05a02b030cde0daff86c8f1718c375838951d90154734e9f4d9f6ff4",
+   "bytes": 5700
+  },
+  "repo:backend/content/presets/barnards_star/case-moving_neighbor/2026W34_1A_0431_1_D3.png": {
+   "sha256": "c2752292a5319eb745d28832a8431657973c5b38fe73f8cf0999d12b575c3fcb",
+   "bytes": 7354
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W33_2C_0386_4_D3.json": {
+   "sha256": "adcef899d6cf014c5cc2dafa469531dd65d71e7b5741988d6cd647f6fa82a2af",
+   "bytes": 5525
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W34_2B_0557_1_D5.json": {
+   "sha256": "def74ecb24e9c1102f04fe8bd4f33384f2fcaf2f0062d0a096b675b045ffcfc1",
+   "bytes": 5384
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W34_2B_0557_4_D2.json": {
+   "sha256": "4d1dbe4f849a044caa366402092e6d0e8b7a62d27a865387989fdd69ef39b416",
+   "bytes": 5524
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_1A_0008_1_D3.flags.png": {
+   "sha256": "0b6714c4a0978a69b5d78aa09f3a07d2fdf00c2977465a35762dbdaa4e9a3ef3",
+   "bytes": 1016
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_1A_0008_1_D3.json": {
+   "sha256": "1102faba9f085a7f2ac78c7e8caea4978e8366c005b8c77670d0a303022a3b15",
+   "bytes": 5524
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_1A_0008_1_D3.png": {
+   "sha256": "dd282cc2f44408db495b6fccc359b078eb6d4ce3df3a7b9da41c3c9f1bc165be",
+   "bytes": 7619
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_1A_0444_3_D5.json": {
+   "sha256": "071d1758bda3e7a95a3c0ce4c96a2abdb6a5372109db50768ba5001db5a7a847",
+   "bytes": 5383
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_1A_0444_4_D2.json": {
+   "sha256": "4dc81fef25702a1c7660cbb1bd98b9cd0c1f9881f7691033721c7a6b0fafea90",
+   "bytes": 5523
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_2A_0233_1_D1.json": {
+   "sha256": "1827097085628e31d320315aa613d7fa25ee10a9913019d50e1e4f2e39f76a8b",
+   "bytes": 5555
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W35_2A_0233_1_D4.json": {
+   "sha256": "316b920a1cbcf151f9413e283da098b10717a186205ab285a491e342456a2653",
+   "bytes": 5555
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W36_1A_0024_1_D1.json": {
+   "sha256": "9c992de24ec9376a5a70c566d76fb82fb8dd9e4db7cc6c09e66336c64a4e5873",
+   "bytes": 5524
+  },
+  "repo:backend/content/presets/barnards_star/frames/2025W36_1A_0024_1_D4.json": {
+   "sha256": "876d37a25a9bd5fdbf1af5515a49712ff9bb9a67ed542bc815ef1d5a54ae6a59",
+   "bytes": 5526
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_1A_0511_1_D1.json": {
+   "sha256": "ce2b8415cb250a4db0a8bb3932c119f98123952e3d55a0df7a0b98b3592bd5a4",
+   "bytes": 5521
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_1A_0511_1_D4.json": {
+   "sha256": "38308ef6aea1bdda023be10df7e22e4c2c8f49ca5805da7f4dbd7cc7eba6c0d4",
+   "bytes": 5519
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_1A_0556_1_D1.json": {
+   "sha256": "cf807ab7d5d7409a9904656cffe242b1fc4f1aba56f5027b456a634e81441aa7",
+   "bytes": 5527
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_1A_0556_1_D4.json": {
+   "sha256": "03a002b84e80e98ad3c38bbcb1ee583bc9f1e22e00876444e999135acaa37065",
+   "bytes": 5524
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_2A_0513_1_D2.json": {
+   "sha256": "2bfa3a5f72ddde28db9161755b83a39d900f55c53dd5dc00352b76d6b8eb5c31",
+   "bytes": 5525
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W11_2A_0513_1_D5.json": {
+   "sha256": "6d129265564ad42f96a0c8137fc5f17e5a59ecc0adb263816ef6b1f8bf3b01ec",
+   "bytes": 5382
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0311_4_D2.json": {
+   "sha256": "1ea32e22a60efc169318949d4e356756321512010d71ccc74a490c53d00ef704",
+   "bytes": 5524
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0311_4_D5.json": {
+   "sha256": "f58907f71278dfa7a143dc66aea14606c8631886acfdcd162040f706d72ffc45",
+   "bytes": 5382
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0610_2_D3.flags.png": {
+   "sha256": "902596bd61a09d4e8c7b5037d802500d5de6a2c192a57af64b729e0aa0d8ccf3",
+   "bytes": 1678
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0610_2_D3.json": {
+   "sha256": "40b264324b2c60902a6838a4dd60d2185ffacbb2c166f4f70756d6ae284c54f9",
+   "bytes": 5554
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0610_2_D3.png": {
+   "sha256": "e8d4cd69e0f70eb4363d06fd93f90ceffdd8ff95139ab3510587719c6ab592bf",
+   "bytes": 5476
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W12_1A_0610_2_D6.json": {
+   "sha256": "a6a95c43fdb3a746beca5fdcbd3f73788b019f5514ea585e7ca7f60f473950b1",
+   "bytes": 5381
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W13_1A_0129_4_D3.json": {
+   "sha256": "0424adf63f4be81d0a69ee9edd5e095f75d9c0623fb51486dc4ccc81927ee5a0",
+   "bytes": 5574
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W13_1A_0129_4_D6.json": {
+   "sha256": "6e7c78fd8a5e9f21fc6b57038831fdf633b4c522cb57a8636a539fb4c9ebf8b0",
+   "bytes": 5383
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0007_3_D6.json": {
+   "sha256": "43e4d044d641be1479baeb15010c046d729ac069150a5cb3fc040e922d40e458",
+   "bytes": 5487
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0007_4_D3.json": {
+   "sha256": "703d5bb91df171defa6ca0db66afe43e2d055261eb221120a29e964b9da39c6c",
+   "bytes": 5598
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0431_1_D3.flags.png": {
+   "sha256": "37cbc0cb79062d2248f54a514900d2d41fbe3936a96761630f63de61c7574550",
+   "bytes": 792
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0431_1_D3.json": {
+   "sha256": "64a7d97088759de8f4748f727fcbf74b149b94ed9912a24495421af1e52944d6",
+   "bytes": 5603
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0431_1_D3.png": {
+   "sha256": "cae5f4fd257351398dadb034b931585942a124692acd2e5d092eb1d9253cd539",
+   "bytes": 6486
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_1A_0431_1_D6.json": {
+   "sha256": "ac1d13b828064dc6b8fbb04c43cf752426d793c8529fcf64d0d6000e0ab0eb5d",
+   "bytes": 5456
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_2A_0178_3_D2.json": {
+   "sha256": "5004c5bec5cb92564d26c6953475433e142542abd9c7a88273a9d5805161d983",
+   "bytes": 5598
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_2A_0178_3_D5.json": {
+   "sha256": "25dc6bfdbfd2f6f08a4494113d52094e82852319dc33b8dbfe5352ee22813066",
+   "bytes": 5459
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_2A_0249_3_D2.json": {
+   "sha256": "4f4bd3e1cd7c5f3853a6361f8afee808eb127e99877d4dc89e1ad172a00fb39f",
+   "bytes": 5600
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W34_2A_0249_3_D5.json": {
+   "sha256": "2be80ec483baec646aeac6fb2bdc55297486e516a34866a50aee6d4bb4382b5b",
+   "bytes": 5628
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W35_1A_0079_1_D1.json": {
+   "sha256": "0a7712fce42f5d67f8e10f4035a6d9244d6c6e3065517b026aabbddea1f9fd60",
+   "bytes": 5603
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W35_1A_0079_1_D4.json": {
+   "sha256": "cc1085719328d6bd12f3d56b14b70fc5ecb1371c81b06517efb77821fad0740c",
+   "bytes": 5602
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W35_1A_0375_4_D1.json": {
+   "sha256": "457432838c60206e90b2d721bd5b7a4b5c3b221c617817a75f5d072bb660fec0",
+   "bytes": 5654
+  },
+  "repo:backend/content/presets/barnards_star/frames/2026W35_1A_0375_4_D4.json": {
+   "sha256": "4384d29008fd3baf0c2b85d97fbf117f847c2653efab11c74dd5ca5812d3e083",
+   "bytes": 5599
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D3.flags.png": {
+   "sha256": "759c181c4d77c7eff03ec5eb81c3043c7908bd1f168950ccd23b577414653f87",
+   "bytes": 852
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D3.json": {
+   "sha256": "dd3a216e3ca278f42d7c0ab316f96a6013c4e5ab2207576d1a25783acde3d9df",
+   "bytes": 5472
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D3.png": {
+   "sha256": "56eed8bf3d4f6a4e750b37864a91cb07a7d2eddf065c266090f982578bc03b1a",
+   "bytes": 24842
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D6.flags.png": {
+   "sha256": "67f71235e18a1c18daa246f549bf4338470d9ed02edfdef427392af201f16c0b",
+   "bytes": 1449
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D6.json": {
+   "sha256": "05b71f475d2fe04084a3402476b5a76826d731f132b50d54e9f9e1e77f3bd938",
+   "bytes": 5473
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D6.png": {
+   "sha256": "18d433f057a67c6237f347f9e58b06b66d8275bfbb303042afc08928241b7070",
+   "bytes": 26576
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W39_2A_0597_4_D3.flags.png": {
+   "sha256": "dab6213d3f00116f12c1ab49d11daff999a71e7dc5638ee517485e955db6b2be",
+   "bytes": 1343
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W39_2A_0597_4_D3.json": {
+   "sha256": "400da798d2a5048933a52abf6ca7ad9adb4eb1929968b757767849e4c4b2c7f7",
+   "bytes": 5551
+  },
+  "repo:backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W39_2A_0597_4_D3.png": {
+   "sha256": "ddaa17e976887bc3345faa8b5c71f76aa43d82a35e67aa3efd86d638752db33a",
+   "bytes": 22448
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.flags.png": {
+   "sha256": "9b77ed913e33dae818d4735e0a69d0536eaf9405273c392c83dda94441bcf6bb",
+   "bytes": 1510
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.json": {
+   "sha256": "56a0f0e5e3a98c0f3536c6db856d021d0ab47d6fb512dd215711ba16e5d6a73d",
+   "bytes": 5406
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.png": {
+   "sha256": "9885db2805b381045b459fe0caf851ba263ab33644f2e6d6199e584118e9e08d",
+   "bytes": 20584
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.flags.png": {
+   "sha256": "28531b8ce3eb9e166520e6c96dfdce2f49ecd4a5fc1975b26d6a4bac9abd1055",
+   "bytes": 1754
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.json": {
+   "sha256": "d99b9567f4fd51c7b3ae74addc1346f40074934c3dc3ecfafdda0cb3f8985c2b",
+   "bytes": 5298
+  },
+  "repo:backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.png": {
+   "sha256": "30264720b17426ef1e2d42f0ff68aba5cce789cfde640d65315bfd20d27b5a91",
+   "bytes": 21283
+  },
+  "repo:backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.flags.png": {
+   "sha256": "0769084f14c6e28c5aaf8c33bc5f9005ee347b17258dfd0bb727cbee2a351413",
+   "bytes": 1566
+  },
+  "repo:backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.json": {
+   "sha256": "5bd7fe9b930c77c5cfe3d557f58658ea027490ebc7555ff313de4d0f8424289e",
+   "bytes": 5410
+  },
+  "repo:backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.png": {
+   "sha256": "42dc34fc1c3e60399ca4bb22072a8a163bf98c2dca91897d66f4a3b82c370087",
+   "bytes": 20675
+  },
+  "repo:backend/content/targets.json": {
+   "sha256": "46be44aa716e32096eb9edec4b7ecfa2f819a68667ace2d3636e5f0b8f4afa94",
+   "bytes": 9490
+  },
+  "repo:backend/data/process.py": {
+   "sha256": "75aa6b2e4b5f21c446717283813111e2164af04f6ac106789eee11f3799d6e41",
+   "bytes": 36910
+  },
+  "repo:science/reviews/acceptance/gaia/barnards_star.csv": {
+   "sha256": "8944f4ab43cabdcc28a01bf59f67c942bf974634a4948cd06475ef0a82a655c2",
+   "bytes": 3411
+  },
+  "repo:science/reviews/acceptance/gaia/wise_0855.csv": {
+   "sha256": "4fff0b9b0a8cec96fc588843ca4fc1bc5cfbe9e7490086b6e8ac3ed38aae75e3",
+   "bytes": 2954
+  },
+  "repo:science/reviews/overnight-controls/run_controls.py": {
+   "sha256": "a46dccddea4ca1fcddf853e398d0085be9f89cdf98d7349f308ff60f28f22361",
+   "bytes": 97632
+  },
+  "repo:science/reviews/transfer-exercise/results.json": {
+   "sha256": "d981ee58e605ff5052d9018576d17b61922f7a41b11786b7b49179a380573d0f",
+   "bytes": 22463
+  }
+ },
+ "outputs": {
+  "A_P_per_frame.png": {
+   "sha256": "9885db2805b381045b459fe0caf851ba263ab33644f2e6d6199e584118e9e08d",
+   "bytes": 20584
+  },
+  "A_P_shared.png": {
+   "sha256": "54655c188d831f464ee3064b1488310635f415271de1934bd6fc13800e45dc42",
+   "bytes": 20700
+  },
+  "A_Q_per_frame.png": {
+   "sha256": "30264720b17426ef1e2d42f0ff68aba5cce789cfde640d65315bfd20d27b5a91",
+   "bytes": 21283
+  },
+  "A_Q_shared.png": {
+   "sha256": "02d573964cd60e235aad66e48d17af55d0645eb4d6ff804b8d5c095b67560e00",
+   "bytes": 20643
+  },
+  "A_stretch_pairs.png": {
+   "sha256": "3292475057ae439fb6984f25b6df33a744dd5999ce2d28b84cc0698f5368834c",
+   "bytes": 106962
+  },
+  "A_stretch_probes.csv": {
+   "sha256": "7832ec7a2a3db2468748513ec58e63a875232b71374aa0f8e6c49125a1fd1564",
+   "bytes": 925
+  },
+  "B_features.csv": {
+   "sha256": "136578767572d09f8d094705ad993a88e034d8bcc6d552e5a52547996fed7866",
+   "bytes": 630
+  },
+  "B_field_sources.csv": {
+   "sha256": "3e31ea9de20e45b80dc9ce4cdae9d0a4174c40385d3d6620d1c617a7dad7f7d5",
+   "bytes": 278
+  },
+  "B_flagged_features.png": {
+   "sha256": "280879ba3758ae7d874e0c8820c5e6c03d6687bce705922aeba44fb119c88fc3",
+   "bytes": 43678
+  },
+  "C_frames.csv": {
+   "sha256": "ef04683b0c09e9c54c1aff6a580f1de3f28f0ed96d0d254480ee6a412696ebad",
+   "bytes": 3071
+  },
+  "C_pairs.csv": {
+   "sha256": "d7e5cd24943d8c3de0ae01c3e2039f10d4c568882c3ca30981948787fe858c79",
+   "bytes": 1975
+  },
+  "C_time_vs_wavelength.png": {
+   "sha256": "5f13e8f05ad029eb2c80ac9aed9b345f572b6ed48c2e72c434e905918a66a0c1",
+   "bytes": 34583
+  },
+  "D_barnard_proxies.csv": {
+   "sha256": "430654fc7565163417c776295d4043179e69dae774205bcd414acbe2aa25f770",
+   "bytes": 3488
+  },
+  "D_barnard_proxies.png": {
+   "sha256": "124d13d6c9dc5d7909d7a2d23175054ca0dee01f71c800bbb87a14277393a6f7",
+   "bytes": 49750
+  },
+  "E_information_matrix.csv": {
+   "sha256": "90223fd36f53035ec7350119b8fec520926d1647f17e92ff542ce8cd0e32ff9b",
+   "bytes": 5287
+  },
+  "E_information_removal.png": {
+   "sha256": "4166e79af2d1738134f01f71ec1f476af856d5e590a2cc7874fbf9ee983302ed",
+   "bytes": 227276
+  },
+  "results.json": {
+   "sha256": "ceedb4fe63c1548e9ccbc8b7269de224cac71a838fdb81574b44554ce94104da",
+   "bytes": 84264
+  }
+ },
+ "note": "Inputs are read only. data_root:raw/* FITS are retained cutouts (not committed). Output PNGs are derived views."
+}
