@@ -1,0 +1,55 @@
+/* Landing-only composition; investigation and print styles stay independent. */
+.landing-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: center;
+  min-height: max(720px, 100svh);
+  padding: 130px max(40px, calc((100vw - 1360px) / 2)) 112px;
+  column-gap: 24px;
+}
+.landing-hero .hero-copy { grid-column: 1; grid-row: 1; position: relative; z-index: 2; text-align: left; max-width: 720px; }
+.landing-hero h1 { font-size: clamp(58px, 5.7vw, 88px); line-height: 1.04; }
+.landing-hero .hero-description { margin: 28px 0 32px; max-width: 480px; font-size: 18px; line-height: 1.6; }
+.landing-hero .hero-source { margin: 20px 0 0; }
+.observatory-stage { grid-column: 2; grid-row: 1; position: relative; width: 100%; min-width: 0; margin: 0; align-self: center; }
+.observatory-model { position: relative; width: 100%; aspect-ratio: 1; pointer-events: none; }
+.observatory-drift { width: 100%; height: 100%; }
+.observatory-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+.observatory-stage figcaption { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; color: #b2bab6; font-size: 12px; margin-top: 20px; position: relative; }
+.observatory-illustration { color: #8c9690; padding-left: 10px; border-left: 1px solid #404b40; }
+.landing-motion-controls { position: absolute; bottom: 26px; right: max(32px, calc((100vw - 1360px) / 2)); display: flex; align-items: center; gap: 8px; }
+.landing-motion-controls button { background: transparent; border-color: transparent; border-radius: 999px; font-size: 12px; color: #abb4af; font-weight: 400; min-height: 44px; padding: 8px 12px; }
+.landing-motion-controls button:hover:not(:disabled) { color: var(--ink); background: #182019; border-color: #334331; }
+.landing-motion-controls button[aria-pressed="true"] { background: transparent; border-color: transparent; color: #d5dbd7; }
+.landing-motion-controls .landing-pause { display: inline-flex; align-items: center; gap: 8px; }
+.landing-motion-controls .landing-pause span { font-size: 16px; }
+.landing-motion-controls button:disabled { opacity: .65; }
+@media (max-width: 1050px) and (min-width: 761px) {
+  .landing-hero { padding-inline: 32px; column-gap: 0; }
+  .landing-hero h1 { font-size: clamp(49px, 6.2vw, 64px); }
+  .landing-hero .hero-description { font-size: 17px; max-width: 38ch; }
+  .observatory-model { width: 108%; margin-left: -4%; }
+  .observatory-stage figcaption { font-size: 11px; gap: 7px; }
+}
+@media (max-width: 760px) {
+  .landing-hero { display: flex; flex-direction: column; min-height: 0; padding: 112px 24px 88px; gap: 0; }
+  .landing-hero .hero-copy { order: 1; text-align: center; }
+  .landing-hero h1 { font-size: clamp(44px, 8.2vw, 62px); }
+  .landing-hero .hero-description { margin: 22px auto 25px; max-width: 36ch; font-size: 17px; }
+  .observatory-stage { order: 2; max-width: 430px; margin: 24px auto 0; }
+  .observatory-model { width: 100%; margin: 0; aspect-ratio: 1.25; }
+  .observatory-stage figcaption { margin-top: 12px; font-size: 11px; }
+  .landing-motion-controls { bottom: 18px; right: 16px; left: 16px; justify-content: center; }
+}
+@media (max-width: 360px) {
+  .landing-hero { padding-inline: 18px; }
+  .landing-hero h1 { font-size: 40px; }
+  .landing-hero .hero-description { font-size: 16px; }
+  .observatory-stage figcaption { gap: 6px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-motion-controls button { transition: none; }
+}
+@media print {
+  .landing-hero { display: none; }
+}

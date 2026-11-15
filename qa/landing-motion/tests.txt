@@ -1,0 +1,13 @@
+
+> perigee-frontend@0.1.0 test
+> vitest run --reporter=dot
+
+
+ RUN  v4.1.12 /Users/sathvikloke/Documents/ChatGPT/perigee-landing-motion/frontend
+
+··········································································································································
+
+ Test Files  16 passed (16)
+      Tests  138 passed (138)
+   Start at  01:37:57
+   Duration  1.32s (transform 1.10s, setup 0ms, import 1.68s, tests 1.93s, environment 2ms)

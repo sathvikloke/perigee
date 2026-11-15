@@ -1,0 +1,13 @@
+
+> perigee-frontend@0.1.0 build
+> tsc --noEmit -p . && vite build
+
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 65 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.25 kB │ gzip:   0.72 kB
+dist/assets/index-C5D-xaDh.css   51.46 kB │ gzip:  11.15 kB
+dist/assets/index-B5Zdu_7z.js   345.31 kB │ gzip: 107.74 kB
+✓ built in 521ms

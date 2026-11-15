@@ -6,6 +6,7 @@ import { App } from "./App";
 import "./styles/tokens.css";
 import "./styles/app.css";
 import "./styles/orbital.css";
+import "./styles/landing-motion.css";
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
