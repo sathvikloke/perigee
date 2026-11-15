@@ -1,6 +1,8 @@
-# Perigee: judge demo handoff (pitch outline, demo script, rehearsal record)
+# Perigee: judge demo handoff
 
-For Sathvik, who owns the pitch and makes every final call.
+**Current release:** the [app](https://perigee-liard.vercel.app), [source code](https://github.com/sathvikloke/perigee), and [seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf) are public. The [deck notes and validation](DECK.md) describe the finished presentation. Nothing has been submitted for judging.
+
+For Sathvik, who owns the pitch and makes every final call. The rehearsal below remains a historical record of its stated build; the production evidence is linked in section 5.
 - The first draft was written by worker 20 at `007b6aa`.
 - This version was refreshed by the coordinator on 2026-11-14/15 against `claude/perigee-integration` @ **`c194d92`**, where the frontend code is unchanged since `a416c9e`.
 - It was checked by a full rehearsal of the narrated journey on that build (see section 6).
@@ -58,7 +60,7 @@ These were read from the official pages on 2026-11-14. Quotes are short.
 
 ---
 
-## 3. Seven-slide outline (global submission deck)
+## 3. Seven-slide outline and completed deck
 
 | # | Slide | On screen (asset) | Point to land |
 |---|---|---|---|
@@ -70,7 +72,7 @@ These were read from the official pages on 2026-11-14. Quotes are short.
 | 6 | **How NASA data makes it possible, and how we checked it** | `rehearsal/d10-coordinate-search-1280.jpg` (any coordinate → IRSA) and `d09b-barnard-AC-bench-1280.jpg` | Public SPHEREx L2 images from NASA/IPAC IRSA. 189/189 processed records pass independent re-derivation from the original FITS files. Gaia DR3 field stars land a median 0.45 display px from their predicted positions. |
 | 7 | **What works, limits, sources** | The condensed table from section 5, the acknowledgments (NASA/IPAC IRSA, SPHEREx, CDS/SIMBAD, ESA Gaia) and the public links | Candid scope: no photometry, no measured motion, no discovery claims. |
 
-The phone captures (`rehearsal/p0*-390.jpg`) can replace any desktop capture if a slide needs a phone view.
+The finished deck follows this story with the final slide arrangement in [DECK.md](DECK.md). The phone captures (`rehearsal/p0*-390.jpg`) can replace any desktop capture if a slide needs a phone view.
 
 ---
 
@@ -155,24 +157,25 @@ The case opens on **A + C** with **Guide line through A** and **Show flagged pix
 
 ## 5. Working vs future (reconciled 2026-11-15)
 
-"Local" means uvicorn plus a Vite production build on a laptop. **Nothing below has been verified on a public URL.**
+The app is released at **https://perigee-liard.vercel.app** with no login. [Production journey](../../qa/production-journey/README.md) and [independent public-release verification](../../qa/public-release/README.md) record the logged-out checks. The older local rehearsal is retained in section 6. Neither run substitutes for a physical-phone or screen-reader test.
 
 | Capability | Status | Evidence |
 |---|---|---|
-| Five presets; two guided investigations (Epsilon Indi B, Barnard's Star) | **Working locally** | Rehearsal `d01`, `d02`–`d09`; regression gate |
-| A + B / A + C switching, blink, per-frame date and wavelength, comparison notes | **Working locally** | Rehearsal `d02b`, `d03b`; notes match the narration word for word |
-| Catalog-prediction ring labelled "Catalog prediction, not a detection" | **Working locally** | Rehearsal; acceptance review: the marker is within 0.0007 display px of an independent prediction |
-| Flag screen, problem-flag overlay and legend; "flag screen passed" explanation | **Working locally** | Rehearsal `d04`, `d05` |
-| Evidence notebook with autosave ("Saved on this device") and the claim-guide check | **Working locally** | Rehearsal `d06`, `d07`; `qa/fresh-pass` (Neeraj) |
+| Five presets; two guided investigations (Epsilon Indi B, Barnard's Star) | **Verified on production** | Rehearsal `d01`, `d02`–`d09`; regression gate |
+| A + B / A + C switching, blink, per-frame date and wavelength, comparison notes | **Verified on production** | Rehearsal `d02b`, `d03b`; notes match the narration word for word |
+| Catalog-prediction ring labelled "Catalog prediction, not a detection" | **Verified on production** | Rehearsal; acceptance review: the marker is within 0.0007 display px of an independent prediction |
+| Flag screen, problem-flag overlay and legend; "flag screen passed" explanation | **Verified on production** | Rehearsal `d04`, `d05` |
+| Evidence notebook with autosave ("Saved on this device") and the claim-guide check | **Verified on production** | Rehearsal `d06`, `d07`; `qa/fresh-pass` (Neeraj) |
 | **Evidence card JSON export** with case and per-frame limitations | **Verified (real files)** | Rehearsal `evidence-card-fair_comparison.json`; `qa/export-limitations/`; Codex checked an actual saved download |
-| **Print / save PDF** | **Verified locally (rendered PDF)** | Rehearsal `evidence-card-fair_comparison-print.pdf`: 3 Letter pages with plates, legend, comparison note, notebook text, provenance for A and B (IDs, detector, release, UTC, wavelength, IRSA URL, processing, SHA-256) and the 5 stated limitations; readable, no clipping. Rendered by Chrome's print engine (`page.pdf` with print media), not the native dialog; the **Print / save PDF** button was confirmed to call `window.print` |
-| My evidence: human titles, Reopen, reload | **Working locally** | Rehearsal `d08`; Reopen restored all three notes and focused the heading; `qa/my-evidence/` |
-| **Phone layout** | **Verified locally (headless Chrome)** | Rehearsal at 390×844 and 320×700: no horizontal overflow (`scrollWidth == innerWidth`) on either case, the notebook or My evidence; `qa/mobile/`; Codex's independent 320 px check. No physical phone, no screen reader |
-| Live coordinate search → real IRSA frames, in time order | **Working locally (live IRSA)** | Rehearsal `d10`: 24 of 460, 20–22 ready, 2–4 IRSA 502s shown as failed with retry |
-| Honest archive-failure handling | **Working locally** | Rehearsal `d11` (simulated); real 502s during rehearsal; `qa/loading-recovery/` |
+| **Print / save PDF** | **Verified on production (rendered PDF)** | Rehearsal `evidence-card-fair_comparison-print.pdf`: 3 Letter pages with plates, legend, comparison note, notebook text, provenance for A and B (IDs, detector, release, UTC, wavelength, IRSA URL, processing, SHA-256) and the 5 stated limitations; readable, no clipping. Rendered by Chrome's print engine (`page.pdf` with print media), not the native dialog; the **Print / save PDF** button was confirmed to call `window.print` |
+| My evidence: human titles, Reopen, reload | **Verified on production** | Rehearsal `d08`; Reopen restored all three notes and focused the heading; `qa/my-evidence/` |
+| **Phone layout** | **Verified on production (headless Chrome)** | Rehearsal at 390×844 and 320×700: no horizontal overflow (`scrollWidth == innerWidth`) on either case, the notebook or My evidence; `qa/mobile/`; Codex's independent 320 px check. No physical phone, no screen reader |
+| Live coordinate search → real IRSA frames, in time order | **Verified on production (live IRSA)** | Rehearsal `d10`: 24 of 460, 20–22 ready, 2–4 IRSA 502s shown as failed with retry |
+| Honest archive-failure handling | **Verified on production** | Rehearsal `d11` (simulated); real 502s during rehearsal; `qa/loading-recovery/` |
 | Tests | **Pass** | `qa/regression/run.sh` on `2956e67`: backend 348 with raw data (330 passed / 18 skipped without), frontend 121, 183-frame audit (0 stale), 189-record science acceptance; release smoke 20/20 locally |
 | Science acceptance | **Done** | 189/189 records pass; Gaia DR3 median 0.45 display px; Barnard and Epsilon case reviews merged and accepted |
-| **Public deployment** | **Not working yet** | The registered production domain `https://perigee-liard.vercel.app` returns **404** at `/` and `/api/v1/health` (production builds from `main`, which has no app until PR #27 merges). The preview and team aliases redirect logged-out visitors to Vercel login. The repository is private. See `docs/DEPLOYMENT.md` → Owner actions |
+| **Public deployment** | **Live, logged-out access verified** | PR #27 released the app; `/` and `/api/v1/health` return 200, health is `ok` with environment signing, and release smoke run 43658316997 passed 20/20. The repo is public. Preview deployments remain protected. See `docs/DEPLOYMENT.md` |
+| **Seven-slide deck** | **Complete** | Public PDF, editable Spaces deck, presenter notes and seven-page visual verification in [DECK.md](DECK.md) |
 | Rate limiting | Not implemented | Review D2: per-request bounds only; a Vercel Firewall rule is an owner option |
 | Brightness measurement (photometry) | Not planned | Display stretch only, by design |
 | Measured proper motion | Future | Barnard's core is saturated |
@@ -232,7 +235,7 @@ The case opens on **A + C** with **Guide line through A** and **Show flagged pix
 
 The earlier stand-ins in `screens/`, which predated the fixes, were removed.
 
-**Still missing:** a capture of the app loaded logged out on the public production URL (former request S9). It can only be taken after the owner steps in `docs/DEPLOYMENT.md`. Until then, do not say "live on the web".
+**Public capture completed:** the former S9 request is fulfilled in `qa/public-release/notebook-restored.jpg` and `qa/production-journey/2026-11-15-ef29890/`. The local rehearsal above predates publication; the app is now live on the web.
 
 ---
 
@@ -258,9 +261,9 @@ The earlier stand-ins in `screens/`, which predated the fixes, were removed.
 
 ## 8. Open decisions for Sathvik
 
-1. **Demo format for global judging:** the 7-slide deck (outline above) or a ≤30-second video. Both cannot exceed the limits.
+1. **Demo format:** the seven-slide PDF is ready. The submission owner can use its public link; a video is not needed in addition to the deck.
 2. **Local slot:** confirm the length and format with the Local Lead. The 5-minute script is our own target.
-3. **Judge access:** complete the owner steps in `docs/DEPLOYMENT.md` (repo public, signing secret before merge, production protection, merge PR #27), then take the public-URL capture. Until then, demo locally and do not say "live on the web".
+3. **Judge access:** completed. App, repository and deck have public links. Previews remain protected; use the production URL.
 4. **Live-search coordinate:** keep the J2000 link, which the app labels honestly, or use the 2026.0 position (330.8925, −56.8043) to center Epsilon Indi A.
 5. **Opening hook:** Epsilon Indi B (recommended; it matches the demo and works offline) or Barnard's Star.
 6. **Team slide:** names and roles, and how to state the AI-assisted build (per `docs/AI_USE.md`; the `[TO CONFIRM]` items there are the team's to fill).

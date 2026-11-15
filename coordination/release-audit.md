@@ -35,7 +35,7 @@
 | 17 | Mobile and keyboard | **Done** | PR #25; QA-F3 320 px and focus fixes; production at 390 and 320 |
 | 18 | Loading and recovery | **Done** | PR #32; production expired-token, stale-response and partial-retry checks |
 | 19 | Performance | **Done (recommendation)** | Local processing takes 32 ms per frame; the hosted frame median is 3.67 s. The likely dominant cost is the external IRSA fetch plus hosting overhead. IRSA time was not measured separately. No code change. See `qa/production-journey/README.md` |
-| 20 | Pitch and demo | **Done (outline and script)** | `docs/presentation/README.md` and rehearsal assets. **The shareable deck itself is not built** (section 4) |
+| 20 | Pitch and demo | **Done** | Seven-slide PDF, editable Spaces presentation, script, presenter notes and rehearsal assets. `docs/presentation/DECK.md` records seven-page visual verification |
 | 21 | Judging critique | **Done** | PR #24; findings 1–3 addressed (public app, Play over series, README and AI disclosure) |
 | 22 | Submission links | **Done for links; submission is the team's** | Section 4: all key links return 200 logged out |
 | 23 | Regression | **Done** | PR #26; `qa/regression/run.sh` passing on every merge |
@@ -80,9 +80,9 @@ Each work-sequence item from the issue body maps to released evidence. "**Gap**"
 | Review scientific processing outputs | Acceptance 189/189 (#15); PR #19 and #35 reviews |
 | Validate the integrated learner journey | Rehearsal (`docs/presentation/`) and production journey |
 | Verify the live coordinate requirement | Production live search, 460 matches |
-| Build the story and presentation | Outline and script done. **Gap: no shareable deck or ≤30 s video yet** |
+| Build the story and presentation | **Done:** seven-slide PDF, script and notes in `docs/presentation/`; the deck uses real app captures |
 | Lead the final integration and release decision | PR #27 merged (`ef29890`); production public |
-| **Acceptance** | Met, except "a tested public **submission**", which is the team's final step, plus the deck |
+| **Acceptance** | Product and presentation are complete. "A tested public **submission**" remains the team's final form-and-submit step |
 
 ### #2 Sagar: archive and image pipeline
 | Item | Evidence |
@@ -161,8 +161,10 @@ Official rules, from the project submission guide read on 2026-11-14:
 - Gaia and Gaia DR3.
 
 **Genuinely missing before submission (team or user actions):**
-1. **The demo deck itself.** Only a 7-slide *outline*, a script and screenshots exist (`docs/presentation/`). Nobody has built a shareable deck (or a ≤30 s video) or hosted it at a public link. It must show the team name, members and challenge.
-2. **`docs/AI_USE.md` `[TO CONFIRM]` items: 7 open**, all team attestations:
+**Deck completed by Codex:** [public seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf), with team names, challenge, real app captures, NASA data sources and limitations. The saved editable deck and PDF were individually rendered and checked. See `docs/presentation/DECK.md`.
+
+Remaining team actions:
+1. **`docs/AI_USE.md` `[TO CONFIRM]` items: 7 open**, all team attestations:
    - the image tool for mocks;
    - planning-doc tooling;
    - Sagar's AI use;
@@ -171,9 +173,9 @@ Official rules, from the project submission guide read on 2026-11-14:
    - **the idea's origin**, which the guide requires to be the team's own;
    - human spot checks.
    Agents must not fill these.
-3. **Project page text:** the description, the data/resources list and the "Use of SI" answer, written in the Space Apps form by the submission owner. The README and `docs/AI_USE.md` provide source material.
-4. **The "Submit for Judging" click**, before the deadline. This is the team's action.
-5. **The local presentation slot**, to be confirmed with the Local Lead. No official local talk length was found.
+2. **Project page text:** the description, the data/resources list and the "Use of SI" answer, written in the Space Apps form by the submission owner. The README and `docs/AI_USE.md` provide source material.
+3. **The "Submit for Judging" click**, before the deadline. This is the team's action.
+4. **The local presentation slot**, to be confirmed with the Local Lead. No official local talk length was found.
 
 ## 5. Remaining gaps and notes
 - **Fix needed: none found.** The production journey and contract checks surfaced no application defect.

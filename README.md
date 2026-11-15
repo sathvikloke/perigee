@@ -14,6 +14,8 @@ Built for the NASA Space Apps 2026 challenge [Planet X and SPHEREx](https://www.
 
 **[Open the public web app](https://perigee-liard.vercel.app)** — no login required. Start with **Epsilon Indi B** to investigate a fair comparison, or **Barnard's Star** to follow a nearby moving star.
 
+**Presentation:** [seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf) · [presenter notes and sources](docs/presentation/DECK.md).
+
 Verified release on `main`: **`ef29890`**, published 2026-11-15. The [production smoke check](https://github.com/sathvikloke/perigee/actions/runs/43658316997) passed **20/20** without login, including a live non-preset archive search and processed image. Preview deployments remain protected. See [deployment details](docs/DEPLOYMENT.md).
 
 Working features:
