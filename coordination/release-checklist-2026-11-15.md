@@ -1,6 +1,6 @@
 # Perigee release and submission checklist
 
-Prepared for Sathvik and the release coordinator on **15 November 2026**. This is a completion checklist, not evidence that the new working-tree changes are deployed or that the competition entry has been submitted.
+Prepared for Sathvik and the release coordinator on **15 November 2026**. The application release is deployed and verified; the script and revised submission text are complete. Recording, team attestations and the competition submission remain open.
 
 ## Deadline and event identity
 
@@ -16,11 +16,11 @@ Local judging and nomination are distinct from the platform cutoff. The [Judging
 
 ## Required completion gates
 
-- [ ] **Integration:** all assigned code/content workers and the separate landing-page work finish; the coordinator reconciles their changes on the shared branch. Preserve unrelated edits. Record the exact final source revision.
-- [ ] **Verification:** run the appropriate frontend tests, TypeScript/build, backend/content tests and release checks for the final combined change. Inspect the real desktop and narrow main journey, image/overlay failure recovery, saving, reopening, JSON export and print output. Earlier green runs cover only their recorded revisions.
-- [ ] **Deployment:** the coordinator deploys the final approved build, records the Cloudflare release identity and Python-origin state, and repeats the logged-out release checks. Verify the social image and static metadata from the public URL after deployment.
-- [ ] **Story and artifacts:** only after the assigned work and landing-page work finish, prepare the requested story-heavy video script/storyboard and the remaining day's schedule. Anchor the story in students and curious observers noticing an apparent change, checking dates/wavelengths/quality, and recording a supported conclusion with uncertainty. Keep the final video artifact within the applicable demo limit if selected as the official Project Demo.
-- [ ] **Submission text:** reconcile the older [draft](../docs/SUBMISSION_DRAFT.md) with the final product. It still describes two guided investigations; the [latest release record](../qa/final-investigation/README.md) documents three. Replace categorical “bad pixel, not a change” wording with the accepted scientific limit: the flags make that pixel unreliable; they do not establish the cause. Do not present measured learning, calibrated brightness, measured motion or discoveries.
+- [x] **Integration:** all assigned app workers and the separate landing-page/winner-reference work finished. PR #54 merged as `4e247cf365300baf8f3df174ace2142a49479428`.
+- [x] **Verification:** combined tests/build and desktop/narrow workflow, retry, persistence, JSON and Safari print checks passed within the bounds recorded in [audit verification](../qa/audit-followups/README.md). Physical-phone touch and full screen-reader testing remain outside this verification.
+- [x] **Deployment:** Cloudflare version `7e8dfc44-b674-4f6a-ba1c-e4d0e848210c` is live; Vercel Python production is READY at the same Git revision. Logged-out edge/release checks passed 28/28 and 29/29. Public metadata/image and real browser name search were verified.
+- [x] **Story and recording plan:** prepared the [29-second script, shot list, longer local rehearsal and day schedule](../docs/presentation/SUBMISSION_VIDEO.md) after release verification. Caption timing is included. Recording and hosting the final video are still required.
+- [x] **Submission text:** the [draft](../docs/SUBMISSION_DRAFT.md) now covers three guided cases, current search and evidence behavior, and bounded scientific validation. The final hosted video URL and personal team attestations remain owner inputs.
 - [ ] **Team review:** Sathvik/Sagar settle personal attestations in [AI_USE.md](../docs/AI_USE.md), confirm the final team roster and same-event registration, and review the project page. These facts cannot be inferred from code or filled in by an agent.
 - [ ] **Submit and confirm:** the team owner completes the official form and its required declarations, clicks **Submit for Judging** before 23:59 CST, and records the success banner/confirmation. “Save Progress,” public hosting, a finished deck and this checklist do not mean submitted. Aim to finish well before the hard cutoff and preserve time for link fixes.
 
@@ -32,20 +32,20 @@ The [official submission guide](https://www.spaceappschallenge.org/resources/pro
 
 | Artifact | Location | Current status / remaining work |
 |---|---|---|
-| Public app / Final Project link | [perigee.lokesathvik.workers.dev](https://perigee.lokesathvik.workers.dev/) | Existing released app; final audit/landing changes need coordinator verification and deployment. |
+| Public app / Final Project link | [perigee.lokesathvik.workers.dev](https://perigee.lokesathvik.workers.dev/) | Final audit/landing release deployed and publicly verified; see the release record above. |
 | Public source | [GitHub repository](https://github.com/sathvikloke/perigee) | Recorded public source; ensure the submitted branch contains the final release and disclosures. |
 | Official team/project page | [Perigee](https://www.spaceappschallenge.org/2026/find-a-team/perigee/) | Team exists in official saved page data; no submission confirmation inspected. |
 | Challenge | [Planet X and SPHEREx](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/) | Official selected challenge; use this exact title in artifacts. |
 | Seven-slide demo PDF | [Public PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf), [repository copy](../frontend/public/demo/perigee-demo.pdf) | Existing seven-page deck; [deck record](../docs/presentation/DECK.md) reports render review and SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`. Reconcile older UI captures/science wording with the final story before submission. |
 | Editable deck | Connected Spaces title **Perigee — NASA Space Apps demo** | Recorded in the deck notes; no direct editable URL is stored in the repository. |
-| Recorded video | No published video link or finished video file found in the inspected presentation/coordination records | Requested storyboard/script remains a coordinator deliverable after all assigned work. Recording, editing, timing and public hosting remain necessary if video is chosen. |
+| Recorded video | No published video link or finished video file found in the inspected presentation/coordination records | Script/storyboard/captions are complete in `docs/presentation/SUBMISSION_VIDEO.md`; recording, editing, timing and public hosting remain necessary. |
 | Existing longer talk/rehearsal | [Presentation handoff](../docs/presentation/README.md), [capture folder](../docs/presentation/rehearsal/) | Historical five-minute rehearsal and real captures; not a 30-second global demo video. Includes JSON/PDF evidence-card examples. |
-| Project form draft | [SUBMISSION_DRAFT.md](../docs/SUBMISSION_DRAFT.md) | Draft only; needs the content reconciliation above and entry into the official form. |
+| Project form draft | [SUBMISSION_DRAFT.md](../docs/SUBMISSION_DRAFT.md) | Reconciled with final release; needs the final media URL, accurate owner attestations and entry into the official form. |
 | Scientific claim evidence | [Award evidence](overnight-award-evidence.md), [acceptance review](../science/reviews/acceptance/README.md), [third-case release](../qa/final-investigation/README.md) | Trace quantitative claims to the exact bounded checks; do not convert them into demonstrated classroom impact. |
-| Social share preview | [1200 × 630 PNG](../frontend/public/social-preview.png), [renderer](generate-social-preview.py) | New local asset and metadata; must be included in final deployment. Code-rendered typographic brand graphic with AI code-assistance attribution in PNG metadata; no image-generation model or simulated sky imagery. |
+| Social share preview | [1200 × 630 PNG](../frontend/public/social-preview.png), [renderer](generate-social-preview.py) | Included in the verified public deployment. Code-rendered typographic brand graphic with AI code-assistance attribution in PNG metadata; no image-generation model or simulated sky imagery. |
 
 ## Metadata verification
 
 `frontend/index.html` now contains matching document/OG/Twitter titles and descriptions, a canonical public homepage URL, `summary_large_image`, absolute HTTPS image URLs, image alt text, PNG MIME declaration and 1200 × 630 dimensions. The original font preload and favicon remain.
 
-The PNG was rendered with the bundled Host Grotesk font and existing Perigee mark, then visually inspected. Static validation confirmed unique metadata keys, aligned title/description/alt values, the canonical/image URLs and actual PNG dimensions. The current graphic is **117,404 bytes**, with no visible tooling disclosure; accurate code-assistance attribution remains in its PNG metadata and the project's AI-use account. An isolated Vite production bundle in `/tmp/perigee-social-preview-build` passed before removal of the visible label. The coordinator's final combined typecheck/tests/build, copying of this regenerated PNG and public crawler fetch still remain. Metadata is shared across this client-routed app; it does not promise per-investigation server-rendered social previews.
+The PNG was rendered with the bundled Host Grotesk font and existing Perigee mark, then visually inspected. Static validation confirmed unique metadata keys, aligned title/description/alt values, the canonical/image URLs and actual PNG dimensions. The current graphic is **117,404 bytes**, with no visible tooling disclosure; accurate code-assistance attribution remains in its PNG metadata and the project's AI-use account. An isolated Vite production bundle in `/tmp/perigee-social-preview-build` passed before removal of the visible label. The combined typecheck/tests/build passed. Public fetch returned the expected metadata and byte-identical image (HTTP 200, image/png). Metadata is shared across this client-routed app; it does not promise per-investigation server-rendered social previews.

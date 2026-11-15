@@ -1,0 +1,33 @@
+1
+00:00:00,000 --> 00:00:04,000
+That star seems to move.
+How would you check?
+
+2
+00:00:04,000 --> 00:00:09,000
+NASA's images are public. Perigee helps
+students turn them into evidence.
+
+3
+00:00:09,000 --> 00:00:11,400
+Compare real SPHEREx observations.
+
+4
+00:00:11,400 --> 00:00:14,500
+Check dates, wavelengths,
+and quality flags.
+
+5
+00:00:14,500 --> 00:00:20,500
+Then record what the images support—
+and what they cannot tell you.
+
+6
+00:00:20,500 --> 00:00:24,000
+Your conclusion stays connected
+to its sources.
+
+7
+00:00:24,000 --> 00:00:29,000
+A student can explain their reasoning.
+A teacher can follow it.
