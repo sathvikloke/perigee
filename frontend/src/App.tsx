@@ -118,6 +118,12 @@ export function App() {
       fov: String(preset.default_fov_arcmin ?? 6),
     });
 
+  const openInvestigations = () => {
+    if (route.view === "home") return focusInvestigations();
+    pendingInvestigations.current = true;
+    navigate({ view: "home" });
+  };
+
   return (
     <>
       <a className="skip" href="#main">
@@ -155,9 +161,7 @@ export function App() {
                 onClick={(e) => {
                   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                   e.preventDefault();
-                  if (route.view === "home") return focusInvestigations();
-                  pendingInvestigations.current = true;
-                  navigate({ view: "home" });
+                  openInvestigations();
                 }}
               >
                 Investigations
@@ -206,6 +210,7 @@ export function App() {
             caseId={route.caseId}
             onUseFixture={useFixture}
             onQueryPosition={openQueryAt}
+            onChooseInvestigation={openInvestigations}
             onOpenPreset={(id) => navigate({ view: "preset", presetId: id })}
             onOpenQuery={() => navigate({ view: "query" })}
           />

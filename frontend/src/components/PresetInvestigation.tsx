@@ -56,6 +56,7 @@ export function PresetInvestigation(props: {
   onQueryPosition: (preset: PresetDescriptor) => void;
   onOpenPreset: (id: string) => void;
   onOpenQuery: () => void;
+  onChooseInvestigation: () => void;
 }) {
   const { api, presetId } = props;
   const { state, retry } = useAsync<Loaded>(
@@ -105,6 +106,7 @@ export function PresetInvestigation(props: {
         title="The images for this target could not be loaded."
         error={state.error}
         onRetry={retry}
+        onChooseInvestigation={props.onChooseInvestigation}
         onUseFixture={api.mode === "api" ? props.onUseFixture : undefined}
       />
     );
