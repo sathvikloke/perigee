@@ -51,7 +51,7 @@ With a malformed manifest (`{"schema_version":1}`) on this branch:
   - `actionlint` 1.7.7 passes all four workflows.
   - `test_workflows_pin_actions_to_full_shas` now checks every workflow file.
   - A deliberately failing test makes the CI commands exit non-zero: `node --test cloudflare/test/*.test.mjs` exited 1, and `set -o pipefail; pytest backend -q -rs | tee …` exited 1. The temporary test files were removed.
-  - **First real CI run (run 43666247129): `backend` passed and `frontend-cloudflare` failed.** On Node 22 (CI), `node --test cloudflare/test/` treats the directory as a module path (`Cannot find module …/cloudflare/test`); Node 26 (local) accepts a directory. Every earlier step in that job passed (typecheck, Vitest, build, export, `pytest cloudflare/tests`). Fixed by passing the files explicitly (`node --test cloudflare/test/*.test.mjs`) in CI and in the docs; see the follow-up run on this PR.
+  - **First real CI run (run 43666247129): `backend` passed and `frontend-cloudflare` failed.** On Node 22 (CI), `node --test cloudflare/test/` treats the directory as a module path (`Cannot find module …/cloudflare/test`); Node 26 (local) accepts a directory. Every earlier step in that job passed (typecheck, Vitest, build, export, `pytest cloudflare/tests`). Fixed by passing the files explicitly (`node --test cloudflare/test/*.test.mjs`) in CI and in the docs. **Follow-up run 43666365184 on `da1e2e8`: all jobs passed.** `backend` 340 passed / 18 skipped (no raw data in CI); `frontend-cloudflare`: typecheck, Vitest 121/121, build, export, `pytest cloudflare/tests` 13 passed, `node --test` 21/21.
 
 ## B3: Deployed build identity
 
