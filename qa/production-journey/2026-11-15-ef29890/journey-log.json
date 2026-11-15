@@ -1,0 +1,328 @@
+[
+ {
+  "step": "storage_clean",
+  "origin": "https://perigee-liard.vercel.app",
+  "note": "fresh Playwright context; no prior localStorage"
+ },
+ {
+  "step": "first_visit",
+  "status": 200,
+  "url": "https://perigee-liard.vercel.app/",
+  "ms_to_networkidle": 969,
+  "title": "Perigee",
+  "presets": 5
+ },
+ {
+  "step": "health",
+  "status": 200,
+  "ctype": "application/json",
+  "api_status": "ok",
+  "token_signing": "env",
+  "processor": "backend.data.process.process_frame (processor-a adapter)"
+ },
+ {
+  "step": "keyboard_first_tab",
+  "focused": "Barnard's StarThe nearby star with the l",
+  "outline": "solid 3px"
+ },
+ {
+  "step": "shot",
+  "name": "d01-home-1280.jpg"
+ },
+ {
+  "step": "eps_AB",
+  "url": "https://perigee-liard.vercel.app/?preset=epsilon_indi_b",
+  "focus": "BODY:\n    Skip to investigationperigeeA close"
+ },
+ {
+  "step": "shot",
+  "name": "d02-eps-AB-1280.jpg"
+ },
+ {
+  "step": "shot",
+  "name": "d02b-eps-AB-bench-1280.jpg"
+ },
+ {
+  "step": "blink",
+  "pressed": "true",
+  "label": "Ⅱ Pause blink"
+ },
+ {
+  "step": "keyboard_AC",
+  "pressed": "true"
+ },
+ {
+  "step": "eps_AC",
+  "wavelengths": [
+   "2.3232 µm",
+   "4.9399 µm",
+   "2.6167 µm"
+  ],
+  "stretch": [
+   "Each frame has its own contrast stretch, so brightness is not directly comparable.",
+   "Brightness is not directly comparable: this frame has its own contrast stretch."
+  ]
+ },
+ {
+  "step": "shot",
+  "name": "d03-eps-AC-1280.jpg"
+ },
+ {
+  "step": "shot",
+  "name": "d03b-eps-AC-bench-1280.jpg"
+ },
+ {
+  "step": "flags",
+  "checked": true,
+  "legend": [
+   " Hatched: no usable data (outside the image, or saturated / non-finite pixels). It is not dark sky.",
+   " Hatched: no usable data (outside the image, or saturated / non-finite pixels). It is not dark sky."
+  ]
+ },
+ {
+  "step": "shot",
+  "name": "d04-eps-AB-flags-bench-1280.jpg"
+ },
+ {
+  "step": "flag_meaning",
+  "text": "✓\nWhat does “flag screen passed” mean?\n+\n\nA · Flag screen passed\n\nNo problem flags were found in a small circle around the predicted position. The frame is usable for a visual comparison. This is not a detection and not a brightness measurement.\n\nUsable pixels near target\n19\nProblem pixels near target\n0\nProblem flags\nnone reported\nNo adverse flags or non-finite pixels within the screen circle. This is a screening result, not a detection or a brightness measurement.\nInformational flags present (not treated as problems): SOURCE.\n\nB · Flag screen passed\n\nNo problem flags were found in a small cir"
+ },
+ {
+  "step": "shot",
+  "name": "d05-flag-screen-meaning-1280.jpg"
+ },
+ {
+  "step": "quality_details",
+  "text": "✓\nQuality details\n+\nPosition covered\nyes\nUsable pixels near target\n19\nProblem pixels near target\n0\nProblem flags\nnone reported\nNo adverse flags or non-finite pixels within the screen circle. This is a screening result, not a detection or a brightness measurement.\nInformational flags present (not treated as problems): SOURCE."
+ },
+ {
+  "step": "shot",
+  "name": "d06-notebook-filled-1280.jpg"
+ },
+ {
+  "step": "notebook",
+  "counter": "238 / 280",
+  "saved": "Saved on this device"
+ },
+ {
+  "step": "claim_guide",
+  "text": "✓\nCheck your claim against the case guide\n+\nSupported by these images\nA and B are a fair pair: five months apart, same detector, wavelengths 2.323 and 2.322 µm, and no problem flags at Epsilon Indi B.\nIn A and B, Epsilon Indi B looks the same: the same white spot at the marker, with the same field stars around it. I see no change.\nThe dot that appears next to Epsilon Indi B in A but not in B is a flagged detector pixel, not a change in the sky.\nA and C look different because they record different colors of infrared light at the same moment. At 4.94 µm Epsilon Indi B stands out while most field stars fade.\nNot supported\nEpsilon Indi B got brighter or dimmer. Nothing was measured, and its centre is clipped to white in A and B, so this display can't show a small brightness change.\nI can see Epsilon Indi B move between A and B. It is predicted to move about 1.9 arcseconds, a third of one SPH"
+ },
+ {
+  "step": "shot",
+  "name": "d07-claim-guide-1280.jpg"
+ },
+ {
+  "step": "export",
+  "suggested": "perigee-evidence-fair_comparison-2026-11-15-32bc7678.json",
+  "status": "Export evidence card"
+ },
+ {
+  "step": "print_button",
+  "window_print_calls": 1
+ },
+ {
+  "step": "pdf",
+  "path": "evidence-card-fair_comparison-print.pdf"
+ },
+ {
+  "step": "irsa_calls_during_case",
+  "count": 0
+ },
+ {
+  "step": "my_evidence",
+  "text": "My evidence\n\nCards are saved only in this browser. Reopen one to keep working, or export it to keep or share it.\n\nEpsilon Indi B · Is this a fair comparison?\nUpdated 15 Nov 2026 · 2 observations · “A and B are a fair pair (five months apart, 2.323 and 2.322 µm, no flags at the …”\nReopen\nExport JSON\nDelete from this browser"
+ },
+ {
+  "step": "shot",
+  "name": "d08-my-evidence-1280.jpg"
+ },
+ {
+  "step": "reopen",
+  "url": "https://perigee-liard.vercel.app/?preset=epsilon_indi_b",
+  "focus": "H1:Is this a fair comparison?",
+  "claim_restored": true,
+  "notice_restored": true,
+  "uncertain_restored": true
+ },
+ {
+  "step": "reload",
+  "claim_restored": true
+ },
+ {
+  "step": "barnard",
+  "h1": "Follow a nearby moving star",
+  "pair": [
+   "25 Aug 2025",
+   "19 Aug 2026"
+  ],
+  "quality": [
+   "Flagged near target",
+   "Flagged near target"
+  ]
+ },
+ {
+  "step": "shot",
+  "name": "d09-barnard-AC-guide-flags-1280.jpg"
+ },
+ {
+  "step": "shot",
+  "name": "d09b-barnard-AC-bench-1280.jpg"
+ },
+ {
+  "step": "irsa_calls_after_presets",
+  "count": 0
+ },
+ {
+  "step": "validation",
+  "requests_sent": 0,
+  "messages": [
+   "Enter a position. Perigee asks the archive, then processes each image one at a time so you can compare dates, wavelengths and quality.",
+   "Right ascension must be at least 0 and less than 360 degrees.",
+   "Enter declination in decimal degrees, for example -56.786."
+  ]
+ },
+ {
+  "step": "shot",
+  "name": "d12-validation-1280.jpg"
+ },
+ {
+  "step": "coordinate_search",
+  "url": "https://perigee-liard.vercel.app/?view=query&ra=330.84&dec=-56.786&fov=6",
+  "found": "24 observations found in spherex_dr1, spherex_qr3 (of 460 matches), shortened by the result limit",
+  "summary": "21 ready · 0 processing · 0 waiting · 3 failed",
+  "moved": "Need a starting point? Use Epsilon Indi A, J2000 catalog position (330.84, −56.786). The star has moved about 2′ from there by 2026; a 6′ field still includes it."
+ },
+ {
+  "step": "shot",
+  "name": "d10-coordinate-search-1280.jpg"
+ },
+ {
+  "step": "retry_failed",
+  "after": "24 ready · 0 processing · 0 waiting · 0 failed"
+ },
+ {
+  "step": "coordinate_link",
+  "ra": "83.82",
+  "dec": "-5.39"
+ },
+ {
+  "step": "simulated_failure",
+  "text": [
+   "The search failed.",
+   "The archive search failed. This is not a result about the sky.",
+   "The NASA/IPAC archive is unavailable right now. (UPSTREAM_UNAVAILABLE)"
+  ]
+ },
+ {
+  "step": "shot",
+  "name": "d11-simulated-archive-failure-1280.jpg"
+ },
+ {
+  "step": "console_errors_desktop",
+  "count": 3,
+  "first": [
+   "Failed to load resource: the server responded with a status of 502 ()",
+   "Failed to load resource: the server responded with a status of 502 ()",
+   "Failed to load resource: the server responded with a status of 502 ()"
+  ]
+ },
+ {
+  "step": "phone390_eps_AB",
+  "sw": 390,
+  "iw": 390
+ },
+ {
+  "step": "shot",
+  "name": "p01-eps-AB-390.jpg"
+ },
+ {
+  "step": "phone390_eps_AC",
+  "sw": 390,
+  "iw": 390
+ },
+ {
+  "step": "shot",
+  "name": "p02-eps-AC-390.jpg"
+ },
+ {
+  "step": "shot",
+  "name": "p03-eps-AB-flags-390.jpg"
+ },
+ {
+  "step": "phone390_notebook",
+  "sw": 390,
+  "iw": 390
+ },
+ {
+  "step": "shot",
+  "name": "p04-notebook-390.jpg"
+ },
+ {
+  "step": "phone390_barnard",
+  "sw": 390,
+  "iw": 390
+ },
+ {
+  "step": "shot",
+  "name": "p05-barnard-390.jpg"
+ },
+ {
+  "step": "phone390_my_evidence",
+  "sw": 390,
+  "iw": 390
+ },
+ {
+  "step": "shot",
+  "name": "p06-my-evidence-390.jpg"
+ },
+ {
+  "step": "phone320_eps_AB",
+  "sw": 320,
+  "iw": 320
+ },
+ {
+  "step": "shot",
+  "name": "p01-eps-AB-320.jpg"
+ },
+ {
+  "step": "phone320_eps_AC",
+  "sw": 320,
+  "iw": 320
+ },
+ {
+  "step": "shot",
+  "name": "p02-eps-AC-320.jpg"
+ },
+ {
+  "step": "shot",
+  "name": "p03-eps-AB-flags-320.jpg"
+ },
+ {
+  "step": "phone320_notebook",
+  "sw": 320,
+  "iw": 320
+ },
+ {
+  "step": "shot",
+  "name": "p04-notebook-320.jpg"
+ },
+ {
+  "step": "phone320_barnard",
+  "sw": 320,
+  "iw": 320
+ },
+ {
+  "step": "shot",
+  "name": "p05-barnard-320.jpg"
+ },
+ {
+  "step": "phone320_my_evidence",
+  "sw": 320,
+  "iw": 320
+ },
+ {
+  "step": "shot",
+  "name": "p06-my-evidence-320.jpg"
+ }
+]

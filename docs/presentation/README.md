@@ -33,7 +33,7 @@ This is a learning outcome we designed for. It has not been measured with users 
 
 **Primary story: Epsilon Indi B, "Is this a fair comparison?"** Recommended because it teaches the core skill directly:
 - **A + B** is a fair pair: five months apart at nearly the same wavelength.
-- **A + C** looks very different at the same moment, purely because of wavelength.
+- **A + C** looks very different at the same moment, because of wavelength. Each of A and C also has its own contrast stretch, so their brightness is not directly comparable.
 - A dot that "appears" next to the target in A turns out to be a flagged pixel.
 - Every step works offline from the bundled products (section 4).
 

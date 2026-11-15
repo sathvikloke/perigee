@@ -1,0 +1,8 @@
+# simbad https://simbad.cfa.harvard.edu/simbad/sim-tap/sync retrieved 2026-11-15T00:29:31Z
+# ADQL: SELECT main_id, coo_err_maj, coo_err_min, coo_err_angle, coo_wavelength, coo_qual, plx_err, pmra_prec, rvz_qual, rvz_err FROM basic WHERE main_id IN ('NAME Barnard''s star','* eps Ind B','WISEA J085510.74-071442.5','V* RW Aur','V* R Dra')
+main_id,coo_err_maj,coo_err_min,coo_err_angle,coo_wavelength,coo_qual,plx_err,pmra_prec,rvz_qual,rvz_err
+"* eps Ind B",0.5048,0.4676,90,O,A,0.6896,3,,
+"NAME Barnard's star",0.0262,0.029,90,O,A,0.0401,3,A,2.0E-4
+"V* R Dra",0.0669,0.066,90,O,A,0.0648,3,E,2.0
+"V* RW Aur",3.31,2.0,90,O,A,3.69,2,A,0.03
+"WISEA J085510.74-071442.5",,,,Y,C,2.4,1,,

@@ -1,0 +1,9 @@
+# simbad https://simbad.cfa.harvard.edu/simbad/sim-tap/sync retrieved 2026-11-15T00:27:13Z
+# ADQL: SELECT i.id AS queried, b.main_id, b.otype, b.ra, b.dec, b.coo_bibcode, b.coo_qual, b.pmra, b.pmdec, b.pm_bibcode, b.plx_value, b.plx_bibcode, b.rvz_radvel, b.rvz_bibcode, b.sp_type FROM basic b JOIN ident i ON i.oidref=b.oid WHERE i.id IN ('NAME Barnard''s star','* eps Ind B','WISEA J085510.74-071442.5','WISE J085510.83-071442.5','V* RW Aur','V* R Dra','* eps Ind A','* eps Ind Ba','* eps Ind Bb')
+queried,main_id,otype,ra,dec,coo_bibcode,coo_qual,pmra,pmdec,pm_bibcode,plx_value,plx_bibcode,rvz_radvel,rvz_bibcode,sp_type
+"* eps Ind B","* eps Ind B","BD*",331.04414658852124,-56.782844195116105,"2020yCat.1350....0G",A,3981.977,-2466.832,"2020yCat.1350....0G",270.658,"2020yCat.1350....0G",,,"T1V+T6V"
+"NAME Barnard's star","NAME Barnard's star","BY*",269.4520769586187,4.693364966576667,"2020yCat.1350....0G",A,-801.551,10362.394,"2020yCat.1350....0G",546.9759,"2020yCat.1350....0G",-110.11,"2018MNRAS.475.1960F","M4V"
+"V* R Dra","V* R Dra","Mi*",248.16761083295,66.75497941722,"2020yCat.1350....0G",A,-20.643,6.149,"2020yCat.1350....0G",1.2509,"2020yCat.1350....0G",-132.8,"1953GCRV..C......0W","M4.5-6+e"
+"V* RW Aur","V* RW Aur","TT*",76.95652603458333,30.401438173888888,"2007A&A...474..653V",A,7.23,-20.33,"2007A&A...474..653V",15.42,"2007A&A...474..653V",15.0,"2012ApJ...745..119N","K1/5e+K5e"
+"WISEA J085510.74-071442.5","WISEA J085510.74-071442.5","BD*",133.81890825,-7.247048000000001,"2021ApJS..253....7K",C,-8123.7,673.2,"2021ApJS..253....7K",439.0,"2021ApJS..253....7K",,,"Y2"
+"WISE J085510.83-071442.5","WISEA J085510.74-071442.5","BD*",133.81890825,-7.247048000000001,"2021ApJS..253....7K",C,-8123.7,673.2,"2021ApJS..253....7K",439.0,"2021ApJS..253....7K",,,"Y2"
