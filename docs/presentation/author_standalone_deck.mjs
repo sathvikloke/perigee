@@ -7,7 +7,7 @@ function text(s,t,x,y,w,h,size=23,color=C.text,bold=false){const a=s.shapes.add(
 function line(s,x,y,w,color=C.line){s.shapes.add({geometry:'rect',position:{left:x,top:y,width:w,height:1},fill:color,line:{fill:'none',width:0}});}
 function img(s,path,x,y,w,h,alt){s.images.add({path,alt,position:{left:x,top:y,width:w,height:h},fit:'contain'});}
 function link(s,label,url,x,y,w,h,size=20,color=C.accent){const a=text(s,label,x,y,w,h,size,color);a.text.get(label).link={uri:url,isExternal:true};}
-function base(s,i,k,title){s.background.fill=C.bg;text(s,`PERIGEE   /   ${k}`,48,26,1140,26,17,C.accent,true);text(s,title,48,65,1184,66,42,C.text,true);line(s,48,678,1184);text(s,'NASA Space Apps 2026 · Planet X and SPHEREx',48,691,1010,19,14,C.muted);text(s,`${i+1} / 7`,1168,689,70,23,16,C.muted);}
+function base(s,i,k,title){s.background.fill=C.bg;text(s,`PERIGEE   /   ${k}`,48,26,1140,26,17,C.accent,true);text(s,title,48,65,1184,66,42,C.text,true);line(s,48,678,1184);text(s,'NASA Space Apps 2026. Planet X and SPHEREx.',48,691,1010,19,14,C.muted);text(s,`${i+1} / 7`,1168,689,70,23,16,C.muted);}
 function source(s,t){text(s,t,48,649,1184,24,14,C.muted);}
 function block(s,head,body,x,y,w,bodyH,size=23){text(s,head,x,y,w,37,26,C.accent,true);text(s,body,x,y+45,w,bodyH,size);}
 const paths={ba:root+'/backend/content/presets/barnards_star/case-moving_neighbor/2025W35_1A_0008_1_D3.png',bc:root+'/backend/content/presets/barnards_star/case-moving_neighbor/2026W34_1A_0431_1_D3.png',ea:root+'/backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D3.png',ec:root+'/backend/content/presets/epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D6.png',wa:root+'/backend/content/presets/wise_0855/case-wise_0855_quality_trap/2025W45_2A_0278_1_D2.png',wb:root+'/backend/content/presets/wise_0855/case-wise_0855_quality_trap/2025W46_1A_0108_1_D2.png'};
@@ -26,8 +26,8 @@ export async function build({presentation,input}){
   text(s,'A free web app for students, teachers and astronomy clubs to compare observations from NASA’s SPHEREx infrared telescope and explain what the evidence supports.',48,262,1136,82,29);
   block(s,'The problem', 'Two images of the same sky can look different because a star moved, the telescope sampled another infrared wavelength, or a pixel is unreliable. Seeing a change is only the start; the observer needs a way to decide what caused it.',48,381,553,176,23);
   block(s,'What we built','Perigee combines aligned images, guided comparison checks and a saved evidence notebook. A learner finishes with their own explanation, the observations behind it and links back to NASA’s archive. Three cases teach the process; five targets and live search extend it.',671,381,561,176,23);
-  text(s,'Team Perigee · Planet X and SPHEREx challenge',48,607,1184,28,21,C.accent,true);
-  text(s,'Sathvik Loke · Sagar Raut · Akshobya Rao · Aditya Raut · Suhrit Bestavemula · Neeraj Movva',48,645,1184,25,18,C.muted);
+  text(s,'Team Perigee, Planet X and SPHEREx challenge',48,607,1184,28,21,C.accent,true);
+  text(s,'Sathvik Loke, Sagar Raut, Akshobya Rao, Aditya Raut, Suhrit Bestavemula and Neeraj Movva',48,645,1184,25,18,C.muted);
  }
  if(i===1){
   base(s,i,'PRODUCT WALKTHROUGH','From a first look to a supported explanation');
@@ -35,16 +35,16 @@ export async function build({presentation,input}){
   block(s,'1  Choose and play','Open a guided case and press Play comparison. The two images alternate in the same position, making small changes easier to spot against nearby stars.',603,155,629,92,23);
   block(s,'2  Check the comparison','Barnard’s Star is shown on 25 Aug 2025 and 19 Aug 2026 at nearly the same infrared wavelength. Its glow shifts north against the field stars, consistent with the catalog prediction of about seven display pixels (10 arcseconds).',603,306,629,115,23);
   block(s,'3  Explain and keep the evidence','The learner records what they noticed, what it supports and what is uncertain. After the checks and notes are complete, a reference answer helps them reflect. Their own words remain saved and can be reopened, printed or exported.',603,479,629,129,23);
-  source(s,'Actual app screenshot · NASA/IPAC SPHEREx images · The ring is a catalog prediction; the saturated center limits precise position measurements.');
+  source(s,'Perigee screenshot using NASA/IPAC SPHEREx images. The ring is a catalog prediction; saturation limits precise position measurements.');
  }
  if(i===2){
   base(s,i,'THREE GUIDED INVESTIGATIONS','Each case teaches a different comparison');
   text(s,'Wavelength is the “color” of infrared light, measured here in micrometers (µm). Problem flags mark pixels the mission pipeline considers unreliable.',48,145,1184,67,23,C.muted);
   const rows=[
    {y:235,n:'Barnard’s Star',q:'Can you see a star move?',a:paths.ba,b:paths.bc,cap:'25 Aug 2025 / 19 Aug 2026',body:'Across a year near 2.0 µm, the glow shifts north while field stars stay nearly fixed. This agrees with the predicted motion. The bright core overloads the detector, limiting its exact image position.'},
-   {y:376,n:'Epsilon Indi B',q:'Is this a fair comparison?',a:paths.ea,b:paths.ec,cap:'Same exposure · 29 Apr 2026',body:'One pair compares dates five months apart near 2.323 µm. Another compares 2.3232 and 4.9399 µm at the same moment. The latter tests wavelength, not time. The learner also checks display contrast before interpreting a difference in gray level.'},
+   {y:376,n:'Epsilon Indi B',q:'Is this a fair comparison?',a:paths.ea,b:paths.ec,cap:'Same exposure, 29 Apr 2026',body:'One pair compares dates five months apart near 2.323 µm. Another compares 2.3232 and 4.9399 µm at the same moment. The latter tests wavelength, not time. The learner also checks display contrast before interpreting a difference in gray level.'},
    {y:517,n:'WISE 0855 field',q:'A dot that jumps',a:paths.wa,b:paths.wb,cap:'7 Nov 2025 / 10 Nov 2025',body:'A bright dot appears to jump over three days at closely matched wavelength. The quality overlay identifies the unreliable feature. The learner can explain why this apparent jump is insufficient evidence for a moving celestial object.'}];
-  for(const r of rows){img(s,r.a,48,r.y,96,96,r.n+' first SPHEREx image');img(s,r.b,154,r.y,96,96,r.n+' second SPHEREx image');text(s,r.cap,48,r.y+104,230,31,13,C.muted);text(s,r.n+' · '+r.q,287,r.y,945,36,26,C.accent,true);text(s,r.body,287,r.y+43,945,94,22.5);}
+  for(const r of rows){img(s,r.a,48,r.y,96,96,r.n+' first SPHEREx image');img(s,r.b,154,r.y,96,96,r.n+' second SPHEREx image');text(s,r.cap,48,r.y+104,230,31,13,C.muted);text(s,r.n+': '+r.q,287,r.y,945,36,26,C.accent,true);text(s,r.body,287,r.y+43,945,94,22.5);}
  }
  if(i===3){
   base(s,i,'NASA DATA & IMPLEMENTATION','How archive files become a usable investigation');
@@ -53,14 +53,14 @@ export async function build({presentation,input}){
    {x:455,w:350,h:'2  Process consistently',t:'Python uses each file’s sky coordinates to place observations on one fixed, north-up grid. It reads the wavelength at the target’s detector position, converts pixel values into a stated display contrast, and preserves quality information.',t2:'Display contrast maps measurements to gray; different scales can make the same value look different. The target marker is a catalog prediction.'},
    {x:862,w:370,h:'3  Deliver in the browser',t:'React and TypeScript provide comparison playback, optional flag overlays, guided checks and the notebook. Cloudflare serves the app and prepared cases; a Python/FastAPI service on Vercel handles live archive requests.',t2:'Two frame requests run at once, with bounded retries and a cache of completed results. The first ready image is usable while others load.'}];
   for(const a of columns){text(s,a.h,a.x,159,a.w,43,27,C.accent,true);text(s,a.t,a.x,218,a.w,246,23);line(s,a.x,477,a.w);text(s,a.t2,a.x,498,a.w,138,22);}
-  source(s,'NASA/IPAC IRSA: irsa.ipac.caltech.edu/Missions/spherex.html · SIMBAD: target context · ESA Gaia DR3: independent field-star checks');
+  source(s,'NASA/IPAC IRSA: irsa.ipac.caltech.edu/Missions/spherex.html. Target context: SIMBAD. Field-star checks: ESA Gaia DR3.');
  }
  if(i===4){
   base(s,i,'PROCESSING & SCIENTIFIC VALIDATION','Checks that make the comparisons inspectable');
   text(s,'We checked the processed images against their source files and tested alignment against an external star catalog. The checks answer different questions.',48,145,1184,68,24,C.muted);
   text(s,'189 image records',48,247,552,55,43,C.accent,true);text(s,'SOURCE-FILE CONSISTENCY',48,310,552,28,18,C.accent,true);
   text(s,'The 14–15 November processing sweep covered 183 unique cutouts plus six case re-renders. A separate code path recomputed wavelengths, timestamps, quality flags, coverage, display mapping and source records. The results matched the published products, so the displayed evidence can be traced back to the original files.',48,356,552,224,23);
-  text(s,'128 PASS · 55 UNKNOWN · 0 FAIL',670,252,562,92,32,C.accent,true);text(s,'183 UNIQUE CUTOUTS · EXTERNAL ALIGNMENT',670,344,562,27,17,C.accent,true);
+  text(s,'128 PASS, 55 UNKNOWN, 0 FAIL',670,252,562,92,32,C.accent,true);text(s,'EXTERNAL ALIGNMENT OF 183 UNIQUE CUTOUTS',670,344,562,27,17,C.accent,true);
   text(s,'Independent field-star detections were compared with Gaia DR3 positions. PASS means the alignment met the validator’s thresholds; UNKNOWN means too few usable stars supported a verdict. Unknown cases stay visible as uncertainty. This check tests the sky grid separately from the moving target.',670,391,562,194,23);
   line(s,48,588,1184);text(s,'Deliberate error test',48,607,295,32,24,C.text,true);text(s,'The validator rejected every injected 1-, 2- and 5-native-pixel shift on the three tested real-frame fixtures.',363,605,869,57,22.5);
  }
@@ -84,7 +84,7 @@ export async function build({presentation,input}){
   text(s,'Start with Barnard’s Star. Play the comparison, follow the checks, then save an evidence card.',747,298,485,100,24);
   text(s,'READ THE METHODS & CODE',747,439,485,30,19,C.accent,true);
   link(s,'github.com/sathvikloke/perigee','https://github.com/sathvikloke/perigee',747,481,485,57,23);
-  link(s,'Technical report (8 pages)','https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf',747,554,485,35,23);
+  link(s,'Technical report (10 pages)','https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf',747,554,485,35,23);
   text(s,'Processing, experiments, source links and reproduction instructions are public.',747,600,485,54,20,C.muted);
  }
  }

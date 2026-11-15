@@ -200,13 +200,13 @@ export function FrameViewer(props: {
 
   if (!slots.length) return null;
 
-  // "#4 · 1 Jun 2026 · failed to load": frames without an image say so in the
+  // "#4, 1 Jun 2026, failed to load": frames without an image say so in the
   // slider's spoken value and the blink picker, and stay selectable.
   const slotName = (s: FrameSlot, i: number) => {
     const tag = slotStatusTag(s);
     const wl = s.frame?.wavelength_um;
     const tail = tag ?? (s.frame ? (wl != null ? shortMicrons(wl) : "no wavelength at target") : null);
-    return `#${i + 1} · ${s.ref ? `${s.ref} · ` : ""}${formatDateShort(s.observed_at_utc)}${tail ? ` · ${tail}` : ""}`;
+    return `#${i + 1}, ${s.ref ? `${s.ref}, ` : ""}${formatDateShort(s.observed_at_utc)}${tail ? `, ${tail}` : ""}`;
   };
   const currentTag = slot ? slotStatusTag(slot) : null;
   const filterLines = filterSummary(waveFilter, filtered);
@@ -291,7 +291,7 @@ export function FrameViewer(props: {
               if (target != null) goTo(target);
             }}
             disabled={allowed ? allowed.length === 0 : false}
-            aria-valuetext={slot ? `${slotName(slot, index)}${inFilter ? "" : " · outside the wavelength filter"}` : undefined}
+            aria-valuetext={slot ? `${slotName(slot, index)}${inFilter ? "" : ", outside the wavelength filter"}` : undefined}
           />
         </label>
         <button
@@ -304,7 +304,7 @@ export function FrameViewer(props: {
         </button>
         <span className="counter" aria-hidden="true">
           {allowed && inFilter ? `${sliderPosition(allowed, index) + 1} / ${allowed.length}` : `${index + 1} / ${slots.length}`}
-          {currentTag && <span className="counter-tag"> · {currentTag}</span>}
+          {currentTag && <span className="counter-tag">, {currentTag}</span>}
         </span>
       </div>
       <div className="wave-filter">
@@ -460,10 +460,10 @@ export function FrameViewer(props: {
                 <p className="pair-summary">
                   {formatDuration(daysBetween(pf[0].mjd, pf[1].mjd))}
                   {pf[0].wavelength_um != null && pf[1].wavelength_um != null
-                    ? ` · wavelengths differ by ${Math.abs(pf[0].wavelength_um - pf[1].wavelength_um).toFixed(4)} µm`
-                    : " · wavelength not available for one frame"}
+                    ? `. Wavelengths differ by ${Math.abs(pf[0].wavelength_um - pf[1].wavelength_um).toFixed(4)} µm`
+                    : ". Wavelength not available for one frame"}
                   {(pf[0].display_scale?.mode === "per_frame" || pf[1].display_scale?.mode === "per_frame") &&
-                    " · brightness not directly comparable"}
+                    ". Brightness not directly comparable"}
                 </p>
               )}
             </fieldset>
@@ -478,7 +478,7 @@ export function FrameViewer(props: {
                 aria-pressed={inEvidence}
                 onClick={() => props.onToggleEvidence(frame, slot?.ref ?? null)}
               >
-                {inEvidence ? "Attached to notebook · remove" : "Attach this frame to notebook"}
+                {inEvidence ? "Attached to notebook. Remove" : "Attach this frame to notebook"}
               </button>}
               <FrameDetails frame={frame} />
             </>

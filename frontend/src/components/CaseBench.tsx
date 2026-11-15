@@ -321,7 +321,7 @@ export function CaseBench(props: {
           </div>
           <span>
             {sameGrid ? "Same sky grid" : "Sky grids differ"}
-            {northUp ? " · north up, east left" : ""}
+            {northUp ? ", north up, east left" : ""}
           </span>
         </div>
 
@@ -384,7 +384,7 @@ export function CaseBench(props: {
                   <div key={ref as string}>
                     <p>
                       <strong>
-                        {ref as string} · {QUALITY_CHIP[f.quality.status]}
+                        {ref as string}: {QUALITY_CHIP[f.quality.status]}
                       </strong>
                     </p>
                     <p>{qualityExplanation(f)}</p>
@@ -461,7 +461,7 @@ export function CaseBench(props: {
                     f && typeof f !== "string" ? (
                       <tr key={ref as string}>
                         <td>
-                          {ref as string} · <span className="mono">{f.frame_key}</span>
+                          {ref as string}: <span className="mono">{f.frame_key}</span>
                         </td>
                         <td>{formatUtc(f.observed_at_utc)}</td>
                         <td>{formatMicrons(f.wavelength_um)}</td>

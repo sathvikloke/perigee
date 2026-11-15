@@ -153,7 +153,7 @@ export function Notebook(props: {
       : props.saveState.kind === "restored"
         ? "Restored from this device"
         : props.saveState.kind === "failed"
-          ? "Couldn’t save on this device · export to keep these notes"
+          ? "Couldn’t save on this device. Export to keep these notes."
           : "Notes stay on this device");
 
   return (
@@ -194,8 +194,8 @@ export function Notebook(props: {
                 .map((f) => (
                   <li key={f.frame_key}>
                     <span>
-                      {f.ref ? `${f.ref} · ` : ""}
-                      {formatDateShort(f.observed_at_utc)} · {formatMicrons(f.wavelength_um)}
+                      {f.ref ? `${f.ref}, ` : ""}
+                      {formatDateShort(f.observed_at_utc)}, {formatMicrons(f.wavelength_um)}
                     </span>
                     <button type="button" className="link" onClick={() => props.onRemoveFrame(f.frame_key)}>
                       Remove<span className="visually-hidden"> {f.frame_key}</span>
@@ -342,28 +342,28 @@ export function Notebook(props: {
 
         <section className="print-provenance" aria-label="Printed observation provenance">
           <h3>Selected observation provenance</h3>
-          <p>Case: {out.case_id ?? "none"} · Target: {out.preset_id ?? "coordinate search"} · Data origin: {out.data_origin}. Revision history is not recorded.</p>
+          <p>Case: {out.case_id ?? "none"}. Target: {out.preset_id ?? "coordinate search"}. Data origin: {out.data_origin}. Revision history is not recorded.</p>
           {out.frames.map((f) => (
             <div key={f.frame_key}>
               <p>
                 <strong>
-                  {f.ref ? `Observation ${f.ref} · ` : ""}
+                  {f.ref ? `Observation ${f.ref}: ` : ""}
                   {f.frame_key}
                 </strong>
               </p>
               <p>
-                Observation ID: {f.observation_id} | Detector: {f.detector ?? "n/a"} | Release:{" "}
+                Observation ID: {f.observation_id}. Detector: {f.detector ?? "n/a"}. Release:{" "}
                 {releaseLabel(f.collection_id)} ({f.collection_id})
               </p>
               <p>
-                UTC: {formatUtc(f.observed_at_utc)} | Wavelength: {formatMicrons(f.wavelength_um)} | Flag screen:{" "}
+                UTC: {formatUtc(f.observed_at_utc)}. Wavelength: {formatMicrons(f.wavelength_um)}. Flag screen:{" "}
                 {QUALITY_LABEL[f.quality_status]}
               </p>
               <p>Source: {f.source_url}</p>
               {f.processing && (
                 <p>
-                  Processing: {f.processing.processing_version ?? "n/a"} · grid {f.processing.registration_method ?? "n/a"} ·
-                  stretch {f.processing.display_scale_method ?? "n/a"} ({f.display_scale_mode ?? "n/a"}) · source
+                  Processing: {f.processing.processing_version ?? "n/a"}. Grid: {f.processing.registration_method ?? "n/a"}.
+                  Stretch: {f.processing.display_scale_method ?? "n/a"} ({f.display_scale_mode ?? "n/a"}). Source
                   SHA-256 {f.processing.file_sha256 ?? "n/a"}
                 </p>
               )}
@@ -382,7 +382,7 @@ export function Notebook(props: {
             </div>
           )}
           <p>
-            Perigee {out.app_version} · card {out.id} · {out.data_origin === "fixture" ? "DEVELOPMENT FIXTURE, not NASA data" : "SPHEREx data via NASA/IPAC IRSA"}.
+            Perigee {out.app_version}. Card {out.id}. {out.data_origin === "fixture" ? "DEVELOPMENT FIXTURE, not NASA data" : "SPHEREx data via NASA/IPAC IRSA"}.
             Display images are for visual comparison only; flag screening is not a detection or a brightness measurement.
           </p>
         </section>

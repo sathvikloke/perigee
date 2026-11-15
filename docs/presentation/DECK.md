@@ -2,7 +2,7 @@
 
 Updated 15 November 2026. This self-contained edition explains the project without a presenter.
 
-[Editable presentation](https://chatgpt.com/space/page_c2bdc1167fb481918cc92fabeb2bfc58) · [Public PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) · [Technical report](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
+[Editable presentation](https://chatgpt.com/space/page_c2bdc1167fb481918cc92fabeb2bfc58). [Public PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf). [Technical report](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
 
 The deck uses Avenir Next, the app’s black/citron palette and original processed NASA/IPAC SPHEREx imagery. Text stays editable in Spaces. The public PDF packages the reviewed 1280×720 renders at 16:9; this preserves the exact layout. The transcript below provides selectable text. Speaker notes in Spaces retain detailed sources and scientific scope.
 
@@ -10,7 +10,7 @@ The deck uses Avenir Next, the app’s black/citron palette and original process
 
 PERIGEE   /   PROJECT & PURPOSE
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 1 / 7
 
@@ -28,9 +28,9 @@ What we built
 
 Perigee combines aligned images, guided comparison checks and a saved evidence notebook. A learner finishes with their own explanation, the observations behind it and links back to NASA’s archive. Three cases teach the process; five targets and live search extend it.
 
-Team Perigee · Planet X and SPHEREx challenge
+Team Perigee, Planet X and SPHEREx challenge
 
-Sathvik Loke · Sagar Raut · Akshobya Rao · Aditya Raut · Suhrit Bestavemula · Neeraj Movva
+Sathvik Loke, Sagar Raut, Akshobya Rao, Aditya Raut, Suhrit Bestavemula and Neeraj Movva
 
 ## Slide 2
 
@@ -38,7 +38,7 @@ PERIGEE   /   PRODUCT WALKTHROUGH
 
 From a first look to a supported explanation
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 2 / 7
 
@@ -54,7 +54,7 @@ Barnard’s Star is shown on 25 Aug 2025 and 19 Aug 2026 at nearly the same infr
 
 The learner records what they noticed, what it supports and what is uncertain. After the checks and notes are complete, a reference answer helps them reflect. Their own words remain saved and can be reopened, printed or exported.
 
-Actual app screenshot · NASA/IPAC SPHEREx images · The ring is a catalog prediction; the saturated center limits precise position measurements.
+Perigee screenshot using NASA/IPAC SPHEREx images. The ring is a catalog prediction; saturation limits precise position measurements.
 
 ## Slide 3
 
@@ -62,7 +62,7 @@ PERIGEE   /   THREE GUIDED INVESTIGATIONS
 
 Each case teaches a different comparison
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 3 / 7
 
@@ -70,19 +70,19 @@ Wavelength is the “color” of infrared light, measured here in micrometers (�
 
 25 Aug 2025 / 19 Aug 2026
 
-Barnard’s Star · Can you see a star move?
+Barnard’s Star: Can you see a star move?
 
 Across a year near 2.0 µm, the glow shifts north while field stars stay nearly fixed. This agrees with the predicted motion. The bright core overloads the detector, limiting its exact image position.
 
-Same exposure · 29 Apr 2026
+Same exposure, 29 Apr 2026
 
-Epsilon Indi B · Is this a fair comparison?
+Epsilon Indi B: Is this a fair comparison?
 
 One pair compares dates five months apart near 2.323 µm. Another compares 2.3232 and 4.9399 µm at the same moment. The latter tests wavelength, not time. The learner also checks display contrast before interpreting a difference in gray level.
 
 7 Nov 2025 / 10 Nov 2025
 
-WISE 0855 field · A dot that jumps
+WISE 0855 field: A dot that jumps
 
 A bright dot appears to jump over three days at closely matched wavelength. The quality overlay identifies the unreliable feature. The learner can explain why this apparent jump is insufficient evidence for a moving celestial object.
 
@@ -92,7 +92,7 @@ PERIGEE   /   NASA DATA & IMPLEMENTATION
 
 How archive files become a usable investigation
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 4 / 7
 
@@ -114,7 +114,7 @@ React and TypeScript provide comparison playback, optional flag overlays, guided
 
 Two frame requests run at once, with bounded retries and a cache of completed results. The first ready image is usable while others load.
 
-NASA/IPAC IRSA: irsa.ipac.caltech.edu/Missions/spherex.html · SIMBAD: target context · ESA Gaia DR3: independent field-star checks
+NASA/IPAC IRSA: irsa.ipac.caltech.edu/Missions/spherex.html. Target context: SIMBAD. Field-star checks: ESA Gaia DR3.
 
 ## Slide 5
 
@@ -122,7 +122,7 @@ PERIGEE   /   PROCESSING & SCIENTIFIC VALIDATION
 
 Checks that make the comparisons inspectable
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 5 / 7
 
@@ -134,9 +134,9 @@ SOURCE-FILE CONSISTENCY
 
 The 14–15 November processing sweep covered 183 unique cutouts plus six case re-renders. A separate code path recomputed wavelengths, timestamps, quality flags, coverage, display mapping and source records. The results matched the published products, so the displayed evidence can be traced back to the original files.
 
-128 PASS · 55 UNKNOWN · 0 FAIL
+128 PASS, 55 UNKNOWN, 0 FAIL
 
-183 UNIQUE CUTOUTS · EXTERNAL ALIGNMENT
+EXTERNAL ALIGNMENT OF 183 UNIQUE CUTOUTS
 
 Independent field-star detections were compared with Gaia DR3 positions. PASS means the alignment met the validator’s thresholds; UNKNOWN means too few usable stars supported a verdict. Unknown cases stay visible as uncertainty. This check tests the sky grid separately from the moving target.
 
@@ -150,7 +150,7 @@ PERIGEE   /   OUR CONTRIBUTION
 
 A saved explanation with the data behind it
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 6 / 7
 
@@ -184,7 +184,7 @@ PERIGEE   /   PEOPLE, REUSE & PROJECT LINKS
 
 Why this is useful beyond a single demonstration
 
-NASA Space Apps 2026 · Planet X and SPHEREx
+NASA Space Apps 2026. Planet X and SPHEREx.
 
 7 / 7
 
@@ -210,6 +210,6 @@ READ THE METHODS & CODE
 
 github.com/sathvikloke/perigee
 
-Technical report (8 pages)
+Technical report (10 pages)
 
 Processing, experiments, source links and reproduction instructions are public.

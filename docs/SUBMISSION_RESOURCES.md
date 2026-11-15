@@ -34,7 +34,7 @@ The app uses the spectral-image datasets, not the DR1 all-sky cube. Frame record
 | Astropy and its WCS support | FITS files, coordinates, time and WCS | https://www.astropy.org/ |
 | NumPy | Array processing and numerical checks | https://numpy.org/ |
 | Pillow | Scientific image outputs and deterministic figure crops | https://python-pillow.org/ |
-| Vitest and Testing Library | Frontend verification | https://vitest.dev/ ; https://testing-library.com/ |
+| Vitest | Frontend verification | https://vitest.dev/ |
 | pytest | Backend and science verification | https://docs.pytest.org/en/stable/ |
 | Sharp | Artwork file conversion | https://sharp.pixelplumbing.com/ |
 | Cloudflare Workers and Wrangler | Public frontend hosting and deployment | https://developers.cloudflare.com/workers/ |

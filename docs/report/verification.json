@@ -1,8 +1,8 @@
 {
   "pages": 10,
-  "pdf_bytes": 270069,
-  "pdf_sha256": "5a888db6642962e695dd7a253c2fd997cf64e37bf62ae400c23b20e36926f426",
-  "source_sha256": "92588d1a7036d6d691cc99aa37423a176fc5ee5ce449ad9c357c5211762c93df",
+  "pdf_bytes": 270013,
+  "pdf_sha256": "ef8e4e291f7c50a82b790a9618942d0d3b13f988314576317bdd71bbcd310908",
+  "source_sha256": "65d0edf2e582551b9943cf8acc1fcbce87d0f2fe0bf38166ec312f3de0abc385",
   "compiler": "Tectonic 0.17.0",
   "typeface": "TeX Gyre Pagella / New PX",
   "selectable_text": true,
@@ -18,7 +18,7 @@
     "Suhrit Bestavemula",
     "Neeraj Movva"
   ],
-  "visual_review": "Inspected all ten final page renders, including the corrected per-segment registration labels; no clipping, overlapping text, missing figures or unresolved references observed.",
+  "visual_review": "Inspected all ten final page renders, then rechecked the title page after replacing its text separator. No clipping, overlapping text, missing figures or unresolved references observed.",
   "fonts_embedded": true,
   "rendered_pages": 10,
   "figures": 6,

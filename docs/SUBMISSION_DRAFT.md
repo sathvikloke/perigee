@@ -63,7 +63,7 @@ Claude Code and OpenAI Codex assisted implementation, testing, scientific review
 - [Seven-slide demonstration](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf)
 - [Technical report: methods, figures and validation](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf)
 - [Source code and scientific checks](https://github.com/sathvikloke/perigee)
-- [Development and image credits](https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md)
+- [AI-use notes](https://github.com/sathvikloke/perigee/blob/main/docs/AI_USE.md)
 
 ## NASA data
 
@@ -100,10 +100,9 @@ Claude Code and OpenAI Codex assisted implementation, testing, scientific review
 - [Avoid AI Writing - editorial instructions](https://github.com/conorbronsdon/avoid-ai-writing)
 - [Stop Slop - editorial instructions](https://github.com/hardikpandya/stop-slop)
 - [Tectonic - LaTeX compiler](https://tectonic-typesetting.github.io/)
-- [ReportLab - deck PDF export](https://docs.reportlab.com/)
-- [pypdf - PDF verification](https://pypdf.readthedocs.io/)
-- [Sharp - artwork file conversion](https://sharp.pixelplumbing.com/)
-- [Project dependency manifests and complete tool credits](https://github.com/sathvikloke/perigee/blob/main/docs/SUBMISSION_RESOURCES.md)
+- [Complete software, design, document and tool credits](https://github.com/sathvikloke/perigee/blob/main/docs/SUBMISSION_RESOURCES.md)
+
+The form permits 25 partner/other-resource rows. The final link includes ReportLab, pypdf and Sharp, along with the full dependency and tool list.
 
 ## Existing SI-use selections
 

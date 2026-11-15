@@ -240,11 +240,10 @@ export function App() {
 
       <footer className="site-footer">
         <span>
-          PERIGEE <span className="footer-dot">·</span> Explore what the evidence supports{" "}
-          <span className="footer-dot">·</span> v{__APP_VERSION__} · {fixtureMode ? "development fixture" : "live API"}
+          PERIGEE. Explore what the evidence supports. Version {__APP_VERSION__}, {fixtureMode ? "development fixture" : "live API"}.
           {!fixtureMode && import.meta.env.DEV && (
             <>
-              {" · "}
+              {" "}
               <button type="button" className="link" onClick={useFixture}>
                 Use development fixture
               </button>

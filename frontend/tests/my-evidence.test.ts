@@ -59,9 +59,9 @@ function queryCard(ra: number, dec: number, fov = 6, caseId: string | null = nul
 describe("evidence card titles", () => {
   it("combines a newer card's stored title (the case title) with the target name", () => {
     const card = { ...presetCard("epsilon_indi_b", "fair_comparison"), title: "Is this a fair comparison?" };
-    expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
+    expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B. Is this a fair comparison?");
     // Case content not loaded (or offline): the stored title still names the case.
-    expect(evidenceTitle(card, { presets: SOURCES.presets })).toBe("Epsilon Indi B · Is this a fair comparison?");
+    expect(evidenceTitle(card, { presets: SOURCES.presets })).toBe("Epsilon Indi B. Is this a fair comparison?");
     expect(evidenceTitle(card, {})).toBe("Is this a fair comparison?");
   });
 
@@ -76,15 +76,15 @@ describe("evidence card titles", () => {
   it("ignores an empty or non-string own title", () => {
     const blank = { ...presetCard("epsilon_indi_b", "fair_comparison"), title: "  " };
     const nul = { ...presetCard("epsilon_indi_b", "fair_comparison"), title: null };
-    expect(evidenceTitle(blank, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
-    expect(evidenceTitle(nul, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
+    expect(evidenceTitle(blank, SOURCES)).toBe("Epsilon Indi B. Is this a fair comparison?");
+    expect(evidenceTitle(nul, SOURCES)).toBe("Epsilon Indi B. Is this a fair comparison?");
   });
 
   it("resolves an older card (no title field) from the target and case", () => {
     // A card saved before the title field existed has no `title` key at all.
     const { title: _omit, ...card } = presetCard("epsilon_indi_b", "fair_comparison");
     expect("title" in card).toBe(false);
-    expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B · Is this a fair comparison?");
+    expect(evidenceTitle(card, SOURCES)).toBe("Epsilon Indi B. Is this a fair comparison?");
     expect(evidenceTitle(presetCard("wise_0855", null), SOURCES)).toBe("WISE 0855");
   });
 
@@ -96,10 +96,10 @@ describe("evidence card titles", () => {
   });
 
   it("titles a coordinate search by its position", () => {
-    expect(evidenceTitle(queryCard(83.82, -5.39), SOURCES)).toBe(nb("Coordinate search · RA 83.82°, Dec −5.39°"));
-    expect(evidenceTitle(queryCard(83.82, -5.39), {})).toBe(nb("Coordinate search · RA 83.82°, Dec −5.39°"));
+    expect(evidenceTitle(queryCard(83.82, -5.39), SOURCES)).toBe(nb("Coordinate search. RA 83.82°, Dec −5.39°"));
+    expect(evidenceTitle(queryCard(83.82, -5.39), {})).toBe(nb("Coordinate search. RA 83.82°, Dec −5.39°"));
     expect(evidenceTitle(queryCard(331.0966687831005, -56.80064917516836, 6, "fair_comparison"), SOURCES)).toBe(
-      nb("Coordinate search · RA 331.097°, Dec −56.801° · Epsilon Indi B"),
+      nb("Coordinate search. RA 331.097°, Dec −56.801°. Epsilon Indi B"),
     );
   });
 
