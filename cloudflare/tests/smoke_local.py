@@ -29,6 +29,7 @@ PUBLIC = REPO / "cloudflare" / "build" / "public"
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
+    ap.add_argument("--cloudflare-edge", action="store_true", help="Check the deployed Cloudflare edge's documented compression and observed NUL rejection")
     args = ap.parse_args(argv)
     base = args.base.rstrip("/")
     manifest = json.loads((PUBLIC / "api/__perigee/catalog-manifest.json").read_text(encoding="utf-8"))
@@ -74,8 +75,12 @@ def main(argv=None) -> int:
     for (mt, canonical), aid in sorted(picks.items()):
         a = manifest["assets"][aid]
         r = c.get(base + f"/api/v1/assets/{aid}")
+        expected_etag = f'"{a["sha256"]}"'
+        etag_ok = r.headers.get("etag") == expected_etag
+        if args.cloudflare_edge and r.headers.get("content-encoding") in {"gzip", "br", "zstd"}:
+            etag_ok = etag_ok or r.headers.get("etag") == "W/" + expected_etag
         ok = (r.status_code == 200 and r.headers.get("content-type") == mt and hashlib.sha256(r.content).hexdigest() == a["sha256"]
-              and r.headers.get("etag") == f'"{a["sha256"]}"' and ("immutable" in r.headers.get("cache-control", "")) == canonical)
+              and etag_ok and ("immutable" in r.headers.get("cache-control", "")) == canonical)
         check(f"asset {mt} canonical={canonical}", ok, f"{r.status_code} {r.headers.get('content-type')} {r.headers.get('cache-control')}")
 
     # FastAPI parity over real HTTP (HEAD rows skipped: no body to compare)
@@ -84,6 +89,13 @@ def main(argv=None) -> int:
         if row["method"] == "HEAD":
             continue
         r = c.request(row["method"], base + row["path"])
+        if args.cloudflare_edge and row["path"] == "/api/v1/assets/x%00.png":
+            # Cloudflare rejects NUL before invoking the Worker. Do not exempt
+            # any other malformed path or weaken application-route parity.
+            check("edge rejects encoded NUL before Worker", r.status_code == 400
+                  and r.headers.get("server") == "cloudflare"
+                  and not r.headers.get("x-request-id"), f"{r.status_code} {r.headers.get('content-type')}")
+            continue
         ctype = (r.headers.get("content-type") or "").split(";")[0] or None
         code = r.json().get("error", {}).get("code") if ctype == "application/json" and r.status_code >= 400 else None
         ok = r.status_code == row["status"] and (row["status"] == 307 or ctype == row["content_type"])

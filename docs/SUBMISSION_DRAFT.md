@@ -14,7 +14,7 @@ Perigee
 
 ## High-Level Project Summary
 
-Perigee is a free web app that lets anyone investigate NASA SPHEREx infrared images of a real object and decide, with evidence, whether it changed. Two pictures of the same patch of sky can look different for reasons that have nothing to do with change:
+Perigee is a free web app that lets anyone investigate NASA SPHEREx infrared images of a real object and evaluate claims about change with evidence. Two pictures of the same patch of sky can look different for reasons that have nothing to do with change:
 - they were taken at a different infrared wavelength;
 - they were contrast-stretched differently for display;
 - a bad pixel sits next to the target.
@@ -25,13 +25,13 @@ It answers the Planet X and SPHEREx challenge directly. Two guided investigation
 
 ## Link to Project Demo
 
-https://perigee-liard.vercel.app/demo/perigee-demo.pdf
+https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf
 
-This is the seven-slide deck from PR #42; the guide's limit is 7 slides including the title and intro slides. **Before pasting, open the link in a private window and confirm it shows the PDF.** When checked on 2026-11-15 at 00:56 UTC, before PR #42 was deployed, this path still returned the app page (HTTP 200, `text/html`).
+The public seven-slide PDF was verified on Cloudflare on 2026-11-15: HTTP 200, `application/pdf`, and bytes identical to the reviewed seven-page artifact. Its final slide links to the Cloudflare app.
 
 ## Link to Final Project
 
-https://perigee-liard.vercel.app
+https://perigee.lokesathvik.workers.dev
 
 This is the public web app; no login is needed. The source code is at https://github.com/sathvikloke/perigee and is public.
 
@@ -54,7 +54,7 @@ Beyond the cases:
 
 **How it works.**
 - **Frontend:** a React/TypeScript web app.
-- **API:** a Python/FastAPI service, hosted together on Vercel.
+- **Hosting and API:** Cloudflare serves the frontend and curated catalog. A fixed-origin proxy sends live searches and frame requests to the existing Python/FastAPI service on Vercel.
 - **Live searches** query the IRSA archive for SPHEREx Level 2 images (DR1 and QR3) at the requested coordinate. Each matching image is cut out and processed on request.
 - **Processing** puts every image onto one north-up sky grid using the file's own coordinate system. It reads the wavelength at the target's actual position on the detector; SPHEREx's wavelength varies across each detector. It screens the SPHEREx quality flags in a small circle around the target and makes a display image with a stated contrast stretch.
 - **Marker:** the target marker is a catalog prediction from SIMBAD/Gaia proper motion, and is always labelled as a prediction, not a detection.
@@ -76,7 +76,7 @@ Beyond the cases:
 - **Frontend:** TypeScript, React 19, Vite 7.
 - **Backend:** Python 3.12, FastAPI, Astropy, NumPy, Pillow, httpx.
 - **Tests:** pytest and Vitest.
-- **Hosting:** Vercel.
+- **Hosting:** Cloudflare Workers and Vercel (live Python API).
 - **Source:** GitHub.
 - **AI coding assistance:** see "Use of SI" below.
 
@@ -86,7 +86,7 @@ The guide says this answer is for data collection and is not shown to judges, bu
 
 Draft answer, from `docs/AI_USE.md`:
 
-> Perigee was built with AI coding assistance. The team directed the work. Claude Code (Anthropic) agents wrote most of the application code, tests and review documents as parallel candidates, and OpenAI Codex set the UI design direction and helped coordinate the release. Decisions that change scientific meaning were left to the team. Every processed SPHEREx frame was independently re-derived from the original FITS files and checked against Gaia DR3. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. **OWNER:** "The idea and challenge approach are the team's own." Keep this sentence only if it is true; the guide says SI should not be used to come up with the idea.
+> Perigee was built with AI coding assistance. The team directed the work. Claude Code (Anthropic) agents wrote most of the application code, tests and review documents as parallel candidates, and OpenAI Codex set the UI design direction and helped coordinate the release. The investigation content states what the observations can support. All 189 bundled records were independently re-derived from the original FITS files; separate Gaia DR3 field-star comparisons checked image registration. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. **OWNER:** "The idea and challenge approach are the team's own." Keep this sentence only if it is true; the guide says SI should not be used to come up with the idea.
 
 **OWNER:** settle the open `[TO CONFIRM]` items in [`docs/AI_USE.md`](AI_USE.md) before submitting:
 - the tools used outside this repository;
@@ -112,9 +112,9 @@ Any SI-generated image or video shown in the demo needs a visible watermark. Scr
   - https://gea.esac.esa.int/archive/
 - **SIMBAD** (CDS, Strasbourg), for target identities, positions and proper motions. The case source links use CDS's official CfA Harvard mirror while the Strasbourg site is offline. https://simbad.cfa.harvard.edu/simbad/
 - **Software**, all open source: React, Vite, TypeScript, FastAPI, Pydantic, Astropy, NumPy, Pillow and httpx. Testing used pytest, Vitest and Playwright.
-- **Hosting:** Vercel. **Source code:** GitHub.
+- **Hosting:** Cloudflare Workers and Vercel (live Python API). **Source code:** GitHub.
 - **AI tools:** Claude Code (Anthropic) and OpenAI Codex, as described under "Use of SI" and in `docs/AI_USE.md`.
-- **No copyrighted images** from third parties are used. All imagery is processed SPHEREx data or screenshots of Perigee.
+- **Presentation imagery:** processed SPHEREx observations and screenshots of Perigee, with NASA/IPAC source attribution.
 
 ## Known limits (short; also in the app and README)
 

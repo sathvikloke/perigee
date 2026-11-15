@@ -2,7 +2,7 @@
 
 **Release under audit:**
 - **App code:** `main` @ `ef298900aa5769c47ec32f2bdb7c94ac27af14f3` (PR #27). This is the release candidate `54137e0`; the code is identical to `2956e67`.
-- **Production:** `https://perigee-liard.vercel.app`, deployment `dpl_4gggyXwZGgMaUtSPRUSJx6iJUMjq`, public.
+- **Production:** `https://perigee.lokesathvik.workers.dev`, Cloudflare version `979e0619-e17e-4471-bce1-1144129f7a33`, built from `fd7933d`, public. Live search/frame/health proxy to the existing Vercel Python API. [Current verification](../qa/cloudflare-release/README.md).
 - **Docs:** Codex's PR #37 (`c02adab`) is docs only and changes no app code.
 - **Owners:** Codex owns the release, deployment, root README, `docs/DEPLOYMENT.md` and `qa/public-release/`. This file and `qa/production-journey/` are the coordinator's.
 
@@ -26,7 +26,7 @@
 | 08 | Catalog and assets | **Done** | PR #10; R7 `454d027`; production assets 200 |
 | 09 | Epsilon Indi B case | **Done** | Review `a4d2de9` plus revision `b5aff70`, accepted |
 | 10 | Barnard case | **Done** | Review `eaa59fe` plus revision `b4fcc8c`, accepted |
-| 11 | Five-target identity audit | **Done (review)**; text-only candidate awaits Sathvik | `science/reviews/targets/` (`63ac37d`, cherry-picked from `claude/parallel-11-target-audit` `49f4f8c`). The candidate `487bf8a` is on that branch, not merged. See section 5 |
+| 11 | Five-target identity audit | **Done** | `science/reviews/targets/`; PR #41 corrects the verified WISE 0855 source label in all 34 records and their index, with conservative field-star context. No coordinate or image changes |
 | 12 | Evidence export | **Done** | PR #30; QA-F1; production export verified |
 | 13 | Quality controls | **Done** | PR #33; production flags and flag-screen panel |
 | 14 | API review | **Done** | PR #20; R1–R7 fixed; D1–D3 settled (`03bb179`) |
@@ -73,7 +73,7 @@ Each work-sequence item from the issue body maps to released evidence. "**Gap**"
 | Item | Evidence |
 |---|---|
 | Establish the current integration state | `coordination/claude-dispatch.md` (coordinator on Sathvik's behalf) |
-| Verify target identity and coordinate context | **Done.** Task 11 found all five presets match SIMBAD: names, J2000 positions, proper motion, parallax and RV. Query centers match within 1e-4″ and markers reproduce within 0.0007 px. Two text items await Sathvik (section 5) |
+| Verify target identity and coordinate context | **Done.** Task 11 found all five presets match SIMBAD: names, J2000 positions, proper motion, parallax and RV. Query centers match within 1e-4″ and markers reproduce within 0.0007 px. The two text items were resolved in PR #41 (section 5) |
 | Select the first comparison case | `fair_comparison` (Epsilon Indi B), from #8 |
 | Validate the moving-star investigation | Barnard review `eaa59fe`; revision #22 accepted |
 | Author concise case content | Both case JSONs, `science_owner_approved` (`6f08d56`) |
@@ -133,7 +133,7 @@ Each work-sequence item from the issue body maps to released evidence. "**Gap**"
 | Control bundle and runtime size | `.vercelignore`; `deploy_check`; JS 327,624 B uncompressed (105,250 B Brotli transfer, 102,051 B gzip) |
 | Deployment verification | `backend/platform/smoke.py` (#34, hardened); `release-smoke.yml` (#36); run 43658316997 passed |
 | Production release behavior; operations and recovery handoff | `docs/DEPLOYMENT.md` (Codex's current-release rewrite, PR #37) |
-| **Acceptance** | **Met.** Public deployment, curated assets resolve, no team login. The automatic `deployment_status` trigger is still unverified, as documented; the manual run passed |
+| **Acceptance** | **Met.** Public deployment, curated assets resolve, no team login. PR #40 added the actual Vercel `status` trigger. Run 43660682534 started automatically and passed 20/20 on attempt 2 after a temporary IRSA 502 on attempt 1 |
 
 ### #6 Neeraj: QA
 | Item | Evidence |
@@ -161,7 +161,7 @@ Official rules, from the project submission guide read on 2026-11-14:
 - Gaia and Gaia DR3.
 
 **Genuinely missing before submission (team or user actions):**
-**Deck completed by Codex:** [public seven-slide PDF](https://perigee-liard.vercel.app/demo/perigee-demo.pdf), with team names, challenge, real app captures, NASA data sources and limitations. The saved editable deck and PDF were individually rendered and checked. See `docs/presentation/DECK.md`.
+**Deck completed by Codex:** [public seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf), with team names, challenge, real app captures, NASA data sources and limitations. The saved editable deck and PDF were individually rendered and checked. See `docs/presentation/DECK.md`.
 
 Remaining team actions:
 1. **`docs/AI_USE.md` `[TO CONFIRM]` items: 7 open**, all team attestations:
@@ -179,9 +179,7 @@ Remaining team actions:
 
 ## 5. Remaining gaps and notes
 - **Fix needed: none found.** The production journey and contract checks surfaced no application defect.
-- **Task 11 (five-target identity audit): done; no coordinate value changes.** Review in `science/reviews/targets/README.md`, with raw source snapshots and scripts. Findings needing a science-owner decision, held as **candidate `487bf8a`** on `claude/parallel-11-target-audit` (`backend/content/targets.json` only, text only; no product rebuild; backend tests 330 passed / 18 skipped):
-  1. **Mislabeled source.** WISE 0855 `astrometry_reference` says "CatWISE2020 (2021ApJS..253....7K)". That bibcode is Kirkpatrick et al. 2021, the 20 pc census; CatWISE2020 is 2021ApJS..253....8M. The label also appears in the 34 shipped WISE 0855 records' `marker.source` until a future rebuild.
-  2. **New field-star note.** Gaia DR3 5756956644387831296 (G 16.3) lies 4.5–11.8″ from the WISE 0855 marker in shipped frames, and about 3.2″ around 2026.73. A spot near the marker is likely that star, not WISE 0855. The candidate adds one sentence to the WISE 0855 `quality_summary`.
+- **Task 11 (five-target identity audit): done; no coordinate value changes.** Review in `science/reviews/targets/README.md`, with primary-source snapshots and reproducible scripts. PR #41 corrected the WISE 0855 bibliography label to Kirkpatrick et al. 2021 (20 pc census), including all 34 record labels and the 34 corresponding index entries. All 68 PNGs remain byte-identical, and the only generated JSON field changed is `marker.source`. A concise field-star note explains why a nearby spot alone does not identify WISE 0855. Exact separations, epochs and Gaia source ID remain in the review. The earlier candidate `487bf8a` is superseded. Platform tests passed 96/96; the regenerated-product audit found 0 stale of 183; independent acceptance found 0 failures in 189 records.
   - **No change recommended:**
     - Eps Ind B sits 0.56 ± 0.07 display px from the marker, consistent across 32 frames. Gaia's proper-motion fit is poor (RUWE 4.30) because Ba/Bb is an unresolved binary. That is 0.13 native px, and no quality screen changes.
     - The Barnard's Star radial-velocity epoch convention moves the marker 0.27 px.
@@ -191,3 +189,9 @@ Remaining team actions:
   - **Limitations:** centroids are a consistency check (6.1″ native pixels, crude centroid). The Ba/Bb orbit was not modeled. WISE 0855's own detectability was not tested.
 - **Optional, release owner:** immutable caching for hashed `/assets/*`; a Vercel Firewall rate-limit rule.
 - **Not covered by anyone:** a physical phone, a screen reader, the native print dialog, browsers other than Chrome.
+
+## Cloudflare release, 2026-11-15
+
+Vercel blocked new builds after PR #40 with a deployment-rate limit. At Sathvik's request, PR #44 added Cloudflare static hosting and the catalog router. The shipped build includes PR #41's WISE label correction and the revised seven-slide PDF. No scientific processing code was ported. The existing public Vercel Python service supplies live search, frame processing and health.
+
+The final bundle at `fd7933d` passed frontend build, 7 Python export-parity tests, 15 Worker tests, deployed release smoke 20/20, and hosting smoke 24/24 with explicit Cloudflare edge expectations. A browser pass verified loaded images, A+B/A+C, quality overlays, notebook restore and an actual JSON export. See [evidence](../qa/cloudflare-release/README.md). No competition submission has been made.
