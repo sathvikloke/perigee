@@ -148,7 +148,7 @@ The identity contains no timestamps, so identical content always gets the same d
 
 The report prints the static release (this origin) and the live Python API (Vercel; `/health` does not expose its commit) as **separate** sections, and never as one version. The identity is a separate static file; `/api/v1/health`'s v1 contract is unchanged.
 
-Note: the deployment at `979e0619…` (source `fd7933d`) predates this file. Until it is redeployed, `--expect-build` against it fails with "no identity published", and that failure is accurate.
+The earlier deployment at `979e0619…` (source `fd7933d`) predates this identity. Version `4031abf8…` (source `fbb6647`) now publishes it and passed the expected-build check, including its running Worker header. See [release evidence](../qa/cloudflare-release/README.md).
 
 ## Limits and dependencies
 

@@ -4,11 +4,13 @@
 
 **App:** https://perigee.lokesathvik.workers.dev · **Deck:** https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf · **Source:** https://github.com/sathvikloke/perigee
 
-Cloudflare Worker `perigee`, version **`979e0619-e17e-4471-bce1-1144129f7a33`**, was deployed from **`fd7933d85ea518aa11fb34918c8d6fbe1de9e6a5`** at about 01:14 UTC. It includes the corrected WISE 0855 labels and the final seven-slide PDF. The PDF is 2,369,713 bytes, SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`.
+Cloudflare Worker `perigee`, version **`4031abf8-c0fb-4689-8205-3211ea0c673c`**, was deployed from clean source **`fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb`** and verified at 03:24 UTC. It includes PR #47's error handling and running-Worker identity, the corrected WISE 0855 labels and the seven-slide PDF. The PDF is unchanged: 2,369,713 bytes, SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`.
 
 The frontend, five presets, two investigations and all curated image/metadata assets are served on Cloudflare. Only live search, frame processing and health are proxied to **https://perigee-liard.vercel.app**, the existing Vercel Python deployment at `058a2a6` (`dpl_EaxvN8GkokTssAN2hsNrCN7uUJL3`). Vercel's build quota prevented the later documentation and label releases; its running API remains healthy. Do not delete that project while it supplies the live path.
 
-**Verified logged out:** [GitHub Actions release smoke](https://github.com/sathvikloke/perigee/actions/runs/43662439693) 20/20 (377 live Orion results and a valid processed PNG), Cloudflare hosting smoke 24/24, exact PDF bytes, and browser comparison/flags/notebook save/reopen/JSON download. [Evidence and the two edge-level differences](../qa/cloudflare-release/README.md).
+**Verified logged out on this release:** release smoke **29/29** against the expected build and Cloudflare hosting smoke **26/26**, including source/content/running-Worker identity, exact PDF/JavaScript bytes, 377 live Orion results and a valid processed PNG. The earlier browser comparison/flags/notebook save/reopen/JSON download check is retained as historical evidence; this backend-only release did not repeat it. [Current logs and earlier browser evidence](../qa/cloudflare-release/README.md).
+
+PR #47's Python search-warning correction is merged but remains undeployed because the latest Vercel build hit its quota. This Cloudflare deployment does not change the Python origin. The forthcoming UI redesign must also resolve the frontend findings in [PR #46](https://github.com/sathvikloke/perigee/pull/46).
 
 **Deployment is manual.** Merging GitHub changes does not publish a new Cloudflare version. Rebuild the frontend and export the catalog, then run Wrangler using [the Cloudflare handoff](CLOUDFLARE.md). After every Cloudflare deploy, run both smoke commands there. `PERIGEE_PUBLIC_URL` points to Cloudflare; Vercel's status-triggered smoke therefore tests that primary app, but is not evidence that Cloudflare redeployed.
 

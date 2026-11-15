@@ -1,5 +1,22 @@
 # Cloudflare public release verification
 
+## Backend hardening release — 2026-11-15, 03:24 UTC
+
+PR [#47](https://github.com/sathvikloke/perigee/pull/47) is merged and its Cloudflare changes are deployed publicly. Worker version: `4031abf8-c0fb-4689-8205-3211ea0c673c`. Source: `fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb`, built from a clean tree. No frontend application code or curated content changed in this release.
+
+- Release digest: `548e7202640872b3ea524061ac50a28d0be5d3b3a930048bf1ffac0b5b88024d`.
+- Worker digest: `4a4073ba9fd628fc3ea2ef85601819165fce8de938234c9e13dde31e18fa3016`, verified from the running Worker's `X-Perigee-Worker` header as well as the published identity.
+- Before deployment: frontend build and catalog export completed; 16 Cloudflare Python tests and 22 Worker tests passed. A separate review run passed 52 release-identity/smoke tests, including rejection of mismatched Worker code.
+- Public [static/route smoke](backend-47-edge-smoke.txt): **26/26**, including exact catalog/asset bytes, PDF, JavaScript and running Worker identity.
+- Public [release smoke against the expected build](backend-47-identity-smoke.txt): **29/29**, including logged-out access, source/content/Worker identity, a live search (377 matches, 2.6 s) and one processed PNG (10,642 bytes, 2.6 s). Timings describe this run only.
+- The deck remains 2,369,713 bytes with SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`.
+
+Cloudflare now serves the safer error handling and verifiable release identity. Live search, processing and health still use the existing Vercel Python deployment. PR #47's corrected search-sampling warning is merged but **not deployed to that Python origin** because Vercel's build quota blocked the latest build. Successful live smoke verifies the running API, not that Python source update.
+
+This release does not resolve the frontend behavior findings in [PR #46](https://github.com/sathvikloke/perigee/pull/46). Those belong in the forthcoming UI work. The draft transfer exercise is not shipped or learner-tested. No competition submission has been made.
+
+## Earlier hosting migration — 2026-11-15, 01:14–01:18 UTC
+
 Verified on 2026-11-15, approximately 01:14–01:18 UTC, without authentication.
 
 - App: https://perigee.lokesathvik.workers.dev
