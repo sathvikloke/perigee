@@ -14,6 +14,9 @@ on:
       - "cloudflare/**"
       - "tools/ingest/**"
       - "science/reviews/acceptance/**"
+      - "science/reviews/registration-audit/**"
+      - "science/reviews/overnight-controls/**"
+      - "science/staging/**"
       - "vercel.json"
       - ".vercelignore"
       - ".github/workflows/**"
@@ -51,6 +54,8 @@ jobs:
             echo '```'
             echo "Raw SPHEREx FITS are not available in CI; tests that need them are reported as skipped above, not passed."
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Registration negative-control tests (synthetic run here; real-data cases skip without FITS)
+        run: python -m pytest science/reviews/registration-audit/tests -q -rs
 
   frontend-cloudflare:
     runs-on: ubuntu-latest

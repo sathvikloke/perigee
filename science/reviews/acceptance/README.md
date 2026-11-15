@@ -32,6 +32,10 @@ PASS means every check in that column agreed with an independent re-derivation f
 
 **Sweep over all 189 processor-A records:** 189/189 PASS on columns 1–7, with 0 failures. The marker matches the independent prediction to within 0.0007 display px. The PNG reconstruction is exact for 100% of pixels in every frame. Gaia stars land in the PNG with a median offset of 0.45 display px; the worst frame is 2.0 px (161 frames). Wavelength agrees with the independent value to within 3.3e-10 µm (185 covered frames). The flag overlay reconstruction is 100%. Coverage is exactly 4 frames not_covered (all off the image geometrically), and 0 images contain undocumented flag bits.
 
+> **Correction (2026-11-15, overnight N3):** column 1, `registration`, is **internal consistency with each file's header WCS** (marker, grid identity, PNG reconstruction), plus a Gaia comparison that runs only when some star survives a 1-native-px association. N3's negative control showed that a frame whose pixels are shifted 2 or 5 native px against an unchanged header still reads `registration: True`, because every Gaia star drops out of the association. So the 189/189 above is **not** an independent astrometric validation of 189 frames.
+>
+> The script now also reports an independent **`astrometry`** column (N3's WCS-free `regcheck.registration_verdict`: blind detections voted against Gaia DR3). On the current products it is **PASS 133, UNKNOWN 56, FAIL 0** of the 189 records; over the 183 unique cutouts that is 128 PASS and 55 UNKNOWN, since the 6 case copies repeat their frames. UNKNOWN means too few usable stars, not a pass; it includes fair_comparison C, one WISE 0855 frame and 25 R Draconis frames. On the derived misregistration fixtures it FAILs every 1, 2 and 5 px shift. `qa/regression/run.sh` fails on any `False` cell, so an astrometry FAIL now breaks the gate. Details: `science/reviews/registration-audit/README.md`.
+
 ## What each check did (independent of `backend/data`, `tools/ingest`)
 
 1. **Sky registration.**
@@ -107,7 +111,7 @@ The Gaia controls are cached in `gaia/*.csv`. They came from the ESA Gaia TAP se
 
 ## Limitations of this review
 
-- **Shared trust in the header WCS.** The native celestial WCS is evaluated with astropy (WCSLIB), as in the processor. The independence is in the code paths, not the library. Gaia is the only control independent of both, and it is limited to stars that centroid cleanly (161 of 189 frames, none in fair_comparison C).
+- **Shared trust in the header WCS.** The native celestial WCS is evaluated with astropy (WCSLIB), as in the processor. The independence is in the code paths, not the library. Gaia is the only control independent of both, and it is limited to stars that centroid cleanly (161 of 189 frames, none in fair_comparison C). The independent `astrometry` column (added 2026-11-15) is PASS for 133 of 189 records and UNKNOWN for the rest.
 - **Shared astrometry.** Target astrometry comes from the same SIMBAD values the processor uses, so a catalog error would go unnoticed. Annual parallax is not modeled (< 0.6″).
 - **Approximate wavelength table.** Wavelength checks rely on the header `WCS-WAVE` table. The SPHEREx supplement calls it an approximation for visualization.
 - **Flags not validated physically.** Flag meanings were taken from the `MSKD` descriptions and not checked against the physical data.

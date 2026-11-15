@@ -210,7 +210,11 @@ def test_real_fixture_unmodified_acceptance_check_passes_2px_offset(real, tmp_pa
     out = rc.acc.check_one(rec, str(png_p), None, str(fits_p), mby[key], targets[preset], [rec])
     assert out["evidence"]["png_reconstruction"]["alpha_match_fraction"] > 0.995
     assert out["evidence"]["gaia"]["n_png"] == 0
-    assert out["checks"]["registration"] is True
+    assert out["checks"]["registration"] is True  # header consistency alone cannot see it
+    # Coordinator fix (overnight N3): the acceptance check now also runs the independent
+    # astrometry verdict, which must FAIL this fixture (absent before the fix).
+    assert out["checks"]["astrometry"] is False
+    assert out["evidence"]["astrometry"]["verdict"] == "FAIL"
     pra, pdec, _, _ = rc.acc.predict(targets[preset], fr.mjd)
     assert rc.registration_verdict(fr, rc.read_catalog(GAIA / f"{preset}.csv"), (pra, pdec))["verdict"] == "FAIL"
 
@@ -226,3 +230,15 @@ def test_validator_has_no_false_failures_on_real_frames(real):
         if v["verdict"] == "FAIL":
             fails.append((key, v["reasons"]))
     assert not fails
+
+
+@needs_data
+def test_acceptance_astrometry_passes_the_unshifted_real_frame(real, tmp_path):
+    """Same frame, no shift: the acceptance check's astrometry column is PASS (True)."""
+    m, targets, mby = real
+    preset, key = "barnards_star", "2025W35_1A_0008_1_D3"
+    rec = json.loads((AUDIT.parents[2] / "backend/content/presets" / preset / "frames" / f"{key}.json").read_text())
+    png = AUDIT.parents[2] / "backend/content/presets" / preset / "frames" / f"{key}.png"
+    out = rc.acc.check_one(rec, str(png), None, str(DATA / mby[key]["file"]), mby[key], targets[preset], [rec])
+    assert out["checks"]["registration"] is True
+    assert out["checks"]["astrometry"] is True

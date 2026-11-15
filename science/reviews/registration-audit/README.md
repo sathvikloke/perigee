@@ -243,6 +243,8 @@ The thresholds sit above all of these. A first draft also had a match-fraction r
 
 **Recommendation (not applied).** `science/reviews/acceptance/check_acceptance.py` treats "no surviving Gaia star" as a pass. It should report UNKNOWN in that case, or call `regcheck.registration_verdict`. I left it unchanged so that its published results stay reproducible.
 
+**Applied by the coordinator (2026-11-15).** `check_acceptance.py` keeps `registration`, now labelled header consistency, and adds an independent `astrometry` column from `regcheck.registration_verdict` (PASS/FAIL/UNKNOWN → True/False/None), which is included in the summary columns. Results on all 189 records: PASS 133, UNKNOWN 56, FAIL 0; the regression gate stays green. `tests/test_negative_control.py` now asserts that the acceptance check reports `astrometry: False` for the 2 px real-data fixture and `True` for the unshifted frame. Both assertions fail on the pre-fix script.
+
 ## 6. fair_comparison C (`2026W18_1A_0516_1_D6`, 4.94 µm)
 
 **Verdict: `unknown` for independent field-star validation. Kept.**
