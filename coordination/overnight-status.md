@@ -15,7 +15,7 @@
 | ID | Acceptance criterion (short) | Status | Evidence (files, commits) | Next action / blocker |
 |---|---|---|---|---|
 | N1 | Seven answer-key defects fixed; candidate reviewed; regenerates | not started | — | — |
-| N2 | Stretch, flag, wavelength, positive-motion and information-removal controls reproducible | not started | — | — |
+| N2 | Stretch, flag, wavelength, positive-motion and information-removal controls reproducible | **done (reviewed)** | `science/reviews/overnight-controls/` (worker `45ee56b`, merged). Coordinator re-ran `run_controls.py` into a fresh directory: identical except `manifest.json` (timestamp/runtime). Independently checked: grey probes 1.0 MJy/sr → 156/174 per-frame, 159/159 shared; the flagged pixel's P→Q sky jump is **5.36″** (values 234.55/237.91 MJy/sr), recomputed from the raw FITS with the cutout WCS. Negative results recorded (3 strict field stars; R doesn't contain the detector pixel; Barnard proxy spread up to 2.0 px / 21°; Q/P physical median 0.971 with no cause established) | answer-key implications sent to the N1 worker |
 | N3 | Selection, exclusion and unknown audit; negative registration control | not started | — | — |
 | N4 | UI handoff with exact case/evidence fixtures and failure-state fixtures | in progress | `qa/ui-fixtures/make_fixtures.mjs` produces failure fixtures from the real Worker code (fault-injected assets): missing overlay (404 ASSET_NOT_FOUND), case unavailable (503), unknown case (404), live origin down (curated 200, proxied 502), no coverage (real record `2025W17_4B_0077_2_D1`), plus pointers to the existing partial/empty/expired/invalid examples | changed-FOV and stale-selection fixtures from the N5 worker; case and evidence fixtures from N1 |
 | N5 | Route-to-processor parity; request-geometry identity tuple | not started | — | — |
@@ -28,7 +28,7 @@
 
 | Worker | Ownership (disjoint) | Branch | Status |
 |---|---|---|---|
-| N2 controls | `science/reviews/overnight-controls/**` | `claude/n2-controls` | running (launched ~03:00Z) |
+| N2 controls | `science/reviews/overnight-controls/**` | `claude/n2-controls` | **done**, `45ee56b`, merged and reviewed |
 | N1+N7 case | `science/reviews/transfer-exercise/**`, `science/staging/**`, `tools/ingest/admit_case.py`, `backend/tests/data/test_admit_case.py` | `claude/n1-n7-case` | running |
 | N3 audit | `science/reviews/registration-audit/**`, `science/reviews/acceptance/**` (negative control only) | `claude/n3-registration-audit` | running |
 | N5+N6 backend | `backend/**` (fixes only for demonstrated defects), new API/platform tests, `cloudflare/**` (defects only), `qa/overnight-backend/**` | `claude/n5-n6-backend` | running |
