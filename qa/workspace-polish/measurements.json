@@ -1,0 +1,41 @@
+[
+  {
+    "bodySize": "14px",
+    "height": 720,
+    "imageTop": 654.0390625,
+    "labelSize": "12px",
+    "state": "before-desktop",
+    "width": 1280
+  },
+  {
+    "height": 844,
+    "imageTop": 757.296875,
+    "state": "before-phone",
+    "width": 390
+  },
+  {
+    "bodySize": "16px",
+    "height": 720,
+    "imageTop": 423.0703125,
+    "labelSize": "13px",
+    "overflow": false,
+    "state": "after-desktop",
+    "width": 1280
+  },
+  {
+    "height": 844,
+    "imageTop": 475.2890625,
+    "overflow": false,
+    "state": "after-phone",
+    "width": 390
+  },
+  {
+    "imageTop": 416.2890625,
+    "menuClosed": true,
+    "overflow": false,
+    "state": "after-tablet",
+    "width": 1024,
+    "imageWidth": 461,
+    "workspaceColumns": "976px"
+  }
+]

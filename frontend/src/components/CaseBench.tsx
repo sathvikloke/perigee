@@ -120,7 +120,8 @@ export function CaseBench(props: {
           <div className="segmented pair-control" role="group" aria-label="Choose comparison">
             {others.map((r) => {
               const other = framesByRef.get(r);
-              const sub = a && other ? analyzePair(a, other).subtitle : "";
+              const pairAnalysis = a && other ? analyzePair(a, other) : null;
+              const sub = pairAnalysis?.kind === "both" ? "Dates + wavelengths" : pairAnalysis?.subtitle ?? "";
               return (
                 <button
                   key={r}

@@ -11,6 +11,14 @@ import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook } from "./Notebook";
 import { InvestigationSwitcher, PageHeading, WorkflowStrip } from "./PageHeading";
 
+// Short orientation for the working view. The complete authored opening is
+// preserved in the context disclosure below the comparison.
+const CASE_INTROS: Record<string, string> = {
+  moving_neighbor: "Compare a year of observations to see how Barnard’s Star shifts against the surrounding stars.",
+  fair_comparison: "Compare dates, wavelengths and image quality before deciding what changed.",
+  wise_0855_quality_trap: "Check whether a jumping dot is a change in the sky or a clue in the detector.",
+};
+
 interface Loaded {
   presets: PresetDescriptor[];
   preset: PresetDescriptor | null;
@@ -203,7 +211,11 @@ function PresetLoaded(props: {
   const stepsCard =
     caseContent && caseContent.steps.length > 0 ? (
             <div className="case-steps">
-              <h3 id="investigation-steps">Your steps</h3>
+              <div className="case-steps-heading">
+                <h3 id="investigation-steps">Your investigation steps</h3>
+                <span>{caseContent.steps.filter((s) => ev.card.reviewed_step_ids?.includes(s.id)).length} of {caseContent.steps.length} reviewed</span>
+              </div>
+              <WorkflowStrip />
               <p className="pair-guidance">Check each step after you review it. Your progress stays with this evidence card.</p>
               {caseRefs.length > 2 && <p className="pair-guidance">Use Blink pair to alternate the two selected observations. Switch comparisons to inspect the other frames.</p>}
               <ol>
@@ -231,7 +243,7 @@ function PresetLoaded(props: {
 
   // Authored background, closed by default so the plates reach the first viewport.
   const backgroundPanel =
-    caseContent?.background?.short || caseContent?.background?.details?.length ? (
+    caseContent?.opening_question || caseContent?.background?.short || caseContent?.background?.details?.length ? (
       <details className="panel">
         <summary>
           <span>
@@ -245,6 +257,8 @@ function PresetLoaded(props: {
           </span>
         </summary>
         <div className="details-body">
+          {caseContent?.opening_question && <p>{caseContent.opening_question}</p>}
+          {preset?.object_type && <p className="context-target">{preset.display_name} · {preset.object_type}</p>}
           {caseContent?.background?.short && <p>{caseContent.background.short}</p>}
           {caseContent?.background?.details?.length ? (
             <ul className="plain-list">
@@ -265,23 +279,23 @@ function PresetLoaded(props: {
 
   return (
     <>
-      <InvestigationSwitcher
-        presets={data.presets}
-        currentId={presetId}
-        onOpenPreset={props.onOpenPreset}
-        onOpenQuery={props.onOpenQuery}
-      />
       <PageHeading
         eyebrow="SPHEREx investigation"
         eyebrowDetail={caseContent ? preset?.display_name ?? presetId : "Free exploration"}
         title={caseContent?.title ?? preset?.display_name ?? presetId}
-        intro={caseContent?.opening_question ?? preset?.one_line}
+        intro={caseContent ? CASE_INTROS[caseContent.case_id] ?? caseContent.opening_question : preset?.one_line}
         mode={api.mode}
+        controls={<InvestigationSwitcher
+          presets={data.presets}
+          currentId={presetId}
+          onOpenPreset={props.onOpenPreset}
+          onOpenQuery={props.onOpenQuery}
+        />}
       />
       <div className="workspace">
         <section className="bench" id="observations" tabIndex={-1} aria-label="Observation comparison">
-          {hasCase && <WorkflowStrip />}
-          <div className="target-line">
+          {hasCase && <h2 className="visually-hidden">Compare observations</h2>}
+          {!hasCase && <div className="target-line">
             <div>
               <span className="eyebrow">Your target</span>
               <h2>
@@ -300,7 +314,7 @@ function PresetLoaded(props: {
                 </>
               )}
             </p>
-          </div>
+          </div>}
 
           {data.caseError != null && !caseContent && (
             <ErrorBlock title="The investigation text could not be loaded. The frames below still work." error={data.caseError} onRetry={props.onRetry} />
@@ -346,6 +360,12 @@ function PresetLoaded(props: {
             </details>
           )}
 
+          {hasCase && preset?.query_center && (
+            <div className="archive-action">
+              <span>Explore beyond the selected comparison</span>
+              <button type="button" onClick={() => props.onQueryPosition(preset)}>Search the archive here</button>
+            </div>
+          )}
           {slots.length === 0 ? (
             <div className="status">
               <p>No processed frames are published for this target yet. Nothing is shown in their place.</p>
