@@ -23,6 +23,11 @@ name: release-smoke
 
 on:
   deployment_status:
+  # What Vercel actually sends here: a commit status (context "Vercel", state
+  # "success", "Deployment has completed") on every build. A success on a commit
+  # that is on main is the production deploy, so this is the trigger that fires
+  # after each merge. Status workflows run from the default branch.
+  status:
   workflow_dispatch:
     inputs:
       base:
@@ -36,16 +41,21 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: release-smoke
-  cancel-in-progress: true
-
 jobs:
   smoke:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'status' &&
+       github.event.context == 'Vercel' &&
+       github.event.state == 'success' &&
+       contains(github.event.branches.*.name, github.event.repository.default_branch)) ||
       (github.event.deployment_status.state == 'success' &&
        (github.event.deployment.environment == 'Production' || github.event.deployment.environment == 'production'))
+    # Job-level, so the many skipped `status` events (previews, pending) never
+    # cancel or displace a real production check.
+    concurrency:
+      group: release-smoke
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -56,6 +66,8 @@ jobs:
       DEPLOYED_SHA: ${{ github.event.deployment.sha }}
       DEPLOYED_ENV: ${{ github.event.deployment.environment }}
       REPORTED_URL: ${{ github.event.deployment_status.environment_url }}
+      STATUS_SHA: ${{ github.event.sha }}
+      STATUS_URL: ${{ github.event.target_url }}
     steps:
       - name: Skip when no public URL is configured
         if: env.BASE == ''
@@ -87,6 +99,9 @@ jobs:
             echo "- Smoke harness commit: \`$harness\`"
             if [ "$EVENT" = "deployment_status" ]; then
               echo "- Deployment reported by the event: commit \`$DEPLOYED_SHA\`, environment \`$DEPLOYED_ENV\`, URL \`$REPORTED_URL\`"
+              echo "- Not verified: that \`$BASE\` was serving that commit when tested."
+            elif [ "$EVENT" = "status" ]; then
+              echo "- Vercel reported a completed build of main commit \`$STATUS_SHA\` ($STATUS_URL)"
               echo "- Not verified: that \`$BASE\` was serving that commit when tested."
             else
               echo "- Manual run: no deployment commit is known for this origin."
