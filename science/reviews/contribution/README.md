@@ -1,5 +1,8 @@
 # Contribution evidence (B5): Perigee compared with the closest tools
 
+
+> **Coordinator review (2026-11-15, PR #47):** I checked the claims for overreach (no first, unique, superior or learning-gain claims; human validation pending). I kept the SPHEREx Explorer row as the primary comparator. Its "not found" findings are explicitly limited to a static reading of the shipped bundle and two API calls, because the UI was never rendered; a rendered walkthrough may show more.
+
 **Status: draft for Sathvik's review.** Prepared 2026-11-15 (UTC) on branch `claude/b5-contribution-evidence`, from `origin/main` at `9cb850b`. Every external source, with its retrieval time, HTTP status and SHA-256, is in [`sources/retrieval.json`](sources/retrieval.json).
 
 **How to read this comparison:**

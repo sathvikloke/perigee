@@ -4,6 +4,15 @@
 
 Prepared 2026-11-15 (UTC) for work packet B5 on branch `claude/b5-contribution-evidence`, from `origin/main` at `9cb850b`.
 
+**Coordinator review (2026-11-15, integrated into PR #47):**
+- **Independently re-checked from the shipped WISE 0855 records and `research/build_data/manifest.json`:**
+  - dates, wavelengths, band widths and quality states, including Q's `PERSIST` on 2 of 19 screened pixels;
+  - SHA-256 prefixes (`fbcca340`, `044658e7`, `ad926a67`), which agree between record and manifest;
+  - P–Q: 2.655 days, Δλ 0.00005 µm;
+  - P–R: 184.8 days, Δλ 0.1871 µm, which is 6.22 band widths.
+- **Re-ran `check_transfer.py`:** exit 0. It reproduced wavelength, quality, stretch, marker and PNG bytes for P, Q and R, and the regenerated outputs matched the commit.
+- **Wording tightened:** the spot near the marker is a positional association with the Gaia star, not an identification. The jumping dot is a *flagged* detector pixel, with its cause not established. The "not visible" claims are now stated as visual or cited, not measured.
+
 ## Verdict: the retained data supports one sound exercise
 
 This exercise uses a different target, different frames and different traps from the two taught cases:
@@ -69,7 +78,7 @@ The last spot is steady in every frame. It is a sky source missing from the G < 
 ### Near the marker
 
 - **WISE 0855 itself:** at 1.26–1.44 µm it is expected to be far below SPHEREx sensitivity (`science/reviews/targets/README.md` §6). That statement is not re-tested here.
-- **The dot closest to the marker is the static Gaia DR3 star `5756956644387831296`** (G 16.3). It is 7.9″ from the marker in P and Q and 4.5″ in R.
+- **The dot closest to the marker coincides in position with the catalogued static star Gaia DR3 `5756956644387831296`** (G 16.3): the measured spot lies within 3.6″ of that star's position in all three frames, and 7.9″ from the marker in P and Q (4.5″ in R). This is a positional association, not an identification; a spot near the marker does not by itself identify WISE 0855.
 - **Q's "flagged" status at the marker** comes from 2 of 19 screened pixels with PERSIST ("Persistent charge above threshold"). It tells you not to trust those pixels. It does not say that something appeared.
 
 ### Stretch probe
@@ -101,18 +110,18 @@ The same sky value is drawn at different grey levels, because each frame's stret
 **Reference answer and rationale** (agent-written, not tested with learners):
 
 - **P/Q is the fair pair for time.** It is 2.7 days apart on the same detector at 1.25719 vs 1.25725 µm, a difference of 0.2% of the band width. Over 2.7 days WISE 0855 is predicted to move only 0.06″, so no motion is expected.
-- **The jumping dot is a bad detector pixel, not a mover.**
+- **The jumping dot is a flagged detector pixel, not a moving source.** (Its physical cause is not established here; see Limitations.)
   - It is one pixel, flagged NONFUNC/TRANSIENT/SUR_ERROR and covered by the red overlay in both P and Q.
   - It is the same detector pixel (1709, 1364) in both frames.
   - It is absent from R.
   - It "moves" 5.3″ because the two pointings differ slightly. Registration lines up the sky, so a defect that is fixed on the detector shifts on the sky grid.
 - **The dot only in P is a flagged transient** (TRANSIENT/OUTLIER/HALO/SUR_ERROR). It is not a new object, and it is absent from Q and R.
 - **"Q looks brighter" is the display stretch.** Each frame has its own stretch: 1.0 MJy/sr is drawn as grey 156 in P and 174 in Q. Grey levels cannot be compared between these frames, and nothing was measured.
-- **The dot near the marker is a cataloged field star** (Gaia DR3 5756956644387831296, 7.9″ away in P and Q). WISE 0855 is not expected to be visible at these wavelengths. Q's PERSIST flag at the marker is a caution about pixels, not a detection.
+- **The dot near the marker coincides with a catalogued field star** (Gaia DR3 5756956644387831296, 7.9″ from the marker in P and Q), so it is not evidence of WISE 0855. The targets review expects WISE 0855 to be far below sensitivity at these wavelengths (not re-tested here). Q's PERSIST flag at the marker is a caution about pixels, not a detection.
 - **P/R is not a fair test of motion.**
   - It mixes about 185 days with a 0.187 µm wavelength change (about 6 band widths).
   - The predicted 4.1″ shift is under one native pixel.
-  - The object itself is not visible.
+  - No separate source is seen at the predicted position in these frames (a visual statement, not a measured non-detection).
 - **Supported conclusion:** "Nothing in these images shows the sky changing between 7 and 10 November. The jumping dot and the P-only dot are flagged detector problems. The brightness difference is display stretch. These images cannot show whether WISE 0855 moved."
 - **Not supported:**
   - "A new object appeared or moved."

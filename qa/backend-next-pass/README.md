@@ -114,6 +114,24 @@ With a malformed manifest (`{"schema_version":1}`) on this branch:
 - **Not changed:** search semantics, the response schema and status logic.
 - **Deployment:** this is a source fix only. The live Python API is still Vercel commit `058a2a6`, so production keeps the old wording until a Vercel deploy, which is quota-blocked. Recorded live examples (`backend/tests/api/examples/search_response.ready.live.json`, and the frontend fixture, which is reserved for Codex) still contain the old sentence, as historical captures.
 
+## B5: Contribution evidence and transfer exercise
+
+These are research files, separate from shipped content. A research worker wrote them on `claude/b5-contribution-evidence` (`68684cd`); they were cherry-picked here and reviewed by the coordinator.
+- **`science/reviews/contribution/`:**
+  - **SPHEREx Explorer is the primary comparator.** It already has authored cases, quality masking, matched-wavelength rules, a shared brightness scale, caveats, a guided tour and a tap game.
+  - **The learner-authored reasoning loop is only "partly present" there,** from a static reading of the shipped bundle and two API calls, because the UI was not rendered.
+  - **Other comparators:** spherex-timelapse, SPHEREx Blink, Driftnet, and the 2025 category winners (as NASA's summaries, labelled as claims).
+  - **The same question (did Barnard's Star move?)** was answered from data only for Perigee. That says what was tested, not that Perigee ranks higher.
+  - **Perigee's stated contribution is bounded,** human validation is pending, and there are no learning-gain, superiority or "first" claims.
+- **`science/reviews/transfer-exercise/` (draft):** a WISE 0855 exercise using three DR1 D2 frames:
+  - P/Q is a fair time pair: 2.655 days, Δλ 0.00005 µm;
+  - a "jumping" flagged detector pixel;
+  - a P-only flagged transient;
+  - a per-frame stretch difference;
+  - P/R mixes time with about 6 band widths of wavelength.
+
+  `check_transfer.py` re-runs processor A on the raw FITS and reproduces records and PNG bytes. The coordinator independently re-checked the key numbers and SHA-256s against the shipped records and manifest, and tightened the wording (positional association rather than identification; a flagged pixel with its cause not established). **No human has tried it.**
+
 ## Test totals on this branch
 
 | Suite | Result |
