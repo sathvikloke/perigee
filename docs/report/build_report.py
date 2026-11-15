@@ -1,182 +1,118 @@
 #!/usr/bin/env python3
-"""Build the eight-page technical report from its Markdown source.
-
-Usage: python docs/report/build_report.py [--output path.pdf]
-Dependencies: reportlab, pypdf, Pillow.
-"""
+"""Generate data-derived figures, compile LaTeX, and validate the report PDF."""
 from __future__ import annotations
-
 import argparse
-from html import escape
+from collections import Counter
+import csv
+import hashlib
+import json
 from pathlib import Path
 import re
-
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.utils import ImageReader
-from reportlab.platypus import (
-    BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, PageBreak,
-    Table, TableStyle, Flowable, Preformatted,
-)
+import shutil
+import subprocess
+from PIL import Image
 from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = Path(__file__).with_name('TECHNICAL_REPORT.md')
-PAGE_W, PAGE_H = 612, 792
-MARGIN = 48
-WIDTH = PAGE_W - MARGIN * 2
-INK = colors.HexColor('#17211e')
-MUTED = colors.HexColor('#52605b')
-ACCENT = colors.HexColor('#a7c63d')
-PALE = colors.HexColor('#eef3e6')
-LINE = colors.HexColor('#d8dfd9')
+HERE = Path(__file__).resolve().parent
+SOURCE = HERE / "perigee-report.tex"
+GENERATED = HERE / "generated"
+BUILD = HERE / "build"
+NAMES = ["Sathvik Loke", "Sagar Raut", "Akshobya Rao", "Aditya Raut",
+         "Suhrit Bestavemula", "Neeraj Movva"]
 
-styles = {
-    'title': ParagraphStyle('Title', fontName='Helvetica-Bold', fontSize=25,
-                            leading=28, textColor=INK, spaceAfter=15),
-    'sub': ParagraphStyle('Sub', fontName='Helvetica-Bold', fontSize=12,
-                          leading=15, textColor=INK, spaceBefore=10, spaceAfter=6),
-    'body': ParagraphStyle('Body', fontName='Helvetica', fontSize=9.5,
-                           leading=13.3, textColor=INK, spaceAfter=8,
-                           splitLongWords=True, allowWidows=0, allowOrphans=0),
-    'cell': ParagraphStyle('Cell', fontName='Helvetica', fontSize=8.6,
-                           leading=11.4, textColor=INK),
-    'headcell': ParagraphStyle('HeadCell', fontName='Helvetica-Bold', fontSize=8.6,
-                               leading=11.4, textColor=INK),
-    'caption': ParagraphStyle('Caption', fontName='Helvetica', fontSize=8,
-                              leading=10.5, textColor=MUTED, spaceAfter=9),
-    'reference': ParagraphStyle('Reference', fontName='Helvetica', fontSize=9,
-                                leading=12, textColor=INK, spaceAfter=6,
-                                splitLongWords=True, allowWidows=0, allowOrphans=0),
-    'code': ParagraphStyle('Code', fontName='Courier', fontSize=7.7,
-                           leading=10.5, textColor=INK, backColor=PALE,
-                           borderPadding=8, spaceAfter=10),
-}
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def figures():
+    GENERATED.mkdir(exist_ok=True)
+    case = json.loads((ROOT / "backend/content/cases/fair_comparison.json").read_text())
+    panels = []
+    for f in case["frames"]:
+        date = {"A": "29 Apr 2026", "B": "27 Sep 2026", "C": "29 Apr 2026"}[f["ref"]]
+        path = "../../backend/content/presets/epsilon_indi_b/case-fair_comparison/" + f["frame_key"] + ".png"
+        panels.append(r"\observation{.31}{" + path + "}{" + f["ref"] + ": " + date + r"; " + f'{f["wavelength_um"]:.4f}' + r"\,\micron}")
+    (GENERATED / "epsilon-panels.tex").write_text(r"\hfill".join(panels) + "\n")
 
-def p(text, style='body'):
-    safe = escape(text)
-    # URL hyperlinks keep the printed URL and permit breaks at punctuation.
-    safe = re.sub(r'(https?://[^\s]+)',
-                  lambda m: '<link href="' + m.group(1).rstrip('.,;') + '">' + m.group(1) + '</link>', safe)
-    return Paragraph(safe, styles[style])
+    table = ROOT / "science/reviews/registration-audit/results/validator_real_frames.csv"
+    rows = list(csv.DictReader(table.open()))
+    counts = Counter((r["preset"], r["verdict"]) for r in rows)
+    total = Counter(r["verdict"] for r in rows)
+    assert len(rows) == 183 and total == {"PASS":128, "UNKNOWN":55}, total
+    targets = [("barnards_star", "Barnard's Star"), ("epsilon_indi_b", "Epsilon Indi B"),
+               ("wise_0855", "WISE 0855 field"), ("rw_aurigae", "RW Aurigae"), ("r_draconis", "R Draconis")]
+    chart = r"""\begin{tikzpicture}
+\begin{axis}[xbar stacked,width=.90\linewidth,height=5.1cm,
+ xmin=0,xmax=46,ymin=-.6,ymax=4.6,bar width=13pt,
+ ytick={0,1,2,3,4},yticklabels={R Draconis,RW Aurigae,WISE 0855 field,Epsilon Indi B,Barnard's Star},
+ axis lines*=left,xlabel={Unique cutouts},xtick={0,10,20,30,40},
+ tick label style={font=\small},label style={font=\small},
+ xmajorgrids=true,grid style={gray!18},
+ legend style={draw=none,font=\small,at={(.5,1.04)},anchor=south,legend columns=2},
+ nodes near coords,point meta=explicit symbolic,nodes near coords style={font=\footnotesize,color=black}]
+"""
+    for verdict, color in [("PASS", "reportblue!48"), ("UNKNOWN", "gray!22")]:
+        coords = " ".join(f"({counts[(key,verdict)]},{4-i})[{counts[(key,verdict)] or ''}]" for i,(key,_) in enumerate(targets))
+        chart += r"\addplot[fill=" + color + r",draw=white] coordinates {" + coords + "};\n"
+    chart += r"\legend{PASS,UNKNOWN}" + "\n" + r"\end{axis}\end{tikzpicture}" + "\n"
+    (GENERATED / "registration-chart.tex").write_text(chart)
 
+    # Scientific figure crops: preserve source values, fixed bounds, nearest-neighbor enlargement.
+    # Both rows use the identical sky-grid crop; the second adds the existing adverse-flag layer.
+    base = ROOT / "backend/content/presets/wise_0855/case-wise_0855_quality_trap"
+    sources = []
+    bounds = (86, 52, 150, 116)
+    for label, key in [("A", "2025W45_2A_0278_1_D2"), ("B", "2025W46_1A_0108_1_D2")]:
+        raw = base / (key + ".png")
+        flag = base / (key + ".flags.png")
+        image = Image.open(raw).convert("RGBA")
+        mask = Image.open(flag).convert("RGBA")
+        for suffix, pixels in [("sky", image), ("flags", Image.alpha_composite(image,mask))]:
+            crop = pixels.crop(bounds)
+            bg = Image.new("RGBA", crop.size, "black")
+            bg.alpha_composite(crop)
+            bg.convert("RGB").resize((512,512),Image.Resampling.NEAREST).save(GENERATED / f"wise-{label}-{suffix}.png")
+        sources.append({"frame":key,"png":str(raw.relative_to(ROOT)),"sha256":sha(raw),"flag_sha256":sha(flag)})
+    (GENERATED / "figure-data.json").write_text(json.dumps({"registration_source":str(table.relative_to(ROOT)),"registration_source_sha256":sha(table),"counts":dict(total),"wise_crop_xyxy":bounds,"wise_sources":sources,"resampling":"nearest; source pixel values retained; existing flag overlay only"},indent=2)+"\n")
 
-class Diagram(Flowable):
-    def __init__(self, kind):
-        Flowable.__init__(self)
-        self.kind = kind
-        self.width = WIDTH
-        self.height = {'pipeline': 88, 'validation': 104, 'barnard': 190}[kind]
+def build(output, compiler):
+    figures()
+    BUILD.mkdir(exist_ok=True)
+    command = [compiler, "--keep-logs", "--keep-intermediates", "--outdir", str(BUILD), str(SOURCE)]
+    result = subprocess.run(command,cwd=HERE,capture_output=True,text=True)
+    (BUILD / "compiler-output.txt").write_text(result.stdout + result.stderr)
+    if result.returncode:
+        raise RuntimeError((result.stdout + result.stderr)[-5000:])
+    log = (BUILD / "perigee-report.log").read_text(errors="replace")
+    bad = re.findall(r"(?:Overfull \\[hv]box[^\n]*|LaTeX Warning: (?:Reference|Citation)[^\n]*undefined[^\n]*|Missing character[^\n]*)",log)
+    if bad:
+        raise RuntimeError("Layout/reference errors: " + repr(bad))
+    pdf = BUILD / "perigee-report.pdf"
+    reader = PdfReader(pdf)
+    texts = [p.extract_text() or "" for p in reader.pages]
+    text = "\n".join(texts)
+    flat = re.sub(r"\s+", " ", text)
+    for name in NAMES:
+        assert name in flat, name
+    for fact in ["183", "189", "128", "55", "7.29", "10.25", "5.36", "5.38"]:
+        assert fact in text, fact
+    assert "??" not in text
+    assert all(len(t)>100 for t in texts)
+    assert 7 <= len(reader.pages) <= 12, len(reader.pages)
+    output.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copyfile(pdf,output)
+    (BUILD / "extracted.txt").write_text(text)
+    verification = {"pages":len(reader.pages),"pdf_bytes":output.stat().st_size,"pdf_sha256":sha(output),
+        "source_sha256":sha(SOURCE),"compiler":subprocess.check_output([compiler,"--version"],text=True).strip(),
+        "typeface":"TeX Gyre Pagella / New PX", "selectable_text":True,"all_six_names_present":True,
+        "unresolved_references":False,"overfull_boxes":False,"new_science_experiments_run":False,
+        "verified_team_names":NAMES,"visual_review":"Pending final rendered-page inspection"}
+    (HERE / "verification.json").write_text(json.dumps(verification,indent=2)+"\n")
+    print(json.dumps(verification,indent=2))
 
-    def draw(self):
-        c = self.canv
-        if self.kind == 'pipeline':
-            labels = [('IRSA FITS', 'Original bytes'), ('Processor', 'Sky grid + metadata'),
-                      ('Comparison', 'Checks beside images'), ('Evidence card', 'Notes + sources')]
-            w, gap = 120, 12
-            for i, (a, b) in enumerate(labels):
-                x = i * (w + gap)
-                c.setFillColor(PALE); c.roundRect(x, 25, w, 47, 5, fill=1, stroke=0)
-                c.setFillColor(INK); c.setFont('Helvetica-Bold', 10); c.drawString(x + 10, 54, a)
-                c.setFillColor(MUTED); c.setFont('Helvetica', 7.5); c.drawString(x + 10, 37, b)
-                if i < 3:
-                    c.setStrokeColor(MUTED); c.line(x + w + 2, 48, x + w + 10, 48)
-                    c.line(x + w + 7, 51, x + w + 10, 48); c.line(x + w + 7, 45, x + w + 10, 48)
-            c.setFont('Helvetica', 7.8); c.setFillColor(MUTED)
-            c.drawString(0, 10, 'Figure 1. Data and reasoning remain linked throughout the workflow. Schematic, not a benchmark.')
-        elif self.kind == 'validation':
-            c.setFont('Helvetica-Bold', 10); c.setFillColor(INK)
-            c.drawString(0, 88, '183 unique cutouts: independent field-star verdict')
-            pass_w = WIDTH * 128 / 183
-            c.setFillColor(ACCENT); c.rect(0, 43, pass_w, 29, fill=1, stroke=0)
-            c.setFillColor(colors.HexColor('#dce3dc')); c.rect(pass_w, 43, WIDTH-pass_w, 29, fill=1, stroke=0)
-            c.setFillColor(INK); c.setFont('Helvetica-Bold', 10)
-            c.drawString(10, 53, '128 PASS'); c.drawString(pass_w + 10, 53, '55 UNKNOWN')
-            c.setFont('Helvetica', 8); c.drawString(0, 26, '0 FAIL in this retained set. UNKNOWN is not a pass.')
-            c.setFillColor(MUTED); c.drawString(0, 10, 'Figure 3. Counts from the retained registration audit; no population reliability estimate.')
-        else:
-            folder = ROOT/'backend/content/presets/barnards_star/case-moving_neighbor'
-            paths = [folder/'2025W35_1A_0008_1_D3.png', folder/'2026W34_1A_0431_1_D3.png']
-            labels = ['A | 25 Aug 2025 | 2.0062 micrometers', 'C | 19 Aug 2026 | 2.0284 micrometers']
-            for i, path in enumerate(paths):
-                x = 37 + i * 253
-                c.setFillColor(colors.black); c.rect(x, 25, 160, 160, fill=1, stroke=0)
-                c.drawImage(ImageReader(str(path)), x, 25, 160, 160, mask='auto')
-                c.setFillColor(MUTED); c.setFont('Helvetica', 7.5); c.drawString(i * 253, 12, labels[i])
-
-
-def footer(canvas, doc):
-    canvas.saveState()
-    canvas.setFillColor(ACCENT); canvas.rect(MARGIN, PAGE_H-35, 28, 3, fill=1, stroke=0)
-    canvas.setFillColor(MUTED); canvas.setFont('Helvetica', 8)
-    canvas.drawString(MARGIN+37, PAGE_H-35, 'PERIGEE / TECHNICAL REPORT')
-    canvas.drawRightString(PAGE_W-MARGIN, PAGE_H-35, '15 NOVEMBER 2026')
-    canvas.setStrokeColor(LINE); canvas.line(MARGIN, 35, PAGE_W-MARGIN, 35)
-    canvas.setFont('Helvetica', 7.5); canvas.drawString(MARGIN, 22, 'NASA Space Apps 2026 | Supporting documentation')
-    canvas.drawRightString(PAGE_W-MARGIN, 22, f'{doc.page} / 8')
-    canvas.restoreState()
-
-
-def parse_page(text, reference=False):
-    out=[]; lines=text.strip().splitlines(); i=0
-    while i < len(lines):
-        line=lines[i].strip()
-        if not line: i+=1; continue
-        if line.startswith('```'):
-            code=[]; i+=1
-            while i<len(lines) and not lines[i].startswith('```'):
-                code.append(lines[i]); i+=1
-            out.append(Preformatted('\n'.join(code), styles['code'])); i+=1; continue
-        if line.startswith('<!-- figure:'):
-            kind=line.split(':',1)[1].split('-->')[0].strip()
-            out.append(Diagram(kind))
-            if kind=='barnard':
-                out.append(p('Figure 2. Original processed SPHEREx case PNGs, full field, unchanged. North is up; east is left. Shared display limits. NASA/IPAC IRSA. The saturated core prevents precision astrometry.', 'caption'))
-            i+=1; continue
-        if line.startswith('|'):
-            rows=[]
-            while i<len(lines) and lines[i].strip().startswith('|'):
-                cells=[x.strip() for x in lines[i].strip().strip('|').split('|')]
-                if not all(re.fullmatch(r'[:\- ]+',x) for x in cells): rows.append(cells)
-                i+=1
-            n=len(rows[0]); widths=([WIDTH*.34,WIDTH*.66] if n==2 else [WIDTH*.20,WIDTH*.41,WIDTH*.39])
-            table=Table([[p(cell,'headcell' if ri==0 else 'cell') for cell in row] for ri,row in enumerate(rows)], colWidths=widths, hAlign='LEFT')
-            table.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),PALE), ('VALIGN',(0,0),(-1,-1),'TOP'),
-                ('LEFTPADDING',(0,0),(-1,-1),7),('RIGHTPADDING',(0,0),(-1,-1),7),
-                ('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),
-                ('LINEBELOW',(0,0),(-1,-1),.4,LINE)]))
-            out.extend([table,Spacer(1,10)]);continue
-        if line.startswith('# '):out.append(p(line[2:],'title'));i+=1;continue
-        if line.startswith('## '):out.append(p(line[3:],'sub'));i+=1;continue
-        paragraph=[line];i+=1
-        while i<len(lines) and lines[i].strip() and not lines[i].startswith(('#','|','```','<!--')):
-            paragraph.append(lines[i].strip());i+=1
-        out.append(p(' '.join(paragraph), 'reference' if reference else 'body'))
-    return out
-
-
-def build(output):
-    output.parent.mkdir(parents=True, exist_ok=True)
-    sections=SOURCE.read_text().split('---PAGE---')
-    if len(sections)!=8:raise ValueError(f'Expected eight source sections, got {len(sections)}')
-    doc=BaseDocTemplate(str(output),pagesize=(PAGE_W,PAGE_H),leftMargin=MARGIN,rightMargin=MARGIN,
-        topMargin=57,bottomMargin=48,title='Perigee: Guided investigation of SPHEREx images',author='Team Perigee',
-        subject='Methods, validation and limitations of the NASA Space Apps 2026 prototype')
-    frame=Frame(MARGIN,48,WIDTH,PAGE_H-105,leftPadding=0,bottomPadding=0,rightPadding=0,topPadding=0)
-    doc.addPageTemplates(PageTemplate(id='report',frames=[frame],onPage=footer))
-    story=[]
-    for i,section in enumerate(sections):
-        if i:story.append(PageBreak())
-        story.extend(parse_page(section, reference=i==7))
-    doc.build(story)
-    reader=PdfReader(str(output))
-    if len(reader.pages)!=8:raise RuntimeError(f'Layout overflow: expected8 pages, got {len(reader.pages)}')
-    print(f'Built {output} ({len(reader.pages)} pages)')
-
-
-if __name__=='__main__':
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--output',type=Path,default=ROOT/'frontend/public/demo/perigee-technical-report.pdf')
-    build(parser.parse_args().output.resolve())
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output",type=Path,default=ROOT / "frontend/public/demo/perigee-technical-report.pdf")
+    parser.add_argument("--compiler",default=shutil.which("tectonic") or str(Path.home()/".local/bin/tectonic"))
+    args=parser.parse_args()
+    build(args.output.resolve(),args.compiler)

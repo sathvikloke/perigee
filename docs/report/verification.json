@@ -1,12 +1,14 @@
 {
-  "pages": 8,
-  "pdf_bytes": 49177,
-  "pdf_sha256": "ee368edea62ebd8edd16c34cb21533893550f9a4112acc274f775112ff5419ed",
-  "source_sha256": "bf1d2ab275797053e88fc005480c16630dadd2d4f0bf3536e7a000a136e952b7",
+  "pages": 10,
+  "pdf_bytes": 270069,
+  "pdf_sha256": "5a888db6642962e695dd7a253c2fd997cf64e37bf62ae400c23b20e36926f426",
+  "source_sha256": "92588d1a7036d6d691cc99aa37423a176fc5ee5ce449ad9c357c5211762c93df",
+  "compiler": "Tectonic 0.17.0",
+  "typeface": "TeX Gyre Pagella / New PX",
+  "selectable_text": true,
   "all_six_names_present": true,
-  "page_labels_checked": true,
-  "rendered_pages": 8,
-  "visual_review": "All eight pages inspected. Pages 6 and 8 re-inspected after source citation change. Page 1 re-rendered and inspected after correction to Aditya Raut; no clipping, overlaps, or missing images observed.",
+  "unresolved_references": false,
+  "overfull_boxes": false,
   "new_science_experiments_run": false,
   "verified_team_names": [
     "Sathvik Loke",
@@ -15,5 +17,10 @@
     "Aditya Raut",
     "Suhrit Bestavemula",
     "Neeraj Movva"
-  ]
+  ],
+  "visual_review": "Inspected all ten final page renders, including the corrected per-segment registration labels; no clipping, overlapping text, missing figures or unresolved references observed.",
+  "fonts_embedded": true,
+  "rendered_pages": 10,
+  "figures": 6,
+  "tables": 2
 }

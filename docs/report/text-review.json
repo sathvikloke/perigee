@@ -1,28 +1,32 @@
 {
-  "length": 21715,
-  "suspicious_total": 0,
-  "hits": [],
-  "notes": [
-    "Layer A only: invisible/format Unicode and space homoglyphs (edit-based carriers).",
-    "Statistical (token-sampling) watermarks are not detectable here; use Layer B rewrite.",
-    "Inspect kinds: strip, bidi, tag_chars, variation_selector, zwj_family, private_use, space, confusable, other_cf.",
-    "Load-bearing invisibles are preserved by default during cleaning: emoji glue, CJK/Mongolian variation selectors, script joiners, complete flag tag sequences, same-script fillers/selectors (Mongolian FVS, Khmer inherent vowels, Hangul jamo fillers), RTL directional marks/paired embeddings, orthographic Arabic/Syriac Cf marks, and visible-layout format controls next to their own script (Egyptian hieroglyph quadrat, Duployan shorthand, musical beaming). Inspection still reports bidi controls. Use explicit strip flags only after review.",
-    "No deterministic Layer A (invisible Unicode/format) carriers detected; statistical and pixel-domain marks are out of scope here."
+  "skills": [
+    {
+      "name": "avoid-ai-writing",
+      "source": "https://github.com/conorbronsdon/avoid-ai-writing",
+      "version": "3.38.0"
+    },
+    {
+      "name": "stop-slop",
+      "source": "https://github.com/hardikpandya/stop-slop",
+      "commit": "8da1f030185bdfe8471220585162991eaeb970e9"
+    }
   ],
-  "stylometry": {
-    "path": "docs/report/TECHNICAL_REPORT.md",
-    "word_count": 3123,
-    "sentence_count": 276,
-    "burstiness_cv": 0.627,
-    "lexical_diversity": 0.8524,
-    "ai_ngram_density": 0.0,
-    "matched_markers": [],
-    "score": 0.0325,
-    "confidence_level": "CLEAN",
-    "density_tier": "low",
-    "status": "ok",
-    "findings": [],
-    "findings_confidence": [],
-    "notes": []
-  }
+  "mode": "User-authorized structural rewrite and migration from Markdown/ReportLab to a LaTeX technical report",
+  "editing_passes": 2,
+  "editing_pass_limit": 2,
+  "context": "technical",
+  "checks": {
+    "human_style_review": "Model review with both skills and an independent reviewer",
+    "marks_normalizer": "Ran on editable prose only; straight source punctuation retained in LaTeX",
+    "pattern_detector": "Ran on extracted body prose in technical context; no applicable findings in the initial pass",
+    "preservation_validator": "Ran; reports structural errors because Markdown tables/headings/code fences/URLs are absent from the body-prose-only extraction. Not treated as a semantic preservation pass. LaTeX references and code were checked against sources separately.",
+    "scientific_scope": "Independent source review verified counts, dates, wavelengths, units and client concurrency; corrected legacy ambiguous-association claim and AI-use URL."
+  },
+  "intentional_residuals": [
+    "Technical qualifiers and necessary passive constructions retained where the actor is irrelevant.",
+    "The actual three investigations remain grouped as three; no arbitrary rhythm-based deletion.",
+    "Statements about unavailable measurement precision remain beside affected evidence."
+  ],
+  "stop_reason": "No further justified in-scope prose edit after the corrective pass. Remaining iterations changed layout only.",
+  "authorship_claim": "No claim about human authorship or detector evasion."
 }
