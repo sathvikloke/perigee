@@ -1,0 +1,10 @@
+# simbad https://simbad.cfa.harvard.edu/simbad/sim-tap/sync retrieved 2026-11-15T00:29:31Z
+# ADQL: SELECT bibcode, title FROM ref WHERE bibcode IN ('2021ApJS..253....7K','2021ApJS..253....8M','2019ApJS..240...19K','2018MNRAS.481.3548S','2016ApJS..224...36K','2007A&A...474..653V','2018MNRAS.475.1960F')
+bibcode,title
+"2007A&A...474..653V","Validation of the new Hipparcos reduction."
+"2016ApJS..224...36K","The AllWISE motion survey, part 2."
+"2018MNRAS.475.1960F","SPIRou Input Catalogue: global properties of 440 M dwarfs observed with ESPaDOnS at CFHT."
+"2018MNRAS.481.3548S","Parallaxes of Southern Extremely Cool objects III: 118 L and T dwarfs."
+"2019ApJS..240...19K","Preliminary trigonometric parallaxes of 184 late-T and Y dwarfs and an analysis of the field substellar mass function into the 'planetary' mass regime."
+"2021ApJS..253....7K","The field substellar mass function based on the full-sky 20 pc census of 525 L, T, and Y dwarfs."
+"2021ApJS..253....8M","The CatWISE2020 Catalog."
