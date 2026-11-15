@@ -1,5 +1,7 @@
 # UI handoff (N4): third investigation, evidence record, failure states
 
+> Release update: PRs #50 and #51 are merged and deployed. The third investigation and completion flow are live, as is the Python crash fix. This handoff preserves the earlier candidate state; see [current release evidence](../qa/final-investigation/README.md).
+
 **Audience:** Codex, owner of `frontend/**` and the release. Nothing below changes `frontend/**`. Every file named here is outside it.
 
 **Status:** the data and contracts are ready. **All of the outcomes listed in §7 still need UI work, and none is marked done here.**

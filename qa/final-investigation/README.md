@@ -34,4 +34,15 @@ An independent finish reviewer inspected these renders first and then the integr
 
 Retain the current black, white and citron visual system. The highest-value follow-up is to make the observation images visible sooner by tightening the opening context. The evidence workspace and completion flow deserve priority over another visual redesign. This review does not establish award competitiveness or full accessibility conformance.
 
-Production identity and smoke results are recorded after deployment in `docs/DEPLOYMENT.md`.
+## Production release, 2026-11-15
+
+Both layers were verified at source `4db9eff40714633dabc3da92bd988b3ae237060b` (PR #51 merged after PR #50):
+
+- Cloudflare version `3263fb1d-ab12-45e2-8a64-67abcf58b99c` at https://perigee.lokesathvik.workers.dev.
+- Release digest `f655b567420a31aa2b86629586ffd914c291c7cb95f937463f85c9d9aace1c21`.
+- Vercel production `dpl_9ULajTQKdW4sZ26PQVptMCNVnw3U`, READY with the `perigee-liard.vercel.app` alias. Includes PR #50's malformed spectral-table crash fix.
+- Logged-out [Cloudflare hosting smoke](cloudflare-smoke.txt): 28/28, including all catalog documents and 60 recorded route answers.
+- Logged-out [release smoke](release-smoke.txt): 29/29, including live NASA archive search and a processed PNG.
+- Public browser: third case title, six steps, reviewed images and flags rendered without broken images. [Live screenshot](production.jpg).
+
+The [build identity](build-info.json) records deployed source/content hashes. Later documentation-only Vercel builds may have newer source IDs with identical runtime inputs; the Cloudflare identity stays fixed until its next manual release.

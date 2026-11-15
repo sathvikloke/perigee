@@ -1,22 +1,24 @@
 # Perigee deployment handoff
 
-## Current public release — Cloudflare, 2026-11-15
+## Current public release — Cloudflare and Python origin, 2026-11-15
 
-**App:** https://perigee.lokesathvik.workers.dev · **Deck:** https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf · **Source:** https://github.com/sathvikloke/perigee
+**App:** https://perigee.lokesathvik.workers.dev · **Third investigation:** https://perigee.lokesathvik.workers.dev/?preset=wise_0855 · **Deck:** https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf · **Source:** https://github.com/sathvikloke/perigee
 
-Cloudflare Worker `perigee`, version **`4031abf8-c0fb-4689-8205-3211ea0c673c`**, was deployed from clean source **`fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb`** and verified at 03:24 UTC. It includes PR #47's error handling and running-Worker identity, the corrected WISE 0855 labels and the seven-slide PDF. The PDF is unchanged: 2,369,713 bytes, SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`.
+PRs [#50](https://github.com/sathvikloke/perigee/pull/50) and [#51](https://github.com/sathvikloke/perigee/pull/51) are merged and released. Both layers were verified at source **`4db9eff40714633dabc3da92bd988b3ae237060b`**. This identifies the verified runtime release; later documentation-only Vercel deployments may have newer commit/deployment IDs with identical runtime inputs. Cloudflare remains a manual release.
 
-The frontend, five presets, two investigations and all curated image/metadata assets are served on Cloudflare. Only live search, frame processing and health are proxied to **https://perigee-liard.vercel.app**, the existing Vercel Python deployment at `058a2a6` (`dpl_EaxvN8GkokTssAN2hsNrCN7uUJL3`). Vercel's build quota prevented the later documentation and label releases; its running API remains healthy. Do not delete that project while it supplies the live path.
+- **Cloudflare:** Worker `perigee`, version **`3263fb1d-ab12-45e2-8a64-67abcf58b99c`**, built from clean release inputs. Release digest **`f655b567420a31aa2b86629586ffd914c291c7cb95f937463f85c9d9aace1c21`**. Five presets, three investigations, 968 assets, content `targets-2026-11-15b`.
+- **Python origin:** https://perigee-liard.vercel.app, Vercel deployment **`dpl_9ULajTQKdW4sZ26PQVptMCNVnw3U`**. Connected deployment API verified `READY`, production target, matching source and production alias. The malformed spectral-table crash fix is live. PR preview builds hit quota; both production merges succeeded.
+- **Verified logged out:** Cloudflare hosting smoke **28/28**, release smoke **29/29** against the exact build, including real archive search and frame processing. Public browser confirmed the third case, six steps and complete images. [Release logs, build identity and screenshots](../qa/final-investigation/README.md).
 
-**Verified logged out on this release:** release smoke **29/29** against the expected build and Cloudflare hosting smoke **26/26**, including source/content/running-Worker identity, exact PDF/JavaScript bytes, 377 live Orion results and a valid processed PNG. The earlier browser comparison/flags/notebook save/reopen/JSON download check is retained as historical evidence; this backend-only release did not repeat it. [Current logs and earlier browser evidence](../qa/cloudflare-release/README.md).
+The redesigned frontend, curated catalogs/images and deck are served on Cloudflare. Only live search, frame processing and health are proxied to Vercel. Keep that project while it supplies the live path.
 
-PR #47's Python search-warning correction is merged but remains undeployed because the latest Vercel build hit its quota. This Cloudflare deployment does not change the Python origin. The forthcoming UI redesign must also resolve the frontend findings in [PR #46](https://github.com/sathvikloke/perigee/pull/46).
+“A dot that jumps” uses the reviewed shared-scale A/B images and explicitly labels C's separate contrast stretch. Guided cases save reviewed steps and require a saved claim, observations and uncertainty before the first reference comparison. The learner's claim stays separate from the reference. Completion is not grading. Older WISE free-exploration notes keep their own saved context.
 
-**Deployment is manual.** Merging GitHub changes does not publish a new Cloudflare version. Rebuild the frontend and export the catalog, then run Wrangler using [the Cloudflare handoff](CLOUDFLARE.md). After every Cloudflare deploy, run both smoke commands there. `PERIGEE_PUBLIC_URL` points to Cloudflare; Vercel's status-triggered smoke therefore tests that primary app, but is not evidence that Cloudflare redeployed.
+**Deployment remains manual on Cloudflare.** Merging GitHub does not publish a new Worker version. Rebuild/export, deploy with Wrangler, and run both smoke commands in [the Cloudflare handoff](CLOUDFLARE.md). Version preview URLs remain disabled; no signing secret was copied to Cloudflare.
 
-Cloudflare version preview URLs are disabled (`preview_urls: false`). Vercel's preview protection remains in place. No signing secret was copied to Cloudflare.
+For the demo, open a curated investigation first and use live coordinate search after it. Notes are tied to each browser origin; old Vercel notes remain on the Vercel URL. The existing deck is unchanged (SHA-256 `ffab44ce1f9fe182d2b9f427ae186c30e18e2cfc7ff6ea24099ecbd8d05ca89e`).
 
-For the demo, open the Cloudflare app and a curated investigation first, then show a live coordinate query if the archive is responding. Notes are tied to each browser origin: cards saved on the old Vercel URL remain there and do not automatically appear at the Cloudflare URL. Export old cards to keep a copy.
+Rollback references: previous Cloudflare version `521d15bc-93f1-44a7-b465-1a13d8d9abb2` (source `20fb03f9b97654492eb014f3941aa224bae3bf7f`); previous Python production `dpl_38xwbjVx6PYUUgtxzYRTGRfdS3rd` (source `38ccb9bc20ed9b086d3d9ed1bf43c9bab7df1a24`, already includes the crash fix).
 
 The Vercel setup and rehearsal records below are historical context.
 
