@@ -22,6 +22,7 @@ export function ErrorBlock(props: {
   error: unknown;
   onRetry?: () => void;
   onUseFixture?: () => void;
+  onChooseInvestigation?: () => void;
 }) {
   const info = errorInfo(props.error);
   return (
@@ -33,6 +34,11 @@ export function ErrorBlock(props: {
         {friendlyError(info.code)}
       </p>
       <div className="actions">
+        {props.onChooseInvestigation && (
+          <button type="button" onClick={props.onChooseInvestigation}>
+            Choose an investigation
+          </button>
+        )}
         {props.onRetry && (
           <button type="button" onClick={props.onRetry}>
             Try again

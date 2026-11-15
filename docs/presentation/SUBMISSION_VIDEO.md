@@ -1,6 +1,6 @@
 # Perigee submission script and recording plan
 
-Prepared for Sathvik on Sunday, 15 November 2026, after the combined app release and the separate landing-page/winner-reference work finished. The [public app](https://perigee.lokesathvik.workers.dev/) is verified. This is the recording plan; a final video has not yet been recorded or submitted.
+Updated for Sathvik at approximately noon on Sunday, 15 November 2026. The [public app](https://perigee.lokesathvik.workers.dev/) is available; the latest cartoon artwork and motion revision is still being integrated and verified. Confirm the recording build before capture. This is the recording plan; a final video has not yet been recorded or submitted.
 
 ## The story
 
@@ -14,7 +14,9 @@ That is the human purpose: **make participating in scientific reasoning approach
 
 The strongest audience is students learning how evidence supports a claim, with teachers and astronomy clubs using the same short investigations. Curious independent observers can continue into other targets or the live name/coordinate search. Repeat use comes from different questions, saved notes and new observations; a retention claim is unnecessary for this hackathon.
 
-The contribution is the complete guided reasoning workflow and portable evidence record. It is not a claim to have invented sky blinking, archive search or astronomy education. The [comparison with existing tools](../../science/reviews/contribution/README.md) defines the narrower contribution. The review of 50 past global winners informed the emphasis on a clear action and tangible outcome; it does not establish a formula that guarantees an award.
+The contribution is the complete guided reasoning workflow and portable evidence record. It is not a claim to have invented sky blinking, archive search or astronomy education. The [comparison with existing tools](../../science/reviews/contribution/README.md) defines the narrower contribution.
+
+The [winner-video review](WINNER_VIDEO_RESEARCH.md) now includes actual video evidence from three 2025 global winners: timed visual samples from Henry's Farm Adventures, a transcript and two observed states from PureFlow, and a transcript from Resonant Exoplanets. These are separate from the earlier 50-project website study. The useful lesson is to make the audience, obstacle, action and result easy to follow. For Perigee, the result is a learner's explanation that another person can inspect. These observations do not establish why the judges chose those winners or a formula that guarantees an award.
 
 ## The official short video
 
@@ -26,19 +28,19 @@ The [submission guide](https://www.spaceappschallenge.org/resources/project-subm
 
 59 words. Read conversationally; rehearse with a timer before capturing the final take. [Timed SRT captions](perigee-29s-captions.srt) are ready to import and adjust to the actual reading.
 
-> That star seems to move. How would you check?
+> That star seems to move. How would a student know?
 >
-> NASA's images are public. Perigee helps students turn them into evidence.
+> NASA's images are public. Making sense of them takes guidance.
 >
-> Compare real SPHEREx observations. Check dates, wavelengths, and quality flags.
+> Perigee turns real SPHEREx observations into short investigations.
 >
-> Then record what the images support—and what they cannot tell you.
+> Compare images. Check dates, wavelengths, and unreliable pixels.
 >
-> Your conclusion stays connected to its sources.
+> Then record what the evidence supports, with sources and uncertainty attached.
 >
-> A student can explain their reasoning. A teacher can follow it.
+> Students practice explaining a conclusion. Teachers can see the reasoning behind it.
 
-Pronounce SPHEREx approximately “sphere-ex.” Leave a short beat after the opening question. Emphasize **check**, **your conclusion**, and **follow it**. Sound interested and confident, without a trailer voice.
+Pronounce SPHEREx approximately “sphere-ex.” Leave a short beat after the opening question. Emphasize **student**, **check**, and **reasoning**. Sound interested and confident, without a trailer voice. The 59 words are intended for about 29 seconds; the recorded reading, rather than the word count, determines whether it fits.
 
 The same words work as a caption-only video. The guide excludes likenesses of under-18s, including audio: use an adult narrator or captions if the proposed narrator is under 18. A screen recording needs no face camera. If synthetic narration is chosen, credit it in the description and metadata as the guide requires.
 
@@ -46,12 +48,12 @@ The same words work as a caption-only video. The guide excludes likenesses of un
 
 | Time | What the viewer sees | Narration and intended meaning |
 |---|---|---|
-| 0:00–0:04 | Barnard's Star, **1 year apart**, **Play comparison**. Keep the dates and guide line visible. Show two or three real alternations. Small title: **Perigee · Planet X and SPHEREx**. | “That star seems to move. How would you check?” The question comes from the data. |
-| 0:04–0:09 | Pull back to the investigation with the **Notice** instruction beside the comparison. One restrained overlay: **Real NASA SPHEREx observations**. | “NASA's images are public. Perigee helps students turn them into evidence.” Establish who benefits and where the images come from. |
-| 0:09–0:14.5 | Pause playback. Briefly highlight the two dates and nearly matched wavelengths; switch on **Show flagged pixels**. Keep the real warning visible. | “Compare real SPHEREx observations. Check dates, wavelengths, and quality flags.” The app gives a way to test the first impression. |
-| 0:14.5–0:20.5 | Cut to the completed three checks and the notebook. Show the observation, conclusion and uncertainty below. Use the example text provided below, entered through the real interface. | “Then record what the images support—and what they cannot tell you.” The learner supplies the reasoning; the app does not invent a discovery. |
-| 0:20.5–0:24 | **Compare with the reference**, then **Print / save PDF** or a close view of the exported evidence. Show a readable source record beside the conclusion. | “Your conclusion stays connected to its sources.” Make the export a useful result, not a download animation. |
-| 0:24–0:29 | Hold the evidence card, then a simple final card: **Perigee / A conclusion you can explain / perigee.lokesathvik.workers.dev**. Include **Team Perigee · Planet X and SPHEREx** and a small **NASA/IPAC IRSA · SPHEREx** credit. | “A student can explain their reasoning. A teacher can follow it.” End on the human benefit. |
+| 0:00–0:04 | Barnard's Star, **1 year apart**, **Play comparison**. Keep the dates and guide line visible. Show two or three real alternations. Small title: **Perigee · Planet X and SPHEREx**. | “That star seems to move. How would a student know?” Give the learner an immediate question. |
+| 0:04–0:09 | Pull back to the investigation with the **Notice** instruction beside the comparison. One restrained overlay: **Real NASA SPHEREx observations**. | “NASA's images are public. Making sense of them takes guidance.” Establish the gap between access and understanding. |
+| 0:09–0:13 | Show the short investigation sequence beside the same selected target. Keep the observed shift visible; do not switch to a menu of other cases. | “Perigee turns real SPHEREx observations into short investigations.” Show how the learner can begin. |
+| 0:13–0:17.5 | Pause playback. Briefly highlight the two dates and nearly matched wavelengths; switch on **Show flagged pixels**. Keep the real warning visible. | “Compare images. Check dates, wavelengths, and unreliable pixels.” Show a way to test the first impression. |
+| 0:17.5–0:24 | Cut to the completed checks and populated notebook. Show the observation, conclusion and uncertainty, then the exported evidence with a readable source row. Use the presenter notes below. | “Then record what the evidence supports, with sources and uncertainty attached.” The reasoning is the tangible result. |
+| 0:24–0:29 | Hold the evidence card; finish with **Perigee / A conclusion you can explain / perigee.lokesathvik.workers.dev**. Include **Team Perigee · Planet X and SPHEREx** and a small **NASA/IPAC IRSA · SPHEREx** credit. | “Students practice explaining a conclusion. Teachers can see the reasoning behind it.” End on who benefits and how. |
 
 These are edited excerpts of one completed investigation. Keep a small **Condensed demonstration** caption during the walkthrough; do not imply that writing and reviewing every note took 29 seconds. Keep the sky images unchanged. An editor may crop or magnify the whole viewer for readability, but must not move the star, replace pixels, remove the quality warning or fabricate a loading result.
 
@@ -83,7 +85,7 @@ Use these as clearly illustrative presenter notes, not an observed student's wor
 8. Export an H.264 MP4, 1080p, 30 fps, **29 seconds total**. Check the actual file duration, including title/end frames. Watch once muted and once with audio, on a phone as well as a computer.
 9. Upload the finished file to a public, logged-out-accessible video or file link. Enter that exact link in **Link to Project Demo**. The guide accepts externally hosted media; the Space Apps form itself does not upload videos. Check the link in a private browser before submission.
 
-The curated Barnard case uses bundled processed archive observations and does not require a live IRSA request for each shot. Keep the live search as optional supporting footage for the longer presentation, so archive latency cannot consume the short video. The landing spacecraft is optional in the longer version; if shown, retain its visible **AI illustration** label.
+The curated Barnard case uses bundled processed archive observations and does not require a live IRSA request for each shot. Keep the live search as optional supporting footage for the longer presentation, so archive latency cannot consume the short video. The cartoon landing entrance is optional in the longer version. The 29-second submission should open on the actual comparison, because that is the question the learner will investigate. Retain the project's applicable AI-asset credits if the illustration appears.
 
 ## Longer local pitch
 
@@ -123,19 +125,19 @@ For a longer confirmed slot, show Epsilon Indi B's wavelength comparison and a b
 
 **Chicago may have an earlier local presentation or upload cutoff.** The [Chicago event page](https://www.spaceappschallenge.org/2026/local-events/chicago/) and available organizer information did not establish an exact Sunday pitch slot. Confirm that in the organizer's Discord before relying on the global deadline. A five-minute slot and a noon presentation are not confirmed facts.
 
-The times below are **our working targets**, not organizer deadlines. If the video is ready sooner, submit sooner.
+The times below are **our working targets**, not organizer deadlines, updated around noon on Sunday. If the video is ready sooner, submit sooner. If Chicago posts an earlier local cutoff or pitch slot, move preparation ahead of it.
 
 | Chicago time, Sunday | Task | Finish condition |
 |---|---|---|
-| 2:30–3:00 a.m. | Read the script aloud, select the narrator/captions, rehearse the Barnard journey. | A timed take fits comfortably within 29 seconds; everyone agrees on the claim. |
-| 3:00–4:00 a.m. | Capture the comparison, checks, populated notebook and exported evidence. | Real footage for each of the six shots, plus a spare comparison take. |
-| 4:00–4:45 a.m. | Edit, caption and export. | One readable 29-second MP4 with clear audio or complete captions. |
-| 4:45–5:15 a.m. | Upload and check links logged out. | Video, app and GitHub open without a login or access request. |
-| 5:15–6:00 a.m. | Copy the revised project-page draft; review NASA sources, roster and AI-use details. | Required fields complete, personal attestations settled, video URL entered. Submit now if ready. |
-| By 8:00 a.m. | Check Chicago's Discord/organizer schedule. | Exact local slot, duration and any earlier cutoff written down. Move the plan earlier if necessary. |
-| By 10:00 a.m. | Target the first successful **Submit for Judging**. | Save the success banner/confirmation. “Save Progress” alone is not submission. |
+| Noon–12:30 p.m. | Check Chicago's local schedule; confirm a verified recording build; read the script aloud and rehearse the Barnard journey. | Any earlier local cutoff is known; a timed take fits 29 seconds; the complete case and export work on the selected build. |
+| 12:30–1:15 p.m. | Capture the comparison, checks, populated notebook and exported evidence. | Real footage for each shot, plus a spare comparison take. |
+| 1:15–2:00 p.m. | Edit, caption and export. | One readable 29-second MP4 with clear audio or complete captions. |
+| 2:00–2:30 p.m. | Upload and check links logged out, including on a phone. | Video, app and GitHub open without a login or access request; captions and scientific labels remain readable. |
+| 2:30–3:30 p.m. | Finish the written project page; review NASA sources, roster, credits and AI-use details. | Required fields complete, personal attestations settled, verified video URL entered. Submit immediately if ready. |
+| By 4:00 p.m. | Target the first successful **Submit for Judging**. | Save the success banner/confirmation. “Save Progress” alone is not submission. |
 | Assigned local slot | Present the approved length and answer questions. | Use the recorded curated case as a backup if the live archive is slow. |
-| 6:00–8:00 p.m. | Final access and submission-state check; resubmit any final approved corrections. | Confirm the last submitted version is the one intended for judging. |
+| 6:00–7:00 p.m. | Review the submission and public links after a break; resubmit any final approved corrections. | Confirm the last submitted version is the one intended for judging. |
+| By 9:00 p.m. | Final access and submission-state check. | App and demo links work, the intended version is submitted, and confirmation is saved. Keep the remaining time as a recovery buffer. |
 | **11:59 p.m.** | **Official platform closes.** | **The project must already be submitted. Do not schedule the first attempt here.** |
 
 The owner must accept the form's required declarations and use **Submit for Judging**; neither publishing the app nor this plan does that. The guide allows edits and resubmission before closing, so an early complete submission provides a useful buffer.
@@ -149,4 +151,4 @@ The owner must accept the form's required declarations and use **Submit for Judg
 - **Video:** record and host the final file, then add its verified public URL. No video URL is implied by this plan.
 - **Existing PDF:** [historical seven-slide deck](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf). It contains older UI and requires a content refresh before being selected instead of the video. Do not submit it merely because its link works.
 
-The app work is complete for this release. Recording, final team attestations and the actual submission remain the team's next actions.
+The latest visual revision still needs final integration and deployment verification. This document does not certify that release. Recording, final team attestations and the actual submission also remain to be completed.

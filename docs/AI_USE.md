@@ -4,7 +4,7 @@
 
 Perigee was built by our team with help from AI tools: Claude Code (Anthropic) and OpenAI Codex. We used them to help implement the backend and the frontend, and to help edit our demo video. The idea and approach were our own, and our team directed the project throughout. We monitored the AI tools while they worked, then went back and reviewed what they produced: we read the code, tested the app, and checked that the science and the explanations made sense before we kept anything.
 
-The small spacecraft drawing on the landing page was made with OpenAI image generation and is labelled "AI illustration" in the app. Perigee itself runs no AI. Every image in an investigation is a real NASA SPHEREx observation, and dates, wavelengths, positions and quality flags are computed directly from the archive data.
+The cartoon telescope and the opening rocket with its separate exhaust were made with OpenAI image generation and are labelled "AI illustration" in the app. They are decorative artwork, not engineering models or observations. Perigee itself runs no AI. Every image in an investigation is a real NASA SPHEREx observation, and dates, wavelengths, positions and quality flags are computed directly from the archive data.
 
 ## Tools and what they were used for
 
@@ -12,7 +12,7 @@ The small spacecraft drawing on the landing page was made with OpenAI image gene
 |---|---|
 | Claude Code (Anthropic) | Helping implement the FastAPI backend, the SPHEREx data processing, the React frontend and the tests |
 | OpenAI Codex | Helping with the frontend design and user interface |
-| OpenAI image generation | The decorative spacecraft drawing on the landing page ([provenance](../qa/landing-motion/ASSET.md)), labelled "AI illustration" in the app |
+| OpenAI image generation | The decorative cartoon telescope and rocket/exhaust ([provenance](../qa/landing-motion/ASSET.md)), labelled "AI illustration" in the app |
 | AI-assisted editing | Editing the demo video |
 
 ## No AI in the app

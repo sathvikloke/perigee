@@ -41,6 +41,8 @@ import { PageHeading } from "./PageHeading";
 import { frameCacheKey, rememberFrame } from "../lib/frameCache";
 import { recoverFrame } from "../lib/frameRecovery";
 import "../styles/archive-motion.css";
+import { useContentCue } from "../lib/contentMotion";
+import "../styles/content-motion.css";
 
 type Phase =
   | { kind: "idle" }
@@ -63,6 +65,7 @@ export function QueryInvestigation(props: {
   onQueryChange: (q: ValidQuery) => void;
   onUseFixture?: () => void;
 }) {
+  const pageArrival = useContentCue<HTMLDivElement>("heading", "search", ".heading-copy");
   const { api, frameCache } = props;
   const id = useId();
   const [input, setInput] = useState<QueryInput>({
@@ -422,6 +425,7 @@ export function QueryInvestigation(props: {
 
   return (
     <>
+      <div className="content-page-arrival" ref={pageArrival}>
       <PageHeading
         eyebrow="SPHEREx investigation"
         eyebrowDetail="Any sky position"
@@ -429,6 +433,7 @@ export function QueryInvestigation(props: {
         intro="Start with an object name or a sky position. Then compare the observations you find."
         mode={api.mode}
       />
+      </div>
       <div className={`workspace${notebookVisible ? "" : " single"}`}>
         <section className="bench" id="observations" tabIndex={-1} aria-label="Coordinate search">
           <form ref={queryFormRef} className="comparison-shell query-form" data-motion-paused={motionPaused} onSubmit={submit} noValidate aria-label="Sky position">
@@ -632,6 +637,7 @@ function SearchSummary({
   onSearchAgain: () => void;
 }) {
   const { answered, failed } = searchScope(response);
+  const readyCue = useContentCue<HTMLSpanElement>("ready", counts.ready);
   const capped = response.collections_capped ?? [];
   const scope = answered.length ? answered.join(", ") : "the supported collections";
   // The partial notice below names the failed collections; skip the API's copy of that sentence.
@@ -665,7 +671,7 @@ function SearchSummary({
         <strong>
           {response.returned_count} observation{response.returned_count === 1 ? "" : "s"} found
         </strong>{" "}
-        · {counts.ready} ready{counts.pending + counts.loading ? ` · ${counts.pending + counts.loading} loading` : ""}
+        · <span className="ready-result-count" ref={readyCue}>{counts.ready} ready</span>{counts.pending + counts.loading ? ` · ${counts.pending + counts.loading} loading` : ""}
         {counts.error - stopped > 0 ? ` · ${counts.error - stopped} couldn’t load` : ""}
         {stopped ? ` · ${stopped} stopped by a newer search` : ""}.
       </p>

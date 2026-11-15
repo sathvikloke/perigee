@@ -9,6 +9,8 @@ import { CaseBench } from "./CaseBench";
 import { ErrorBlock, useAsync } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook, type RequiredPairRecovery } from "./Notebook";
+import { useContentCue } from "../lib/contentMotion";
+import "../styles/content-motion.css";
 import { InvestigationSwitcher, PageHeading } from "./PageHeading";
 
 // Short orientation for the working view. The complete authored opening is
@@ -56,6 +58,7 @@ export function PresetInvestigation(props: {
   onQueryPosition: (preset: PresetDescriptor) => void;
   onOpenPreset: (id: string) => void;
   onOpenQuery: () => void;
+  onChooseInvestigation: () => void;
 }) {
   const { api, presetId } = props;
   const { state, retry } = useAsync<Loaded>(
@@ -105,6 +108,7 @@ export function PresetInvestigation(props: {
         title="The images for this target could not be loaded."
         error={state.error}
         onRetry={retry}
+        onChooseInvestigation={props.onChooseInvestigation}
         onUseFixture={api.mode === "api" ? props.onUseFixture : undefined}
       />
     );
@@ -133,6 +137,7 @@ function PresetLoaded(props: {
 }) {
   const { data, api, presetId } = props;
   const { preset, caseContent } = data;
+  const pageArrival = useContentCue<HTMLDivElement>("heading", presetId, ".heading-copy");
 
   // Authored comparisons require their own products and scale. General
   // per-frame products must never silently substitute for a missing case.
@@ -254,6 +259,7 @@ function PresetLoaded(props: {
   const checkCount = caseContent?.steps.length ?? 0;
   const checkIndex = Math.min(activeCheckIndex, Math.max(0, checkCount - 1));
   const currentCheck = caseContent?.steps[checkIndex];
+  const checkArrival = useContentCue<HTMLDivElement>("step", currentCheck?.id ?? "");
   const reviewedCount = caseContent?.steps.filter((step) => ev.card.reviewed_step_ids?.includes(step.id)).length ?? 0;
   const currentReviewed = Boolean(currentCheck && ev.card.reviewed_step_ids?.includes(currentCheck.id));
   const openCheck = (index: number) => {
@@ -273,7 +279,10 @@ function PresetLoaded(props: {
                 <h3 id="investigation-steps" tabIndex={-1}>Check what you noticed</h3>
                 <span>{reviewedCount} of {checkCount} reviewed</span>
               </div>
-              <div className="active-check" key={currentCheck.id} aria-live="polite" aria-atomic="true">
+              <div className="check-route" aria-hidden="true">
+                {caseContent.steps.map((step, index) => <span key={step.id} data-current={index === checkIndex} data-reviewed={Boolean(ev.card.reviewed_step_ids?.includes(step.id))} />)}
+              </div>
+              <div className="active-check" ref={checkArrival} key={currentCheck.id} aria-live="polite" aria-atomic="true">
                 <p className="check-position">Check {checkIndex + 1} of {checkCount}{currentReviewed ? " · Reviewed" : ""}</p>
                 <p className="check-prompt">{stepPrompt(currentCheck.prompt)}</p>
               </div>
@@ -361,6 +370,7 @@ function PresetLoaded(props: {
 
   return (
     <>
+      <div className="content-page-arrival" ref={pageArrival}>
       <PageHeading
         eyebrow="SPHEREx investigation"
         eyebrowDetail={caseContent ? preset?.display_name ?? presetId : "Free exploration"}
@@ -374,6 +384,7 @@ function PresetLoaded(props: {
           onOpenQuery={props.onOpenQuery}
         />}
       />
+      </div>
       <div className="workspace investigation-workspace">
         <section className="bench" id="observations" tabIndex={-1} aria-label="Observation comparison">
           {hasCase && <h2 className="visually-hidden">Compare observations</h2>}

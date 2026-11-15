@@ -14,7 +14,43 @@
 .observatory-stage { grid-column: 2; grid-row: 1; position: relative; width: 100%; min-width: 0; margin: 0; align-self: center; }
 .observatory-model { position: relative; width: 100%; aspect-ratio: 1; pointer-events: none; }
 .observatory-drift { width: 100%; height: 100%; }
-.observatory-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+.observatory-art { display: block; width: 100%; height: 100%; object-fit: contain; filter: url(#satellite-sticker-outline); }
+.cartoon-outline-defs { position: absolute; pointer-events: none; }
+.home[data-hero-revealed="false"] .hero-copy,
+.home[data-hero-revealed="false"] .observatory-stage { opacity: 0; }
+.home[data-hero-arrival="true"] .hero-copy h1 { animation: hero-title-arrival 800ms cubic-bezier(.16,1,.3,1) both; }
+.home[data-hero-arrival="true"] .hero-description { animation: hero-copy-arrival 650ms 100ms cubic-bezier(.16,1,.3,1) both; }
+.home[data-hero-arrival="true"] .hero-cta { animation: hero-copy-arrival 650ms 160ms cubic-bezier(.16,1,.3,1) both; }
+.hero-cta-arrow { display: inline-block; margin-left: 14px; font-size: 19px; transition: transform 180ms ease-out; }
+.hero-cta:hover .hero-cta-arrow, .hero-cta:focus-visible .hero-cta-arrow { transform: translate(3px,-3px); }
+@keyframes hero-title-arrival {
+  from { opacity: 0; transform: translate3d(0,35px,0); clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; transform: none; clip-path: inset(-5% 0 -5% 0); }
+}
+@keyframes hero-copy-arrival { from { opacity: 0; transform: translate3d(0,16px,0); } to { opacity: 1; transform: none; } }
+
+/* The rocket is an authored cartoon image. Its exhaust has independent motion. */
+.landing-intro { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100svh; max-height: none; margin: 0; padding: 0; border: 0; overflow: hidden; color: var(--ink); background: transparent; }
+.landing-intro::backdrop { background: transparent; }
+.intro-curtain { position: absolute; inset: 0; background: #050607; will-change: transform; }
+.intro-wordmark { position: absolute; left: max(32px,calc((100vw - 1360px)/2)); bottom: 56px; font-size: clamp(38px,6vw,76px); font-weight: 500; letter-spacing: -.04em; line-height: 1; }
+.intro-wordmark > span { display: block; margin-top: 16px; font-size: 14px; font-weight: 400; letter-spacing: 0; color: #b3b7bd; }
+.intro-rocket { position: absolute; top: 46%; left: 0; width: clamp(280px,34vw,520px); aspect-ratio: 1; transform: translate3d(110vw,-34%,0) rotate(5deg); will-change: transform; pointer-events: none; }
+.intro-rocket-body { position: relative; z-index: 2; width: 100%; height: 100%; display: block; object-fit: contain; filter: url(#rocket-sticker-outline); }
+.intro-exhaust { position: absolute; z-index: 1; left: 70%; top: 52%; width: 54%; aspect-ratio: 1; transform: translateY(-50%); }
+.intro-flame { display: block; width: 100%; height: 100%; object-fit: contain; transform-origin: 13% 50%; filter: url(#flame-sticker-outline); animation: exhaust-burn 190ms linear infinite; }
+.exhaust-ember { position: absolute; left: 65%; top: 48%; width: 9px; height: 5px; border-radius: 50%; background: #e6ff9a; animation: exhaust-ember 440ms linear infinite; }
+.exhaust-ember:nth-child(3) { top: 39%; width: 6px; height: 4px; animation-delay: -150ms; }
+.exhaust-ember:nth-child(4) { top: 59%; width: 7px; height: 4px; animation-delay: -290ms; }
+.intro-skip { position: absolute; z-index: 4; top: 24px; right: 28px; display: inline-flex; align-items: center; gap: 18px; min-height: 44px; border: 1px solid #50565c; background: #0d1012; color: var(--ink); border-radius: 999px; padding: 9px 18px; font-size: 14px; }
+.intro-art-label { position: absolute; z-index: 3; right: 32px; bottom: 28px; font-size: 11px; color: #c4c9ce; background: #08090a; padding: 5px 8px; border-radius: 6px; }
+@keyframes exhaust-burn {
+  0%,100% { transform: scaleX(.86) scaleY(.9) rotate(-1deg); }
+  25% { transform: scaleX(1.16) scaleY(1.05) rotate(1deg); }
+  55% { transform: scaleX(.97) scaleY(.84); }
+  80% { transform: scaleX(1.24) scaleY(1.1) rotate(-1deg); }
+}
+@keyframes exhaust-ember { from { opacity: .9; transform: translateX(0) scale(1); } to { opacity: 0; transform: translateX(100px) scale(.3); } }
 .observatory-stage figcaption { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; color: #b2bab6; font-size: 12px; margin-top: 20px; position: relative; }
 .observatory-illustration { color: #8c9690; padding-left: 10px; border-left: 1px solid #404b40; }
 .landing-motion-controls { position: absolute; bottom: 26px; right: max(32px, calc((100vw - 1360px) / 2)); display: flex; align-items: center; gap: 8px; }
@@ -24,6 +60,18 @@
 .landing-motion-controls .landing-pause { display: inline-flex; align-items: center; gap: 8px; }
 .landing-motion-controls .landing-pause span { font-size: 16px; }
 .landing-motion-controls button:disabled { opacity: .65; }
+
+/* Section-specific arrivals: image shutters, an evidence sheet, then an archive cue. */
+.home .target-link { transition: transform 220ms cubic-bezier(.2,.7,.3,1), border-color 180ms ease-out, background-color 180ms ease-out; }
+.home .target-link:hover, .home .target-link:focus-visible { transform: translateY(-6px); }
+.home .target-link:active { transform: translateY(-2px) scale(.99); transition-duration: 90ms; }
+.home-action-arrow { display: inline-block; margin-left: 10px; transition: transform 200ms ease-out; }
+.target-link:hover .home-action-arrow, .target-link:focus-visible .home-action-arrow,
+.coordinate-invitation > button:hover .home-action-arrow, .coordinate-invitation > button:focus-visible .home-action-arrow { transform: translate(3px,-3px); }
+.home .coordinate-invitation { position: relative; overflow: hidden; }
+.home .coordinate-invitation::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #d4fb70 40%, #8aaf47, transparent); opacity: .6; transform-origin: 0 50%; }
+.home .coordinate-invitation.landing-section-entered::before { animation: archive-rule 900ms cubic-bezier(.16,1,.3,1) both; }
+@keyframes archive-rule { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: .6; } }
 @media (max-width: 1050px) and (min-width: 761px) {
   .landing-hero { padding-inline: 32px; column-gap: 0; }
   .landing-hero h1 { font-size: clamp(49px, 6.2vw, 64px); }
@@ -40,6 +88,9 @@
   .observatory-model { width: 100%; margin: 0; aspect-ratio: 1.25; }
   .observatory-stage figcaption { margin-top: 12px; font-size: 11px; }
   .landing-motion-controls { bottom: 18px; right: 16px; left: 16px; justify-content: center; }
+  .intro-wordmark { left: 24px; bottom: 76px; }
+  .intro-rocket { width: 290px; top: 43%; }
+  .intro-skip { top: 20px; right: 20px; }
 }
 @media (max-width: 360px) {
   .landing-hero { padding-inline: 18px; }
@@ -49,7 +100,18 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .landing-motion-controls button { transition: none; }
+  .home[data-hero-revealed="false"] .hero-copy, .home[data-hero-revealed="false"] .observatory-stage { opacity: 1; }
+  .home[data-hero-arrival="true"] .hero-copy h1,
+  .home[data-hero-arrival="true"] .hero-description,
+  .home[data-hero-arrival="true"] .hero-cta { animation: none; }
+  .hero-cta-arrow { transition: none; }
+  .intro-flame, .exhaust-ember { animation: none; }
+  .home .target-link, .home-action-arrow { transition: none; }
+  .home .target-link:hover, .home .target-link:focus-visible, .home .target-link:active,
+  .target-link:hover .home-action-arrow, .target-link:focus-visible .home-action-arrow,
+  .coordinate-invitation > button:hover .home-action-arrow, .coordinate-invitation > button:focus-visible .home-action-arrow { transform: none; }
+  .home .coordinate-invitation.landing-section-entered::before { animation: none; }
 }
 @media print {
-  .landing-hero { display: none; }
+  .landing-hero, .landing-intro { display: none; }
 }

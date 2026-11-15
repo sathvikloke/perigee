@@ -12,6 +12,7 @@ import {
 } from "../lib/format";
 import { FlagLegend, Plate } from "./Plate";
 import "../styles/investigation-flow.css";
+import { useContentCue } from "../lib/contentMotion";
 
 const PHONE = "(max-width: 560px)";
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -157,6 +158,7 @@ export function CaseBench(props: {
   // Quality and display-mapping limits change what can be claimed now.
   // Exact numerical separations and release context remain in the details.
   const essentialCaveats = analysis?.caveats.filter((caveat) => !caveat.startsWith("The frames come from different data releases")) ?? [];
+  const instructionCue = useContentCue<HTMLParagraphElement>("instruction", `${caseContent.case_id}:${otherRef}`);
 
   return (
     <>
@@ -218,7 +220,7 @@ export function CaseBench(props: {
           </div>
         </div>
 
-        <p className="comparison-task"><strong>Notice</strong> {instruction}</p>
+        <p className="comparison-task" ref={instructionCue}><strong>Notice</strong> {instruction}</p>
 
         {missing ? (
           <p className="status">This case needs two processed frames; they are not published yet.</p>
@@ -360,7 +362,7 @@ export function CaseBench(props: {
       {props.afterShell}
 
       {pairFrames.length > 0 && (
-        <details className="panel">
+        <details className="panel content-disclosure">
           <summary>
             <span>
               <span className="section-icon" aria-hidden="true">
@@ -426,7 +428,7 @@ export function CaseBench(props: {
       )}
 
       {pairFrames.length > 0 && (
-        <details className="panel" id="sources">
+        <details className="panel content-disclosure" id="sources">
           <summary>
             <span>
               <span className="section-icon" aria-hidden="true">
