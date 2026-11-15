@@ -97,6 +97,13 @@ Do not fix these in this branch. Preserve the API semantics they depend on:
 
 ## Verification and delivery
 
+### Review follow-up on PR #47 at `ae60dff`
+
+1. **B3 still permits an older Worker.** `release_digest` includes only frontend/catalog bytes, and `check_static_identity()` does not compare the expected source identity. Reusing the new `_identity_site()` / `_identity_rows()` test helpers with expected `source.commit` changed to `different-worker-commit` still returns PASS for every check. A Worker-only B1 change leaves static content unchanged. Include the Worker/config identity in the expected release comparison, with a changed-Worker/unchanged-assets regression; do not imply that static-file equality proves router code equality.
+2. **Actual Node 22 CI failed before running the Worker suite.** Run `43666247129`, job `132666149086`, failed with `Cannot find module .../cloudflare/test` from `node --test cloudflare/test/`. Use the actual test file(s), e.g. `node --test cloudflare/test/worker.test.mjs`, and verify the rerun. The backend and platform checks passed. A local run with another Node version does not settle this workflow failure.
+
+These are review findings, not instructions to abandon B5. Finish them and the comparison, rerun affected checks, and update the PR's evidence before declaring it ready.
+
 Continue through implementation, relevant tests, review and a concrete PR; do not stop after writing a plan or after one packet passes. Prioritize B1–B4 before expanding B5. You may split independent backend work if your current environment supports it, but coordinate owned files and integrate the results yourself.
 
 Current audit baseline on main: 121/121 frontend tests, frontend production build; 348/348 backend tests with `PERIGEE_DATA_ROOT`; 15/15 Worker tests; 7/7 export parity tests. The app and deck are public. New failures must be investigated, not dismissed because an older smoke passed.

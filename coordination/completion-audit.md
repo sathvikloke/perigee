@@ -8,6 +8,17 @@ Sathvik's current ownership decision: Claude implements backend/platform work. C
 
 ## Current evidence
 
+### Neeraj's later QA report, triaged against this release
+
+Neeraj's email, sent 14 November at 7:07 p.m. Chicago time, includes a 390×844 browser-emulation report and screenshots. It reports successful pair switching, playback, notebook persistence and export. It explicitly excludes a physical phone, screen reader, timed rehearsal and production live search. His deployment reference is older than the current Cloudflare release, so use the observations with that boundary.
+
+- The old Vercel deck URL returning HTML is superseded by the verified Cloudflare PDF; keep using the Cloudflare app/deck links.
+- His reported “19 and 20 versus the script's 19 and 18” is **not a confirmed A+B defect**. Current Cloudflare case JSON and local case records give A=19, B=18, C=20 valid aperture pixels. The 19/20 combination corresponds to A+C. Rehearse with the pair named explicitly; do not change A+B's figures to match another pair.
+- Empty cards after merely opening a case are reported, not independently reproduced here. The code does save a draft when a comparison pair is selected, even without text. Check fresh storage and distinguish opening a case from switching its pair before changing persistence semantics.
+- Barnard's duplicate “Different dates” labels and “Blink the three frames” instruction are supported by the current source. Clarify the time intervals and distinguish two-frame comparison from three-frame timeline playback during the frontend/content pass.
+- Flag abbreviations are printed without individual definitions. The existing background does explain saturation and OVERFLOW/BLOOM, so do not say there is no explanation anywhere. Add concise, scientifically accurate meanings near the codes when frontend work resumes.
+- Neeraj offers to rehearse. His suggested simpler script is useful, but preserve scientific qualifiers: a **median** registration residual is not a maximum bound on every star; a screen with no adverse flags does not prove that all pixels are good. Keep catalog predictions separate from measured positions.
+
 | Check rerun in this audit | Result |
 | --- | --- |
 | Backend pytest with the local FITS dataset | 348 passed |
