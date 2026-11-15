@@ -1,0 +1,190 @@
+{
+ "note": "descriptive small-sample timings on one machine; mocked upstream (no network); not capacity guarantees",
+ "versions": {
+  "python": "3.12.16",
+  "machine": "arm64",
+  "system": "Darwin",
+  "fastapi": "0.163.0",
+  "starlette": "1.10.0",
+  "pydantic": "2.14.3",
+  "httpx": "0.28.1",
+  "anyio": "4.16.0",
+  "numpy": "2.5.4",
+  "astropy": "8.0.2",
+  "pillow": "13.0.0"
+ },
+ "cold": {
+  "runs": [
+   {
+    "import_s": 0.426,
+    "first_frame_s": 0.045,
+    "second_frame_s": 0.038,
+    "peak_rss_mb": 127.641
+   },
+   {
+    "import_s": 0.299,
+    "first_frame_s": 0.043,
+    "second_frame_s": 0.038,
+    "peak_rss_mb": 127.609
+   },
+   {
+    "import_s": 0.293,
+    "first_frame_s": 0.043,
+    "second_frame_s": 0.038,
+    "peak_rss_mb": 127.641
+   }
+  ],
+  "basis": "fresh interpreter: import backend.main + first /frame (real processor A, retained Eps Ind B D3 cutout)"
+ },
+ "warm_frame": {
+  "nir_d3_clear": {
+   "n": 10,
+   "min_ms": 36.8,
+   "p50_ms": 37.1,
+   "p90_ms": 37.7,
+   "max_ms": 38.0,
+   "mean_ms": 37.3
+  },
+  "nir_d1_clear": {
+   "n": 10,
+   "min_ms": 35.4,
+   "p50_ms": 36.2,
+   "p90_ms": 38.3,
+   "max_ms": 47.3,
+   "mean_ms": 37.7
+  },
+  "mwir_d6_clear": {
+   "n": 10,
+   "min_ms": 39.7,
+   "p50_ms": 39.9,
+   "p90_ms": 40.3,
+   "max_ms": 40.7,
+   "mean_ms": 40.0
+  },
+  "mwir_d6_wise": {
+   "n": 10,
+   "min_ms": 40.3,
+   "p50_ms": 40.8,
+   "p90_ms": 41.3,
+   "max_ms": 41.8,
+   "mean_ms": 40.9
+  },
+  "flagged_nonfinite": {
+   "n": 10,
+   "min_ms": 32.6,
+   "p50_ms": 32.9,
+   "p90_ms": 33.3,
+   "max_ms": 33.3,
+   "mean_ms": 33.0
+  },
+  "flagged_case": {
+   "n": 10,
+   "min_ms": 32.6,
+   "p50_ms": 33.1,
+   "p90_ms": 50.4,
+   "max_ms": 66.4,
+   "mean_ms": 39.3
+  },
+  "not_covered": {
+   "n": 10,
+   "min_ms": 30.0,
+   "p50_ms": 30.6,
+   "p90_ms": 32.1,
+   "max_ms": 33.1,
+   "mean_ms": 30.9
+  }
+ },
+ "sizes": {
+  "nir_d3_clear": {
+   "response_bytes": 38595,
+   "image_png_bytes": 24872,
+   "flag_png_bytes": 852,
+   "raw_fits_bytes": 4083840,
+   "server_timing": "fetch;dur=0, process;dur=34"
+  },
+  "nir_d1_clear": {
+   "response_bytes": 34689,
+   "image_png_bytes": 21916,
+   "flag_png_bytes": 877,
+   "raw_fits_bytes": 4000320,
+   "server_timing": "fetch;dur=0, process;dur=32"
+  },
+  "mwir_d6_clear": {
+   "response_bytes": 41660,
+   "image_png_bytes": 26576,
+   "flag_png_bytes": 1449,
+   "raw_fits_bytes": 3997440,
+   "server_timing": "fetch;dur=0, process;dur=37"
+  },
+  "mwir_d6_wise": {
+   "response_bytes": 37542,
+   "image_png_bytes": 23133,
+   "flag_png_bytes": 1802,
+   "raw_fits_bytes": 3997440,
+   "server_timing": "fetch;dur=0, process;dur=37"
+  },
+  "flagged_nonfinite": {
+   "response_bytes": 14445,
+   "image_png_bytes": 5780,
+   "flag_png_bytes": 1781,
+   "raw_fits_bytes": 3997440,
+   "server_timing": "fetch;dur=0, process;dur=29"
+  },
+  "flagged_case": {
+   "response_bytes": 15902,
+   "image_png_bytes": 7619,
+   "flag_png_bytes": 1016,
+   "raw_fits_bytes": 4083840,
+   "server_timing": "fetch;dur=0, process;dur=34"
+  },
+  "not_covered": {
+   "response_bytes": 19134,
+   "image_png_bytes": 10255,
+   "flag_png_bytes": 1016,
+   "raw_fits_bytes": 3977280,
+   "server_timing": "fetch;dur=0, process;dur=27"
+  }
+ },
+ "caps": {
+  "MAX_RESPONSE_BYTES": 4000000,
+  "MAX_PNG_BYTES": 2097152,
+  "PERIGEE_FRAME_MAX_BYTES_default": 25165824
+ },
+ "processor_peak_python_alloc_mb_fov10": 12.95,
+ "processor_wall_ms_fov10_traced": 113.7,
+ "warm_search_full_cached_sia": {
+  "n": 10,
+  "min_ms": 24.0,
+  "p50_ms": 24.8,
+  "p90_ms": 25.8,
+  "max_ms": 45.2,
+  "mean_ms": 26.9,
+  "total_matches": 468,
+  "returned": 48,
+  "response_bytes": 49941,
+  "sia_bytes": {
+   "spherex_dr1": 754428,
+   "spherex_qr3": 278196
+  }
+ },
+ "concurrency_4_distinct_frames": {
+  "sequential": {
+   "n": 5,
+   "min_ms": 155.3,
+   "p50_ms": 167.7,
+   "p90_ms": 199.6,
+   "max_ms": 199.6,
+   "mean_ms": 172.0
+  },
+  "simultaneous": {
+   "n": 5,
+   "min_ms": 107.4,
+   "p50_ms": 122.9,
+   "p90_ms": 141.0,
+   "max_ms": 141.0,
+   "mean_ms": 123.1
+  },
+  "anyio_default_thread_limiter_tokens": 40,
+  "note": "No Perigee-configured concurrency limit exists; processor calls run in anyio's default thread pool (limiter above) per process. Vercel scales by instances."
+ }
+}

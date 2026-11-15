@@ -290,6 +290,26 @@ def _without_sip(header: fits.Header) -> fits.Header:
     return h
 
 
+def _check_wave_table_index(hdul: fits.HDUList, header: fits.Header) -> None:
+    """Raise ValueError unless every -TAB index vector named by the key-W header
+    (``PSi_2W``) is finite and strictly monotonic.
+
+    wcslib (astropy 8.0.2) aborts the whole process (SIGABRT) on a repeated index
+    value, e.g. a zeroed table block, instead of raising; it must never see one.
+    """
+    for i in range(1, int(header.get("WCSAXESW", 2)) + 1):
+        column = str(header.get(f"PS{i}_2W") or "").strip()
+        if not column:
+            continue  # no index vector: wcslib uses the default 1..K index
+        table = _ext(hdul, str(header.get(f"PS{i}_0W") or "").strip())
+        if table is None or table.data is None or column not in table.columns.names or len(table.data) < 1:
+            raise ValueError(f"spectral lookup index column {column!r} is missing")
+        index = np.asarray(table.data[column][0], dtype=np.float64).ravel()
+        steps = np.diff(index)
+        if index.size < 1 or not np.all(np.isfinite(index)) or not (np.all(steps > 0) or np.all(steps < 0)):
+            raise ValueError(f"spectral lookup index column {column!r} is not strictly monotonic")
+
+
 def native_scale_arcsec_at(cel: WCS, x: float, y: float, h: float = 0.5) -> float:
     """Local native pixel scale (arcsec per pixel) at 0-based native pixel (x, y).
 
@@ -485,6 +505,7 @@ def _process(hdul, meta: FrameInput, sha256: str, notes: List[str], limitations:
         try:
             if _ext(hdul, "WCS-WAVE") is None:
                 raise ValueError("no WCS-WAVE extension")
+            _check_wave_table_index(hdul, ih)
             sw = WCS(header=_without_sip(ih), fobj=hdul, key="W")
             vals = sw.pixel_to_world_values(px, py)
             wl_v, bw_v = float(vals[0]), float(vals[1])
