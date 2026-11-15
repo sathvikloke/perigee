@@ -186,8 +186,7 @@ main:focus { outline: none; }
 .mobile-frame-control { display: none; }
 
 .plates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.plates.blinking { grid-template-columns: 1fr; max-width: 440px; margin: auto; }
-.plates.blinking .plate.is-hidden { display: none; }
+.plates.blinking { /* Keep both image wells fixed; the first alternates in place. */ }
 .plate { min-width: 0; margin: 0; }
 .plate-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
 .plate-heading > div { display: flex; align-items: center; gap: 7px; }
@@ -202,7 +201,7 @@ main:focus { outline: none; }
 
 .sky {
   aspect-ratio: 1; position: relative; border-radius: var(--radius-md); overflow: hidden;
-  /* Hatching marks pixels outside the image (transparent in the PNG), not sky. */
+  /* Transparent pixels have no usable value (coverage or quality), not dark sky. */
   background: repeating-linear-gradient(135deg, var(--sky-hatch-a) 0 2px, var(--sky-hatch-b) 2px 6px);
 }
 .sky img { width: 100%; height: 100%; display: block; image-rendering: pixelated; user-select: none; }
@@ -507,7 +506,9 @@ footer.site-footer .footer-ai a { text-decoration: underline; text-underline-off
   .workspace { display: block; }
   .plates { display: grid !important; grid-template-columns: 1fr 1fr !important; max-width: 600px !important; margin: auto; }
   .plate { display: block !important; }
-  .sky { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .plate-heading { display: grid; grid-template-rows: 25px 25px; justify-content: start; gap: 4px; }
+  .plate-heading .quality { justify-self: start; }
+  .sky, .swatch { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .notebook { margin-top: 18px; break-inside: avoid; }
   .field textarea { display: none; }
   .print-note { display: block; white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--text-xs); margin-top: var(--space-sm); color: var(--ink); }

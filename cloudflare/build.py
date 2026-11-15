@@ -155,7 +155,7 @@ def build_identity(public: Path, dist_rels, api_rels, content_version, worker: D
         "api": {
             "served_here": ["/api/v1/presets", "/api/v1/cases/*", "/api/v1/presets/*/frames", "/api/v1/assets/*"],
             "proxied_to": "https://perigee-liard.vercel.app",
-            "proxied": ["/api/v1/health", "/api/v1/search", "/api/v1/frame"],
+            "proxied": ["/api/v1/health", "/api/v1/resolve", "/api/v1/search", "/api/v1/frame"],
             "note": "The proxied Python API is deployed separately; this identity does not describe its version.",
         },
     }

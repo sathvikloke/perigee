@@ -243,6 +243,16 @@ export interface FrameRequest {
   frame_token: string;
 }
 
+export interface ResolvedObject {
+  name: string;
+  catalog_position: { ra_deg: number; dec_deg: number; epoch_jyear: number };
+  search_center: { ra_deg: number; dec_deg: number; epoch_jyear: number; kind: "catalog_position" | "finder_prediction" };
+  source: string;
+  source_url: string;
+  position_reference: string | null;
+  note: string;
+}
+
 /** GET /presets/{id}/frames. `missing` means no generated products yet; frames are never synthesized. */
 export interface PresetFramesResult {
   status: "ready" | "partial" | "missing";

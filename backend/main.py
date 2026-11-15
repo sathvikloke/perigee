@@ -12,7 +12,7 @@ import uuid
 
 from fastapi import FastAPI, Request
 
-from backend.routes import frames, health, search
+from backend.routes import frames, health, search, resolve
 from backend.routes._errors import CURRENT_REQUEST_ID, install_error_handlers
 
 API_PREFIX = "/api/v1"
@@ -47,6 +47,7 @@ install_error_handlers(app)
 
 app.include_router(health.router, prefix=API_PREFIX, tags=["health"])
 app.include_router(search.router, prefix=API_PREFIX, tags=["search"])
+app.include_router(resolve.router, prefix=API_PREFIX, tags=["search"])
 app.include_router(frames.router, prefix=API_PREFIX, tags=["frame"])
 
 # Catalog/assets routes (worker 08, integrated on claude/perigee-integration).

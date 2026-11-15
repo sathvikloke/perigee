@@ -2,10 +2,10 @@ import { useEffect, useState, type ReactNode } from "react";
 import { resolveAssetSrc } from "../api/client";
 import type { FrameRecord } from "../api/types";
 import { QUALITY_CHIP, markerXY, releaseLabel } from "../lib/compare";
-import { formatDateShort, formatMicrons } from "../lib/format";
+import { HATCH_EXPLANATION, formatDateShort, formatMicrons } from "../lib/format";
 
 /** Flag-overlay key read from the record's own legend; colours are never hard-coded. */
-function FlagLegend({ legend }: { legend?: Record<string, unknown> }) {
+export function FlagLegend({ legend }: { legend?: Record<string, unknown> }) {
   const entries = Object.entries(legend ?? {}).flatMap(([name, v]) => {
     if (!Array.isArray(v) || v.length < 3 || !v.every((n) => typeof n === "number")) return [];
     const [r, g, b, a = 255] = v as number[];
@@ -97,7 +97,7 @@ export function Plate(props: {
               src={resolveAssetSrc(img.src)}
               width={img.width}
               height={img.height}
-              alt={`${frame._fixture ? "Development fixture placeholder, no sky image," : "SPHEREx image of"} frame ${frame.frame_key}, observed ${formatDateShort(frame.observed_at_utc)}${frame.wavelength_um != null ? ` at ${frame.wavelength_um.toFixed(4)} micrometers` : ""}. Hatched areas are outside the image.`}
+              alt={`${frame._fixture ? "Development fixture placeholder, no sky image," : "SPHEREx image of"} frame ${frame.frame_key}, observed ${formatDateShort(frame.observed_at_utc)}${frame.wavelength_um != null ? ` at ${frame.wavelength_um.toFixed(4)} micrometers` : ""}. ${HATCH_EXPLANATION}`}
               onError={() => setFailed(img.src)}
               draggable={false}
             />
@@ -146,8 +146,7 @@ export function Plate(props: {
       {frame && (frame.quality.status !== "clear" || props.showFlags) && (
         <div className="plate-legend">
           <p>
-            <span className="swatch hatch" aria-hidden="true" /> Hatched: no usable data (outside the image, or
-            saturated / non-finite pixels). It is not dark sky.
+            <span className="swatch hatch" aria-hidden="true" /> {HATCH_EXPLANATION}
           </p>
           {props.showFlags && frame.flag_image && !flagUnavailable && <FlagLegend legend={frame.flag_image.legend} />}
           {props.showFlags && flagUnavailable && <p className="notice" role="alert">The flag overlay could not be loaded. The quality label still applies; no overlay does not mean clear pixels. <button type="button" className="link" onClick={() => setFlagFailed(null)}>Retry flag overlay</button></p>}

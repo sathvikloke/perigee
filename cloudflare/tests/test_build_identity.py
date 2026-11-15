@@ -60,6 +60,7 @@ def test_identity_is_public_minimal_and_timestamp_free(base):
     assert base["frontend"]["entry_scripts"] and all(k.startswith("assets/index-") for k in base["frontend"]["entry_scripts"])
     assert base["catalog"]["content_version"] == json.loads((CONTENT / "targets.json").read_text())["content_version"]
     assert base["api"]["proxied_to"] == "https://perigee-liard.vercel.app"
+    assert base["api"]["proxied"] == ["/api/v1/health", "/api/v1/resolve", "/api/v1/search", "/api/v1/frame"]
 
 
 def test_source_label_is_honest(base):

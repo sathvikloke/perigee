@@ -204,10 +204,10 @@ describe("search submission and failure wording", () => {
   it("names a connection failure differently from an archive failure, and neither as an empty sky", () => {
     const network = searchFailureTitle("NETWORK_ERROR");
     const timeout = searchFailureTitle("UPSTREAM_TIMEOUT");
-    expect(network).toMatch(/did not reach the archive/);
-    expect(timeout).toMatch(/archive search failed/);
+    expect(network).toMatch(/couldn’t connect/);
+    expect(timeout).toMatch(/archive search couldn’t finish/);
     for (const t of [network, timeout, searchFailureTitle(null)]) {
-      expect(t).toMatch(/not a result about the sky/);
+      expect(t).toMatch(/try again/i);
       expect(t).not.toMatch(/no observations|no images/i);
     }
   });

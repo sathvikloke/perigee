@@ -49,8 +49,8 @@ describe("case comparison under reduced motion", () => {
     const html = renderToStaticMarkup(
       createElement(CaseBench, { caseContent, framesByRef, otherRef: "B", onOtherRefChange: () => {} }),
     );
-    expect(html).toMatch(/<button[^>]*class="quiet blink-toggle"[^>]*aria-pressed="false"[^>]*>▷ Blink pair<\/button>/);
-    expect(html).not.toContain("Pause blink");
+    expect(html).toMatch(/<button[^>]*class="quiet blink-toggle"[^>]*aria-pressed="false"[^>]*>Play comparison<\/button>/);
+    expect(html).not.toContain("Pause comparison");
     expect(html).not.toMatch(/class="plates blinking"/);
   });
 
@@ -60,9 +60,9 @@ describe("case comparison under reduced motion", () => {
       createElement(CaseBench, { caseContent, framesByRef, otherRef: "B", onOtherRefChange: () => {} }),
     );
     const row = html.slice(html.indexOf('class="view-switch"'));
-    const a = row.indexOf("Observation A");
-    const b = row.indexOf("Observation B");
-    const blink = row.indexOf("Blink pair");
+    const a = row.indexOf("Image A");
+    const b = row.indexOf("Image B");
+    const blink = row.indexOf("Play comparison");
     expect(a).toBeGreaterThan(0);
     expect(b).toBeGreaterThan(a);
     expect(blink).toBeGreaterThan(b);

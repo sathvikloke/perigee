@@ -78,7 +78,7 @@
   "steps": [
     {
       "id": "controls_and_target",
-      "prompt": "Blink the three frames. First watch the smaller stars around the edges, then the big bright star against the guide line.",
+      "prompt": "Play each comparison pair in turn (A+B, then A+C). First watch the smaller stars around the edges, then the big bright star against the guide line.",
       "check": ["observed_at_utc", "wavelength_um"],
       "hint": "The small stars stay put, so the images are lined up. The bright star's glow shifts north (up) past the guide line: about halfway (about 4 display pixels) by March 2026, and about 7 display pixels (about 10 arcseconds) by August 2026. All three frames are near 2.0 µm, so the change is mainly about time."
     },
