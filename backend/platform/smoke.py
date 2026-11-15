@@ -376,6 +376,7 @@ def check_live(res: Results, s: Session) -> None:
 
 
 IDENTITY_PATH = "/perigee-build.json"  # written by cloudflare/build.py (static release identity)
+WORKER_HEADER = "x-perigee-worker"  # set by the Cloudflare Worker on /api responses
 
 
 def load_expected_identity(path: str) -> dict:
@@ -418,9 +419,22 @@ def check_static_identity(res: Results, s: Session, expected: dict | None, expec
                 f"live {str(live.get('release_digest'))[:16]} vs expected {want_digest[:16]}; "
                 f"live source label {(live.get('source') or {}).get('label')}")
     if expected:
-        for part in ("frontend", "catalog"):
+        for part in ("frontend", "catalog", "worker"):
             a, b = (live.get(part) or {}).get("digest"), (expected.get(part) or {}).get("digest")
             res.add(f"static {part} digest matches expected", a == b, f"live {str(a)[:16]} vs expected {str(b)[:16]}")
+        # The build that was meant to be deployed, not merely identical content.
+        a, b = (live.get("source") or {}).get("label"), (expected.get("source") or {}).get("label")
+        res.add("source label matches expected build", a == b, f"live {a} vs expected {b}")
+    # The Worker code actually answering /api must be the one this identity describes
+    # (Wrangler deploys the Worker and the static files together, but a stale build
+    # directory or a separate Worker upload would otherwise go unnoticed).
+    r = s.request(res, "deployed Worker matches identity", "GET", "/api/v1/presets")
+    if r is not None:
+        got = r.headers.get(WORKER_HEADER)
+        claimed = (live.get("worker") or {}).get("digest")
+        want = (expected.get("worker") or {}).get("digest") if expected else claimed
+        res.add("deployed Worker matches identity", bool(got) and got == claimed and got == want,
+                f"X-Perigee-Worker {str(got)[:16]}; identity {str(claimed)[:16]}; expected {str(want)[:16]}")
     # The bytes actually served must match the identity being claimed.
     fe = live.get("frontend") or {}
     r = s.request(res, "served index.html matches identity", "GET", "/")
@@ -511,7 +525,8 @@ def main(argv: list[str] | None = None) -> int:
     if identity:
         src = identity.get("source") or {}
         print(f"  release_digest {identity.get('release_digest')}  source {src.get('label')}  "
-              f"content {(identity.get('catalog') or {}).get('content_version')}")
+              f"content {(identity.get('catalog') or {}).get('content_version')}  "
+              f"worker {str((identity.get('worker') or {}).get('digest'))[:16]}")
         if expected or args.expect_release_digest:
             print("  compared with the expected build: see the 'static ...' checks above")
         else:

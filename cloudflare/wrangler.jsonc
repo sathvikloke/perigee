@@ -4,6 +4,10 @@
   "name": "perigee",
   "account_id": "a62ce8c4627ecd5dc8770fa7fe42dd3b",
   "main": "src/index.js",
+  // Before every `wrangler dev` / `wrangler deploy`: record the digest of the Worker
+  // code being bundled (src/**/*.js + this file). The Worker reports it as
+  // X-Perigee-Worker so release checks can verify the deployed Worker version.
+  "build": { "command": "node worker-identity.mjs", "watch_dir": "src" },
   "compatibility_date": "2026-11-15",
   // Public URL: https://perigee.lokesathvik.workers.dev.
   // Preview (version) URLs stay off so unreleased versions are never public.

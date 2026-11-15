@@ -74,6 +74,26 @@ With a malformed manifest (`{"schema_version":1}`) on this branch:
 - Current production, `https://perigee.lokesathvik.workers.dev` (version `979e0619…`, built before this file existed), with `--expect-build` and `--no-live`: **FAIL 18/19**, failing only on "static build identity". `/perigee-build.json` falls back to the SPA, so this is the correct verdict for an older release.
 - The report printed the static release and the live Python API (`health ok`, `token_signing env`; commit not exposed) as separate sections.
 
+### B3 correction after review (PR #47, comment 6887767236)
+
+**The flaw.** At `da1e2e8`, `release_digest` covered only frontend and catalog bytes, and `--expect-build` ignored source identity. The reviewer reproduced a false PASS by changing only `source.commit`/`label`. A Worker-only fix could therefore pass against an older Worker.
+
+**The fix:**
+- A Worker digest (`cloudflare/src/**/*.js` plus `wrangler.jsonc`) is now part of the identity and of `release_digest`.
+- Wrangler's custom build step (`node worker-identity.mjs`) computes it before every `dev`/`deploy`. `build.py` computes the same value; Python and Node both give `4a4073ba…`.
+- The deployed Worker sends it as `X-Perigee-Worker` on every `/api` response.
+- `smoke --expect-build` now also compares the Worker digest and the source label, and requires the live header to equal both the published and the expected Worker digest.
+
+**Regression tests:**
+- `test_platform_smoke.py`: the reviewer's exact repro (only `source` changed), an older Worker header with identical static digests, a missing header, and an identity from a build with a different Worker. All four **fail on `da1e2e8`'s `smoke.py`** and pass now (43 tests).
+- `test_build_identity.py`: a changed `src/app.js` or `wrangler.jsonc` with unchanged assets changes only the Worker and release digests; Node and Python digests agree (9 identity tests).
+- `worker.test.mjs`: every `/api` response carries the header; static paths don't (22 tests).
+
+**Real `wrangler dev` regression:**
+- Before: `smoke --expect-build` **PASS 27/27** (Worker `4a4073ba…` equals the identity and the expected build).
+- After appending one comment line to `src/app.js` only, the build step re-ran, the Worker reported `38ffb3c5…`, and the same command gave **FAIL 26/27**: the static release, frontend and catalog checks passed, and "deployed Worker matches identity" failed.
+- After restoring the file, the header is back to `4a4073ba…`. `smoke_local.py` passes 25/25, including "deployed Worker equals local build".
+
 ## B4: Search guidance
 
 - **Old text (wrong):**

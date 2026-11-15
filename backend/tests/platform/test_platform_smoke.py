@@ -352,7 +352,8 @@ def test_workflows_pin_actions_to_full_shas_and_install_smoke_pins():
 
 
 def _identity_site(*, pdf_type="application/pdf", pdf_bytes=b"%PDF-1.7 deck", index=b"<html>idx</html>",
-                   script=b"console.log(1)", publish=True, release="r" * 64):
+                   script=b"console.log(1)", publish=True, release="r" * 64, worker_header="w" * 64,
+                   identity_worker="w" * 64):
     import hashlib
 
     h = lambda b: hashlib.sha256(b).hexdigest()  # noqa: E731
@@ -363,6 +364,7 @@ def _identity_site(*, pdf_type="application/pdf", pdf_bytes=b"%PDF-1.7 deck", in
         "frontend": {"digest": "f" * 64, "index_html_sha256": h(b"<html>idx</html>"),
                      "entry_scripts": {"assets/index-x.js": h(b"console.log(1)")}},
         "catalog": {"digest": "c" * 64, "content_version": "targets-x"},
+        "worker": {"digest": identity_worker, "files": 3},
         "demo_pdf": {"path": "demo/perigee-demo.pdf", "media_type": "application/pdf", "sha256": h(b"%PDF-1.7 deck")},
     }
 
@@ -376,6 +378,11 @@ def _identity_site(*, pdf_type="application/pdf", pdf_bytes=b"%PDF-1.7 deck", in
             return httpx.Response(200, content=script, headers={"content-type": "text/javascript"})
         if p == "/demo/perigee-demo.pdf":
             return httpx.Response(200, content=pdf_bytes, headers={"content-type": pdf_type})
+        if p == "/api/v1/presets":
+            headers = {"content-type": "application/json"}
+            if worker_header:
+                headers["x-perigee-worker"] = worker_header
+            return httpx.Response(200, json={"presets": []}, headers=headers)
         return httpx.Response(404, json={})
 
     return handler, ident
@@ -429,3 +436,37 @@ def test_expect_build_file_accepts_build_info_or_identity(tmp_path):
     (tmp_path / "bad.json").write_text("{}")
     with pytest.raises(ValueError):
         smoke.load_expected_identity(str(tmp_path / "bad.json"))
+
+
+def test_review_repro_different_source_identity_fails():
+    """PR #47 review: copy the expected identity, change only source.commit/label -> must not PASS."""
+    handler, ident = _identity_site()
+    expected = json.loads(json.dumps(ident))
+    expected["source"] = {"commit": "different-worker-commit", "tree_clean": True, "label": "different-worker-commit"}
+    rows = _identity_rows(handler, expected)
+    assert rows["source label matches expected build"] == "FAIL"
+    assert "FAIL" in rows.values()
+
+
+def test_older_worker_with_identical_static_files_fails():
+    """Changed Worker code, unchanged frontend/catalog: the deployed Worker reports a different digest."""
+    handler, ident = _identity_site(worker_header="o" * 64)  # identity says w*64, live Worker is older
+    rows = _identity_rows(handler, ident)
+    assert rows["deployed Worker matches identity"] == "FAIL"
+    assert rows["static frontend digest matches expected"] == "PASS"
+    assert rows["static catalog digest matches expected"] == "PASS"
+
+
+def test_missing_worker_header_fails():
+    handler, ident = _identity_site(worker_header=None)
+    assert _identity_rows(handler, ident)["deployed Worker matches identity"] == "FAIL"
+
+
+def test_identity_from_a_build_with_a_different_worker_fails():
+    """Static files published from a build whose Worker differs from the expected build."""
+    handler, ident = _identity_site(identity_worker="x" * 64, worker_header="x" * 64)
+    expected = json.loads(json.dumps(ident))
+    expected["worker"]["digest"] = "w" * 64
+    rows = _identity_rows(handler, expected)
+    assert rows["static worker digest matches expected"] == "FAIL"
+    assert rows["deployed Worker matches identity"] == "FAIL"

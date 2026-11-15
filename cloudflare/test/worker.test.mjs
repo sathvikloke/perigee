@@ -389,3 +389,26 @@ test("B1.5 a failed asset fetch (5xx or HTML) is never served as the asset", asy
     assert.equal(r.headers.get("content-type"), "application/json");
   }
 });
+
+// ------------------------------------------------------------------ PR #47 review: deployed Worker identity
+
+test("every /api response names the Worker code (X-Perigee-Worker); static paths do not", async () => {
+  const { WORKER_DIGEST } = await import("../build/worker-identity.js");
+  assert.match(WORKER_DIGEST, /^[0-9a-f]{64}$/);
+  const ident = JSON.parse(readFileSync(path.join(PUBLIC, "perigee-build.json"), "utf8"));
+  assert.equal(WORKER_DIGEST, ident.worker.digest);
+  const f = recordingFetch(() => jsonResponse({ status: "ok" }, 200));
+  for (const [m, p, deps] of [
+    ["GET", "/api/v1/presets"],
+    ["GET", "/api/v1/cases/nope"],
+    ["GET", "/api/v1/nope"],
+    ["POST", "/api/v1/presets"],
+    ["GET", "/api/v1/presets/"],
+    ["GET", "/api/v1/health", { fetch: f }],
+  ]) {
+    const r = await run(m, p, deps ? { deps } : {});
+    assert.equal(r.headers.get("x-perigee-worker"), WORKER_DIGEST, `${m} ${p}`);
+  }
+  const s = await run("GET", "/demo/perigee-demo.pdf");
+  assert.equal(s.headers.get("x-perigee-worker"), null);
+});

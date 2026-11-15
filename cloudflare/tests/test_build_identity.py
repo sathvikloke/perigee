@@ -28,8 +28,13 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-def _identity(out: Path, dist: Path = DIST, content: Path = CONTENT) -> dict:
-    cf_build._build_into(out, dist, content)
+def _identity(out: Path, dist: Path = DIST, content: Path = CONTENT, worker_src=None, worker_config=None) -> dict:
+    kw = {}
+    if worker_src:
+        kw["worker_src"] = worker_src
+    if worker_config:
+        kw["worker_config"] = worker_config
+    cf_build._build_into(out, dist, content, **kw)
     public_doc = json.loads((out / "public" / cf_build.IDENTITY_REL).read_text(encoding="utf-8"))
     info = json.loads((out / "build-info.json").read_text(encoding="utf-8"))
     assert info["identity"] == public_doc
@@ -43,7 +48,8 @@ def base(tmp_path_factory):
 
 def test_identity_is_public_minimal_and_timestamp_free(base):
     assert base["schema_version"] == 1
-    assert set(base) == {"schema_version", "release_digest", "source", "frontend", "catalog", "demo_pdf", "api"}
+    assert set(base) == {"schema_version", "release_digest", "source", "frontend", "catalog", "worker", "demo_pdf", "api"}
+    assert re.fullmatch(r"[0-9a-f]{64}", base["worker"]["digest"]) and base["worker"]["files"] >= 3
     text = json.dumps(base)
     assert not re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}", text), "no timestamps"
     for secret_word in ("secret", "token", "password", "PERIGEE_TOKEN"):
@@ -104,3 +110,44 @@ def test_changed_catalog_changes_catalog_and_release_digest_only(base, tmp_path)
     assert changed["catalog"]["digest"] != base["catalog"]["digest"]
     assert changed["frontend"]["digest"] == base["frontend"]["digest"]
     assert changed["release_digest"] != base["release_digest"]
+
+
+def test_changed_worker_with_unchanged_assets_changes_worker_and_release_digest(base, tmp_path):
+    """PR #47 review: a Worker-only change must change the release identity."""
+    src = tmp_path / "src"
+    shutil.copytree(REPO / "cloudflare" / "src", src)
+    (src / "app.js").write_text((src / "app.js").read_text() + "\n// worker-only change\n")
+    changed = _identity(tmp_path / "build", worker_src=src)
+    assert changed["frontend"] == base["frontend"] and changed["catalog"] == base["catalog"]
+    assert changed["worker"]["digest"] != base["worker"]["digest"]
+    assert changed["release_digest"] != base["release_digest"]
+    # The generated module the Worker reports from carries the new digest.
+    mod = (tmp_path / "build" / "worker-identity.js").read_text()
+    assert changed["worker"]["digest"] in mod
+
+
+def test_changed_wrangler_config_changes_worker_digest(base, tmp_path):
+    cfg = tmp_path / "wrangler.jsonc"
+    cfg.write_text((REPO / "cloudflare" / "wrangler.jsonc").read_text().replace('"2026-11-15"', '"2026-11-16"'))
+    changed = _identity(tmp_path / "build", worker_config=cfg)
+    assert changed["worker"]["digest"] != base["worker"]["digest"]
+    assert changed["frontend"] == base["frontend"] and changed["catalog"] == base["catalog"]
+
+
+def test_node_build_step_and_python_compute_the_same_worker_digest(base, tmp_path):
+    """Wrangler's build step (worker-identity.mjs) and build.py must agree exactly."""
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node not available")
+    script = (
+        "import { workerIdentity } from './cloudflare/worker-identity.mjs';"
+        "console.log(JSON.stringify(workerIdentity()));"
+    )
+    out = subprocess.run([node, "--input-type=module", "-e", script], cwd=REPO, capture_output=True, text=True, timeout=30)
+    assert out.returncode == 0, out.stderr
+    node_id = json.loads(out.stdout)
+    py_id = cf_build.worker_identity()
+    assert node_id["digest"] == py_id["digest"] == base["worker"]["digest"]
+    assert node_id["files"] == py_id["files"]

@@ -134,7 +134,8 @@ Alternatively, run the **cloudflare-release-verify** GitHub workflow (manual; in
 ## Build identity (backend next pass, B3)
 
 `cloudflare/build.py` writes a public, non-secret identity to `/perigee-build.json`, and the same object to `cloudflare/build/build-info.json` under `identity`:
-- `release_digest`: a SHA-256 over the frontend digest and the catalog digest;
+- `release_digest`: a SHA-256 over the frontend, catalog **and Worker** digests;
+- `worker.digest`: a SHA-256 over sorted `path<TAB>sha256` lines for `cloudflare/src/**/*.js` and `cloudflare/wrangler.jsonc`. Wrangler's custom build step (`node worker-identity.mjs`, run before every `wrangler dev` and `wrangler deploy`) computes it from the code actually bundled. `build.py` computes the same digest, and a test checks that both agree. **The deployed Worker reports its own digest in an `X-Perigee-Worker` header on every `/api` response**, so a release check sees the Worker version that is actually running;
 - `frontend.digest` and `catalog.digest`: each a SHA-256 over sorted `path<TAB>sha256` lines, covering every file copied from `frontend/dist` (including the deck PDF) and every exported `api/` file respectively;
 - `frontend.index_html_sha256` and `frontend.entry_scripts`;
 - `demo_pdf`: path, `application/pdf`, size and SHA-256;
@@ -143,7 +144,7 @@ Alternatively, run the **cloudflare-release-verify** GitHub workflow (manual; in
 
 The identity contains no timestamps, so identical content always gets the same digests. The commit is reported separately and is not part of the digest.
 
-`backend.platform.smoke --expect-build PATH` (or `--expect-release-digest HEX`) fetches `/perigee-build.json` and compares the release, frontend and catalog digests. It also checks that the **served** `index.html` and entry scripts hash to what the identity claims, and that the deck PDF is served as `application/pdf` with the expected SHA-256. Any mismatch, or a missing identity, fails the run.
+`backend.platform.smoke --expect-build PATH` (or `--expect-release-digest HEX`) fetches `/perigee-build.json` and compares the release, frontend, catalog and Worker digests. With `--expect-build` it also requires the same **source label**, so it checks the build that was meant to be deployed, not just identical content. It requires the `X-Perigee-Worker` header from a Worker-served route to equal both the published and the expected Worker digest; that catches an older Worker even when the static files are unchanged (PR #47 review). It also checks that the **served** `index.html` and entry scripts hash to what the identity claims, and that the deck PDF is served as `application/pdf` with the expected SHA-256. Any mismatch, or a missing identity, fails the run.
 
 The report prints the static release (this origin) and the live Python API (Vercel; `/health` does not expose its commit) as **separate** sections, and never as one version. The identity is a separate static file; `/api/v1/health`'s v1 contract is unchanged.
 
