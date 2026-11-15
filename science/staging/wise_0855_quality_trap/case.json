@@ -163,7 +163,7 @@
     {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
   ],
   "verification": {
-    "approval": "Not approved. Staged candidate only; not shipped. Requires science-owner approval and frontend integration review before it is copied into backend/content/cases/.",
+    "approval": "Not shipped. Staged candidate: passed computational admission (tools/ingest/admit_case.py, verdict admit). It stays staged until Codex reviews the frontend integration and the release owner copies it into backend/content/cases/. No human-study or teammate review is a prerequisite.",
     "checked_by": "science/reviews/transfer-exercise/check_transfer.py; tools/ingest/admit_case.py",
     "record": "science/reviews/transfer-exercise/README.md; science/reviews/transfer-exercise/answer_evidence.json; science/staging/README.md",
     "must_recheck_against_processor_output": false,

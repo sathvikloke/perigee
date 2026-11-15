@@ -1,6 +1,6 @@
 # Staged investigations and the case admission path (N7)
 
-**Nothing in this folder is shipped.** `backend/content/**` is unchanged. A staged case moves into `backend/content/` only after science-owner approval and a reviewed frontend integration (owned by Codex).
+**Nothing in this folder is shipped.** `backend/content/**` is unchanged. A staged case moves into `backend/content/` only after it passes `tools/ingest/admit_case.py` and Codex has reviewed the frontend integration (Codex owns the UI and the release). No human study or teammate review is a prerequisite.
 
 This folder holds:
 
