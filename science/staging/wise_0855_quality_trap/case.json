@@ -8,7 +8,7 @@
   "opening_question": "SPHEREx photographed the field around the cold brown dwarf WISE 0855 on 7 and 10 November 2025 (A and B) and on 11 May 2026 (C). When you blink A and B, one bright dot jumps while the stars stay still, and another dot is only in A. Did something move or appear in the sky? Before you decide, check each frame's date, wavelength, display stretch and pixel quality.",
   "summary": "Blink two SPHEREx images taken three days apart at nearly the same wavelength, then a third taken six months later at a different wavelength. Decide which differences could come from the sky and which come from flagged pixels, the display stretch or the wavelength, and whether the dot near the marker is WISE 0855.",
   "background": {
-    "short": "WISE 0855 is one of the coldest known brown dwarfs, about 7.4 light-years away and moving about 8.1 arcseconds per year. At the near-infrared wavelengths of these images (1.257 and 1.444 µm) it is expected to be far too faint for SPHEREx: published J-band measurements from other telescopes put it far below SPHEREx's designed survey depth. That is an expectation from published measurements, not something measured here.",
+    "short": "WISE 0855 is one of the coldest known brown dwarfs, about 7.4 light-years away and moving about 8.1 arcseconds per year. At the near-infrared wavelengths of these images (1.257 and 1.444 µm) it is expected to be far too faint for SPHEREx: published J-band measurements from other telescopes put it far below SPHEREx's designed survey depth, and the 1.444 µm frame lies just beyond J band, where it is expected to be fainter still. That is an expectation from published measurements, not something measured here.",
     "details": [
       "Each SPHEREx picture records one narrow wavelength of infrared light at the marker, and that wavelength changes across the detector. Check the wavelength at the marker, not just the detector number.",
       "The flag overlay marks pixels the SPHEREx pipeline flagged. The flag meanings come from each file's header: NONFUNC 'Permanently unusable', TRANSIENT 'Transient detected during SUR', SUR_ERROR 'Error in onboard processing', OUTLIER 'Pixel flagged by Detect Outliers', HALO 'Pixel part of a transient halo', PERSIST 'Persistent charge above threshold'. A flag says a pixel should not be trusted. It does not by itself say what physically happened.",
@@ -73,7 +73,7 @@
   "display_requirements": {
     "grid": "Fixed north-up, east-left grid centered on the preset query_center; identical for A, B and C.",
     "stretch": "A and B share one asinh stretch (case-wise_0855_quality_trap products). C has its own stretch and is labeled 'Brightness not directly comparable'.",
-    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction (not a detection). It moves 0.04 display px (0.06 arcsec) from A to B and 2.9 display px (4.1 arcsec) from A to C, under one native pixel, so this case has no guide line.",
+    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction (not a detection). It moves 0.04 display px (0.06 arcsec) from A to B and 2.9 display px (4.1 arcsec) from A to C (proper motion only; annual parallax is not modeled and would add less than one native pixel), so this case has no guide line.",
     "flag_overlay": "Steps 2 and 3 need 'Show flagged pixels' for A, B and C. Read colors from flag_image.legend. The flagged dots are away from the marker, so the marker's quality status alone does not reveal them."
   },
   "steps": [
@@ -93,7 +93,7 @@
       "id": "only_in_a",
       "prompt": "Now find the dot near the left edge that is in A but not in B or C. What covers it?",
       "check": ["flag_image"],
-      "hint": "It covers two neighbouring native pixels flagged TRANSIENT, OUTLIER, HALO and SUR_ERROR, and B and C show only background at that sky position. Flagged data like this gives no reason to claim a new object. Its physical cause is not established here."
+      "hint": "It covers two neighbouring native pixels flagged TRANSIENT, OUTLIER, HALO and SUR_ERROR, and B and C show only background at that sky position. Flagged data like this gives no reason to claim a new object. Its physical cause is not established here. C has a flagged single pixel of its own near its lower-left corner (NONFUNC, TRANSIENT, SUR_ERROR); it is not a new object either."
     },
     {
       "id": "stretch",
@@ -142,7 +142,7 @@
       "WISE 0855 is proven absent, or SPHEREx's detection limit here is known. Its faintness is an expectation from published measurements, not a measured non-detection or upper limit.",
       "Different wavelengths or shifts smaller than a pixel can never be compared. They can, with a detected source, suitable data and a proper fit; these frames lack the detected source and no fit was made."
     ],
-    "example_claim": "A and B are the better pair (2.7 days apart at the same wavelength), but the two dots that change between them are flagged detector pixels, so I found no evidence of a new or moving object among the features I checked. The dot near the marker lines up with a catalogued star, not WISE 0855, which should be too faint here. These images can't tell me whether WISE 0855 moved."
+    "example_claim": "A and B are the better pair (2.7 days apart at the same wavelength), but the two dots that change between them are flagged detector pixels, so I found no evidence of a new or moving object among the features I checked. The dot near the marker lines up with a catalogued star rather than with the WISE 0855 prediction, and WISE 0855 should be too faint here. These images can't tell me whether WISE 0855 moved."
   },
   "limitations": [
     "Nothing in this case is photometry, a detection test or a measured position. Raw pixel values were used only to show that the flagged dots are one or two pixels wide.",

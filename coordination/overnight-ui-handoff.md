@@ -15,7 +15,7 @@
 | Failure-state fixtures | `qa/ui-fixtures/{missing_overlay,case_unavailable,unknown_case,live_origin_unavailable,no_coverage,reused_api_examples}.json` | `node qa/ui-fixtures/make_fixtures.mjs`, run after `cloudflare/build.py`. Responses come from the real Worker `handle()` with fault-injected assets |
 | Same frame at a different geometry | `qa/overnight-backend/fixtures/request_identity_fixture.json` | N5: the live route with a real retained cutout. One `frame_key`, four grids/scales/hashes |
 
-Both generator scripts need Node ≥ 22.18 (the evidence script imports `.ts` directly). Re-running either gives no git diff.
+The evidence script needs Node ≥ 22.18 because it imports `.ts` directly. Re-running both scripts gives no git diff (the evidence script with `--data-root`; without it, the raw-hash checks are recorded as skipped).
 
 ## 2. Third investigation: "A dot that jumps" (`wise_0855_quality_trap`)
 

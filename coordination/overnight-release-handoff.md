@@ -8,15 +8,16 @@
 - **Candidate:** the PR head recorded in `coordination/overnight-status.md` → N9, once exact-head CI is green. Until then there is no approved candidate.
 - **Base:** `origin/main` `0ffff6f`, unchanged since this branch started. The branch merges cleanly with no conflicts.
 
-The runtime diff against `main` is one file. Everything else in the branch is tests, science artifacts, staging, QA fixtures and coordination documents.
+The runtime diff against `main` is two files: one code fix and one shipped-content text correction. Everything else in the branch is tests, science artifacts, staging, QA fixtures and coordination documents.
 
 | Path | Runtime effect |
 |---|---|
 | `backend/data/process.py` (+21 lines, `_check_wave_table_index`) | **D1 fix (P1).** A damaged WCS-WAVE lookup table (a repeated or non-finite index value) made wcslib abort the whole Python process with SIGABRT. The frame route now returns the frame with `wavelength_um: null` and the existing "Wavelength unavailable: spectral WCS (key W) could not be evaluated" note instead. Valid data is unchanged: all 183 retained cutouts give identical records before and after, and `PROCESSING_VERSION` stays `perigee-processor-a/0.1.2` |
+| `backend/content/cases/fair_comparison.json` (text only; `content_version` `fair_comparison-2026-11-14b` → `-2026-11-15a`) | **Science wording correction from the N9 adversarial review.** The case said a flagged dot was "not something in the sky" / "not a change in the sky", which rests on flags alone (A and B are on different detector positions, so no same-pixel test exists). It now says the flagged pixel "gives no reason to claim a change in the sky". The supported A/B conclusion now names the remaining differences (DR1 vs QR3 release, pipeline build, pointing and rotation), and the background no longer calls a flag type "cosmic-ray hits" (no SPHEREx flag has that name). Frames, products, assets, the answer structure and `example_claim` (quoted in the deck narration) are unchanged. `admit_case.py` still admits it. This changes the catalog digest |
 | `tools/ingest/admit_case.py` | offline authoring tool; not imported by the app |
 | `.github/workflows/ci.yml` | adds the registration-audit pytest step and path triggers; no secrets, no deploy |
 
-There are **no** changes to `frontend/**`, `cloudflare/**`, `backend/content/**`, the API contract or the route semantics.
+There are **no** changes to `frontend/**`, `cloudflare/**`, any image or frame product, the API contract or the route semantics.
 
 ## 2. What is live now (checked once, 2026-11-15 ~04:00 UTC)
 
@@ -34,34 +35,35 @@ There are **no** changes to `frontend/**`, `cloudflare/**`, `backend/content/**`
 
 ## 3. Pending deployment steps (Codex)
 
-**Python origin only.** The Cloudflare bundle does not need a redeploy for this backend change.
+**Both layers.** The Python origin needs the D1 fix, and Cloudflare needs a content redeploy for the `fair_comparison` text correction. The Worker code is unchanged. The Cloudflare step can wait for, and ride along with, your UI redesign deploy.
 
 1. **Merge the PR** after review. On Vercel's Git integration, a push to `main` builds production automatically, if the build quota allows.
    - If the quota blocks the build again, do not retry repeatedly. D1 is a robustness fix, and the current origin is otherwise correct.
 2. **Confirm the build** with the Vercel GitHub status `success` for the merge commit.
-3. **Run the logged-out checks** against the public app, which proxies live routes to the origin:
+3. **Cloudflare content redeploy**, from the merge commit (or from your UI branch once it contains this merge). Follow `docs/CLOUDFLARE.md` → "Deploy":
    ```bash
-   .venv/bin/python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev --expect-release-digest 548e7202640872b3ea524061ac50a28d0be5d3b3a930048bf1ffac0b5b88024d
+   (cd frontend && npm ci && npm run build) && .venv/bin/python cloudflare/build.py
+   .venv/bin/python -m pytest -q cloudflare/tests && node --test cloudflare/test/*.test.mjs
+   cd cloudflare && npx wrangler@4.162.0 deploy
+   ```
+   On this branch, with the shipped frontend, the build gave:
+
+   | Identity | This branch | Deployed `4031abf8…` | Same? |
+   |---|---|---|---|
+   | Worker digest | `4a4073ba9fd628fc…` | `4a4073ba9fd628fc…` | yes |
+   | frontend digest | `82e0c264…` | `82e0c264…` | yes |
+   | catalog digest | `69bd6c4c531514e9…` | `a82761e7…` | **no** (the `fair_comparison` text) |
+   | release digest | `c5f419e067f766b4…` | `548e7202640872b3…` | **no** |
+
+   A UI redesign changes the frontend and release digests again. Smoke whatever you actually deploy.
+4. **Run the logged-out checks** against the build you deployed:
+   ```bash
    .venv/bin/python cloudflare/tests/smoke_local.py --base https://perigee.lokesathvik.workers.dev --cloudflare-edge
+   .venv/bin/python -m backend.platform.smoke --base https://perigee.lokesathvik.workers.dev --expect-build cloudflare/build/build-info.json
    ```
-   - Use `--expect-release-digest`, **not** `--expect-build`, unless you also redeploy Cloudflare from the merge commit.
-   - `--expect-build` deliberately requires the same *source label*. The deployed label is `fbb6647`, while a local build of the candidate reports its own commit. That mismatch is intentional, not a fault.
-   - The release, frontend, catalog and Worker digests are identical, as the next point shows.
-4. **Optional local identity check, before or after merging:**
-   ```bash
-   .venv/bin/python cloudflare/build.py   # needs frontend/dist (npm run build --prefix frontend)
-   ```
-   On this branch the build gave:
-
-   | Identity | Value | Same as deployed `4031abf8…`? |
-   |---|---|---|
-   | release digest | `548e7202640872b3…` | yes |
-   | Worker digest | `4a4073ba9fd628fc…` | yes |
-   | catalog content version | `targets-2026-11-15a` | yes |
-   | frontend digest | `82e0c264…` | yes |
-
-   So a Cloudflare redeploy would change nothing users see.
-5. **If you are also shipping the UI redesign or the staged third case:** that changes the frontend and catalog digests and needs the full Cloudflare deploy in `docs/CLOUDFLARE.md` → "Deploy". Then run the `--expect-build cloudflare/build/build-info.json` smoke against *that* build.
+   - Do not run `--expect-build` with this branch's local build against the current production. Production is still `548e7202…` (source `fbb6647`), so the mismatch is expected and is not a fault.
+   - If you deploy only the Python origin first, check the unchanged Cloudflare release with `--expect-release-digest 548e7202640872b3ea524061ac50a28d0be5d3b3a930048bf1ffac0b5b88024d`.
+5. **If you also ship the staged third case:** copy it as in `science/staging/README.md`, rebuild, and smoke as in step 4.
 6. **Record the result** in `docs/DEPLOYMENT.md`: the origin commit and the Cloudflare version.
 
 **Secrets, by name only:**
@@ -74,14 +76,15 @@ There are **no** changes to `frontend/**`, `cloudflare/**`, `backend/content/**`
 **Compatibility with the current UI:** full.
 
 - `/api/v1` fields, status codes, error codes, token semantics, the 3.6″ search cone, the 48-result temporal sampling, coordinate conventions, quality meanings and display defaults are all unchanged.
-- The only behavioural difference is on a damaged spectral table: before, the process crashed and the client saw a 502; now the client gets a 200 frame with `wavelength_um: null`. The UI already renders a null wavelength (`no_coverage.json` shows the same field state).
+- The `fair_comparison` change is copy only. Every field the UI reads keeps its type and position, and the steps, frames and refs are unchanged.
+- The only API behavioural difference is on a damaged spectral table: before, the process crashed and the client saw a 502; now the client gets a 200 frame with `wavelength_um: null`. The UI already renders a null wavelength (`no_coverage.json` shows the same field state).
 
 ## 4. Rollback
 
 | Layer | Rollback reference |
 |---|---|
-| Python origin | Vercel Instant Rollback to the current production deployment (GitHub status target `…/perigee/AxnZUxaeYCGgvPCxtsqHysJdJ8uj`, `main` `0ffff6f`). Or revert the merge commit: the change is self-contained in `backend/data/process.py` |
-| Cloudflare | Not changed by this candidate. If a later UI deploy needs reverting, use `npx wrangler@4.162.0 rollback 4031abf8-c0fb-4689-8205-3211ea0c673c` from `cloudflare/` (the current verified version) |
+| Python origin | Vercel Instant Rollback to the current production deployment (GitHub status target `…/perigee/AxnZUxaeYCGgvPCxtsqHysJdJ8uj`, `main` `0ffff6f`). Or revert the `process.py` change, which is self-contained |
+| Cloudflare | `npx wrangler@4.162.0 rollback 4031abf8-c0fb-4689-8205-3211ea0c673c` from `cloudflare/`, the current verified version |
 
 ## 5. Resilience evidence (bounded, local)
 
@@ -135,6 +138,6 @@ Responses are 14–42 KB against a 4 MB cap.
 
 | Layer | Difference |
 |---|---|
-| Cloudflare | none for users: same release and Worker digests. Only the source label differs |
+| Cloudflare | yes, by the `fair_comparison` wording correction (catalog digest). Worker and frontend are identical. Closing it needs step 3 |
 | Python origin | yes, by one robustness fix (D1). Closing it needs the Vercel build in step 1 |
 | Not yet integrated | the staged third case and every frontend item in `coordination/overnight-ui-handoff.md` |

@@ -61,8 +61,8 @@ The census covers native local maxima that their own frame's stretch draws pure 
 
 | Where (display px) | Native morphology (3×3 around peak) | FLAGS value and bits | Header meaning of each adverse bit | Same sky position in other frames |
 |---|---|---|---|---|
-| P (114.9, 82.9), Q (117.9, 80.6) | **One** native pixel above 5× the frame median: 234.6 (P) and 237.9 (Q) MJy/sr; 700–760× its brightest neighbour. **The same detector pixel (1709, 1364)** in both frames | P 2097221 (bits 0, 2, 6, 21), Q 69 (bits 0, 2, 6): NONFUNC, TRANSIENT, SUR_ERROR; P's bit 21 is SOURCE, informational, "Pixel mapped to a known source" | NONFUNC "Permanently unusable"; TRANSIENT "Transient detected during SUR"; SUR_ERROR "Error in onboard processing" | R: 0.30 MJy/sr at that sky position. R's cutout does **not** contain detector pixel (1709, 1364), so this is a statement about the sky only |
-| P (32.4, 111.8) | **Two** adjacent native pixels, 12.6 and 8.4 MJy/sr | 268959749: TRANSIENT, OUTLIER, HALO, SUR_ERROR | OUTLIER "Pixel flagged by Detect Outliers"; HALO "Pixel part of a transient halo" | Q and R: 0.29 (background) at that sky position. The same detector pixel (1689, 1364) in Q reads 0.27 MJy/sr, unflagged (N2) |
+| P (114.9, 82.9), Q (117.9, 80.6) | **One** native pixel above 5× the frame median: 234.6 (P) and 237.9 (Q) MJy/sr; 700–760× its brightest neighbour. **The same detector pixel (1709, 1364)** in both frames | P 2097221 (bits 0, 2, 6, 21), Q 69 (bits 0, 2, 6): NONFUNC, TRANSIENT, SUR_ERROR; P's bit 21 is SOURCE, informational, "Pixel mapped to a known source" | NONFUNC "Permanently unusable"; TRANSIENT "Transient detected during SUR"; SUR_ERROR "Error in onboard processing" | R: background at that sky position (the containing pixel reads 0.29 MJy/sr and carries an OUTLIER flag; the brightest pixel within 1.5 native px is 0.30; N2). R's cutout does **not** contain detector pixel (1709, 1364), so this is a statement about the sky only |
+| P (32.4, 111.8) | **Two** adjacent native pixels, 12.6 and 8.4 MJy/sr | 268959749: TRANSIENT, OUTLIER, HALO, SUR_ERROR | OUTLIER "Pixel flagged by Detect Outliers"; HALO "Pixel part of a transient halo" | Q and R: background at that sky position (containing pixel 0.231 in Q and 0.270 in R, unflagged; brightest within 1.5 native px about 0.29; N2). The same detector pixel (1689, 1364) in Q reads 0.27 MJy/sr, unflagged (N2) |
 | R (22.4, 209.7) | One native pixel at the cutout edge, 2.9 MJy/sr | 69: NONFUNC, TRANSIENT, SUR_ERROR | as above | P 0.33, Q 0.30 |
 | Q (128.7, 30.4), R (128.3, 32.3) | Star-like, 2.2–2.5 MJy/sr in **all three** frames | SOURCE only (no adverse flag) | none | P 2.43 |
 
@@ -74,7 +74,7 @@ The shipped flag overlay marks the first three features in red. The last feature
 
 - **The marker** is the catalog prediction of WISE 0855's position at each frame's time (`marker.kind = catalog_prediction`). It is not an image detection.
 - **The nearest dot** is the brightest native local maximum within 3 native px of the marker, located with a crude 3×3 first moment (`results.json` → `near_marker`):
-  - It lies 0.7–0.8″ from the cached Gaia DR3 position of `5756956644387831296` (G 16.3, nearly static) in all three frames.
+  - It lies 0.7–0.8″ (a crude 3×3 first moment on undersampled pixels, so read it as within about 1″) from the cached Gaia DR3 position of `5756956644387831296` (G 16.3, nearly static) in all three frames.
   - It lies 8.7″ (P), 7.9″ (Q) and 4.2″ (R) from the marker.
   - Its peak is 16–33 times the frame's robust pixel scatter above the frame median.
 
@@ -143,7 +143,7 @@ Magenta circles mark the catalog prediction. Yellow boxes mark the six unmatched
   - WISE 0855 is not securely detected or identified in these frames, and no astrometric fit was made, so there is no measured target position to compare.
   - The pair also mixes about 185 days with a 0.187 µm wavelength change (6.2 band widths). The wavelength change alters which sources appear and how they look.
   - No universal rule is implied. Positions can be compared across wavelengths, and shifts below one native pixel can be measured, given a detected source, adequate signal, PSF knowledge and a proper fit. Here the first requirement already fails.
-- **Supported conclusion:** "P and Q are the better pair (2.7 days apart at the same wavelength). The two dots that change between them are flagged detector pixels: one is a single flagged pixel at the same detector position in both frames, the other is two flagged pixels only in P. So the features I checked give no support for a new or moving object. The per-frame display stretch draws the same value lighter in Q, so the grey levels cannot show that the sky got brighter; the small measured difference in background has no established cause. The dot near the marker lines up with a catalogued star, not WISE 0855, which is expected to be too faint here. These images cannot show whether WISE 0855 moved."
+- **Supported conclusion:** "P and Q are the better pair (2.7 days apart at the same wavelength). The two dots that change between them are flagged detector pixels: one is a single flagged pixel at the same detector position in both frames, the other is two flagged pixels only in P. So the features I checked give no support for a new or moving object. The per-frame display stretch draws the same value lighter in Q, so the grey levels cannot show that the sky got brighter; the small measured difference in background has no established cause. The dot near the marker lines up with a catalogued star rather than with the WISE 0855 prediction, and WISE 0855 is expected to be too faint here. These images cannot show whether WISE 0855 moved."
 - **Not supported:**
   - "A new object appeared or moved." (The changing features are flagged pixels.)
   - "Nothing in the sky changed." (Only the brightest compact features were inspected; this is not an exhaustive search.)
@@ -241,3 +241,13 @@ These remain open and are honest residuals, not defects:
 - **Pipeline builds differ.** P, Q and R come from different builds within DR1 (`l2b-v27-2026-247`, `-206` and `-246`).
 - **The faintness of WISE 0855 is not measured here.** It is a sourced expectation, not a limit.
 - **No learner data.** The rubric and answer key are computationally reviewed interpretations. Whether an unfamiliar learner can apply the taught reasoning here is not measured, and is not a completion requirement for this package.
+
+## Third review pass (N9 adversarial science review, 2026-11-15)
+
+An independent read-only reviewer recomputed the key numbers from the raw FITS and found no wrong science. These are the wording and caveat repairs:
+
+- **Identity wording.** "Lines up with a catalogued star, not WISE 0855" became "lines up with a catalogued star rather than with the WISE 0855 prediction" (here and in the staged case's `example_claim`).
+- **Marker shift is proper motion only.** The marker model does not include annual parallax (see the case limitations). For WISE 0855 (parallax about 0.44″), the reviewer computed an A→C parallax offset of about 0.9″ in the same direction. That makes the apparent predicted shift about 5″ rather than 4.1″, still under one 6.15″ native pixel. The 4.1″ figure and the 4.5–11.8″ Gaia-star separations are therefore proper-motion-only predictions. The registry tolerances express reproducibility of that computation, not sky accuracy. The staged case now says so. Conclusions do not change. For Barnard's Star, A→C parallax nearly cancels (about 0.03″).
+- **Sky-position values.** The feature table gave values labelled "at that sky position" that were actually the brightest pixel within 1.5 native px. The containing-pixel values are now given too, including the OUTLIER flag on R's pixel at the jumping dot's sky position.
+- **C's own flagged pixel.** C has its own single flagged pixel (NONFUNC, TRANSIENT, SUR_ERROR) at display (22.4, 209.7). The staged case now mentions it, so a learner blinking A and C is not left with an unexplained "dot only in C".
+- **J band.** The faintness expectation now says the 1.444 µm frame is just beyond J band.
