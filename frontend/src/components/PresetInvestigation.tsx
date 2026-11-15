@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { compareChronological, type PerigeeApi } from "../api/client";
 import type { CaseContent, FrameRecord, PresetDescriptor, PresetFramesResult } from "../api/types";
 import { attachPair, createEvidenceCard, type EvidenceCard } from "../evidence/card";
@@ -8,8 +8,8 @@ import { reviewStep } from "../evidence/completion";
 import { CaseBench } from "./CaseBench";
 import { ErrorBlock, useAsync } from "./common";
 import { FrameViewer, type FrameSlot } from "./FrameViewer";
-import { Notebook } from "./Notebook";
-import { InvestigationSwitcher, PageHeading, WorkflowStrip } from "./PageHeading";
+import { Notebook, type RequiredPairRecovery } from "./Notebook";
+import { InvestigationSwitcher, PageHeading } from "./PageHeading";
 
 // Short orientation for the working view. The complete authored opening is
 // preserved in the context disclosure below the comparison.
@@ -19,12 +19,26 @@ const CASE_INTROS: Record<string, string> = {
   wise_0855_quality_trap: "Check whether a jumping dot is a change in the sky or a clue in the detector.",
 };
 
+function stepPrompt(prompt: string): string {
+  return prompt.replace(/\bBlink pair\b/g, "Play comparison")
+    .replace(/\bBlink the three frames\b/g, "Play each image pair")
+    .replace(/\bBlink A and B\b/g, "Play images A and B");
+}
+
+function focusInvestigationSection(id: string) {
+  window.requestAnimationFrame(() => {
+    const section = document.getElementById(id);
+    section?.scrollIntoView({ block: "start", behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    section?.focus({ preventScroll: true });
+  });
+}
+
 interface Loaded {
   presets: PresetDescriptor[];
   preset: PresetDescriptor | null;
   /** The preset's full `frames` set, for free stepping. */
   sequence: FrameRecord[];
-  /** The case's own product set (shared stretch), for the comparison plates. */
+  /** The case's own products; the selected pair determines stretch compatibility. */
   caseFrames: FrameRecord[];
   status: PresetFramesResult["status"];
   reason: string | null;
@@ -81,14 +95,14 @@ export function PresetInvestigation(props: {
   if (state.status === "loading") {
     return (
       <p className="status" role="status">
-        Loading curated frames…
+        Loading the investigation images…
       </p>
     );
   }
   if (state.status === "error") {
     return (
       <ErrorBlock
-        title="The curated frames for this target could not be loaded."
+        title="The images for this target could not be loaded."
         error={state.error}
         onRetry={retry}
         onUseFixture={api.mode === "api" ? props.onUseFixture : undefined}
@@ -150,6 +164,7 @@ function PresetLoaded(props: {
   }, [data.sequence, data.caseFrames, caseContent]);
 
   const [index, setIndex] = useState(0);
+  const [sequenceOpen, setSequenceOpen] = useState(false);
   useEffect(() => {
     const a = slots.findIndex((s) => s.ref === "A");
     setIndex(a >= 0 ? a : 0);
@@ -177,6 +192,9 @@ function PresetLoaded(props: {
     [api.mode, caseContent, preset, presetId],
   );
   const ev = useEvidenceCard(contextKey, makeCard);
+  const [activeCheckIndex, setActiveCheckIndex] = useState(() => Math.max(0,
+    caseContent?.steps.findIndex((step) => !ev.card.reviewed_step_ids?.includes(step.id)) ?? 0));
+  const overviewRef = useRef<HTMLDetailsElement>(null);
 
   // The pair partner of the first case frame. Restore it from the saved card.
   const defaultOther = (() => {
@@ -208,37 +226,88 @@ function PresetLoaded(props: {
   const selected = useMemo(() => new Set(exportCard.frames.map((f) => f.frame_key)), [exportCard.frames]);
   const hasCase = Boolean(caseContent && caseRefs.length >= 2);
 
+  const choosePair = (ref: string) => {
+    if (!framesByRef.has(ref)) return;
+    setOtherRef(ref);
+    const nextPair = [firstRef, ref].flatMap((r) => {
+      const frame = r ? framesByRef.get(r) : undefined;
+      return frame && r ? [{ frame, ref: r }] : [];
+    });
+    if (nextPair.length === 2) ev.update(attachPair(ev.card, nextPair, caseRefs));
+  };
+  const requiredGroups = caseContent?.evidence_requirements?.must_include_refs_any_of ?? [];
+  const requiredRefs = requiredGroups.find((group) => group.length === 2 && group.includes(firstRef ?? "") && group.every((ref) => framesByRef.has(ref)))
+    ?? requiredGroups[0];
+  const requiredOther = requiredRefs?.find((ref) => ref !== firstRef);
+  const canRestorePair = Boolean(requiredRefs?.length === 2 && requiredRefs.includes(firstRef ?? "") && requiredRefs.every((ref) => framesByRef.has(ref)));
+  const requiredPair: RequiredPairRecovery | undefined = requiredRefs ? {
+    refs: requiredRefs,
+    reason: caseContent?.case_id === "moving_neighbor"
+      ? "The final question compares the first and last images to examine a year of change."
+      : caseContent?.case_id === "wise_0855_quality_trap"
+        ? "The final question uses the images taken three days apart at nearly the same wavelength."
+        : caseContent?.case_id === "fair_comparison"
+          ? "The final question uses images taken at nearly the same wavelength to check for a change over time."
+          : "The reference answer is based on this pair. Other pairs help you check alternative explanations.",
+    onSelect: canRestorePair && requiredOther ? () => choosePair(requiredOther) : undefined,
+  } : undefined;
+  const checkCount = caseContent?.steps.length ?? 0;
+  const checkIndex = Math.min(activeCheckIndex, Math.max(0, checkCount - 1));
+  const currentCheck = caseContent?.steps[checkIndex];
+  const reviewedCount = caseContent?.steps.filter((step) => ev.card.reviewed_step_ids?.includes(step.id)).length ?? 0;
+  const currentReviewed = Boolean(currentCheck && ev.card.reviewed_step_ids?.includes(currentCheck.id));
+  const openCheck = (index: number) => {
+    setActiveCheckIndex(index);
+    if (overviewRef.current) overviewRef.current.open = false;
+    focusInvestigationSection("investigation-steps");
+  };
+  const continueChecks = () => {
+    const next = caseContent?.steps.findIndex((step) => !ev.card.reviewed_step_ids?.includes(step.id)) ?? 0;
+    openCheck(Math.max(0, next));
+  };
+
   const stepsCard =
-    caseContent && caseContent.steps.length > 0 ? (
-            <div className="case-steps">
+    caseContent && currentCheck ? (
+            <section className="case-steps guided-check" aria-labelledby="investigation-steps">
               <div className="case-steps-heading">
-                <h3 id="investigation-steps">Your investigation steps</h3>
-                <span>{caseContent.steps.filter((s) => ev.card.reviewed_step_ids?.includes(s.id)).length} of {caseContent.steps.length} reviewed</span>
+                <h3 id="investigation-steps" tabIndex={-1}>Check what you noticed</h3>
+                <span>{reviewedCount} of {checkCount} reviewed</span>
               </div>
-              <WorkflowStrip />
-              <p className="pair-guidance">Check each step after you review it. Your progress stays with this evidence card.</p>
-              {caseRefs.length > 2 && <p className="pair-guidance">Use Blink pair to alternate the two selected observations. Switch comparisons to inspect the other frames.</p>}
-              <ol>
+              <div className="active-check" key={currentCheck.id} aria-live="polite" aria-atomic="true">
+                <p className="check-position">Check {checkIndex + 1} of {checkCount}{currentReviewed ? " · Reviewed" : ""}</p>
+                <p className="check-prompt">{stepPrompt(currentCheck.prompt)}</p>
+              </div>
+              {currentCheck.hint && <details className="check-help" key={`help-${currentCheck.id}`}>
+                <summary>Help with this check</summary>
+                <p>{currentCheck.hint}</p>
+              </details>}
+              <div className="check-actions">
+                <button type="button" className="check-continue" onClick={() => {
+                  if (!currentReviewed) ev.update(withPair(reviewStep(ev.card, currentCheck.id, true)));
+                  if (checkIndex + 1 < checkCount) openCheck(checkIndex + 1);
+                  else focusInvestigationSection("notebook");
+                }}>{currentReviewed ? checkIndex + 1 < checkCount ? "Next check" : "Record what you found" : checkIndex + 1 < checkCount ? "Mark reviewed and continue" : "Mark reviewed and record"}</button>
+                {checkIndex > 0 && <button type="button" className="link" onClick={() => openCheck(checkIndex - 1)}>Previous check</button>}
+              </div>
+              <p className="check-progress-note">Reviewed means you looked at the check, not that your answer was graded.</p>
+              <details className="check-overview" ref={overviewRef}>
+                <summary>All {checkCount} checks and your progress</summary>
+                <ol>
                 {caseContent.steps.map((s, i) => (
                   <li key={s.id}>
+                    <button type="button" className="link" onClick={() => openCheck(i)}>Open check {i + 1}</button>
+                    <p>{stepPrompt(s.prompt)}</p>
                     <label className="step-review">
                       <input type="checkbox" checked={Boolean(ev.card.reviewed_step_ids?.includes(s.id))}
                         aria-label={`Reviewed step ${i + 1}`}
                         onChange={(e) => ev.update(withPair(reviewStep(ev.card, s.id, e.target.checked)))} />
-                      <span>{s.prompt}</span>
+                      <span>Reviewed</span>
                     </label>
-                    {s.hint && (
-                      <details>
-                        <summary>
-                          Hint<span className="visually-hidden"> for step {i + 1}</span>
-                        </summary>
-                        <p>{s.hint}</p>
-                      </details>
-                    )}
                   </li>
                 ))}
-              </ol>
-            </div>
+                </ol>
+              </details>
+            </section>
           ) : null;
 
   // Authored background, closed by default so the plates reach the first viewport.
@@ -270,12 +339,25 @@ function PresetLoaded(props: {
         </div>
       </details>
     ) : null;
-  const caseGuidance = (
-    <>
-      {stepsCard}
-      {backgroundPanel}
-    </>
-  );
+  const fullSequence = (slots.length === 0 ? (
+            <div className="status">
+              <p>No processed frames are published for this target yet. Nothing is shown in their place.</p>
+              {data.reason && <p className="muted">{data.reason}</p>}
+            </div>
+          ) : (
+            <FrameViewer
+              title={hasCase ? `All ${slots.length} observations` : "Observations in date order"}
+              description={hasCase ? "Optional: look beyond the guided pair. Each image keeps its own date, wavelength and quality." : "Use Earlier and Later to explore. Each image keeps its own date, wavelength and quality."}
+              slots={slots}
+              index={Math.min(index, slots.length - 1)}
+              onIndexChange={setIndex}
+              selectedKeys={selected}
+              requiredKeys={new Set(pair.map(({ frame }) => frame.frame_key))}
+              onToggleEvidence={(frame, ref) => ev.toggleFrame(frame, hasCase ? null : ref)}
+              guideLine={Boolean(caseContent?.display_requirements?.reference_line)}
+              blinkTool={!hasCase}
+            />
+          ));
 
   return (
     <>
@@ -292,7 +374,7 @@ function PresetLoaded(props: {
           onOpenQuery={props.onOpenQuery}
         />}
       />
-      <div className="workspace">
+      <div className="workspace investigation-workspace">
         <section className="bench" id="observations" tabIndex={-1} aria-label="Observation comparison">
           {hasCase && <h2 className="visually-hidden">Compare observations</h2>}
           {!hasCase && <div className="target-line">
@@ -326,18 +408,11 @@ function PresetLoaded(props: {
               caseContent={caseContent}
               framesByRef={framesByRef}
               otherRef={otherRef}
-              afterShell={caseGuidance}
-              onOtherRefChange={(r) => {
-                setOtherRef(r);
-                const nextPair = [firstRef, r].flatMap((ref) => {
-                  const frame = ref ? framesByRef.get(ref) : undefined;
-                  return frame && ref ? [{ frame, ref }] : [];
-                });
-                if (nextPair.length === 2) ev.update(attachPair(ev.card, nextPair, caseRefs));
-              }}
+              afterShell={stepsCard}
+              onOtherRefChange={choosePair}
             />
           )}
-          {!hasCase && caseContent && data.caseFramesError == null && caseGuidance}
+          {!hasCase && caseContent && data.caseFramesError == null && stepsCard}
           {missingRefs.length > 0 && data.caseFramesError == null && (
             <p className="notice" role="note">
               Case frame{missingRefs.length > 1 ? "s" : ""} {missingRefs.map((m) => `${m.ref} (${m.frame_key})`).join(", ")}{" "}
@@ -349,42 +424,7 @@ function PresetLoaded(props: {
               Some processed frames for this target could not be used.
             </p>
           )}
-          {data.warnings.length > 0 && (
-            <details className="inline-disclosure">
-              <summary>Catalog warnings ({data.warnings.length})</summary>
-              <ul className="plain-list background-short">
-                {data.warnings.map((w) => (
-                  <li key={w}>{w}</li>
-                ))}
-              </ul>
-            </details>
-          )}
-
-          {hasCase && preset?.query_center && (
-            <div className="archive-action">
-              <span>Explore beyond the selected comparison</span>
-              <button type="button" onClick={() => props.onQueryPosition(preset)}>Search the archive here</button>
-            </div>
-          )}
-          {slots.length === 0 ? (
-            <div className="status">
-              <p>No processed frames are published for this target yet. Nothing is shown in their place.</p>
-              {data.reason && <p className="muted">{data.reason}</p>}
-            </div>
-          ) : (
-            <FrameViewer
-              title={hasCase ? `All ${slots.length} frames in time order` : "Frames in time order"}
-              description="Use ← → to step. Each frame keeps its own date, wavelength and quality."
-              slots={slots}
-              index={Math.min(index, slots.length - 1)}
-              onIndexChange={setIndex}
-              selectedKeys={selected}
-              requiredKeys={new Set(pair.map(({ frame }) => frame.frame_key))}
-              onToggleEvidence={(frame, ref) => ev.toggleFrame(frame, hasCase ? null : ref)}
-              guideLine={Boolean(caseContent?.display_requirements?.reference_line)}
-              blinkTool={!hasCase}
-            />
-          )}
+          {!hasCase && fullSequence}
         </section>
 
         <Notebook
@@ -395,7 +435,31 @@ function PresetLoaded(props: {
           saveState={ev.saveState}
           caseContent={caseContent}
           attachedLabel={hasCase && firstRef && otherRef ? `${firstRef} + ${otherRef}` : null}
+          requiredPair={requiredPair}
+          onReviewSteps={continueChecks}
         />
+
+        <section className="investigation-extras" aria-label="Background and optional exploration">
+          {backgroundPanel}
+          {data.warnings.length > 0 && (
+            <details className="inline-disclosure">
+              <summary>More about these data ({data.warnings.length} warnings)</summary>
+              <ul className="plain-list background-short">{data.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul>
+            </details>
+          )}
+          {hasCase && (
+            <details className="panel sequence-disclosure" onToggle={(event) => setSequenceOpen(event.currentTarget.open)}>
+              <summary><span>Explore all {slots.length} observations (optional)</span><span className="expand" aria-hidden="true">+</span></summary>
+              <div className="details-body">{sequenceOpen && fullSequence}</div>
+            </details>
+          )}
+          {hasCase && preset?.query_center && (
+            <div className="archive-action">
+              <span>Choose your own patch of sky</span>
+              <button type="button" onClick={() => props.onQueryPosition(preset)}>Search around this target</button>
+            </div>
+          )}
+        </section>
       </div>
     </>
   );

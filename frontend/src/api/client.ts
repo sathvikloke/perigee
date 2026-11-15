@@ -14,6 +14,7 @@ import {
   type Provenance,
   type Quality,
   type QualityStatus,
+  type ResolvedObject,
   type SearchRequest,
   type SearchResponse,
 } from "./types";
@@ -25,6 +26,7 @@ export const FRAME_CONCURRENCY = 2;
 
 /** Browser-side wait for /search; the UI quotes it while a search is slow. */
 export const SEARCH_TIMEOUT_MS = 45_000;
+export const RESOLVE_TIMEOUT_MS = 15_000;
 const FRAME_TIMEOUT_MS = 90_000;
 const DEFAULT_TIMEOUT_MS = 20_000;
 
@@ -137,7 +139,7 @@ export function errorFromResponse(
       code: "NON_JSON_RESPONSE",
       message: `The Perigee API did not answer normally (HTTP ${status}, ${contentType || "unknown content"} instead of JSON). It may be down or misrouted.`,
       httpStatus: status,
-      retryable: status >= 500,
+      retryable: status >= 500 || status === 429,
     });
   }
   return new ApiError({
@@ -555,6 +557,26 @@ export interface PerigeeApi {
   presetFrames(presetId: string, caseId?: string | null, signal?: AbortSignal): Promise<PresetFramesResult>;
   search(req: Omit<SearchRequest, "schema_version">, signal?: AbortSignal): Promise<SearchResponse>;
   frame(frameToken: string, signal?: AbortSignal): Promise<FrameRecord>;
+  /** Live resolver only; fixture APIs deliberately do not synthesize catalog answers. */
+  resolveName?(name: string, signal?: AbortSignal): Promise<ResolvedObject>;
+}
+
+export function normalizeResolvedObject(body: unknown): ResolvedObject {
+  const r = body as Partial<ResolvedObject> | null;
+  const position = (p: unknown): boolean => {
+    if (!p || typeof p !== "object") return false;
+    const v = p as Record<string, unknown>;
+    return typeof v.ra_deg === "number" && Number.isFinite(v.ra_deg) && v.ra_deg >= 0 && v.ra_deg < 360 &&
+      typeof v.dec_deg === "number" && Number.isFinite(v.dec_deg) && Math.abs(v.dec_deg) <= 90 &&
+      typeof v.epoch_jyear === "number" && Number.isFinite(v.epoch_jyear);
+  };
+  if (!r || typeof r.name !== "string" || !r.name || !position(r.catalog_position) || !position(r.search_center) ||
+      !["catalog_position", "finder_prediction"].includes(r.search_center?.kind ?? "") ||
+      typeof r.note !== "string" || typeof r.source !== "string" || typeof r.source_url !== "string" ||
+      !r.source_url.startsWith("https://vizier.cfa.harvard.edu/viz-bin/nph-sesame/-oxp/S?")) {
+    throw new ApiError({ code: "MALFORMED_RESPONSE", message: "The object lookup did not return a usable sky position." });
+  }
+  return r as ResolvedObject;
 }
 
 export function createHttpApi(options: { base?: string; fetchImpl?: FetchLike } = {}): PerigeeApi {
@@ -611,6 +633,11 @@ export function createHttpApi(options: { base?: string; fetchImpl?: FetchLike } 
           httpStatus: response.status,
         });
       }
+    } catch (err) {
+      if (err instanceof ApiError) throw err;
+      if (t.timedOut()) throw new ApiError({ code: "CLIENT_TIMEOUT", message: "The response took too long. Try again.", retryable: true });
+      if (signal?.aborted || isAbortError(err)) throw new DOMException("Aborted", "AbortError");
+      throw new ApiError({ code: "NETWORK_ERROR", message: "The connection stopped while the response was loading. Try again.", retryable: true });
     } finally {
       t.clear();
     }
@@ -641,6 +668,9 @@ export function createHttpApi(options: { base?: string; fetchImpl?: FetchLike } 
           DEFAULT_TIMEOUT_MS,
         ),
       ),
+    resolveName: async (name, signal) => normalizeResolvedObject(
+      await requestJson("POST", "/resolve", { schema_version: SCHEMA_VERSION, name }, signal, RESOLVE_TIMEOUT_MS),
+    ),
     search: async (req, signal) =>
       normalizeSearchResponse(
         await requestJson("POST", "/search", { schema_version: SCHEMA_VERSION, ...req }, signal, SEARCH_TIMEOUT_MS),

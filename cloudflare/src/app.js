@@ -6,7 +6,7 @@
 // - /api/v1/presets, /cases/{id}, /presets/{id}/frames[?case_id=], /assets/{id}
 //   are served locally from the catalog exported by cloudflare/build.py, with the
 //   same status codes, error envelopes and headers as the FastAPI routes.
-// - /api/v1/health, /search and /frame are proxied to ONE fixed origin (the
+// - /api/v1/health, /resolve, /search and /frame are proxied to ONE fixed origin (the
 //   public Vercel Python API). No user-chosen hosts or URLs, no redirect
 //   following, no cookies/credentials forwarded, bounded bodies and time.
 // - Anything else under /api is a JSON 404, never the SPA's HTML.
@@ -23,6 +23,7 @@ export const UPSTREAM_TIMEOUT_MS = 70_000; // the Python function's maxDuration 
 const PROXY_ROUTES = new Map([
   ["/api/v1/health", "GET"],
   ["/api/v1/search", "POST"],
+  ["/api/v1/resolve", "POST"],
   ["/api/v1/frame", "POST"],
 ]);
 const CLIENT_RID = /^[A-Za-z0-9._:-]{1,64}$/;

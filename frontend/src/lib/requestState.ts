@@ -5,6 +5,16 @@
 import type { SearchResponse } from "../api/types";
 import type { ValidQuery } from "./coords";
 
+/** Describes the processing lifecycle without tying announcements to frame playback. */
+export function frameProcessingAnnouncement(counts: { pending: number; loading: number; ready: number; error: number }): string {
+  const working = counts.pending + counts.loading;
+  const ready = `${counts.ready} frame${counts.ready === 1 ? "" : "s"} ready`;
+  const failed = counts.error ? `; ${counts.error} could not be processed` : "";
+  return working
+    ? `${ready}; ${working} still processing${failed}.`
+    : `Frame processing finished: ${ready}${failed}.`;
+}
+
 export function sameQuery(a: ValidQuery, b: ValidQuery): boolean {
   return a.ra_deg === b.ra_deg && a.dec_deg === b.dec_deg && a.fov_arcmin === b.fov_arcmin && a.limit === b.limit;
 }
@@ -76,6 +86,6 @@ const CONNECTION_CODES = new Set(["NETWORK_ERROR", "CLIENT_TIMEOUT", "NON_JSON_R
 /** Heading for a failed search. Neither wording claims anything about the sky. */
 export function searchFailureTitle(code: string | null): string {
   return code && CONNECTION_CODES.has(code)
-    ? "The search did not reach the archive. This is not a result about the sky."
-    : "The archive search failed. This is not a result about the sky.";
+    ? "The search couldn’t connect. Try again when your connection is ready."
+    : "The archive search couldn’t finish. You can try again.";
 }

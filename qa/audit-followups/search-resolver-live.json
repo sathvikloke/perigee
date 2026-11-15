@@ -1,0 +1,60 @@
+{
+  "checked_at": "2026-11-15",
+  "endpoint": "fixed Harvard CDS Sesame mirror",
+  "results": [
+    {
+      "name": "Barnard's Star",
+      "catalog_position": {
+        "ra_deg": 269.45207696,
+        "dec_deg": 4.69336497,
+        "epoch_jyear": 2000.0
+      },
+      "search_center": {
+        "ra_deg": 269.4462585584787,
+        "dec_deg": 4.768324486236583,
+        "epoch_jyear": 2026.0,
+        "kind": "finder_prediction"
+      },
+      "source": "SIMBAD via CDS Sesame",
+      "source_url": "https://vizier.cfa.harvard.edu/viz-bin/nph-sesame/-oxp/S?Barnard%27s%20Star",
+      "position_reference": "2020yCat.1350....0G",
+      "note": "Search centered on the catalog prediction for 2026.0, adjusted for the star\u2019s motion. This is a finder position, not a detection."
+    },
+    {
+      "name": "Epsilon Indi B",
+      "catalog_position": {
+        "ra_deg": 331.04414659,
+        "dec_deg": -56.7828442,
+        "epoch_jyear": 2000.0
+      },
+      "search_center": {
+        "ra_deg": 331.0966687831005,
+        "dec_deg": -56.80064917516836,
+        "epoch_jyear": 2026.0,
+        "kind": "finder_prediction"
+      },
+      "source": "SIMBAD via CDS Sesame",
+      "source_url": "https://vizier.cfa.harvard.edu/viz-bin/nph-sesame/-oxp/S?Epsilon%20Indi%20B",
+      "position_reference": "2020yCat.1350....0G",
+      "note": "Search centered on the catalog prediction for 2026.0, adjusted for the star\u2019s motion. This is a finder position, not a detection."
+    },
+    {
+      "name": "* alf Lyr",
+      "catalog_position": {
+        "ra_deg": 279.23473479,
+        "dec_deg": 38.78368896,
+        "epoch_jyear": 2000.0
+      },
+      "search_center": {
+        "ra_deg": 279.23473479,
+        "dec_deg": 38.78368896,
+        "epoch_jyear": 2000.0,
+        "kind": "catalog_position"
+      },
+      "source": "SIMBAD via CDS Sesame",
+      "source_url": "https://vizier.cfa.harvard.edu/viz-bin/nph-sesame/-oxp/S?Vega",
+      "position_reference": "2007A&A...474..653V",
+      "note": "Catalog position at epoch 2000.0. Moving stars may be elsewhere in recent images."
+    }
+  ]
+}

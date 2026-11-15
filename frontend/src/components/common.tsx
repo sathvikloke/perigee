@@ -7,6 +7,16 @@ export function errorInfo(err: unknown): { code: string; message: string; retrya
   return { code: "UNEXPECTED", message: err instanceof Error ? err.message : String(err), retryable: true };
 }
 
+export function friendlyError(code: string): string {
+  if (code === "TOKEN_EXPIRED" || code === "INVALID_TOKEN" || code === "INVALID_FRAME_TOKEN") return "This search has expired. Run it again; your notes are kept.";
+  if (code === "PRESET_NOT_FOUND") return "This investigation is unavailable. Choose another from the home page.";
+  if (code === "PROCESSING_FAILED") return "This observation could not be processed. Other images may still be usable.";
+  if (code === "SUPERSEDED") return "Loading stopped when a newer search started. You can load this image again.";
+  if (code === "NETWORK_ERROR") return "The connection was interrupted. Check your connection and try again.";
+  if (code === "UPSTREAM_UNAVAILABLE" || code === "UPSTREAM_TIMEOUT") return "The data service couldn’t respond right now. Try again; your notes are kept.";
+  return "The request could not be completed right now. Please try again; your notes are kept.";
+}
+
 export function ErrorBlock(props: {
   title: string;
   error: unknown;
@@ -20,7 +30,7 @@ export function ErrorBlock(props: {
         <strong>{props.title}</strong>
       </p>
       <p>
-        {info.message} <span className="mono muted">({info.code})</span>
+        {friendlyError(info.code)}
       </p>
       <div className="actions">
         {props.onRetry && (

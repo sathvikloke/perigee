@@ -25,9 +25,15 @@ export function App() {
   const api: PerigeeApi = useMemo(() => (fixtureMode ? createFixtureApi() : createHttpApi()), [fixtureMode]);
   // Bounded session cache, keyed by the full signed cutout request.
   const frameCache = useRef(new Map<string, FrameRecord>());
+  // Native in-page links can emit popstate. A hash jump must not restart a
+  // completed archive query or reset its selected image and notebook.
+  const routeLocation = useRef(window.location.pathname + window.location.search);
 
   useEffect(() => {
     const onPop = () => {
+      const location = window.location.pathname + window.location.search;
+      if (location === routeLocation.current) return;
+      routeLocation.current = location;
       setRoute(parseRoute(window.location.search));
       setFixtureMode(initialFixtureMode());
       setQueryNavigation((n) => n + 1);
@@ -41,6 +47,7 @@ export function App() {
       const url = `${window.location.pathname}${routeToSearch(next, fixtures)}`;
       if (replace) window.history.replaceState(null, "", url);
       else window.history.pushState(null, "", url);
+      routeLocation.current = url;
       if (fixtures !== fixtureMode) setFixtureMode(fixtures);
       setRoute(next);
       if (!replace && next.view === "query") setQueryNavigation((n) => n + 1);
@@ -55,6 +62,7 @@ export function App() {
     else p.delete("fixtures");
     const s = p.toString();
     window.history.replaceState(null, "", `${window.location.pathname}${s ? `?${s}` : ""}`);
+    routeLocation.current = window.location.pathname + window.location.search;
     setFixtureMode(on);
   };
   const useFixture = () => setFixtures(true);
@@ -63,8 +71,22 @@ export function App() {
   // land in context. A preset renders its heading only once its frames have
   // loaded, so focus follows the heading when it mounts.
   const mainRef = useRef<HTMLElement>(null);
+  const pendingInvestigations = useRef(window.location.hash === "#investigations");
   const routeKey = route.view === "preset" ? `preset:${route.presetId}:${route.caseId ?? "default"}` : route.view;
-  useEffect(() => (mainRef.current ? focusHeadingIn(mainRef.current) : undefined), [routeKey]);
+  useEffect(() => (mainRef.current && !(route.view === "home" && pendingInvestigations.current) ? focusHeadingIn(mainRef.current) : undefined), [routeKey]);
+  const focusInvestigations = () => {
+    const heading = document.getElementById("presets-h");
+    heading?.setAttribute("tabindex", "-1");
+    heading?.scrollIntoView({ block: "start" });
+    heading?.focus({ preventScroll: true });
+    window.history.replaceState(null, "", `${window.location.pathname}${fixtureMode ? "?fixtures=1" : ""}#investigations`);
+  };
+  useEffect(() => {
+    if (route.view === "home" && pendingInvestigations.current) {
+      pendingInvestigations.current = false;
+      focusInvestigations();
+    }
+  }, [route]);
 
   const pendingEvidence = useRef(window.location.hash === "#my-evidence");
   const focusEvidence = () => {
@@ -127,12 +149,14 @@ export function App() {
           <ul>
             <li>
               <a
-                href={routeToSearch({ view: "home" }, fixtureMode) || "?"}
+                href={`/${fixtureMode ? "?fixtures=1" : ""}#investigations`}
                 className="wide-only"
                 aria-current={route.view === "home" ? "page" : undefined}
                 onClick={(e) => {
                   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                   e.preventDefault();
+                  if (route.view === "home") return focusInvestigations();
+                  pendingInvestigations.current = true;
                   navigate({ view: "home" });
                 }}
               >
@@ -151,7 +175,7 @@ export function App() {
               >
                 {/* One text node per breakpoint: an inline span with a leading space
                     produced "Search  coordinates" in the accessible name. */}
-                <span className="wide-only">Search coordinates</span>
+                <span className="wide-only">Search archive</span>
                 <span className="phone-only">Search</span>
               </a>
             </li>
@@ -227,7 +251,7 @@ export function App() {
         </a>
         <p className="footer-ai">
           <a href={AI_USE_URL} target="_blank" rel="noreferrer">
-            Development notes
+            AI use disclosure
           </a>
         </p>
       </footer>

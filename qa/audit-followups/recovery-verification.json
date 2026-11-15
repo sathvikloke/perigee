@@ -1,0 +1,1 @@
+{"armed": true, "target_attempts": 2, "search_requests": 1, "frame_requests": 3, "injected_502": 1, "delayed_retries": 1, "passed_frames": 2, "testing_only": true, "static_dist_exists": true, "api_origin": "http://127.0.0.1:8052", "pid": 75569}

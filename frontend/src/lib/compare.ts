@@ -39,6 +39,28 @@ export interface PairAnalysis {
 
 const ONE_HOUR_DAYS = 1 / 24;
 
+/** A shared label on one image does not establish that the selected pair shares a mapping. */
+export function hasSharedStretch(a: FrameRecord, b: FrameRecord): boolean {
+  const x = a.display_scale;
+  const y = b.display_scale;
+  if (!x || !y || x.mode !== "shared" || y.mode !== "shared") return false;
+  if (typeof x.basis !== "string" || !x.basis || x.basis !== y.basis) return false;
+  if (!x.method || !x.unit || x.method !== y.method || x.unit !== y.unit) return false;
+  if (typeof x.low !== "number" || typeof x.high !== "number" ||
+      !Number.isFinite(x.low) || !Number.isFinite(x.high) || x.high <= x.low) return false;
+  if (x.method === "asinh" && (typeof x.asinh_softening !== "number" ||
+      !Number.isFinite(x.asinh_softening) || x.asinh_softening <= 0)) return false;
+  return ["low", "high", "asinh_softening", "background_subtraction", "clipping"].every((key) => x[key] === y[key]);
+}
+
+export function pairStretchExplanation(a: FrameRecord, b: FrameRecord): string {
+  if (hasSharedStretch(a, b)) {
+    return "The selected images use one shared contrast stretch for visual comparison. Brightness measurements still require calibrated photometry.";
+  }
+  const separate = a.display_scale?.mode === "per_frame" || b.display_scale?.mode === "per_frame";
+  return `${separate ? "The selected images use separate contrast stretches." : "A shared contrast stretch is not verified for these selected images."} Grey levels cannot establish a brightness change.`;
+}
+
 export function analyzePair(a: FrameRecord, b: FrameRecord): PairAnalysis {
   const dt = Math.abs(b.mjd - a.mjd);
   const sameTime = dt < ONE_HOUR_DAYS;
@@ -53,8 +75,8 @@ export function analyzePair(a: FrameRecord, b: FrameRecord): PairAnalysis {
   if (a.quality.status !== "clear" || b.quality.status !== "clear") {
     caveats.push("At least one frame did not pass the flag screen near the target: look, but don't measure.");
   }
-  if (a.display_scale?.mode === "per_frame" || b.display_scale?.mode === "per_frame") {
-    caveats.push("Each frame has its own contrast stretch, so brightness is not directly comparable.");
+  if (!hasSharedStretch(a, b)) {
+    caveats.push(pairStretchExplanation(a, b));
   }
   if (a.collection_id !== b.collection_id) {
     caveats.push(

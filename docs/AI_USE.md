@@ -100,6 +100,10 @@ The deployed app contains no AI model and calls no AI service.
 - Wavelengths, dates, registration, quality flags and the catalog marker are computed deterministically from FITS headers and pixels, SIMBAD positions and proper motions.
 - The case explanations are fixed text written in advance. They are not generated at run time.
 
+## Landing illustration
+
+The landing-page spacecraft illustration was generated with OpenAI image generation using NASA/JPL-Caltech SPHEREx hardware photographs as visual references. It is visibly labeled “AI illustration” in the landing figure. It is decorative artwork, not a mission photograph, engineering model, live spacecraft position or scientific observation. The image's prompt and reference provenance are recorded in `qa/landing-motion/ASSET.md`. No generated imagery is used as an observation in an investigation.
+
 ## How scientific claims were checked
 
 - **Every processed record was re-derived independently.** All 189 processed records (183 frames plus 6 case copies) were re-derived from the original FITS bytes by code independent of the processor (`science/reviews/acceptance/`). 189/189 pass. The checks covered:

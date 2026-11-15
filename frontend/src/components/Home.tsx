@@ -15,11 +15,11 @@ import { reopenTarget, savedContextKey, type ReopenTarget } from "../evidence/re
 import { readSavedList } from "../evidence/savedList";
 import { evidenceTitle, type TitleSources } from "../evidence/title";
 import { formatDateShort, formatMicrons } from "../lib/format";
+import { landingPreview } from "../lib/landingPreview";
 import { routeToSearch, type Route } from "../lib/route";
 import { ErrorBlock, useAsync } from "./common";
 import { resolveAssetSrc } from "../api/client";
-import { BrandMark } from "./BrandMark";
-import { OrbitField } from "./OrbitField";
+import { LandingObservatory } from "./LandingObservatory";
 import { downloadEvidence } from "./Notebook";
 
 export function Home(props: {
@@ -37,22 +37,19 @@ export function Home(props: {
   return (
     <div className="home">
       <section className="landing-hero" aria-labelledby="hero-title">
-        <OrbitField />
+        <LandingObservatory />
         <div className="hero-copy">
-          <div className="hero-wordmark"><BrandMark />perigee</div>
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
-          <p className="hero-description">A moving star, or just a different view? Compare real SPHEREx images, check the clues, and build your own case.</p>
+          <p className="hero-description">Compare infrared images from NASA’s SPHEREx mission, check what changed, and record what the evidence supports.</p>
           <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating</button>
-          <a className="hero-secondary" href="#investigations">Explore the targets</a>
-          <p className="hero-source">{props.api.mode === "fixture" ? "Development fixture · Not NASA observations" : "NASA SPHEREx observations · No account needed"}</p>
+          {props.api.mode === "fixture" && <p className="hero-source">Development fixture · Not NASA observations</p>}
         </div>
-        <div className="hero-caption" aria-hidden="true"><span>A new view of the familiar</span><span>An invitation to look closer</span></div>
       </section>
 
       <div className="home-content">
         <section className="investigations-section" id="investigations" aria-labelledby="presets-h">
           <div className="section-head editorial-heading">
-            <div><p className="section-label">Your first investigation</p><h2 id="presets-h">Follow a change<br />back to the evidence</h2></div>
+            <div><p className="section-label">Your first investigation</p><h2 id="presets-h">Choose an investigation</h2></div>
             <p>Start with a guided question and real observations you can inspect for yourself.</p>
           </div>
           {state.status === "loading" && <p className="status" role="status">Loading targets…</p>}
@@ -68,7 +65,7 @@ export function Home(props: {
         </section>
 
         <section className="evidence-intro" aria-labelledby="evidence-intro-title">
-          <div><p className="section-label">From a first impression to a supported claim</p><h2 id="evidence-intro-title">There’s more to a change<br />than meets the eye</h2><p>A different wavelength, a flagged pixel, or the way an image is displayed can change what you see. Check those clues, write what the evidence supports, and take your sources with you.</p><a href="#my-evidence" className="text-action">Find your saved evidence</a></div>
+          <div><p className="section-label">Compare, check, explain</p><h2 id="evidence-intro-title">Check what the images support</h2><p>A different wavelength, a flagged pixel, or the way an image is displayed can change what you see. Check those clues, write what the evidence supports, and take your sources with you.</p><a href="#my-evidence" className="text-action">Find your saved evidence</a></div>
           <article className="example-evidence" aria-label="Example reasoning about Barnard's Star">
             <p className="example-heading"><span>Example reasoning</span><span>Barnard’s Star</span></p>
             <h3>The glow shifts north</h3>
@@ -80,8 +77,8 @@ export function Home(props: {
         </section>
 
         <section className="coordinate-invitation" aria-labelledby="query-h">
-          <div><p className="section-label">Your coordinates, your question</p><h2 id="query-h">Have a patch of sky in mind?</h2><p>Search the SPHEREx archive for observations covering a position you choose.</p></div>
-          <button type="button" className="primary" onClick={props.onOpenQuery}>Search by coordinates</button>
+          <div><p className="section-label">Your object, your question</p><h2 id="query-h">Have a patch of sky in mind?</h2><p>Find SPHEREx observations by object name or sky coordinates.</p></div>
+          <button type="button" className="primary" onClick={props.onOpenQuery}>Search archive</button>
         </section>
         <SavedEvidence api={props.api} presets={state.status === "ready" ? state.data : null} onOpenRoute={props.onOpenRoute} />
       </div>
@@ -96,15 +93,20 @@ const INVESTIGATION_COPY: Record<string, { question: string; description: string
 };
 
 function PresetItem({ api, preset, onOpen, compact = false }: { api: PerigeeApi; preset: PresetDescriptor; onOpen: () => void; compact?: boolean }) {
-  const { state } = useAsync((signal) => api.presetFrames(preset.id, preset.case_ids[0] ?? null, signal), [api, preset.id]);
+  const caseId = preset.case_ids[0] ?? null;
+  const { state } = useAsync(async (signal) => {
+    const [result, caseContent] = await Promise.all([
+      api.presetFrames(preset.id, caseId, signal),
+      caseId ? api.caseContent(caseId, signal) : Promise.resolve(null),
+    ]);
+    return { ...result, caseContent };
+  }, [api, preset.id, caseId]);
   const frames = state.status === "ready" ? state.data.frames.filter((f) => f.image) : [];
-  const first = frames[0];
-  const last = preset.id === "epsilon_indi_b"
-    ? frames.find((frame) => frame.observation_id === first?.observation_id && frame.detector !== first?.detector) ?? frames[frames.length - 1]
-    : preset.id === "wise_0855" && preset.case_ids.length ? frames[1] ?? first : frames[frames.length - 1];
+  const [first, last] = landingPreview(frames, state.status === "ready" ? state.data.caseContent : null);
   const copy = INVESTIGATION_COPY[preset.id];
   return <li className={compact ? "open-target" : "investigation-card"}>
-    <button type="button" className="target-link" onClick={onOpen}>
+    <button type="button" className="target-link" onClick={onOpen}
+      aria-label={copy ? `${preset.display_name}: ${copy.question}` : `Explore ${preset.display_name}`}>
       <span className="target-preview" aria-hidden="true">
         {first?.image ? <img src={resolveAssetSrc(first.image.src)} alt="" loading="lazy" width={256} height={256} /> : <span className="preview-fallback">{state.status === "loading" ? "Loading observation" : "Preview unavailable"}</span>}
         {!compact && last?.image && <img src={resolveAssetSrc(last.image.src)} alt="" loading="lazy" width={256} height={256} />}

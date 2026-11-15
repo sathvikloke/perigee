@@ -1,5 +1,7 @@
 import type { FrameRecord, QualityStatus } from "../api/types";
 
+export const HATCH_EXPLANATION = "Hatching marks pixels with no usable value: outside image coverage or saturated/non-finite pixels. It does not represent dark sky.";
+
 /** "2026-04-29T12:05:47.874" → "2026-04-29 12:05:47 UTC". Uses the string as given. */
 export function formatUtc(iso: string | null | undefined): string {
   if (!iso) return "Not available";

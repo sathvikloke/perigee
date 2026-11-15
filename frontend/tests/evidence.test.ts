@@ -201,8 +201,8 @@ describe("coordinate validation", () => {
     expect(v.ok && v.value.ra_deg).toBe(0);
     expect(v.ok && v.notices.length).toBe(1);
   });
-  it("applies contract defaults for blank FOV and limit", () => {
+  it("applies frontend defaults for blank FOV and limit", () => {
     const v = validateQuery({ ...ok, fov: "", limit: "" });
-    expect(v.ok && v.value).toMatchObject({ fov_arcmin: 6, limit: 24 });
+    expect(v.ok && v.value).toMatchObject({ fov_arcmin: 6, limit: 12 });
   });
 });

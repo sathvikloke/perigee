@@ -16,7 +16,7 @@ import {
   stepWithin,
   type WaveFilter,
 } from "../lib/wavelengthFilter";
-import { Elapsed } from "./common";
+import { Elapsed, friendlyError } from "./common";
 import { FrameDetails } from "./FrameDetails";
 import { Plate } from "./Plate";
 
@@ -37,6 +37,7 @@ export interface FrameSlot {
   error: { code: string; message: string; retryable: boolean } | null;
   /** When this frame's request started (epoch ms), while it is loading. */
   startedAt?: number | null;
+  retryAttempt?: number;
 }
 
 /**
@@ -63,10 +64,9 @@ export function FrameViewer(props: {
   const frame = slot?.frame ?? null;
   const [showMarker, setShowMarker] = useState(true);
   const [showGuide, setShowGuide] = useState(true);
-  // Flag overlay defaults on for frames that failed the screen (saturated cores
-  // are transparent and must not read as dimming); the learner's choice wins.
-  const [flagChoice, setShowFlags] = useState<boolean | null>(null);
-  const showFlags = flagChoice ?? (frame != null && frame.quality.status !== "clear");
+  // Let the learner see the image first. The quality badge, hatched-pixel
+  // explanation and warning remain visible while the overlay is off.
+  const [showFlags, setShowFlags] = useState(false);
 
   const [pair, setPair] = useState<[string, string] | null>(() =>
     slots.length >= 2 ? [slots[0].key, slots[slots.length - 1].key] : null,
@@ -225,7 +225,7 @@ export function FrameViewer(props: {
       : null;
   // While blinking or playing, announce once instead of narrating every frame.
   const announcement = blinking
-    ? "Blinking two frames. Use Pause blink to stop."
+    ? "Playing two images for comparison. Use Pause comparison to stop."
     : playing
     ? playAnnouncement(readyCount, waveFilter)
     : slot
@@ -347,7 +347,7 @@ export function FrameViewer(props: {
           {slot && (
             <Plate
               letter={slot.ref ?? String(index + 1)}
-              heading={slot.ref ? `Case frame ${slot.ref}` : `Frame ${index + 1} of ${slots.length}`}
+              heading={slot.ref ? `Investigation image ${slot.ref}` : `Image ${index + 1} of ${slots.length}`}
               headingId="sequence-plate-h"
               frame={frame}
               pendingDate={slot.observed_at_utc}
@@ -358,7 +358,7 @@ export function FrameViewer(props: {
               placeholder={
                 <>
                   <p>
-                    {statusText(slot)}
+                    {slot.status === "loading" && slot.retryAttempt ? `This image request was interrupted. Retrying (${slot.retryAttempt} of 2)…` : statusText(slot)}
                     {slot.status === "loading" && slot.startedAt ? (
                       <>
                         {" "}
@@ -367,9 +367,7 @@ export function FrameViewer(props: {
                     ) : null}
                   </p>
                   {slot.status === "error" && slot.error && (
-                    <p className="mono">
-                      {slot.error.code}: {slot.error.message}
-                    </p>
+                    <p>{friendlyError(slot.error.code)}</p>
                   )}
                   {slot.status === "error" && slot.error?.retryable && props.onRetry && (
                     <button type="button" onClick={() => props.onRetry?.(index)}>
@@ -400,12 +398,15 @@ export function FrameViewer(props: {
               )}
             </div>
           </div>
+          {!showFlags && frame && frame.quality.status !== "clear" && <p className="sequence-quality-note">This image needs a quality check. {frame.flag_image
+            ? "Turn on flagged pixels to inspect affected areas; a hidden overlay does not make those pixels reliable."
+            : "No pixel overlay is provided. Read the quality details before interpreting this image."}</p>}
           {slots.some((s) => s.ref) && (
             <div className="ref-jump" role="group" aria-label="Jump to case frame">
               {slots.map((s, i) =>
                 s.ref ? (
                   <button key={s.key} type="button" aria-pressed={i === index} onClick={() => goTo(i)}>
-                    Frame {s.ref}
+                    Image {s.ref}
                   </button>
                 ) : null,
               )}
@@ -413,7 +414,7 @@ export function FrameViewer(props: {
           )}
           {props.blinkTool && slots.length >= 2 && pair && (
             <fieldset className="pair-picker">
-              <legend>Blink two frames</legend>
+              <legend>Compare two images</legend>
               {[0, 1].map((side) => (
                 <label key={side}>
                   <span>{side === 0 ? "First" : "Second"}</span>
@@ -440,15 +441,19 @@ export function FrameViewer(props: {
                 onClick={() => setMotion((m) => (m === "blink" ? null : "blink"))}
                 disabled={!pf[0] || !pf[1] || pair[0] === pair[1]}
               >
-                {blinking ? "Ⅱ Pause blink" : "▷ Blink"}
+                {blinking ? "Pause comparison" : "Play comparison"}
               </button>
               {(!pf[0] || !pf[1]) && (
                 <p className="pair-summary">
                   {pairIdx
                     .filter((i, k) => i >= 0 && !pf[k])
-                    .map((i) => `#${i + 1} has no image (${slotStatusTag(slots[i]) ?? "not loaded"}).`)
+                    .map((i) => slots[i].status === "loading" || slots[i].status === "pending"
+                      ? `Image ${i + 1} is still loading.`
+                      : `Image ${i + 1} is unavailable.`)
                     .join(" ")}{" "}
-                  {props.onRetry ? "Retry it from the stepper, or choose another frame to blink." : "Choose another frame to blink."}
+                  {pairIdx.some((i) => i >= 0 && (slots[i].status === "loading" || slots[i].status === "pending"))
+                    ? "You can use the ready images while it loads."
+                    : props.onRetry ? "Retry that image, or choose another image to compare." : "Choose another image to compare."}
                 </p>
               )}
               {pf[0] && pf[1] && (

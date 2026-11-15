@@ -142,11 +142,11 @@ components:
 
 **Creative North Star: "The Orbital Observatory"**
 
-A black sky, white typography and electric citron invite a learner into an investigation. The existing orbit mark is refined into a tilted ellipse, central ring and small orbital point. Host Grotesk connects the expansive, centered landing introduction to the quieter graphite workbench.
+A black sky, white typography and electric citron invite a learner into an investigation. The existing orbit mark is refined into a tilted ellipse, central ring and small orbital point. Host Grotesk connects the expansive landing introduction to the quieter graphite workbench.
 
 The landing surface uses decorative white stars and generous reading space. Working views concentrate on registered scientific images, nearby metadata and a reusable evidence notebook. This record describes the current React application, including its API and clearly labeled fixture modes; it does not describe the superseded light prototype or certify a deployment.
 
-Source authority: [tokens](frontend/src/styles/tokens.css), [base components](frontend/src/styles/app.css), [orbital overrides](frontend/src/styles/orbital.css), [landing](frontend/src/components/Home.tsx), [star motion](frontend/src/components/OrbitField.tsx), [mark](frontend/src/components/BrandMark.tsx), and the [direction brief](coordination/orbital-ui-brief.md). The styles load in that order. Screenshots in `qa/orbital-ui/` provide visual context; current source governs subsequent review fixes. Product facts remain in [README.md](README.md) and the [integration contract](docs/INTEGRATION_CONTRACT.md).
+Source authority: [tokens](frontend/src/styles/tokens.css), [base components](frontend/src/styles/app.css), [orbital overrides](frontend/src/styles/orbital.css), [landing](frontend/src/components/Home.tsx), [star motion](frontend/src/components/OrbitField.tsx), [mark](frontend/src/components/BrandMark.tsx), and the [direction brief](coordination/orbital-ui-brief.md). The styles load in that order, followed by the isolated [landing motion styles](frontend/src/styles/landing-motion.css). Screenshots in `qa/orbital-ui/` provide visual context; current source governs subsequent review fixes. Product facts remain in [README.md](README.md) and the [integration contract](docs/INTEGRATION_CONTRACT.md).
 
 **Key Characteristics:**
 
@@ -182,7 +182,7 @@ Near-black surfaces and white text establish the identity; electric citron ident
 
 The display is medium-weight, closely tracked and spacious in its surroundings. Most operational headings also use medium weight; semantic labels and scientific details carry the compact hierarchy. This is a role-based ramp rather than a fixed modular ratio.
 
-- **Display:** centered landing question; narrows to `clamp(46px, 8.2vw, 62px)` below 760px and 42px below 360px.
+- **Display:** left-aligned landing question beside the spacecraft on desktop; centered above it on mobile, with `clamp(44px, 8.2vw, 62px)` below 760px and 40px below 360px.
 - **Headline:** editorial landing sections. Investigation headings use their own smaller responsive role.
 - **Section:** working section baseline; notebook headings adapt from 21px to 23px.
 - **Body:** 16px operational text, with 14px supporting explanations. Landing descriptions use 17–21px; investigation-card descriptions use 16px. Supporting measures are bounded, including the 65ch introduction limit.
@@ -193,7 +193,7 @@ The display is medium-weight, closely tracked and spacious in its surroundings. 
 
 ## Layout
 
-The landing hero fills at least the viewport, keeps a calm centered reading column and uses stacked actions. Its top navigation floats over the scene. Continuation content has a 1200px maximum width: three image-led guided investigations, two compact open targets, a two-column evidence example, coordinate invitation and saved evidence. Guided cards share a footer baseline while their titles retain natural spacing. The evidence explanation and its h2 precede the example’s h3 in document order; desktop CSS places the example to the left without changing that reading order.
+The desktop landing hero fills at least the viewport, with a left-aligned reading column and one primary action beside an illustrative spacecraft. Mobile stacks copy, action, and spacecraft in that order. Its top navigation floats over the scene. Continuation content has a 1200px maximum width: three image-led guided investigations, two compact open targets, a two-column evidence example, coordinate invitation and saved evidence. Guided cards share a footer baseline while their titles retain natural spacing. The evidence explanation and its h2 precede the example’s h3 in document order; desktop CSS places the example to the left without changing that reading order.
 
 At 1050px and below, each guided card occupies a row with its preview beside its copy. At 760px and below, previews return above the copy, open targets and the evidence section stack, and the evidence explanation precedes its example. Landing gutters become 24px, then 18px below 360px. The 1500px adjustment enlarges the hero description.
 
@@ -237,7 +237,7 @@ White brand, muted links and a filled graphite evidence destination organize the
 
 ### Orbit mark and starfield
 
-The inline SVG mark combines a tilted ellipse, central ring and orbit point. The header point is citron; the hero wordmark is muted monochrome. Its proportions come from `BrandMark.tsx`, not a substitute icon.
+The inline SVG mark combines a tilted ellipse, central ring and orbit point. The header point is citron; the hero avoids a duplicate wordmark. Its proportions come from `BrandMark.tsx`, not a substitute icon.
 
 The landing canvas contains decorative white points, not a sky map. Its center sits above the hero, so visible lower arcs travel leftward. A deterministic field of 1,000 candidate points is culled to the viewport; rendering caps pixel ratio at 2 and throttles drawing to roughly 30fps. A visible pause/resume control preserves phase. Reduced motion renders a static scene and labels the control “Motion reduced.” Offscreen, hidden-document and unmounted states stop work. The canvas is hidden from assistive technology and does not intercept input. Scientific Blink and Play remain separate, user-controlled interactions.
 
@@ -256,3 +256,7 @@ The landing canvas contains decorative white points, not a sky map. Its center s
 - **Don't** treat a catalog prediction, clear quality screen or coverage match as a detection.
 - **Don't** apply the landing display scale or starfield to dense investigation controls.
 - **Don't** promote tiny incidental landing captions or print provenance into the reusable type scale.
+
+### Landing spacecraft refinement — 15 November 2026
+
+A reference-informed AI illustration replaces the rejected procedural satellite. It is visibly labeled, served locally as a 285 KB WebP, and uses a fixed view with a 2.8-second approach and subtle 14-second drift. Web Animations drives transforms; there is no Three.js dependency or implied interactive 3D model. The primary action is available throughout. One control pauses both spacecraft and stars, reduced motion shows static artwork, and observers stop motion offscreen and while the document is hidden. See [asset provenance](qa/landing-motion/ASSET.md) and [verification](qa/landing-motion/VERIFICATION.md).

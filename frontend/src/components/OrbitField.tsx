@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /** Decorative stars, not a sky map. The visible lower arc travels leftward. */
-export function OrbitField() {
+export function OrbitField({ externallyPaused = false, hideControl = false }: { externallyPaused?: boolean; hideControl?: boolean } = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phaseRef = useRef(0);
   const [paused, setPaused] = useState(false);
@@ -57,7 +57,7 @@ export function OrbitField() {
     };
     const sync = () => {
       cancelAnimationFrame(frame); last = 0; draw();
-      if (visible && !document.hidden && !paused && !reduced) frame = requestAnimationFrame(tick);
+      if (visible && !document.hidden && !paused && !externallyPaused && !reduced) frame = requestAnimationFrame(tick);
     };
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -72,15 +72,15 @@ export function OrbitField() {
     document.addEventListener("visibilitychange", sync);
     resize();
     return () => { phaseRef.current = elapsed; cancelAnimationFrame(frame); observer.disconnect(); visibility.disconnect(); document.removeEventListener("visibilitychange", sync); };
-  }, [paused, reduced]);
+  }, [paused, externallyPaused, reduced]);
 
   return <>
     <canvas ref={canvasRef} className="orbit-field" aria-hidden="true" />
-    <button type="button" className="orbit-toggle" aria-pressed={paused || reduced}
+    {!hideControl && <button type="button" className="orbit-toggle" aria-pressed={paused || reduced}
       onClick={() => setPaused(!paused)} disabled={reduced}
       aria-label={reduced ? "Star motion off for reduced motion" : paused ? "Resume star motion" : "Pause star motion"}>
       <span aria-hidden="true">{paused || reduced ? "▷" : "Ⅱ"}</span>
       {reduced ? "Motion reduced" : paused ? "Stars paused" : "Pause stars"}
-    </button>
+    </button>}
   </>;
 }

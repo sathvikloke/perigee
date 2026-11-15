@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import type { CaseContent } from "../api/types";
 import {
   CLAIM_MAX,
@@ -35,25 +35,32 @@ export function downloadEvidence(card: EvidenceCard): void {
 
 type Field = "claim" | "observations" | "uncertainty";
 
+export interface RequiredPairRecovery {
+  refs: string[];
+  reason: string;
+  /** Omitted when the required comparison has not loaded. */
+  onSelect?: () => void;
+}
+
 const FIELDS: { key: Field; label: string; hint: string; placeholder: string; max: number }[] = [
   {
+    key: "observations",
+    label: "What did you notice?",
+    hint: "Describe a visible detail and name the images you compared.",
+    placeholder: "The visible detail I noticed was…",
+    max: TEXT_MAX,
+  },
+  {
     key: "claim",
-    label: "What’s your claim?",
-    hint: "",
+    label: "What do you think the images show?",
+    hint: "Explain what that detail supports. It is fine to say the evidence is not enough.",
     placeholder: "I think these observations…",
     max: CLAIM_MAX,
   },
   {
-    key: "observations",
-    label: "What did you notice?",
-    hint: "Point to dates, wavelengths or visible details.",
-    placeholder: "The evidence that supports this is…",
-    max: TEXT_MAX,
-  },
-  {
     key: "uncertainty",
-    label: "What remains uncertain?",
-    hint: "What would you need before saying more?",
+    label: "What can’t you tell yet?",
+    hint: "Name a limit of these images or something you would check next.",
     placeholder: "I can’t conclude… because…",
     max: TEXT_MAX,
   },
@@ -73,11 +80,15 @@ export function Notebook(props: {
   caseContent?: CaseContent | null;
   attachedLabel?: string | null;
   onBeforePrint?: () => void;
+  requiredPair?: RequiredPairRecovery;
+  onReviewSteps?: () => void;
 }) {
   const { card, caseContent } = props;
   const id = useId();
   const [exportStatus, setExportStatus] = useState<string | null>(null);
   const refs = useRef<Partial<Record<Field, HTMLTextAreaElement | null>>>({});
+  const requestedReference = useRef(false);
+  const referenceRef = useRef<HTMLElement>(null);
   // Export and print carry the case's own limitations, verbatim, with the frames'.
   const out = withCaseContext(props.exportCard ?? card, caseContent);
   const limitations = printedLimitations(out);
@@ -89,13 +100,29 @@ export function Notebook(props: {
   // present while a revision autosaves instead of unmounting it each keystroke.
   const showReference = Boolean(caseContent && card.reference_shown &&
     completionIssues(out, caseContent, true).length === 0);
+  const canExport = out.frames.length > 0 && FIELDS.every((f) => card[f.key].trim());
+  const groups = caseContent?.evidence_requirements?.must_include_refs_any_of ?? [];
+  const needsRequiredPair = groups.length > 0 && !groups.some((group) => group.every((ref) => pairRefs.has(ref)));
+  const pairRecovery = needsRequiredPair ? props.requiredPair : undefined;
+  const unreviewedCount = caseContent?.steps.filter((step) => !card.reviewed_step_ids?.includes(step.id)).length ?? 0;
+  const missingFields = FIELDS.filter((field) => !card[field.key].trim());
+  const otherIssues = remaining.filter((issue) =>
+    issue !== "Write a short claim." && issue !== "Record what you noticed." && issue !== "Record what remains uncertain." &&
+    issue !== "Save this card on your device." && !issue.startsWith("Review the remaining") && !(pairRecovery && issue.startsWith("Include frames")),
+  );
+  useEffect(() => {
+    if (!showReference || !requestedReference.current) return;
+    requestedReference.current = false;
+    referenceRef.current?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    referenceRef.current?.focus({ preventScroll: true });
+  }, [showReference]);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
     for (const f of FIELDS) {
       const el = refs.current[f.key];
       if (el && !el.value.trim()) {
-        el.setCustomValidity("Add a note before exporting your evidence.");
+        el.setCustomValidity("Add your note here to continue.");
         el.reportValidity();
         return;
       }
@@ -106,7 +133,9 @@ export function Notebook(props: {
     }
     if (caseContent) {
       if (!completed) return;
+      requestedReference.current = true;
       props.onChange({ ...out, reference_shown: true, updated_at_utc: new Date().toISOString() });
+      if (showReference) { referenceRef.current?.scrollIntoView({ block: "start" }); referenceRef.current?.focus({ preventScroll: true }); }
       setExportStatus(null);
     } else {
       downloadEvidence(out);
@@ -133,21 +162,21 @@ export function Notebook(props: {
           </svg>
         </span>
         <div>
-          <p className="eyebrow">Make your reasoning visible</p>
+          <p className="eyebrow">Record</p>
           <h2 id={`${id}-title`}>Evidence notebook</h2>
         </div>
       </div>
       <div className="notebook-body">
         <a className="notebook-jump return-to-images" href="#observations">Back to observations</a>
         <p className="notebook-intro">
-          A useful answer includes what you saw <em>and</em> what you still can’t tell.
+          Start with what you noticed. Your notes save in this browser.
         </p>
         {card.data_origin === "fixture" && (
           <p className="fixture-tag">This card uses development fixture data — not NASA data.</p>
         )}
 
         <div className="attached">
-          <div className="attached-row">
+          <div className="attached-row" aria-live="polite">
             <span>Attached observations</span>
             {props.attachedLabel ? (
               <strong>{props.attachedLabel}</strong>
@@ -174,9 +203,21 @@ export function Notebook(props: {
           )}
         </div>
 
+        {pairRecovery && (
+          <div className="required-pair-note" role="note" aria-label="Images needed for the final question">
+            <strong>Use images {pairRecovery.refs.join(" + ")} for the final question</strong>
+            <p>{pairRecovery.reason} Your notes stay unchanged when you switch.</p>
+            {pairRecovery.onSelect ? <button type="button" onClick={() => {
+              pairRecovery.onSelect?.();
+              setExportStatus(null);
+              refs.current.observations?.focus({ preventScroll: true });
+            }}>Use images {pairRecovery.refs.join(" + ")}</button> : <p>The required images are unavailable. Reload the comparison before finishing; you can still download your notes.</p>}
+          </div>
+        )}
+
         <form onSubmit={submit} noValidate={false}>
           {FIELDS.map((f) => {
-            const hint = f.key === "claim" ? "State what these observations support." : f.hint;
+            const hint = f.hint;
             return (
               <div className="field" key={f.key}>
                 <label htmlFor={`${id}-${f.key}`}>{f.label}</label>
@@ -218,20 +259,29 @@ export function Notebook(props: {
 
           <div className="notebook-tip">
             <span aria-hidden="true">✧</span>
-            <p>A different-looking image is a question to investigate, not yet a discovery.</p>
+            <p>A visual difference alone does not establish a discovery.</p>
           </div>
 
           {caseContent && (
             <div className="completion-status" role="status">
-              <strong>{completed ? "Investigation complete" : "Investigation in progress"}</strong>
-              {remaining.length > 0 ? <ul>{remaining.map((item) => <li key={item}>{item}</li>)}</ul> :
-                <p>Your reasoning is saved. Compare it with the reference, then revise it if you wish. Completion does not grade your answer.</p>}
-              {remaining.some((s) => s.startsWith("Review the remaining")) && <a href="#investigation-steps">Back to the steps</a>}
+              <strong>{completed ? "Ready to compare your reasoning" : "Before you view the reference"}</strong>
+              {completed ? <p>Your notes are saved. The reference is a guide for reflection, not a grade.</p> : <>
+                {unreviewedCount > 0 && <p>Review {unreviewedCount === 1 ? "the remaining check" : `the remaining ${unreviewedCount} checks`} beside the images.</p>}
+                {unreviewedCount === 0 && missingFields.length > 0 && <p>{missingFields.length === 3 ? "Fill in the three note fields above." : `Finish ${missingFields.map((field) => field.key === "claim" ? "your explanation" : field.key === "observations" ? "what you noticed" : "what remains uncertain").join(" and ")}.`}</p>}
+                {otherIssues.map((issue) => <p key={issue}>{issue}</p>)}
+                {pairRecovery && <p>Switch to images {pairRecovery.refs.join(" + ")} using the button above.</p>}
+                {props.saveState.kind === "saving" && <p>Saving your latest notes…</p>}
+                {props.saveState.kind === "failed" && <p>Your notes could not be saved in this browser. Download them to keep a copy.</p>}
+                {unreviewedCount > 0 && (props.onReviewSteps
+                  ? <button type="button" className="link" onClick={props.onReviewSteps}>Continue the checks</button>
+                  : <a href="#investigation-steps">Continue the checks</a>)}
+              </>}
             </div>
           )}
-          <button className="primary" type="submit" disabled={Boolean(caseContent && !completed)}>
+          <button className="primary" type="submit" disabled={caseContent ? !completed : !canExport}>
             {caseContent ? "Compare with the reference" : "Download evidence JSON"}
           </button>
+          {!canExport && <p className="export-hint" id={`${id}-export-hint`}>Add an image and complete the three note fields to download your evidence.</p>}
           <div className="notebook-actions">
             <button
               type="button"
@@ -242,7 +292,7 @@ export function Notebook(props: {
             >
               Print / save PDF
             </button>
-            {caseContent && <button type="button" onClick={() => {
+            {caseContent && <button type="button" disabled={!canExport} aria-describedby={!canExport ? `${id}-export-hint` : undefined} onClick={() => {
               downloadEvidence(out); setExportStatus("Evidence JSON downloaded");
             }}>Download evidence JSON</button>}
             <span role="status">{status}</span>
@@ -250,7 +300,7 @@ export function Notebook(props: {
         </form>
 
         {showReference && caseContent?.conclusion_guide && (
-          <section className="reference-review" aria-labelledby={`${id}-reference-title`}>
+          <section className="reference-review" ref={referenceRef} tabIndex={-1} aria-labelledby={`${id}-reference-title`}>
             <h3 id={`${id}-reference-title`}>Compare your reasoning</h3>
             <div className="learner-claim"><strong>Your claim</strong><p>{card.claim}</p></div>
             <h4>Reference answer (from the case)</h4>

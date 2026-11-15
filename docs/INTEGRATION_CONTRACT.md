@@ -49,6 +49,7 @@ The five named presets are Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae
 | `GET /api/v1/presets/{preset_id}/frames` | Suhrit serving Sagar's products | Ordered curated frame records for an immediate investigation |
 | `GET /api/v1/assets/{asset_id}` | Suhrit | An allowlisted, versioned small image asset; no arbitrary filesystem paths |
 | `POST /api/v1/search` | Aditya using Sagar's data adapter | Query summary and bounded observation descriptors with frame tokens |
+| `POST /api/v1/resolve` | API and frontend integration | Live SIMBAD object-name lookup with catalog epoch, source and explicit search center |
 | `POST /api/v1/frame` | Aditya using Sagar's data adapter | One processed frame record plus compact intensity and optional flag images |
 
 These are intended endpoints, not a claim that an API already exists. API changes require an update to this file, a concrete example, and agreement from the affected frontend/backend owners. The API must return JSON errors for API failures; the frontend SPA fallback must never turn a broken API route into a successful HTML response.
@@ -56,6 +57,12 @@ These are intended endpoints, not a claim that an API already exists. API change
 ## Query request
 
 `POST /api/v1/search` accepts `schema_version: 1`, finite `ra_deg`, finite `dec_deg`, `fov_arcmin` defaulting to 6, and `limit` defaulting to 24. For this sprint, support field sizes from 2 through 10 arcminutes and limits from 1 through 48. RA must be in `[0,360)` and declination in `[-90,90]`. Reject NaN, infinity, strings that only partly parse, and silent clipping. A UI may normalize exactly 360 degrees to 0 only if it visibly documents that normalization and sends the normalized value.
+
+The frontend explicitly sends a default limit of **12** to bound initial loading; the API omission default remains 24 for existing clients. The coordinate form also accepts strict `HH:MM:SS` RA and signed `DD:MM:SS` Dec, converts them to decimal degrees before the API call, and rejects invalid minutes, seconds and ranges. A decimal RA is always degrees, never hours.
+
+`POST /api/v1/resolve` accepts `{"schema_version":1,"name":"Barnard's Star"}` (one nonempty name, at most 80 characters). It requests SIMBAD through the fixed CDS-endorsed Harvard Sesame HTTPS endpoint; redirects are refused, the response is capped at 128 KiB, and the entire lookup has a 12-second deadline. No arbitrary resolver URL is accepted. `OBJECT_NOT_FOUND` (404) differs from an unavailable or timed-out resolver (503/504).
+
+A successful result includes `name`, `catalog_position` (`ra_deg`, `dec_deg`, `epoch_jyear`), `search_center` (the same fields plus `kind`), `source`, `source_url`, `position_reference`, and `note`, alongside the usual schema/request IDs. For example, the live Barnard result preserves its J2000 catalog position (269.45207696°, 4.69336497°) while its search center is the validated 2026 finder prediction (269.4462585584787°, 4.768324486236583°). A curated finder center is used only when the resolved identity and catalog position agree with that target; other objects retain an explicitly labeled epoch-2000 catalog center. This lookup does not claim a detection or silently turn an arbitrary coordinate query into a preset. Live response examples are retained in `qa/audit-followups/search-resolver-live.json`.
 
 Optional `collection_ids` must come from a server-maintained allowlist. Do not let a user provide an upstream URL, arbitrary collection expression, filesystem path, or executable query fragment. If the service initially supports DR1 and QR3 wide-survey collections only, report that scope explicitly. A zero result in that scope is not an all-mission absence claim. A selected coordinate must actually reach the archive; do not silently substitute the nearest preset.
 
