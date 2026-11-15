@@ -21,7 +21,7 @@ NASA’s infrared sky
 
 A moving dot can be a star, a different infrared view, or an unreliable pixel.
 
-Perigee guides learners through SPHEREx observations so they can explain what changed—and save the evidence behind their conclusion.
+Perigee guides learners through SPHEREx observations. They explain what changed and save the evidence behind their conclusion.
 
 AUG 2025
 
@@ -55,15 +55,15 @@ C · 19 AUG 2026
 
 NASA/IPAC SPHEREx · same sky grid · saturated centers
 
-01   NOTICE
+NOTICE
 
 Play the comparison. Watch the glow shift against the surrounding field stars on a fixed sky grid.
 
-02   CHECK
+CHECK
 
 Read dates, wavelengths and flags. The catalog predicts about 10 arcseconds of movement; saturation limits exact position measurements.
 
-03   RECORD
+RECORD
 
 Save what you noticed, your explanation and its limits. Reopen, export or print the source-linked notebook.
 
