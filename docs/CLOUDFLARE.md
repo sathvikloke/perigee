@@ -1,6 +1,6 @@
 # Perigee on Cloudflare Workers (static assets + API router)
 
-**Public release:** https://perigee.lokesathvik.workers.dev. The deployment owner verified the final bundle on 2026-11-15; see [deployment identity](DEPLOYMENT.md) and [public checks](../qa/cloudflare-release/README.md). The earlier local candidate results below are retained with their build/date.
+**Public release:** https://perigee.lokesathvik.workers.dev. The deployment owner verified the final bundle on 2026-11-15; see [deployment identity](DEPLOYMENT.md) and [public checks](../qa/final-investigation/README.md). The earlier local candidate results below are retained with their build/date.
 
 ## What runs where
 
@@ -9,8 +9,8 @@
 | `/`, client routes, `/assets/*`, `/favicon.svg`, `/demo/perigee-demo.pdf` | Workers static assets (a copy of `frontend/dist`) | SPA fallback (`not_found_handling: single-page-application`) |
 | `GET /api/v1/presets` | Worker, from the exported catalog | Same JSON as FastAPI |
 | `GET /api/v1/cases/{case_id}` | Worker, exported | Unknown case gives 404 `CASE_NOT_FOUND` with `available_case_ids` |
-| `GET /api/v1/presets/{id}/frames[?case_id=]` | Worker, exported | 5 default lists plus the valid case lists (`epsilon_indi_b`/`fair_comparison`, `barnards_star`/`moving_neighbor`). Unknown preset gives 404 `PRESET_NOT_FOUND`; unknown or empty `case_id` gives 404 `CASE_NOT_FOUND`; if `case_id` repeats, the last value wins (all as in FastAPI) |
-| `GET /api/v1/assets/{asset_id}` | Worker, exported bytes | 952 IDs (574 canonical, 378 processor aliases). Exact bytes. Each response is SHA-256-checked again before serving. Same `Content-Type`, `ETag`, `Cache-Control` and `nosniff` as FastAPI |
+| `GET /api/v1/presets/{id}/frames[?case_id=]` | Worker, exported | 5 default lists plus the valid case lists (`epsilon_indi_b`/`fair_comparison`, `barnards_star`/`moving_neighbor`, `wise_0855`/`wise_0855_quality_trap`). Unknown preset gives 404 `PRESET_NOT_FOUND`; unknown or empty `case_id` gives 404 `CASE_NOT_FOUND`; if `case_id` repeats, the last value wins (all as in FastAPI) |
+| `GET /api/v1/assets/{asset_id}` | Worker, exported bytes | 968 IDs (584 canonical, 384 processor aliases). Exact bytes. Each response is SHA-256-checked again before serving. Same `Content-Type`, `ETag`, `Cache-Control` and `nosniff` as FastAPI |
 | `GET /api/v1/health`, `POST /api/v1/search`, `POST /api/v1/frame` | **Proxied** to the fixed origin `https://perigee-liard.vercel.app` (the existing public Vercel Python API) | Live archive search and FITS processing stay in Python. Nothing is ported to WASM |
 | anything else under `/api` | Worker | JSON 404 `NOT_FOUND`, never the SPA's HTML |
 
@@ -152,6 +152,6 @@ The earlier deployment at `979e0619…` (source `fd7933d`) predates this identit
 
 ## Limits and dependencies
 
-- **The live path depends on the Vercel deployment.** If `https://perigee-liard.vercel.app` stops serving, live search and frames show the app's honest "archive unavailable" states (502 or 504 envelopes). The two curated investigations, all presets, assets, the evidence notebook and export, and the deck keep working, because they make no upstream calls.
+- **The live path depends on the Vercel deployment.** If `https://perigee-liard.vercel.app` stops serving, live search and frames show the app's honest "archive unavailable" states (502 or 504 envelopes). The three curated investigations, all presets, assets, the evidence notebook and export, and the deck keep working, because they make no upstream calls.
 - **Content changes need a rebuild and redeploy** (`build.py`, then `wrangler deploy`). The Worker serves only what was exported.
 - **No secrets are needed on Cloudflare.** Frame-token signing stays on the Python origin, which issues and verifies the tokens.

@@ -1,5 +1,7 @@
 # Release handoff (N6): backend candidate and origin state
 
+> Release update: PRs #50 and #51 are merged and deployed. The third investigation and completion flow are live, as is the Python crash fix. This handoff preserves the earlier candidate state; see [current release evidence](../qa/final-investigation/README.md).
+
 **Audience:** Codex, owner of the final shared deployment. Nothing was deployed from this branch, Cloudflare was not touched, and nothing was pushed to `main`.
 
 ## 1. Candidate
