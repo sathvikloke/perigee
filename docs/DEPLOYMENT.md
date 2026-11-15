@@ -14,6 +14,25 @@ Vercel Authentication retains **Standard Protection** (`all_except_custom_domain
 
 The smoke workflow was triggered manually. Automatic `deployment_status` delivery has not been demonstrated for this repository; see the trigger notes below. The [independent public browser pass](../qa/public-release/README.md) verified comparisons, quality overlays, notebook saving/reopen and a real JSON download separately from the HTTP smoke results.
 
+**Re-check of `main` @ `f797b34` (Suhrit, 2026-11-15 ~00:45 UTC, logged out):** smoke **PASS 20/20**, exit 0. Live search took 2.4 s and the frame 1.9 s.
+- All five presets serve their frame lists in ≤ 0.6 s, and every image asset is a valid PNG: 183/183 (34 + 44 + 34 + 35 + 36).
+- Both cases load in about 0.1 s.
+- Presets and cases are bundled with the app and do **not** call NASA's archive.
+- From PR #40, `release-smoke` also runs automatically on Vercel's "Deployment has completed" status for `main` commits.
+
+### Demo-day checklist
+
+1. **After any merge to `main`:** confirm a `release-smoke` run passed (Actions tab), or run `python -m backend.platform.smoke --base https://perigee-liard.vercel.app` (expect exit 0).
+2. **10 minutes before presenting:**
+   - Open https://perigee-liard.vercel.app in a private window. This warms the function; the first request after idle is slower.
+   - Open the preset you will demo once.
+3. **Lead with a preset**, for example Barnard's Star ("Follow a nearby moving star") or Epsilon Indi B ("Is this a fair comparison?"). Presets are bundled and do not depend on NASA's archive.
+4. **Show the coordinate search second, as a bonus.** IRSA can be slow:
+   - The search may show **partial** results. One collection timed out at limit 24 in rehearsal.
+   - A frame may fail with a retryable upstream error while the others load.
+   - Say what the app shows. It is reporting the archive's state honestly; it is not broken.
+5. **Never use `perigee.vercel.app`.** It is an unrelated app.
+
 Resource identifiers:
 
 - Dashboard: https://vercel.com/sathviklokes-projects/perigee
