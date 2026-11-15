@@ -19,7 +19,7 @@
 | N3 | Selection, exclusion and unknown audit; negative registration control | not started | — | — |
 | N4 | UI handoff with exact case/evidence fixtures and failure-state fixtures | not started | — | needs N1 |
 | N5 | Route-to-processor parity; request-geometry identity tuple | not started | — | — |
-| N6 | Faults/resources measured; origin state; release handoff | not started | — | — |
+| N6 | Faults/resources measured; origin state; release handoff | in progress | **Origin check (once, 04:00Z):** GitHub Vercel status on `main` `0ffff6f` = success (03:26Z). `GET perigee-liard…/api/v1/health` = ok, `token_signing: env`. One search (83.822, −5.391, limit 1) returns the **corrected B4 wording**, so the Python origin now runs code including PR #47 (the quota reset); it is no longer `058a2a6`. | worker measuring local faults; coordinator writes the release handoff |
 | N7 | Admission validator exercised on the candidate | not started | — | needs N1 |
 | N8 | Award evidence, claims registry, story | not started | — | after N1–N7 results |
 | N9 | Integrated review, exact-head CI, PR, final handoff | not started | — | last |
@@ -28,6 +28,11 @@
 
 | Worker | Ownership (disjoint) | Branch | Status |
 |---|---|---|---|
+| N2 controls | `science/reviews/overnight-controls/**` | `claude/n2-controls` | running (launched ~03:00Z) |
+| N1+N7 case | `science/reviews/transfer-exercise/**`, `science/staging/**`, `tools/ingest/admit_case.py`, `backend/tests/data/test_admit_case.py` | `claude/n1-n7-case` | running |
+| N3 audit | `science/reviews/registration-audit/**`, `science/reviews/acceptance/**` (negative control only) | `claude/n3-registration-audit` | running |
+| N5+N6 backend | `backend/**` (fixes only for demonstrated defects), new API/platform tests, `cloudflare/**` (defects only), `qa/overnight-backend/**` | `claude/n5-n6-backend` | running |
+| Coordinator | ledger, `coordination/overnight-*.md`, N4 fixtures, integration | this branch | active |
 
 ## Resume block
 
