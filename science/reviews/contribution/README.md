@@ -145,6 +145,8 @@ These are category winners across different challenges, not SPHEREx winners and 
 
 The five project pages on spaceappschallenge.org are client-rendered. Their content loads from a GraphQL API that was not queried here, and the in-app browser refused the domain. So **only NASA's one-paragraph summaries were read**, and they describe submission claims.
 
+**Additional inspection (overnight assignment, 2026-11-15).** Codex later retrieved each team's project JSON (titles and summaries confirmed: SpaceGenes+, Resonant Worlds Explorer, SkySense, A Solar Tale, Henry's Farm Adventures). The pattern each suggests, and what Perigee now has against it, is in [`coordination/overnight-award-evidence.md`](../../coordination/overnight-award-evidence.md) §3. Their performance statements remain their own claims.
+
 | Award: team | NASA's summary (paraphrased; claims, not verified) | What it suggests for Perigee | Perigee evidence | Gap |
 |---|---|---|---|---|
 | Best Use of Science: SpaceGenes+ | Interactive dashboard to help researchers find molecular effects of radiation and microgravity on astronaut health | A named user and a decision the tool supports | Learner use case and case questions (`docs/presentation/`) | No user testing |
@@ -153,9 +155,11 @@ The five project pages on spaceappschallenge.org are client-rendered. Their cont
 | Best Use of Storytelling: HerCode Space ("A Solar Tale") | Illustrated story teaching children how space weather affects daily life | A clear narrative for a non-expert | Seven-page deck; narrated journey | No audience test |
 | Art & Technology: Zumorroda-X (Henry's Farm Adventures, name from the earlier review) | Mini-games where a farmer learns to adapt to heat waves and floods | Interactive practice | Guided steps; no game | Explorer already has a scoring game. Do not add one just to match a winner |
 
-## 5. Human validation still pending
+## 5. What would be needed for an educational-effect claim (not required for this submission)
 
-None of the following has been done. All are needed before any claim of educational effect:
+**Update (overnight assignment, 2026-11-15):** the project needs no users, interviews or human study, and Perigee makes **no** claim of educational effect. The list below is kept only as the boundary of what is *not* claimed. Item 2 is now done computationally: the answer key was re-derived and corrected (`science/reviews/transfer-exercise/README.md`, `answer_evidence.json`) and admitted by `tools/ingest/admit_case.py`.
+
+None of items 1, 3, 4 and 5 has been done. Each would be needed before any claim of educational effect:
 
 1. **Learner trial.** An unfamiliar learner, not an agent, works through a taught case and then the [draft transfer exercise](../transfer-exercise/README.md). Score with its rubric. Owners: Sathvik and Sagar.
 2. **Science review** of the transfer exercise's answer key: NONFUNC/TRANSIENT interpretation, field-star identification, WISE 0855 visibility at 1.26 µm.
