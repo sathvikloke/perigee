@@ -1,0 +1,144 @@
+{
+ "schema_version": 1,
+ "frame_id": "2025W27_2A_0331_1_D1",
+ "frame_key": "2025W27_2A_0331_1_D1",
+ "observation_id": "2025W27_2A_0331_1",
+ "detector": 1,
+ "collection_id": "spherex_dr1",
+ "observed_at_utc": "2025-07-04T22:44:05.480Z",
+ "mjd": 60860.947285645,
+ "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+ "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W27_2A/l2b-v27-2026-215/1/level2_2025W27_2A_0331_1D1_spx_l2b-v27-2026-215.fits",
+ "wavelength_um": 1.1129410002362532,
+ "bandwidth_um": 0.029921610677559756,
+ "wavelength_location": "Spectral WCS (key W) sampled at the catalog-predicted position of R Draconis at this frame's mid-exposure time (native pixel x=28.40, y=8.98). Other pixels in the image record other wavelengths.",
+ "sampled_position": {
+  "kind": "catalog_prediction",
+  "ra_deg": 248.16724023440898,
+  "dec_deg": 66.75502298423483,
+  "native_x": 28.40137039027545,
+  "native_y": 8.984582291233794,
+  "native_pixel_convention": "0-based FITS pixel centers of the IMAGE extension"
+ },
+ "image": {
+  "src": "/api/v1/assets/r_draconis.frames.2025W27_2A_0331_1_D1.png",
+  "width": 256,
+  "height": 256,
+  "media_type": "image/png"
+ },
+ "flag_image": {
+  "src": "/api/v1/assets/r_draconis.frames.2025W27_2A_0331_1_D1.flags.png",
+  "width": 256,
+  "height": 256,
+  "media_type": "image/png",
+  "legend": {
+   "adverse_flag": [
+    255,
+    64,
+    64,
+    150
+   ],
+   "non_finite": [
+    255,
+    200,
+    0,
+    200
+   ]
+  }
+ },
+ "registration": {
+  "center_ra_deg": 248.16723307041877,
+  "center_dec_deg": 66.75502382641281,
+  "fov_arcmin": 6.0,
+  "width": 256,
+  "height": 256,
+  "scale_arcsec_per_px": 1.40625,
+  "native_scale_arcsec_per_px": 6.128,
+  "projection": "TAN",
+  "orientation": "north_up_east_left",
+  "method": "nearest_neighbour",
+  "method_detail": "Each display pixel takes the value of the native pixel containing its sky position, via the IMAGE TAN-SIP WCS. Pixels outside the image or non-finite are transparent.",
+  "pixel_convention": "origin at the top-left corner of the PNG, x right, y down, display pixels",
+  "grid_id": "8f52096b864dda64"
+ },
+ "quality": {
+  "status": "flagged",
+  "covered": true,
+  "screen_radius_native_px": 2.5,
+  "screened_pixels": 19,
+  "valid_aperture_pixels": 0,
+  "adverse_aperture_pixels": 19,
+  "nonfinite_aperture_pixels": 10,
+  "flag_names": [
+   "BLOOM",
+   "OVERFLOW",
+   "SUR_ERROR",
+   "TRANSIENT"
+  ],
+  "flag_counts": {
+   "TRANSIENT": 6,
+   "OVERFLOW": 14,
+   "SUR_ERROR": 16,
+   "SOURCE": 19,
+   "BLOOM": 19
+  },
+  "informational_flags": [
+   "FULLSAMPLE",
+   "SOURCE"
+  ],
+  "notes": [
+   "10 of 19 screened pixels are non-finite (no usable value); the position is covered, so this is a quality problem, not missing coverage.",
+   "Informational flags present (not treated as problems): SOURCE."
+  ]
+ },
+ "display_scale": {
+  "mode": "per_frame",
+  "method": "asinh",
+  "asinh_softening": 10.0,
+  "low": 0.29885077476501465,
+  "high": 287.7316589355469,
+  "unit": "MJy / sr",
+  "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames.",
+  "background_subtraction": null,
+  "clipping": "values below low map to black, above high to white"
+ },
+ "marker": {
+  "kind": "catalog_prediction",
+  "label": "Catalog prediction (not a detection)",
+  "x": 127.993,
+  "y": 128.002,
+  "on_grid": true,
+  "ra_deg": 248.16724023440898,
+  "dec_deg": 66.75502298423483,
+  "epoch_mjd": 60860.947285645,
+  "epoch_utc": "2025-07-04T22:44:05.480Z",
+  "propagated": true,
+  "source": "SIMBAD via CDS Sesame (Gaia EDR3 (2020yCat.1350....0G)), propagated from epoch J2000.0 with catalog proper motion and parallax distance to this frame's mid-exposure time (annual parallax and binary orbits not modeled)."
+ },
+ "provenance": {
+  "retrieved_at": "2026-11-14T04:27:13.851750+00:00",
+  "retrieved_at_basis": "Download-ledger creation time (manifest.json created_utc); per-file retrieval time not recorded.",
+  "original_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W27_2A/l2b-v27-2026-215/1/level2_2025W27_2A_0331_1D1_spx_l2b-v27-2026-215.fits",
+  "cutout_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W27_2A/l2b-v27-2026-215/1/level2_2025W27_2A_0331_1D1_spx_l2b-v27-2026-215.fits?center=248.16723307041877%2C66.75502382641281&size=0.1",
+  "sha256": "11aad08d777e7a75f322f4e46087dfe38b4b848cf7fe1dc27fb9ab80856c70be",
+  "processing_version": "perigee-processor-a/0.1.2",
+  "pipeline_version": "l2b-v27-2026-215",
+  "ssdc_software_version": "7.0.5",
+  "l2_dqa": "Pass",
+  "native_shape": [
+   39,
+   58
+  ],
+  "acknowledgments": [
+   "This product uses data from SPHEREx, a NASA mission managed by the Jet Propulsion Laboratory, California Institute of Technology, obtained from the NASA/IPAC Infrared Science Archive (IRSA), operated by the California Institute of Technology under contract with NASA."
+  ]
+ },
+ "limitations": [
+  "Display image is nearest-neighbour resampled from ~6.15 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+  "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+  "Per-frame stretch: brightness is not directly comparable with other frames.",
+  "The quality screen checks flags in a small circle around one position. A clear result is not a detection.",
+  "The marker is a catalog prediction, not a position measured in this image."
+ ],
+ "preset_id": "r_draconis"
+}

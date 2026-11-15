@@ -1,0 +1,4 @@
+# Exact dependencies of `python -m backend.platform.smoke` (CI release smoke).
+# Pins must match backend/requirements.txt (checked by test_platform_smoke.py).
+httpx==0.28.1
+pillow==13.0.0

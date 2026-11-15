@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "request_id": "4fe1065de59448b684f35f2e4dee689a",
+  "query": {
+    "ra_deg": 330.84,
+    "dec_deg": -56.786,
+    "fov_arcmin": 6.0,
+    "limit": 24,
+    "collection_ids": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "search_radius_deg": 0.001
+  },
+  "status": "ready",
+  "observations": [
+    {
+      "observation_id": "2025W17_4B_0017_1",
+      "detector": 2,
+      "frame_key": "2025W17_4B_0017_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-04-24T20:31:57.100Z",
+      "mjd": 60789.855522,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0017_1D2_spx_l2b-v27-2026-196.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXMTdfNEJfMDAxN18xX0QyIiwibWpkIjo2MDc4OS44NTU1MjIsIm9icyI6IjIwMjVXMTdfNEJfMDAxN18xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMTdfNEIvbDJiLXYyNy0yMDI2LTE5Ni8yL2xldmVsMl8yMDI1VzE3XzRCXzAwMTdfMUQyX3NweF9sMmItdjI3LTIwMjYtMTk2LmZpdHMiLCJ1dGMiOiIyMDI1LTA0LTI0VDIwOjMxOjU3LjEwMFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.POfNO9AFtBZfLKKIHZCcLa33MkU-8iQdMH2Y7wq_Fds"
+    },
+    {
+      "observation_id": "2025W17_4B_0315_1",
+      "detector": 2,
+      "frame_key": "2025W17_4B_0315_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-04-26T19:43:35.529Z",
+      "mjd": 60791.821939,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0315_1D2_spx_l2b-v27-2026-196.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXMTdfNEJfMDMxNV8xX0QyIiwibWpkIjo2MDc5MS44MjE5MzksIm9icyI6IjIwMjVXMTdfNEJfMDMxNV8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMTdfNEIvbDJiLXYyNy0yMDI2LTE5Ni8yL2xldmVsMl8yMDI1VzE3XzRCXzAzMTVfMUQyX3NweF9sMmItdjI3LTIwMjYtMTk2LmZpdHMiLCJ1dGMiOiIyMDI1LTA0LTI2VDE5OjQzOjM1LjUyOVoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.bXZk03xjyF13CCmcU4oz4ndX6E0NHaBIuCu3h4Keong"
+    },
+    {
+      "observation_id": "2025W18_1B_0081_2",
+      "detector": 3,
+      "frame_key": "2025W18_1B_0081_2_D3",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-04-29T01:33:19.843Z",
+      "mjd": 60794.064813,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D3",
+      "detector_wavelength_range_um": [
+        1.6301,
+        2.4346
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W18_1B/l2b-v27-2026-196/3/level2_2025W18_1B_0081_2D3_spx_l2b-v27-2026-196.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjozLCJmayI6IjIwMjVXMThfMUJfMDA4MV8yX0QzIiwibWpkIjo2MDc5NC4wNjQ4MTMsIm9icyI6IjIwMjVXMThfMUJfMDA4MV8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMThfMUIvbDJiLXYyNy0yMDI2LTE5Ni8zL2xldmVsMl8yMDI1VzE4XzFCXzAwODFfMkQzX3NweF9sMmItdjI3LTIwMjYtMTk2LmZpdHMiLCJ1dGMiOiIyMDI1LTA0LTI5VDAxOjMzOjE5Ljg0M1oifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.Xc3Uo13HI5dhcV01I3k_6NUdN-o5MABEEx3UKJtYUkY"
+    },
+    {
+      "observation_id": "2025W18_1B_0238_2",
+      "detector": 3,
+      "frame_key": "2025W18_1B_0238_2_D3",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-04-30T02:01:13.324Z",
+      "mjd": 60795.084182,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D3",
+      "detector_wavelength_range_um": [
+        1.6301,
+        2.4346
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W18_1B/l2b-v27-2026-196/3/level2_2025W18_1B_0238_2D3_spx_l2b-v27-2026-196.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjozLCJmayI6IjIwMjVXMThfMUJfMDIzOF8yX0QzIiwibWpkIjo2MDc5NS4wODQxODIsIm9icyI6IjIwMjVXMThfMUJfMDIzOF8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMThfMUIvbDJiLXYyNy0yMDI2LTE5Ni8zL2xldmVsMl8yMDI1VzE4XzFCXzAyMzhfMkQzX3NweF9sMmItdjI3LTIwMjYtMTk2LmZpdHMiLCJ1dGMiOiIyMDI1LTA0LTMwVDAyOjAxOjEzLjMyNFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.pCEWDOXEK1_3_7OB45ZpnVCCDMK_IoQpov79IRkk3DE"
+    },
+    {
+      "observation_id": "2025W18_2B_0489_1",
+      "detector": 5,
+      "frame_key": "2025W18_2B_0489_1_D5",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-05-04T16:51:53.798Z",
+      "mjd": 60799.702706,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D5",
+      "detector_wavelength_range_um": [
+        3.8113,
+        4.43
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W18_2B/l2b-v27-2026-197/5/level2_2025W18_2B_0489_1D5_spx_l2b-v27-2026-197.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo1LCJmayI6IjIwMjVXMThfMkJfMDQ4OV8xX0Q1IiwibWpkIjo2MDc5OS43MDI3MDYsIm9icyI6IjIwMjVXMThfMkJfMDQ4OV8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMThfMkIvbDJiLXYyNy0yMDI2LTE5Ny81L2xldmVsMl8yMDI1VzE4XzJCXzA0ODlfMUQ1X3NweF9sMmItdjI3LTIwMjYtMTk3LmZpdHMiLCJ1dGMiOiIyMDI1LTA1LTA0VDE2OjUxOjUzLjc5OFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.9SsS4AgM0OaOuF3t8aqaymA1w0xRpO0pyIh_8bGmRrM"
+    },
+    {
+      "observation_id": "2025W23_2B_0258_1",
+      "detector": 2,
+      "frame_key": "2025W23_2B_0258_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-06-06T17:18:03.427Z",
+      "mjd": 60832.720873,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W23_2B/l2b-v27-2026-201/2/level2_2025W23_2B_0258_1D2_spx_l2b-v27-2026-201.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXMjNfMkJfMDI1OF8xX0QyIiwibWpkIjo2MDgzMi43MjA4NzMsIm9icyI6IjIwMjVXMjNfMkJfMDI1OF8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMjNfMkIvbDJiLXYyNy0yMDI2LTIwMS8yL2xldmVsMl8yMDI1VzIzXzJCXzAyNThfMUQyX3NweF9sMmItdjI3LTIwMjYtMjAxLmZpdHMiLCJ1dGMiOiIyMDI1LTA2LTA2VDE3OjE4OjAzLjQyN1oifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.SBY8wJ4Xz-rsFOpknlOOSibcBL2s-kJO3eh267RZXws"
+    },
+    {
+      "observation_id": "2025W23_2B_0441_4",
+      "detector": 5,
+      "frame_key": "2025W23_2B_0441_4_D5",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-06-07T12:55:48.172Z",
+      "mjd": 60833.538752,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D5",
+      "detector_wavelength_range_um": [
+        3.8113,
+        4.43
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W23_2B/l2b-v27-2026-201/5/level2_2025W23_2B_0441_4D5_spx_l2b-v27-2026-201.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo1LCJmayI6IjIwMjVXMjNfMkJfMDQ0MV80X0Q1IiwibWpkIjo2MDgzMy41Mzg3NTIsIm9icyI6IjIwMjVXMjNfMkJfMDQ0MV80Iiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXMjNfMkIvbDJiLXYyNy0yMDI2LTIwMS81L2xldmVsMl8yMDI1VzIzXzJCXzA0NDFfNEQ1X3NweF9sMmItdjI3LTIwMjYtMjAxLmZpdHMiLCJ1dGMiOiIyMDI1LTA2LTA3VDEyOjU1OjQ4LjE3MloifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.c4gHoGkh8fs4jnaYdAsxdRoDiyK9VXsgVXExa4aPino"
+    },
+    {
+      "observation_id": "2025W40_1A_0067_4",
+      "detector": 6,
+      "frame_key": "2025W40_1A_0067_4_D6",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-09-29T07:21:15.033Z",
+      "mjd": 60947.306424,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": [
+        4.4115,
+        5.0096
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W40_1A/l2b-v27-2026-239/6/level2_2025W40_1A_0067_4D6_spx_l2b-v27-2026-239.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo2LCJmayI6IjIwMjVXNDBfMUFfMDA2N180X0Q2IiwibWpkIjo2MDk0Ny4zMDY0MjQsIm9icyI6IjIwMjVXNDBfMUFfMDA2N180Iiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXNDBfMUEvbDJiLXYyNy0yMDI2LTIzOS82L2xldmVsMl8yMDI1VzQwXzFBXzAwNjdfNEQ2X3NweF9sMmItdjI3LTIwMjYtMjM5LmZpdHMiLCJ1dGMiOiIyMDI1LTA5LTI5VDA3OjIxOjE1LjAzM1oifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.hkwkhK2L_qLfrvISkgIu7IKxsDK910WNr0J5HgJVQdk"
+    },
+    {
+      "observation_id": "2025W40_1A_0489_2",
+      "detector": 3,
+      "frame_key": "2025W40_1A_0489_2_D3",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-10-01T04:56:05.568Z",
+      "mjd": 60949.20562,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D3",
+      "detector_wavelength_range_um": [
+        1.6301,
+        2.4346
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W40_1A/l2b-v27-2026-239/3/level2_2025W40_1A_0489_2D3_spx_l2b-v27-2026-239.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjozLCJmayI6IjIwMjVXNDBfMUFfMDQ4OV8yX0QzIiwibWpkIjo2MDk0OS4yMDU2Miwib2JzIjoiMjAyNVc0MF8xQV8wNDg5XzIiLCJzcmMiOiJodHRwczovL2lyc2EuaXBhYy5jYWx0ZWNoLmVkdS9pYmUvZGF0YS9zcGhlcmV4L2RyMS9sZXZlbDIvMjAyNVc0MF8xQS9sMmItdjI3LTIwMjYtMjM5LzMvbGV2ZWwyXzIwMjVXNDBfMUFfMDQ4OV8yRDNfc3B4X2wyYi12MjctMjAyNi0yMzkuZml0cyIsInV0YyI6IjIwMjUtMTAtMDFUMDQ6NTY6MDUuNTY4WiJ9LCJleHAiOjE3OTQ3MDA1MDUsImlhdCI6MTc5NDY3ODkwNSwicSI6eyJkZWMiOi01Ni43ODYsImZvdiI6Ni4wLCJyYSI6MzMwLjg0fSwidiI6MX0.qpEFIIjri5XLI6veLWtW9jm0hXWEq3R_Tqiz2EVVJew"
+    },
+    {
+      "observation_id": "2025W40_2B_0093_1",
+      "detector": 2,
+      "frame_key": "2025W40_2B_0093_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-10-02T21:38:15.475Z",
+      "mjd": 60950.901568,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W40_2B/l2b-v27-2026-241/2/level2_2025W40_2B_0093_1D2_spx_l2b-v27-2026-241.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXNDBfMkJfMDA5M18xX0QyIiwibWpkIjo2MDk1MC45MDE1NjgsIm9icyI6IjIwMjVXNDBfMkJfMDA5M18xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXNDBfMkIvbDJiLXYyNy0yMDI2LTI0MS8yL2xldmVsMl8yMDI1VzQwXzJCXzAwOTNfMUQyX3NweF9sMmItdjI3LTIwMjYtMjQxLmZpdHMiLCJ1dGMiOiIyMDI1LTEwLTAyVDIxOjM4OjE1LjQ3NVoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.L-2W1PhtMU8Na08qdDdn1jTZKgbPpz09N3a5vNt24Bo"
+    },
+    {
+      "observation_id": "2025W41_1A_0081_1",
+      "detector": 2,
+      "frame_key": "2025W41_1A_0081_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-10-06T08:47:15.964Z",
+      "mjd": 60954.366157,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W41_1A/l2b-v27-2026-241/2/level2_2025W41_1A_0081_1D2_spx_l2b-v27-2026-241.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXNDFfMUFfMDA4MV8xX0QyIiwibWpkIjo2MDk1NC4zNjYxNTcsIm9icyI6IjIwMjVXNDFfMUFfMDA4MV8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXNDFfMUEvbDJiLXYyNy0yMDI2LTI0MS8yL2xldmVsMl8yMDI1VzQxXzFBXzAwODFfMUQyX3NweF9sMmItdjI3LTIwMjYtMjQxLmZpdHMiLCJ1dGMiOiIyMDI1LTEwLTA2VDA4OjQ3OjE1Ljk2NFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.rQyXqke2Ydtw__mU0uueKVn-EtzY_oh2IPJD6U7bd5s"
+    },
+    {
+      "observation_id": "2025W41_2B_0200_1",
+      "detector": 1,
+      "frame_key": "2025W41_2B_0200_1_D1",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-10-10T08:57:19.728Z",
+      "mjd": 60958.373145,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D1",
+      "detector_wavelength_range_um": [
+        0.7455,
+        1.1167
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W41_2B/l2b-v27-2026-242/1/level2_2025W41_2B_0200_1D1_spx_l2b-v27-2026-242.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoxLCJmayI6IjIwMjVXNDFfMkJfMDIwMF8xX0QxIiwibWpkIjo2MDk1OC4zNzMxNDUsIm9icyI6IjIwMjVXNDFfMkJfMDIwMF8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXNDFfMkIvbDJiLXYyNy0yMDI2LTI0Mi8xL2xldmVsMl8yMDI1VzQxXzJCXzAyMDBfMUQxX3NweF9sMmItdjI3LTIwMjYtMjQyLmZpdHMiLCJ1dGMiOiIyMDI1LTEwLTEwVDA4OjU3OjE5LjcyOFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.v2fijlhXERdpiMHK7XIGK2bvcil-t5762mTp_qdjOW0"
+    },
+    {
+      "observation_id": "2025W43_1A_0019_1",
+      "detector": 1,
+      "frame_key": "2025W43_1A_0019_1_D1",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-10-20T02:03:38.304Z",
+      "mjd": 60968.08586,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D1",
+      "detector_wavelength_range_um": [
+        0.7455,
+        1.1167
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W43_1A/l2b-v27-2026-244/1/level2_2025W43_1A_0019_1D1_spx_l2b-v27-2026-244.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoxLCJmayI6IjIwMjVXNDNfMUFfMDAxOV8xX0QxIiwibWpkIjo2MDk2OC4wODU4Niwib2JzIjoiMjAyNVc0M18xQV8wMDE5XzEiLCJzcmMiOiJodHRwczovL2lyc2EuaXBhYy5jYWx0ZWNoLmVkdS9pYmUvZGF0YS9zcGhlcmV4L2RyMS9sZXZlbDIvMjAyNVc0M18xQS9sMmItdjI3LTIwMjYtMjQ0LzEvbGV2ZWwyXzIwMjVXNDNfMUFfMDAxOV8xRDFfc3B4X2wyYi12MjctMjAyNi0yNDQuZml0cyIsInV0YyI6IjIwMjUtMTAtMjBUMDI6MDM6MzguMzA0WiJ9LCJleHAiOjE3OTQ3MDA1MDUsImlhdCI6MTc5NDY3ODkwNSwicSI6eyJkZWMiOi01Ni43ODYsImZvdiI6Ni4wLCJyYSI6MzMwLjg0fSwidiI6MX0.KgkAUso-kljrQ7fmb5e1e_JXLEvpoO7dEGUFxBXxJDI"
+    },
+    {
+      "observation_id": "2025W45_2A_0404_1",
+      "detector": 2,
+      "frame_key": "2025W45_2A_0404_1_D2",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-11-08T08:57:56.880Z",
+      "mjd": 60987.373575,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D2",
+      "detector_wavelength_range_um": [
+        1.1033,
+        1.6499
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0404_1D2_spx_l2b-v27-2026-247.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoyLCJmayI6IjIwMjVXNDVfMkFfMDQwNF8xX0QyIiwibWpkIjo2MDk4Ny4zNzM1NzUsIm9icyI6IjIwMjVXNDVfMkFfMDQwNF8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjVXNDVfMkEvbDJiLXYyNy0yMDI2LTI0Ny8yL2xldmVsMl8yMDI1VzQ1XzJBXzA0MDRfMUQyX3NweF9sMmItdjI3LTIwMjYtMjQ3LmZpdHMiLCJ1dGMiOiIyMDI1LTExLTA4VDA4OjU3OjU2Ljg4MFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.m2AteWl9Afl4S04HwV65GPGYnsdcxn4TJbQhnc_nIUs"
+    },
+    {
+      "observation_id": "2026W17_1B_0184_1",
+      "detector": 1,
+      "frame_key": "2026W17_1B_0184_1_D1",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-20T22:47:45.139Z",
+      "mjd": 61150.949828,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D1",
+      "detector_wavelength_range_um": [
+        0.7455,
+        1.1167
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/1/level2_2026W17_1B_0184_1D1_spx_l2b-v27-2026-242.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjoxLCJmayI6IjIwMjZXMTdfMUJfMDE4NF8xX0QxIiwibWpkIjo2MTE1MC45NDk4MjgsIm9icyI6IjIwMjZXMTdfMUJfMDE4NF8xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjZXMTdfMUIvbDJiLXYyNy0yMDI2LTI0Mi8xL2xldmVsMl8yMDI2VzE3XzFCXzAxODRfMUQxX3NweF9sMmItdjI3LTIwMjYtMjQyLmZpdHMiLCJ1dGMiOiIyMDI2LTA0LTIwVDIyOjQ3OjQ1LjEzOVoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.y1ifzN6lXlbGawngvBVu34dWzdTqEj_L0nCBTcRvomE"
+    },
+    {
+      "observation_id": "2026W17_1B_0337_4",
+      "detector": 4,
+      "frame_key": "2026W17_1B_0337_4_D4",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-21T20:01:47.280Z",
+      "mjd": 61151.834575,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D4",
+      "detector_wavelength_range_um": [
+        2.4027,
+        3.8473
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/4/level2_2026W17_1B_0337_4D4_spx_l2b-v27-2026-242.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo0LCJmayI6IjIwMjZXMTdfMUJfMDMzN180X0Q0IiwibWpkIjo2MTE1MS44MzQ1NzUsIm9icyI6IjIwMjZXMTdfMUJfMDMzN180Iiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjZXMTdfMUIvbDJiLXYyNy0yMDI2LTI0Mi80L2xldmVsMl8yMDI2VzE3XzFCXzAzMzdfNEQ0X3NweF9sMmItdjI3LTIwMjYtMjQyLmZpdHMiLCJ1dGMiOiIyMDI2LTA0LTIxVDIwOjAxOjQ3LjI4MFoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.aYpCLA4-dwWaCmt3kSRcf9wYoejXZqdcEXtEiHg-iiI"
+    },
+    {
+      "observation_id": "2026W18_1A_0457_1",
+      "detector": 3,
+      "frame_key": "2026W18_1A_0457_1_D3",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-04-29T05:32:08.246Z",
+      "mjd": 61159.230651,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D3",
+      "detector_wavelength_range_um": [
+        1.6301,
+        2.4346
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_1A/l2b-v27-2026-244/3/level2_2026W18_1A_0457_1D3_spx_l2b-v27-2026-244.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0IjozLCJmayI6IjIwMjZXMThfMUFfMDQ1N18xX0QzIiwibWpkIjo2MTE1OS4yMzA2NTEsIm9icyI6IjIwMjZXMThfMUFfMDQ1N18xIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjZXMThfMUEvbDJiLXYyNy0yMDI2LTI0NC8zL2xldmVsMl8yMDI2VzE4XzFBXzA0NTdfMUQzX3NweF9sMmItdjI3LTIwMjYtMjQ0LmZpdHMiLCJ1dGMiOiIyMDI2LTA0LTI5VDA1OjMyOjA4LjI0NloifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.3GRwDGdWSEkKyFbfIiXGUiNUS9axEGr-tfiLzhlV3f0"
+    },
+    {
+      "observation_id": "2026W18_2A_0174_2",
+      "detector": 6,
+      "frame_key": "2026W18_2A_0174_2_D6",
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-05-01T06:26:17.059Z",
+      "mjd": 61161.268253,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": [
+        4.4115,
+        5.0096
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W18_2A/l2b-v27-2026-244/6/level2_2026W18_2A_0174_2D6_spx_l2b-v27-2026-244.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfZHIxIiwiZGV0Ijo2LCJmayI6IjIwMjZXMThfMkFfMDE3NF8yX0Q2IiwibWpkIjo2MTE2MS4yNjgyNTMsIm9icyI6IjIwMjZXMThfMkFfMDE3NF8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9kcjEvbGV2ZWwyLzIwMjZXMThfMkEvbDJiLXYyNy0yMDI2LTI0NC82L2xldmVsMl8yMDI2VzE4XzJBXzAxNzRfMkQ2X3NweF9sMmItdjI3LTIwMjYtMjQ0LmZpdHMiLCJ1dGMiOiIyMDI2LTA1LTAxVDA2OjI2OjE3LjA1OVoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.po4fw2p2oAa-Rs_RsH-ooQ_ogDjR6wTwSD6yePQvRo4"
+    },
+    {
+      "observation_id": "2026W39_1A_0578_2",
+      "detector": 6,
+      "frame_key": "2026W39_1A_0578_2_D6",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-23T17:18:39.715Z",
+      "mjd": 61306.721293,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": [
+        4.4115,
+        5.0096
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W39_1A/l2b-v27-2026-268/6/level2_2026W39_1A_0578_2D6_spx_l2b-v27-2026-268.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo2LCJmayI6IjIwMjZXMzlfMUFfMDU3OF8yX0Q2IiwibWpkIjo2MTMwNi43MjEyOTMsIm9icyI6IjIwMjZXMzlfMUFfMDU3OF8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9xcjMvbGV2ZWwyLzIwMjZXMzlfMUEvbDJiLXYyNy0yMDI2LTI2OC82L2xldmVsMl8yMDI2VzM5XzFBXzA1NzhfMkQ2X3NweF9sMmItdjI3LTIwMjYtMjY4LmZpdHMiLCJ1dGMiOiIyMDI2LTA5LTIzVDE3OjE4OjM5LjcxNVoifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.rrT1IauV_nNxIfzRs3yjY7WZ3nRH64k3cb3mMgU6nDA"
+    },
+    {
+      "observation_id": "2026W39_2A_0312_4",
+      "detector": 6,
+      "frame_key": "2026W39_2A_0312_4_D6",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-25T23:08:25.756Z",
+      "mjd": 61308.964187,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": [
+        4.4115,
+        5.0096
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W39_2A/l2b-v27-2026-271/6/level2_2026W39_2A_0312_4D6_spx_l2b-v27-2026-271.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo2LCJmayI6IjIwMjZXMzlfMkFfMDMxMl80X0Q2IiwibWpkIjo2MTMwOC45NjQxODcsIm9icyI6IjIwMjZXMzlfMkFfMDMxMl80Iiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9xcjMvbGV2ZWwyLzIwMjZXMzlfMkEvbDJiLXYyNy0yMDI2LTI3MS82L2xldmVsMl8yMDI2VzM5XzJBXzAzMTJfNEQ2X3NweF9sMmItdjI3LTIwMjYtMjcxLmZpdHMiLCJ1dGMiOiIyMDI2LTA5LTI1VDIzOjA4OjI1Ljc1NloifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.9C0IRep6OUduSpCP4DYVX-molZ6Q-bE-dVVk_IkWwD8"
+    },
+    {
+      "observation_id": "2026W39_2A_0647_1",
+      "detector": 6,
+      "frame_key": "2026W39_2A_0647_1_D6",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-27T14:07:45.408Z",
+      "mjd": 61310.58872,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D6",
+      "detector_wavelength_range_um": [
+        4.4115,
+        5.0096
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W39_2A/l2b-v27-2026-271/6/level2_2026W39_2A_0647_1D6_spx_l2b-v27-2026-271.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo2LCJmayI6IjIwMjZXMzlfMkFfMDY0N18xX0Q2IiwibWpkIjo2MTMxMC41ODg3Miwib2JzIjoiMjAyNlczOV8yQV8wNjQ3XzEiLCJzcmMiOiJodHRwczovL2lyc2EuaXBhYy5jYWx0ZWNoLmVkdS9pYmUvZGF0YS9zcGhlcmV4L3FyMy9sZXZlbDIvMjAyNlczOV8yQS9sMmItdjI3LTIwMjYtMjcxLzYvbGV2ZWwyXzIwMjZXMzlfMkFfMDY0N18xRDZfc3B4X2wyYi12MjctMjAyNi0yNzEuZml0cyIsInV0YyI6IjIwMjYtMDktMjdUMTQ6MDc6NDUuNDA4WiJ9LCJleHAiOjE3OTQ3MDA1MDUsImlhdCI6MTc5NDY3ODkwNSwicSI6eyJkZWMiOi01Ni43ODYsImZvdiI6Ni4wLCJyYSI6MzMwLjg0fSwidiI6MX0._1wBKgtMIZ4t6SsbmdaogZLsuiU_lxbHGtjW0MQntm0"
+    },
+    {
+      "observation_id": "2026W40_1A_0407_2",
+      "detector": 5,
+      "frame_key": "2026W40_1A_0407_2_D5",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-09-29T19:57:08.467Z",
+      "mjd": 61312.831348,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D5",
+      "detector_wavelength_range_um": [
+        3.8113,
+        4.43
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_1A/l2b-v27-2026-276/5/level2_2026W40_1A_0407_2D5_spx_l2b-v27-2026-276.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo1LCJmayI6IjIwMjZXNDBfMUFfMDQwN18yX0Q1IiwibWpkIjo2MTMxMi44MzEzNDgsIm9icyI6IjIwMjZXNDBfMUFfMDQwN18yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9xcjMvbGV2ZWwyLzIwMjZXNDBfMUEvbDJiLXYyNy0yMDI2LTI3Ni81L2xldmVsMl8yMDI2VzQwXzFBXzA0MDdfMkQ1X3NweF9sMmItdjI3LTIwMjYtMjc2LmZpdHMiLCJ1dGMiOiIyMDI2LTA5LTI5VDE5OjU3OjA4LjQ2N1oifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.EC8cKoO-ztlbnB1WNY_RAOmjbgEaxs-O61Y-ejZFn8Q"
+    },
+    {
+      "observation_id": "2026W40_1A_0721_2",
+      "detector": 5,
+      "frame_key": "2026W40_1A_0721_2_D5",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-10-01T04:31:21.907Z",
+      "mjd": 61314.188448,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D5",
+      "detector_wavelength_range_um": [
+        3.8113,
+        4.43
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_1A/l2b-v27-2026-276/5/level2_2026W40_1A_0721_2D5_spx_l2b-v27-2026-276.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo1LCJmayI6IjIwMjZXNDBfMUFfMDcyMV8yX0Q1IiwibWpkIjo2MTMxNC4xODg0NDgsIm9icyI6IjIwMjZXNDBfMUFfMDcyMV8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9xcjMvbGV2ZWwyLzIwMjZXNDBfMUEvbDJiLXYyNy0yMDI2LTI3Ni81L2xldmVsMl8yMDI2VzQwXzFBXzA3MjFfMkQ1X3NweF9sMmItdjI3LTIwMjYtMjc2LmZpdHMiLCJ1dGMiOiIyMDI2LTEwLTAxVDA0OjMxOjIxLjkwN1oifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.T4tUNa8BTGO_s90rJUS97IKxDK3hez7nsa5vlTE5kfg"
+    },
+    {
+      "observation_id": "2026W40_2A_0216_2",
+      "detector": 5,
+      "frame_key": "2026W40_2A_0216_2_D5",
+      "collection_id": "spherex_qr3",
+      "observed_at_utc": "2026-10-02T11:28:25.766Z",
+      "mjd": 61315.478076,
+      "time_basis": "sia_t_min",
+      "band_name": "SPHEREx-D5",
+      "detector_wavelength_range_um": [
+        3.8113,
+        4.43
+      ],
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_2A/l2b-v27-2026-285/5/level2_2026W40_2A_0216_2D5_spx_l2b-v27-2026-285.fits",
+      "frame_token": "pf1.eyJkIjp7ImNvbCI6InNwaGVyZXhfcXIzIiwiZGV0Ijo1LCJmayI6IjIwMjZXNDBfMkFfMDIxNl8yX0Q1IiwibWpkIjo2MTMxNS40NzgwNzYsIm9icyI6IjIwMjZXNDBfMkFfMDIxNl8yIiwic3JjIjoiaHR0cHM6Ly9pcnNhLmlwYWMuY2FsdGVjaC5lZHUvaWJlL2RhdGEvc3BoZXJleC9xcjMvbGV2ZWwyLzIwMjZXNDBfMkEvbDJiLXYyNy0yMDI2LTI4NS81L2xldmVsMl8yMDI2VzQwXzJBXzAyMTZfMkQ1X3NweF9sMmItdjI3LTIwMjYtMjg1LmZpdHMiLCJ1dGMiOiIyMDI2LTEwLTAyVDExOjI4OjI1Ljc2NloifSwiZXhwIjoxNzk0NzAwNTA1LCJpYXQiOjE3OTQ2Nzg5MDUsInEiOnsiZGVjIjotNTYuNzg2LCJmb3YiOjYuMCwicmEiOjMzMC44NH0sInYiOjF9.w_waxky98psHEc-sfCKeQLKeigEhhpL0yVRo1l_NF_o"
+    }
+  ],
+  "returned_count": 24,
+  "total_matches": 460,
+  "truncated": true,
+  "selection": "evenly_spaced_in_time",
+  "warnings": [
+    "Showing 24 of 460 matching images, evenly spaced in time. Narrow the request or raise the limit (max 48) to see others."
+  ],
+  "collections_queried": [
+    "spherex_dr1",
+    "spherex_qr3"
+  ],
+  "collections_failed": [],
+  "token_expires_at_utc": "2026-11-14T23:55:05+00:00",
+  "queried_at_utc": "2026-11-14T17:55:05+00:00"
+}

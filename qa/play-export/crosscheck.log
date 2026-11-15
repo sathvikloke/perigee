@@ -1,0 +1,14 @@
+A 2025W35_1A_0008_1_D3 api utc: 2025-08-25T00:50:31.845Z export utc: 2025-08-25T00:50:31.845Z
+None 2025W35_1A_0444_4_D2 api utc: 2025-08-27T06:45:14.156Z export utc: 2025-08-27T06:45:14.156Z
+C 2026W34_1A_0431_1_D3 api utc: 2026-08-19T04:57:42.053Z export utc: 2026-08-19T04:57:42.053Z
+field checks: 57 mismatches: 0
+case_id: 'moving_neighbor'
+preset_id: 'barnards_star'
+query: {'ra_deg': 269.4462585584787, 'dec_deg': 4.768324486236583, 'fov_arcmin': 6}
+claim: "Barnard's Star sits north of the guide line in C; the field stars stay put."
+observations: "A (25 Aug 2025) and C (19 Aug 2026): field stars land on the same pixels; the bright star's glow is above the dashed line in C."
+uncertainty: "A and C are at slightly different wavelengths and flagged near the target, so I can't measure how far it moved."
+app_version: '0.1.0'
+data_origin: 'api'
+sources: ['https://irsa.ipac.caltech.edu/Missions/spherex.html', 'https://simbad.cds.unistra.fr/simbad/sim-id?Ident=Barnard%27s+star', 'https://www.cosmos.esa.int/web/gaia', 'https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/']
+contains image/asset data: False

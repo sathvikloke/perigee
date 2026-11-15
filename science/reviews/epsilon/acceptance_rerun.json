@@ -1,0 +1,708 @@
+{
+ "note": "Subset of science/reviews/acceptance/check_acceptance.py re-run by worker 09 against products at claude/perigee-integration cd4ef49 (perigee-processor-a/0.1.1; unchanged at 866d3a9). Only the fair_comparison rows are kept.",
+ "processor_commit": "cd4ef49cfda871f7e3edbad20a7192f2c602bb4e",
+ "matrix": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison A",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison B",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison C (MWIR D6)",
+   "status": "clear",
+   "registration": true,
+   "wavelength": true,
+   "time": true,
+   "flags": true,
+   "coverage": true,
+   "stretch": true,
+   "provenance": true,
+   "case_match": true
+  }
+ ],
+ "case_rows": {
+  "2026W18_1A_0516_1_D3": {
+   "ref": "A",
+   "wavelength_abs_diff": 3.150455905176486e-05,
+   "bandwidth_abs_diff": 9.446486492731276e-06,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    127.081,
+    128.568
+   ]
+  },
+  "2026W39_2A_0597_4_D3": {
+   "ref": "B",
+   "wavelength_abs_diff": 4.659639372928126e-05,
+   "bandwidth_abs_diff": 3.0090733994944663e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    125.911,
+    129.292
+   ]
+  },
+  "2026W18_1A_0516_1_D6": {
+   "ref": "C",
+   "wavelength_abs_diff": 2.1426279126934844e-05,
+   "bandwidth_abs_diff": 1.2027244967384443e-05,
+   "date_equal_ignoring_Z": true,
+   "date_string_equal_verbatim": false,
+   "mjd_equal": true,
+   "status_equal": true,
+   "sha_equal": true,
+   "url_equal": true,
+   "marker_xy": [
+    127.081,
+    128.568
+   ]
+  }
+ },
+ "frames": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-04-29T12:05:47.874",
+     "MJD-AVG": 61159.504026317,
+     "record": [
+      "2026-04-29T12:05:47.874Z",
+      61159.504026317
+     ],
+     "DATE-OBS": "2026-04-29T12:04:50.315",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.09732450693497,
+      -56.80087121878636
+     ],
+     "native_xy": [
+      28.58217890161656,
+      28.67359645686629
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.08085270172741,
+      128.56843606316795
+     ],
+     "display_xy_linear_pm_control": [
+      127.11667664898006,
+      128.59737894824278
+     ]
+    },
+    "marker_minus_independent_px": 0.00046026934238796045,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9252278186625736e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 56424,
+     "mirrored_control_exact_fraction": 0.014820149338589243
+    },
+    "gaia": {
+     "n_native": 4,
+     "native_median_offset_px": 0.2261529833188719,
+     "native_median_dx_dy": [
+      -0.03977745792970966,
+      -0.18458530153976316
+     ],
+     "n_png": 4,
+     "png_median_dx_dy_display_px": [
+      -0.2800136917640046,
+      0.18963332592447557
+     ],
+     "png_median_offset_display_px": 0.41473101702191006,
+     "stars": [
+      {
+       "gaia": 6412593435166417920,
+       "G": 13.931794,
+       "snr_peak_mad": 152.3,
+       "native_dx": -0.012195840588327123,
+       "native_dy": 0.02396469469638518,
+       "png_dx": -0.36716720439453354,
+       "png_dy": -0.0022492708574048947
+      },
+      {
+       "gaia": 6412595973491218432,
+       "G": 15.813786,
+       "snr_peak_mad": 28.8,
+       "native_dx": 0.38186640512993364,
+       "native_dy": -0.203436604974371,
+       "png_dx": 0.926954246596523,
+       "png_dy": 0.23023214485709786
+      },
+      {
+       "gaia": 6412594397239098368,
+       "G": 16.195631,
+       "snr_peak_mad": 17.1,
+       "native_dx": -0.0673590752710922,
+       "native_dy": -0.16573399810515532,
+       "png_dx": -0.41628265950225796,
+       "png_dy": 0.20104449019223125
+      },
+      {
+       "gaia": 6412596458823395328,
+       "G": 12.953572,
+       "snr_peak_mad": 89.9,
+       "native_dx": -0.13205158903931924,
+       "native_dy": -0.2394024155018144,
+       "png_dx": -0.19286017913347564,
+       "png_dy": 0.1782221616567199
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.323168495440948,
+      0.05770944648649273
+     ],
+     "manual_tab": [
+      2.323168495440948,
+      0.057709446486492726
+     ],
+     "tab_psi": [
+      790.5821789016165,
+      227.67359645686628
+     ],
+     "record": [
+      2.323168495440948,
+      0.05770944648649273
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 19,
+      "adverse": 0,
+      "valid": 19,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 19
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 19,
+      "valid_aperture_pixels": 19,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 19
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.41782109838344
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2026W18_1A_0516_1_D3, 2026W39_2A_0597_4_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "sha_record": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "sha_manifest": "3781422675f53d0af5d4b9fd3bd26497a0c6b1309766570c3c8370b6735afb1f",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W18_1A_0516_1",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.11586961895227432,
+     1.177802324295044
+    ],
+    "stretch_group": [
+     "2026W18_1A_0516_1_D3",
+     "2026W39_2A_0597_4_D3"
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison A",
+   "processing_version": "perigee-processor-a/0.1.1",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-09-27T07:44:24.312",
+     "MJD-AVG": 61310.322503608,
+     "record": [
+      "2026-09-27T07:44:24.312Z",
+      61310.322503608
+     ],
+     "DATE-OBS": "2026-09-27T07:43:26.753",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.0981590490463,
+      -56.801153805731055
+     ],
+     "native_xy": [
+      28.513370076682065,
+      29.699308817473963
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      125.91106633406848,
+      129.29187697289748
+     ],
+     "display_xy_linear_pm_control": [
+      125.94802276654282,
+      129.3217349780448
+     ]
+    },
+    "marker_minus_independent_px": 0.00013977080022237903,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9207202949185932e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 55309,
+     "mirrored_control_exact_fraction": 0.01721302069387599
+    },
+    "gaia": {
+     "n_native": 6,
+     "native_median_offset_px": 0.13687008559968783,
+     "native_median_dx_dy": [
+      -0.04916907825545991,
+      -0.01984393244959648
+     ],
+     "n_png": 6,
+     "png_median_dx_dy_display_px": [
+      0.48359853508264905,
+      -0.27833897742141644
+     ],
+     "png_median_offset_display_px": 0.6670047919768161,
+     "stars": [
+      {
+       "gaia": 6412596183945494528,
+       "G": 15.765998,
+       "snr_peak_mad": 23.1,
+       "native_dx": 0.13290917703561078,
+       "native_dy": -0.16272071126848076,
+       "png_dx": 0.18712813819371377,
+       "png_dy": -0.5445365476434318
+      },
+      {
+       "gaia": 6412593435166417920,
+       "G": 13.931794,
+       "snr_peak_mad": 125.9,
+       "native_dx": -0.058245584337448975,
+       "native_dy": -0.025637082748957596,
+       "png_dx": 0.2802151337961547,
+       "png_dy": -0.5390136639359042
+      },
+      {
+       "gaia": 6412595973491218432,
+       "G": 15.813786,
+       "snr_peak_mad": 22.5,
+       "native_dx": -0.2979670714444005,
+       "native_dy": 0.015444078250016702,
+       "png_dx": 1.5176987664752914,
+       "png_dy": 0.32797038377998433
+      },
+      {
+       "gaia": 6412594397239098368,
+       "G": 16.195631,
+       "snr_peak_mad": 16.2,
+       "native_dx": 0.0407447985989009,
+       "native_dy": -0.014050782150235364,
+       "png_dx": 0.40164359302005437,
+       "png_dy": -0.004149279089062929
+      },
+      {
+       "gaia": 6412596458823395328,
+       "G": 12.953572,
+       "snr_peak_mad": 567.1,
+       "native_dx": -0.04009257217347084,
+       "native_dy": 0.0011787387980959352,
+       "png_dx": 0.7243586897500762,
+       "png_dy": -0.055862893077694764
+      },
+      {
+       "gaia": 6412594706476744704,
+       "G": 16.045214,
+       "snr_peak_mad": 19.7,
+       "native_dx": -0.1878105631128344,
+       "native_dy": -0.28020203234682484,
+       "png_dx": 0.5655534771452437,
+       "png_dy": -0.5008150617651381
+      }
+     ]
+    },
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      2.321953403606271,
+      0.05733009073399494
+     ],
+     "manual_tab": [
+      2.321953403606271,
+      0.057330090733994934
+     ],
+     "tab_psi": [
+      188.51337007668207,
+      263.69930881747393
+     ],
+     "record": [
+      2.321953403606271,
+      0.05733009073399494
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 18,
+      "adverse": 0,
+      "valid": 18,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 18
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 18,
+      "valid_aperture_pixels": 18,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 18
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.300691182526037
+    },
+    "display_scale": {
+     "mode": "shared",
+     "method": "asinh",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "basis": "Shared asinh stretch: percentiles 1-99.5 of the pooled finite grid pixels of frames 2026W18_1A_0516_1_D3, 2026W39_2A_0597_4_D3. Grey levels are comparable only within this group; not photometry."
+    },
+    "provenance": {
+     "sha_raw": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "sha_record": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "sha_manifest": "378fcf34fb43033c05964581b03f33431cbc7da64bcd41ce4b0d791f98fd1b0b",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W39_2A_0597_4",
+      3
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.11586961895227432,
+     1.177802324295044
+    ],
+    "stretch_group": [
+     "2026W18_1A_0516_1_D3",
+     "2026W39_2A_0597_4_D3"
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison B",
+   "processing_version": "perigee-processor-a/0.1.1",
+   "status": "clear"
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "checks": {
+    "time": true,
+    "registration": true,
+    "wavelength": true,
+    "flags": true,
+    "coverage": true,
+    "provenance": true,
+    "stretch": true,
+    "case_match": true
+   },
+   "evidence": {
+    "time": {
+     "DATE-AVG": "2026-04-29T12:05:47.874",
+     "MJD-AVG": 61159.504026317,
+     "record": [
+      "2026-04-29T12:05:47.874Z",
+      61159.504026317
+     ],
+     "DATE-OBS": "2026-04-29T12:04:50.315",
+     "date_vs_mjd_consistent": 1.0
+    },
+    "target": {
+     "pred_radec": [
+      331.09732450693497,
+      -56.80087121878636
+     ],
+     "native_xy": [
+      28.704936776019604,
+      28.380127038888844
+     ],
+     "native_shape": [
+      59,
+      58
+     ],
+     "inside": true,
+     "display_xy_independent": [
+      127.08085270172741,
+      128.56843606316795
+     ],
+     "display_xy_linear_pm_control": [
+      127.11667664898006,
+      128.59737894824278
+     ]
+    },
+    "marker_minus_independent_px": 0.00046026934238796045,
+    "marker_radec_minus_independent_arcsec": 0.0,
+    "grid_identical_across_set": true,
+    "orientation_probe": {
+     "1arcmin_north_xy": [
+      128.0,
+      85.33333212990033
+     ],
+     "1arcmin_east_xy": [
+      85.33333353513648,
+      128.0094834085959
+     ]
+    },
+    "native_parity_det": -2.9295726717116165e-06,
+    "png_reconstruction": {
+     "png_mode": "LA",
+     "alpha_match_fraction": 1.0,
+     "gray_exact_fraction": 1.0,
+     "gray_within_1_fraction": 1.0,
+     "gray_max_abs_diff": 0,
+     "opaque_pixels": 56454,
+     "mirrored_control_exact_fraction": 0.018988781079442085
+    },
+    "gaia": null,
+    "registration_notes": [],
+    "wavelength": {
+     "astropy_W_sip_none": [
+      4.939878573720873,
+      0.03758797275503262
+     ],
+     "manual_tab": [
+      4.939878573720873,
+      0.03758797275503262
+     ],
+     "tab_psi": [
+      788.7049367760196,
+      217.38012703888884
+     ],
+     "record": [
+      4.939878573720873,
+      0.03758797275503262
+     ]
+    },
+    "flags": {
+     "independent": {
+      "screened": 20,
+      "adverse": 0,
+      "valid": 20,
+      "nonfinite": 0,
+      "status": "clear",
+      "counts": {
+       "SOURCE": 20
+      }
+     },
+     "record": {
+      "status": "clear",
+      "screened_pixels": 20,
+      "valid_aperture_pixels": 20,
+      "adverse_aperture_pixels": 0,
+      "nonfinite_aperture_pixels": 0,
+      "flag_names": [],
+      "flag_counts": {
+       "SOURCE": 20
+      }
+     },
+     "msk_masks_consistent": true,
+     "pixels_with_unnamed_bits_in_image": 0
+    },
+    "flag_overlay_match_fraction": 1.0,
+    "coverage": {
+     "inside": true,
+     "signed_margin_native_px": 28.295063223980396
+    },
+    "display_scale": {
+     "mode": "per_frame",
+     "method": "asinh",
+     "low": 0.4351555109024048,
+     "high": 2.530604839324951,
+     "basis": "Percentiles 1.0-99.5 of this frame's finite grid pixels. Brightness is not directly comparable between frames."
+    },
+    "provenance": {
+     "sha_raw": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "sha_record": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "sha_manifest": "74e32a3c1d7f8b7fddfb4e44ff02c5baa1256ffe35a1b8d0047aec4c92783f85",
+     "source_url_eq_manifest_archive_url": true,
+     "cutout_url_eq_manifest_source_url": true,
+     "collection_eq_manifest": true,
+     "marker_kind": "catalog_prediction",
+     "marker_label": "Catalog prediction (not a detection)",
+     "limitations_mention": {
+      "not photometry": true,
+      "not a detection": true,
+      "catalog prediction": true,
+      "adds no resolution": true
+     },
+     "header_obsid_detector": [
+      "2026W18_1A_0516_1",
+      6
+     ],
+     "frame_key_ok": true
+    },
+    "per_file_json_equals_index": true,
+    "query_center_matches_manifest": true,
+    "stretch_limits_recomputed": [
+     0.4351555109024048,
+     2.530604839324951
+    ]
+   },
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "why": "fair_comparison C (MWIR D6)",
+   "processing_version": "perigee-processor-a/0.1.1",
+   "status": "clear"
+  }
+ ]
+}

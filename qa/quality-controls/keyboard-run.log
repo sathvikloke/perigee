@@ -1,0 +1,54 @@
+Enter on Frame A: {
+  focus: 'button "Frame A"',
+  focusOutline: 'solid 3px',
+  filter: 'all',
+  counter: '4 / 34',
+  heading: 'Case frame A',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  pressed: 'false',
+  summary: null,
+  live: 'Frame 4 of 34. 25 Aug 2025. 2.0062 µm. Flagged.'
+}
+Shift+Tab x4 -> select "All wavelengthsNear 2.01 µm (within one " solid 3px
+type N on select: {
+  focus: 'select "All wavelengthsNear 2.01 µm (within one "',
+  focusOutline: 'solid 3px',
+  filter: 'near',
+  counter: '1 / 3',
+  heading: 'Case frame A',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  pressed: 'false',
+  summary: '3 of 34 frames near 2.01 µm, each within its own band width (2.0062–2.0284 µm).',
+  live: 'Frame 1 of 3 near 2.01 µm (4 of 34 in all). 25 Aug 2025. 2.0062 µm. Flagged.'
+}
+focus: button "▷ Play" solid 3px
+Space (play): {
+  focus: 'button "Ⅱ Pause"',
+  focusOutline: 'solid 3px',
+  filter: 'near',
+  counter: '1 / 3',
+  heading: 'Case frame A',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  pressed: 'true',
+  summary: '3 of 34 frames near 2.01 µm, each within its own band width (2.0062–2.0284 µm).',
+  live: 'Playing 3 frames near 2.01 µm in time order. Use Pause to stop.'
+}
+Space (pause): {
+  focus: 'button "▷ Play"',
+  focusOutline: 'solid 3px',
+  filter: 'near',
+  counter: '1 / 3',
+  heading: 'Case frame A',
+  meta: '25 Aug 2025Wavelength 2.0062 µm',
+  pressed: 'false',
+  summary: '3 of 34 frames near 2.01 µm, each within its own band width (2.0062–2.0284 µm).',
+  live: 'Frame 1 of 3 near 2.01 µm (4 of 34 in all). 25 Aug 2025. 2.0062 µm. Flagged.'
+}
+ArrowRight 2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm
+ArrowRight 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm
+ArrowRight 3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm
+ArrowLeft  2 / 3 | Case frame B | 19 Mar 2026Wavelength 2.0123 µm
+Home       1 / 3 | Case frame A | 25 Aug 2025Wavelength 2.0062 µm
+End        3 / 3 | Case frame C | 19 Aug 2026Wavelength 2.0284 µm
+slider ArrowLeft: 2 / 3 Case frame B | valuetext: #19 · B · 19 Mar 2026 · 2.01 µm
+type A: all 19 / 34 null

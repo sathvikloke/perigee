@@ -1,0 +1,634 @@
+{
+ "rows": [
+  {
+   "case": "fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "A": {
+    "case_ref": "A",
+    "wavelength_um": 2.323168495440948,
+    "bandwidth_um": 0.05770944648649273,
+    "mjd": 61159.504026317,
+    "observed_at_utc": "2026-04-29T12:05:47.874Z",
+    "status": "clear",
+    "valid": 19,
+    "adverse": 0,
+    "screened": 19,
+    "nonfinite": 0,
+    "flag_names": [],
+    "marker_xy": [
+     127.081,
+     128.568
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "ffa7fe686b918c3e",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "shared",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 24842,
+    "flag_png_bytes": 852,
+    "marker_offset_from_centre_arcsec": [
+     -1.292,
+     0.799
+    ]
+   },
+   "sagar": {
+    "case_ref": "A",
+    "wavelength_um": 2.3231684948179585,
+    "bandwidth_um": 0.057709446474039715,
+    "mjd": 61159.504026317,
+    "observed_at_utc": "2026-04-29T12:05:47.874Z",
+    "status": "clear",
+    "valid": 19,
+    "adverse": 0,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [],
+    "marker_xy": [
+     126.62,
+     128.85
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_102c6c33f789",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "shared",
+     "low": -0.07076242110512751,
+     "high": 4.525049887472011,
+     "soft": 0.14152484221025502,
+     "background_offset": 0.19020302111084073
+    },
+    "png_bytes": 23887,
+    "flag_png_bytes": 944,
+    "marker_offset_from_centre_arcsec": [
+     -1.294,
+     0.797
+    ]
+   },
+   "diff": {
+    "wavelength_um": -6.229896598597406e-10,
+    "bandwidth_um": -1.2453017783631282e-11,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     -0.002,
+     -0.002
+    ],
+    "grid_center_equal": true
+   }
+  },
+  {
+   "case": "fair_comparison",
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "A": {
+    "case_ref": "B",
+    "wavelength_um": 2.321953403606271,
+    "bandwidth_um": 0.05733009073399494,
+    "mjd": 61310.322503608,
+    "observed_at_utc": "2026-09-27T07:44:24.312Z",
+    "status": "clear",
+    "valid": 18,
+    "adverse": 0,
+    "screened": 18,
+    "nonfinite": 0,
+    "flag_names": [],
+    "marker_xy": [
+     125.911,
+     129.292
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "ffa7fe686b918c3e",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "shared",
+     "low": 0.11586961895227432,
+     "high": 1.177802324295044,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 22448,
+    "flag_png_bytes": 1343,
+    "marker_offset_from_centre_arcsec": [
+     -2.938,
+     1.817
+    ]
+   },
+   "sagar": {
+    "case_ref": "B",
+    "wavelength_um": 2.321953404298646,
+    "bandwidth_um": 0.0573300907482798,
+    "mjd": 61310.322503608,
+    "observed_at_utc": "2026-09-27T07:44:24.312Z",
+    "status": "clear",
+    "valid": 18,
+    "adverse": 0,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [],
+    "marker_xy": [
+     124.87,
+     129.94
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_102c6c33f789",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "shared",
+     "low": -0.07076242110512751,
+     "high": 4.525049887472011,
+     "soft": 0.14152484221025502,
+     "background_offset": 0.1684563629954678
+    },
+    "png_bytes": 23928,
+    "flag_png_bytes": 1528,
+    "marker_offset_from_centre_arcsec": [
+     -2.934,
+     1.819
+    ]
+   },
+   "diff": {
+    "wavelength_um": 6.923750461851341e-10,
+    "bandwidth_um": 1.4284858018687174e-11,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     0.004,
+     0.002
+    ],
+    "grid_center_equal": true
+   }
+  },
+  {
+   "case": "fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "A": {
+    "case_ref": "C",
+    "wavelength_um": 4.939878573720873,
+    "bandwidth_um": 0.03758797275503262,
+    "mjd": 61159.504026317,
+    "observed_at_utc": "2026-04-29T12:05:47.874Z",
+    "status": "clear",
+    "valid": 20,
+    "adverse": 0,
+    "screened": 20,
+    "nonfinite": 0,
+    "flag_names": [],
+    "marker_xy": [
+     127.081,
+     128.568
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "ffa7fe686b918c3e",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "per_frame",
+     "low": 0.4351555109024048,
+     "high": 2.530604839324951,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 26576,
+    "flag_png_bytes": 1449,
+    "marker_offset_from_centre_arcsec": [
+     -1.292,
+     0.799
+    ]
+   },
+   "sagar": {
+    "case_ref": "C",
+    "wavelength_um": 4.939878573286556,
+    "bandwidth_um": 0.03758797275606221,
+    "mjd": 61159.504026317,
+    "observed_at_utc": "2026-04-29T12:05:47.874Z",
+    "status": "clear",
+    "valid": 20,
+    "adverse": 0,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [],
+    "marker_xy": [
+     126.62,
+     128.85
+    ],
+    "grid_center": [
+     331.0966687831005,
+     -56.80064917516836
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_102c6c33f789",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "per_frame",
+     "low": -0.09313277452936886,
+     "high": 190.6255961156235,
+     "soft": 0.18626554905873782,
+     "background_offset": 0.5956677609462373
+    },
+    "png_bytes": 25562,
+    "flag_png_bytes": 1954,
+    "marker_offset_from_centre_arcsec": [
+     -1.294,
+     0.797
+    ]
+   },
+   "diff": {
+    "wavelength_um": -4.3431658269810214e-10,
+    "bandwidth_um": 1.0295930774617545e-12,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     -0.002,
+     -0.002
+    ],
+    "grid_center_equal": true
+   }
+  },
+  {
+   "case": "moving_neighbor",
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "A": {
+    "case_ref": "A",
+    "wavelength_um": 2.006235843264055,
+    "bandwidth_um": 0.049679849744144876,
+    "mjd": 60912.035090796,
+    "observed_at_utc": "2025-08-25T00:50:31.845Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 19,
+    "screened": 19,
+    "nonfinite": 3,
+    "flag_names": [
+     "BLOOM",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     127.798,
+     130.61
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "f2860f77053de67b",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "shared",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 7490,
+    "flag_png_bytes": 1016,
+    "marker_offset_from_centre_arcsec": [
+     -0.284,
+     3.67
+    ]
+   },
+   "sagar": {
+    "case_ref": "A",
+    "wavelength_um": 2.00623584179528,
+    "bandwidth_um": 0.0496798497023581,
+    "mjd": 60912.035090796,
+    "observed_at_utc": "2025-08-25T00:50:31.845Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 19,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [
+     "BLOOM",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     127.7,
+     131.92
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_f3acc12b5705",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "shared",
+     "low": -0.46068577200151134,
+     "high": 998.6072825712822,
+     "soft": 0.9213715440030227,
+     "background_offset": 0.48178054094736017
+    },
+    "png_bytes": 15994,
+    "flag_png_bytes": 1586,
+    "marker_offset_from_centre_arcsec": [
+     -0.281,
+     3.675
+    ]
+   },
+   "diff": {
+    "wavelength_um": -1.468774879498369e-09,
+    "bandwidth_um": -4.1786775428764855e-11,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     0.003,
+     0.005
+    ],
+    "grid_center_equal": true
+   }
+  },
+  {
+   "case": "moving_neighbor",
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "A": {
+    "case_ref": "B",
+    "wavelength_um": 2.0122664916325355,
+    "bandwidth_um": 0.0493282871218801,
+    "mjd": 61118.379198469,
+    "observed_at_utc": "2026-03-19T09:06:02.748Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 20,
+    "screened": 20,
+    "nonfinite": 3,
+    "flag_names": [
+     "BLOOM",
+     "NONFUNC",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     128.121,
+     126.434
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "f2860f77053de67b",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "shared",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 5425,
+    "flag_png_bytes": 1678,
+    "marker_offset_from_centre_arcsec": [
+     0.17,
+     -2.202
+    ]
+   },
+   "sagar": {
+    "case_ref": "B",
+    "wavelength_um": 2.0122664931110923,
+    "bandwidth_um": 0.04932828718690015,
+    "mjd": 61118.379198469,
+    "observed_at_utc": "2026-03-19T09:06:02.748Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 20,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [
+     "BLOOM",
+     "NONFUNC",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     128.18,
+     125.65
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_f3acc12b5705",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "shared",
+     "low": -0.46068577200151134,
+     "high": 998.6072825712822,
+     "soft": 0.9213715440030227,
+     "background_offset": 0.46642444326529375
+    },
+    "png_bytes": 15589,
+    "flag_png_bytes": 2391,
+    "marker_offset_from_centre_arcsec": [
+     0.169,
+     -2.203
+    ]
+   },
+   "diff": {
+    "wavelength_um": 1.4785568325237364e-09,
+    "bandwidth_um": 6.50200449037186e-11,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     -0.001,
+     -0.001
+    ],
+    "grid_center_equal": true
+   }
+  },
+  {
+   "case": "moving_neighbor",
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "A": {
+    "case_ref": "C",
+    "wavelength_um": 2.0284358707774177,
+    "bandwidth_um": 0.05017590956296267,
+    "mjd": 61271.206736722,
+    "observed_at_utc": "2026-08-19T04:57:42.053Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 19,
+    "screened": 19,
+    "nonfinite": 2,
+    "flag_names": [
+     "BLOOM",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     128.36,
+     123.341
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 6.0,
+    "scale_arcsec_per_px": 1.40625,
+    "grid_id": "f2860f77053de67b",
+    "resample": "nearest_neighbour",
+    "stretch": {
+     "mode": "shared",
+     "low": 0.1697147935628891,
+     "high": 32.71215019227493,
+     "soft": 10.0,
+     "background_offset": null
+    },
+    "png_bytes": 7354,
+    "flag_png_bytes": 792,
+    "marker_offset_from_centre_arcsec": [
+     0.506,
+     -6.552
+    ]
+   },
+   "sagar": {
+    "case_ref": "C",
+    "wavelength_um": 2.0284358693082276,
+    "bandwidth_um": 0.0501759095101885,
+    "mjd": 61271.206736722,
+    "observed_at_utc": "2026-08-19T04:57:42.053Z",
+    "status": "flagged",
+    "valid": 0,
+    "adverse": 19,
+    "screened": null,
+    "nonfinite": null,
+    "flag_names": [
+     "BLOOM",
+     "OVERFLOW",
+     "SUR_ERROR",
+     "TRANSIENT"
+    ],
+    "marker_xy": [
+     128.54,
+     121.01
+    ],
+    "grid_center": [
+     269.4462585584787,
+     4.768324486236583
+    ],
+    "fov_arcmin": 4.0,
+    "scale_arcsec_per_px": 0.9375,
+    "grid_id": "grid_f3acc12b5705",
+    "resample": "bilinear resample of intensity (finite neighbours only; source pixels without a value stay empty); nearest-pixel resample of flags",
+    "stretch": {
+     "mode": "shared",
+     "low": -0.46068577200151134,
+     "high": 998.6072825712822,
+     "soft": 0.9213715440030227,
+     "background_offset": 0.4333115317686562
+    },
+    "png_bytes": 15683,
+    "flag_png_bytes": 1267,
+    "marker_offset_from_centre_arcsec": [
+     0.506,
+     -6.553
+    ]
+   },
+   "diff": {
+    "wavelength_um": -1.4691901029095789e-09,
+    "bandwidth_um": -5.2774166980906756e-11,
+    "mjd": 0.0,
+    "status_equal": true,
+    "valid_adverse_equal": true,
+    "marker_offset_arcsec_diff": [
+     0.0,
+     -0.001
+    ],
+    "grid_center_equal": true
+   }
+  }
+ ],
+ "moving_neighbor_marker_motion": {
+  "A": [
+   {
+    "to": "B",
+    "display_px": 4.19,
+    "arcsec": 5.89
+   },
+   {
+    "to": "C",
+    "display_px": 7.29,
+    "arcsec": 10.25
+   }
+  ],
+  "sagar": [
+   {
+    "to": "B",
+    "display_px": 6.29,
+    "arcsec": 5.9
+   },
+   {
+    "to": "C",
+    "display_px": 10.94,
+    "arcsec": 10.26
+   }
+  ]
+ },
+ "sizes": {
+  "A": {
+   "files": 574,
+   "png_files": 378,
+   "json_files": 196,
+   "png_bytes": 2970084,
+   "json_bytes": 2148692,
+   "other_bytes": 0,
+   "total_bytes": 5118776
+  },
+  "sagar": {
+   "files": 389,
+   "png_files": 378,
+   "json_files": 10,
+   "png_bytes": 4275265,
+   "json_bytes": 1083238,
+   "other_bytes": 1772,
+   "total_bytes": 5360275
+  }
+ }
+}

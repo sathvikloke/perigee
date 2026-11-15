@@ -1,0 +1,5 @@
+{
+  "fixture": true,
+  "note": "SYNTHETIC TEST FIXTURE for catalog tests. Not NASA/SPHEREx output, not sky data. Never display in the demo.",
+  "kind": "provenance_only"
+}

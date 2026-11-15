@@ -1,0 +1,113 @@
+CLEAR {
+  frame: '2026W18_1A_0516_1_D3',
+  plateChip: '✓ Flag screen passed',
+  plateStatus: 'clear',
+  plateMeta: '29 Apr 2026 | Wavelength | 2.3232 µm',
+  plateFoot: '⊕ | Catalog prediction, not a detection | DR1 · Detector 3',
+  plateNote: null,
+  explanation: 'Flag screen passed No problem flags were found in a small circle around the predicted position. The frame is usable for a visual comparison. This is not a detection and not a brightness measurement.',
+  wavelength: '2.3232 µm (band width 0.0577 µm)',
+  detailsOpen: true,
+  qualityDetails: 'Position covered | yes | Usable pixels near target | 19 | Problem pixels near target | 0 | Problem flags | none reported | No adverse flags or non-finite pixels within the screen circle. This is a screening result, not a detection or a brightness measurement. | Informational flags present (not treated as problems): SOURCE.',
+  banner: null,
+  overflow: 0,
+  focus: '✓Quality details+'
+}
+NOT_COVERED {
+  frame: '2025W17_4B_0077_2_D1',
+  plateChip: 'Position just off image',
+  plateStatus: 'not_covered',
+  plateMeta: '25 Apr 2025 | Wavelength | Wavelength n/a (off image)',
+  plateFoot: '⊕ | Catalog prediction, not a detection | DR1 · Detector 1',
+  plateNote: null,
+  explanation: "Position just off image The predicted position is just outside this image, so this frame can't show the object there. That is not evidence the object is absent.",
+  wavelength: 'Not available — the position is off this image',
+  detailsOpen: true,
+  qualityDetails: 'Position covered | no | Usable pixels near target | not available | Problem pixels near target | not available | Problem flags | not checked (the position is off this image) | The screened position is outside this image (geometric coverage check).',
+  banner: null,
+  overflow: 0,
+  focus: '✓Quality details+'
+}
+EPS near-filter summary: 3 of 44 frames near 2.32 µm, each within its own band width (2.3220–2.3760 µm).
+
+1 frame has no wavelength at the target, so it is left out.
+FLAGGED {
+  frame: '2025W35_1A_0008_1_D3',
+  plateChip: 'Flagged near target',
+  plateStatus: 'flagged',
+  plateMeta: '25 Aug 2025 | Wavelength | 2.0062 µm',
+  plateFoot: '⊕ | Catalog prediction, not a detection | DR1 · Detector 3',
+  plateNote: null,
+  explanation: 'Flagged near target Problem flags or missing pixels were found near the predicted position. You can look, but brightness and exact position here are not reliable.',
+  wavelength: '2.0062 µm (band width 0.0497 µm)',
+  detailsOpen: true,
+  qualityDetails: 'Position covered | yes | Usable pixels near target | 0 | Problem pixels near target | 19 | Problem flags | BLOOM, OVERFLOW, SUR_ERROR, TRANSIENT | 3 of 19 screened pixels are non-finite (no usable value); the position is covered, so this is a quality problem, not missing coverage. | Informational flags present (not treated as problems): SOURCE.',
+  banner: null,
+  overflow: 0,
+  focus: '✓Quality details+'
+}
+FIXTURE blink options: [
+  '#1 · 29 Apr 2026 · 2.32 µm',
+  '#2 · 29 Apr 2026 · 4.94 µm',
+  '#3 · 1 Jun 2026 · failed to load',
+  '#4 · 15 Jul 2026 · no wavelength at target',
+  '#5 · 27 Sep 2026 · 2.32 µm',
+  '#1 · 29 Apr 2026 · 2.32 µm',
+  '#2 · 29 Apr 2026 · 4.94 µm',
+  '#3 · 1 Jun 2026 · failed to load',
+  '#4 · 15 Jul 2026 · no wavelength at target',
+  '#5 · 27 Sep 2026 · 2.32 µm'
+]
+FIXTURE stepper walk: [
+  {
+    counter: '1 / 5',
+    valuetext: '#1 · 29 Apr 2026 · 2.32 µm',
+    key: '2026W18_1A_0516_1_D3',
+    placeholder: null
+  },
+  {
+    counter: '2 / 5',
+    valuetext: '#2 · 29 Apr 2026 · 4.94 µm',
+    key: '2026W18_1A_0516_1_D6',
+    placeholder: null
+  },
+  {
+    counter: '3 / 5 · failed to load',
+    valuetext: '#3 · 1 Jun 2026 · failed to load',
+    key: null,
+    placeholder: 'This frame could not be processed. The other frames are unaffected.\n' +
+      '\n' +
+      'UPSTREAM_UNAVAILABLE: Fixture: simulated archive failure for this frame.\n' +
+      '\n' +
+      'Retry this frame'
+  },
+  {
+    counter: '4 / 5',
+    valuetext: '#4 · 15 Jul 2026 · no wavelength at target',
+    key: 'FIXTURE_UNKNOWN_QUALITY_D2',
+    placeholder: null
+  }
+]
+UNKNOWN {
+  frame: 'FIXTURE_UNKNOWN_QUALITY_D2',
+  plateChip: 'Flag screen not run',
+  plateStatus: 'unknown',
+  plateMeta: '15 Jul 2026 | Wavelength | Wavelength not available',
+  plateFoot: 'No catalog marker for this frame | QR3 · Detector 2',
+  plateNote: 'Development fixture — not NASA data.',
+  explanation: 'Flag screen not run The flag screen was not run or could not be completed for this frame, so its quality is unknown. Treat it as unchecked, not as clear.',
+  wavelength: 'Not available',
+  detailsOpen: true,
+  qualityDetails: 'Position covered | not available | Usable pixels near target | not available | Problem pixels near target | not available | Problem flags | not checked | Development fixture: no flag screen was run for this frame, so its quality is unknown.',
+  banner: 'Development fixture — not NASA data. Images are placeholders; nothing comes from the API. Switch to the live API',
+  overflow: 0,
+  focus: '✓Quality details+'
+}
+FAILED frame counter: 3 / 5 · failed to load
+pair summary with failed frame: #3 has no image (failed to load). Retry it from the stepper, or choose another frame to blink.
+Blink disabled: 
+FIXTURE near-filter summary: 2 of 5 frames near 2.32 µm, each within its own band width (2.3220–2.3232 µm).
+
+1 frame has no wavelength at the target, so it is left out.
+
+1 frame is not loaded, so its wavelength is unknown and it is left out.

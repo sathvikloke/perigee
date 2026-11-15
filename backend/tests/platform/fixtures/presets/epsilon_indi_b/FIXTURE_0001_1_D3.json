@@ -1,0 +1,34 @@
+{
+  "fixture": true,
+  "fixture_note": "SYNTHETIC TEST FIXTURE for catalog tests. Not NASA/SPHEREx output, not sky data. Never display in the demo.",
+  "frame_id": "FIXTURE_0001_1_D3",
+  "observation_id": "FIXTURE_0001_1",
+  "detector": 3,
+  "collection_id": "fixture_not_nasa",
+  "observed_at_utc": "2000-01-01T12:00:00.000",
+  "mjd": 100.5,
+  "source_url": "https://example.invalid/perigee-fixture/FIXTURE_0001_1_D3.fits",
+  "wavelength_um": null,
+  "bandwidth_um": null,
+  "wavelength_location": "fixture: no wavelength",
+  "quality": {
+    "status": "unknown",
+    "covered": null,
+    "valid_aperture_pixels": null,
+    "adverse_aperture_pixels": null,
+    "flag_names": [],
+    "notes": [
+      "SYNTHETIC TEST FIXTURE for catalog tests. Not NASA/SPHEREx output, not sky data. Never display in the demo."
+    ]
+  },
+  "marker": null,
+  "limitations": [
+    "SYNTHETIC TEST FIXTURE for catalog tests. Not NASA/SPHEREx output, not sky data. Never display in the demo."
+  ],
+  "image": {
+    "src": "FIXTURE_0001_1_D3.png",
+    "media_type": "image/png",
+    "width": null,
+    "height": null
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "content_version": "targets-2026-11-14a",
+  "owner": "sathvik",
+  "verified_with": "science/check_frames.py (science-check-1) against research/build_data/metadata/*_sesame.xml",
+  "coordinate_conventions": {
+    "frame": "ICRS",
+    "units": "degrees for RA/Dec, mas/yr for proper motion, mas for parallax, km/s for radial velocity",
+    "catalog_position": "SIMBAD position at reference epoch J2000.0 as returned by the Sesame resolver (stored in metadata). This is a catalog value, not something Perigee measured.",
+    "query_center": "The center Perigee sends to the archive for this preset. For fast movers it is the catalog position propagated with proper motion to the stated epoch, so the object stays near the middle of a 6 arcmin field throughout the SPHEREx mission to date.",
+    "marker": "A per-frame marker must be computed from catalog_position + astrometry at that frame's observation time and labeled kind=catalog_prediction. It is a finder aid, never a detection.",
+    "not_modeled": "Annual parallax (< 0.6 arcsec here, below one ~6.15 arcsec SPHEREx pixel) and binary orbital motion are not modeled."
+  },
+  "targets": [
+    {
+      "id": "barnards_star",
+      "display_name": "Barnard's Star",
+      "simbad_name": "NAME Barnard's star",
+      "object_type": "Red dwarf star (M4V)",
+      "one_line": "The nearby star with the largest known proper motion: about 10.4 arcseconds per year.",
+      "catalog_position": {
+        "ra_deg": 269.4520769586187,
+        "dec_deg": 4.69336496657667,
+        "epoch_jyear": 2000.0,
+        "source": "SIMBAD via CDS Sesame",
+        "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?Barnard%27s%20Star",
+        "astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+      },
+      "astrometry": {
+        "pm_ra_cosdec_masyr": -801.551,
+        "pm_dec_masyr": 10362.394,
+        "parallax_mas": 546.9759,
+        "radial_velocity_kms": -110.11
+      },
+      "query_center": {
+        "ra_deg": 269.4462585584787,
+        "dec_deg": 4.768324486236583,
+        "kind": "finder_prediction",
+        "epoch_jyear": 2026.0,
+        "note": "Catalog position propagated to 2026.0. About 4.5 arcmin north of the J2000 catalog position."
+      },
+      "challenge_supplied_coordinate": null,
+      "default_fov_arcmin": 6,
+      "case_ids": ["moving_neighbor"],
+      "quality_summary": "All 34 retained cutouts are flagged at the star's position (overflow/bloom from a very bright source). Visual inspection is possible; photometry and centroid measurement are not supported.",
+      "retained_frames": {"total": 34, "clear": 0, "flagged": 34, "not_covered": 0}
+    },
+    {
+      "id": "epsilon_indi_b",
+      "display_name": "Epsilon Indi B",
+      "simbad_name": "* eps Ind B",
+      "object_type": "Pair of brown dwarfs (T1 + T6), unresolved in SPHEREx",
+      "one_line": "Two brown dwarfs orbiting the star Epsilon Indi A, about 12 light-years away. They appear as one source in SPHEREx images.",
+      "catalog_position": {
+        "ra_deg": 331.04414658852124,
+        "dec_deg": -56.78284419511611,
+        "epoch_jyear": 2000.0,
+        "source": "SIMBAD via CDS Sesame",
+        "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?%2A%20eps%20Ind%20B",
+        "astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+      },
+      "astrometry": {
+        "pm_ra_cosdec_masyr": 3981.977,
+        "pm_dec_masyr": -2466.832,
+        "parallax_mas": 270.658,
+        "radial_velocity_kms": null
+      },
+      "query_center": {
+        "ra_deg": 331.0966687831005,
+        "dec_deg": -56.80064917516836,
+        "kind": "finder_prediction",
+        "epoch_jyear": 2026.0,
+        "note": "Catalog position propagated to 2026.0 (about 2.0 arcmin from the J2000 position). The Ba/Bb orbit (~0.6 arcsec apart) is far below one pixel and is ignored. Epsilon Indi A is about 6.7 arcmin away, outside a 6 arcmin field."
+      },
+      "challenge_supplied_coordinate": null,
+      "default_fov_arcmin": 6,
+      "case_ids": ["fair_comparison"],
+      "quality_summary": "Of 44 retained cutouts, 29 pass the central flag screen, 14 are flagged and 1 does not cover the predicted position.",
+      "retained_frames": {"total": 44, "clear": 29, "flagged": 14, "not_covered": 1}
+    },
+    {
+      "id": "wise_0855",
+      "display_name": "WISE 0855",
+      "simbad_name": "WISEA J085510.74-071442.5",
+      "object_type": "Very cold brown dwarf (Y2)",
+      "one_line": "One of the coldest known brown dwarfs, about 7.4 light-years away and moving about 8.1 arcseconds per year.",
+      "catalog_position": {
+        "ra_deg": 133.81890825,
+        "dec_deg": -7.247048,
+        "epoch_jyear": 2000.0,
+        "source": "SIMBAD via CDS Sesame",
+        "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?WISE%20J085510.83-071442.5",
+        "astrometry_reference": "CatWISE2020 (2021ApJS..253....7K)"
+      },
+      "astrometry": {
+        "pm_ra_cosdec_masyr": -8123.7,
+        "pm_dec_masyr": 673.2,
+        "parallax_mas": 439.0,
+        "radial_velocity_kms": null
+      },
+      "query_center": {
+        "ra_deg": 133.75976526566546,
+        "dec_deg": -7.242182182223836,
+        "kind": "finder_prediction",
+        "epoch_jyear": 2026.0,
+        "note": "Catalog position propagated to 2026.0."
+      },
+      "challenge_supplied_coordinate": {
+        "ra_deg": 133.79512916666664,
+        "dec_deg": -7.245147222222222,
+        "sexagesimal": "08h55m10.831s -07d14m42.53s",
+        "source": "Official Planet X and SPHEREx challenge statement",
+        "source_url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/",
+        "matches_epoch_jyear_approx": 2010.5,
+        "note": "This is the object's position around its 2010 WISE discovery (0.4 arcsec from the catalog propagation to 2010.5). By 2026 the object is about 127 arcsec (2.1 arcmin) west of it. A query centered here must use a field of view of at least ~4.5 arcmin to include the object; the default 6 arcmin does. Test this input separately from the preset query_center."
+      },
+      "default_fov_arcmin": 6,
+      "case_ids": [],
+      "quality_summary": "Of 34 retained cutouts, 21 pass the central flag screen and 13 are flagged. Passing the screen does not mean the object is detected; it is very faint at short wavelengths.",
+      "retained_frames": {"total": 34, "clear": 21, "flagged": 13, "not_covered": 0}
+    },
+    {
+      "id": "rw_aurigae",
+      "display_name": "RW Aurigae",
+      "simbad_name": "V* RW Aur",
+      "object_type": "Young variable star system (T Tauri, K1/5e + K5e)",
+      "one_line": "A young star system known for irregular dimming episodes.",
+      "catalog_position": {
+        "ra_deg": 76.95652603458,
+        "dec_deg": 30.40143817389,
+        "epoch_jyear": 2000.0,
+        "source": "SIMBAD via CDS Sesame",
+        "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?RW%20Aur",
+        "astrometry_reference": "2007A&A...474..653V"
+      },
+      "astrometry": {
+        "pm_ra_cosdec_masyr": 7.23,
+        "pm_dec_masyr": -20.33,
+        "parallax_mas": 15.42,
+        "radial_velocity_kms": 15.0
+      },
+      "query_center": {
+        "ra_deg": 76.95658657511666,
+        "dec_deg": 30.40129134698889,
+        "kind": "finder_prediction",
+        "epoch_jyear": 2026.0,
+        "note": "Proper motion is small; the 2026.0 position differs from J2000 by about 0.6 arcsec."
+      },
+      "challenge_supplied_coordinate": null,
+      "default_fov_arcmin": 6,
+      "case_ids": [],
+      "quality_summary": "Of 35 retained cutouts, 1 passes the central flag screen, 32 are flagged and 2 do not cover the predicted position. Brightness changes cannot be measured from these display products.",
+      "retained_frames": {"total": 35, "clear": 1, "flagged": 32, "not_covered": 2}
+    },
+    {
+      "id": "r_draconis",
+      "display_name": "R Draconis",
+      "simbad_name": "V* R Dra",
+      "object_type": "Mira-type pulsating variable star (M4.5-6e)",
+      "one_line": "A red giant that brightens and fades over a cycle of roughly 245 days.",
+      "catalog_position": {
+        "ra_deg": 248.16761083295,
+        "dec_deg": 66.75497941722,
+        "epoch_jyear": 2000.0,
+        "source": "SIMBAD via CDS Sesame",
+        "source_url": "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?R%20Dra",
+        "astrometry_reference": "Gaia EDR3 (2020yCat.1350....0G)"
+      },
+      "astrometry": {
+        "pm_ra_cosdec_masyr": -20.643,
+        "pm_dec_masyr": 6.149,
+        "parallax_mas": 1.2509,
+        "radial_velocity_kms": null
+      },
+      "query_center": {
+        "ra_deg": 248.16723307041877,
+        "dec_deg": 66.75502382641281,
+        "kind": "finder_prediction",
+        "epoch_jyear": 2026.0,
+        "note": "Proper motion is small; the 2026.0 position differs from J2000 by about 0.6 arcsec."
+      },
+      "challenge_supplied_coordinate": null,
+      "default_fov_arcmin": 6,
+      "case_ids": [],
+      "quality_summary": "Of 36 retained cutouts, 35 are flagged at the star's position (saturation: many central pixels are non-finite) and 1 does not cover it. None pass the screen.",
+      "retained_frames": {"total": 36, "clear": 0, "flagged": 35, "not_covered": 1}
+    }
+  ]
+}
