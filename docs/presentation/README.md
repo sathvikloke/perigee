@@ -266,4 +266,4 @@ The earlier stand-ins in `screens/`, which predated the fixes, were removed.
 3. **Judge access:** completed. App, repository and deck have public links. Previews remain protected; use the production URL.
 4. **Live-search coordinate:** keep the J2000 link, which the app labels honestly, or use the 2026.0 position (330.8925, −56.8043) to center Epsilon Indi A.
 5. **Opening hook:** Epsilon Indi B (recommended; it matches the demo and works without the live archive) or Barnard's Star.
-6. **Team slide:** names and roles, and how to state the AI-assisted build (per `docs/AI_USE.md`; the `[TO CONFIRM]` items there are the team's to fill).
+6. **Team slide:** names and roles, and how to state the AI-assisted build (per the statement in `docs/AI_USE.md`).
