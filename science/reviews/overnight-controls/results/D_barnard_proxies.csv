@@ -1,0 +1,25 @@
+proxy,family,window,pair,dx,dy,dist_px,dist_arcsec,direction_deg_E_of_N
+png_shared_half5,glow centre on the case PNG (shared stretch); transparent core counted white,11x11 display px,AB,0.97,-4.0,4.12,5.79,-13.6
+png_shared_half5,glow centre on the case PNG (shared stretch); transparent core counted white,11x11 display px,AC,0.97,-7.0,7.07,9.94,-7.9
+png_shared_half7,glow centre on the case PNG (shared stretch); transparent core counted white,15x15 display px,AB,0.67,-4.13,4.19,5.89,-9.2
+png_shared_half7,glow centre on the case PNG (shared stretch); transparent core counted white,15x15 display px,AC,0.86,-7.15,7.2,10.12,-6.9
+png_shared_half10,glow centre on the case PNG (shared stretch); transparent core counted white,21x21 display px,AB,-1.48,-3.91,4.18,5.88,20.7
+png_shared_half10,glow centre on the case PNG (shared stretch); transparent core counted white,21x21 display px,AC,-0.04,-7.01,7.01,9.86,0.3
+png_shared_half15,glow centre on the case PNG (shared stretch); transparent core counted white,31x31 display px,AB,-1.75,-3.73,4.12,5.79,25.1
+png_shared_half15,glow centre on the case PNG (shared stretch); transparent core counted white,31x31 display px,AC,0.31,-7.25,7.25,10.2,-2.5
+png_perframe_half7,glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white,15x15 display px,AB,0.73,-4.13,4.19,5.9,-10.0
+png_perframe_half7,glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white,15x15 display px,AC,0.91,-7.2,7.25,10.2,-7.2
+png_perframe_half15,glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white,31x31 display px,AB,-1.69,-3.68,4.05,5.69,24.6
+png_perframe_half15,glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white,31x31 display px,AC,0.22,-7.26,7.27,10.22,-1.8
+native_r3,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 3 native px,AB,-1.26,-4.35,4.53,6.37,16.2
+native_r3,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 3 native px,AC,-0.66,-6.84,6.87,9.66,5.5
+native_r4,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 4 native px,AB,-1.26,-4.35,4.53,6.37,16.2
+native_r4,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 4 native px,AC,-0.65,-6.84,6.87,9.66,5.4
+native_r5,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 5 native px,AB,-1.28,-4.36,4.54,6.38,16.4
+native_r5,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 5 native px,AC,-0.64,-6.89,6.92,9.73,5.3
+native_r6,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 6 native px,AB,-1.29,-4.34,4.53,6.36,16.6
+native_r6,"glow centre on native pixels (non-finite core = window max), mapped through the header WCS",r = 6 native px,AC,-0.62,-6.86,6.89,9.69,5.2
+nonfinite_core,"centroid of non-finite (saturated, no value) native pixels within 3 native px",r = 3 native px,AB,-3.46,-5.34,6.36,8.95,32.9
+nonfinite_core,"centroid of non-finite (saturated, no value) native pixels within 3 native px",r = 3 native px,AC,-1.97,-8.65,8.87,12.47,12.8
+catalog_prediction_marker,catalog prediction (not an image measurement),,AB,0.32,-4.18,4.19,5.89,-4.4
+catalog_prediction_marker,catalog prediction (not an image measurement),,AC,0.56,-7.27,7.29,10.25,-4.4
