@@ -1,0 +1,32 @@
+[
+ {
+  "check": "expired_token",
+  "banner": "This search has expired. Run it again to continue; your notes are kept.",
+  "rerun_button": 1,
+  "notes_kept": true,
+  "summary": "0 ready · 0 processing · 0 waiting · 3 failed"
+ },
+ {
+  "check": "expired_token_rerun_requests",
+  "searches_sent_after_click": 1
+ },
+ {
+  "check": "expired_token_rerun",
+  "summary": "3 ready · 0 processing · 0 waiting · 0 failed",
+  "notes_kept": true
+ },
+ {
+  "check": "stale_response",
+  "responses_received": [
+   "83.822,-5.391"
+  ],
+  "shown_query": "RA 83.822°, Dec -5.391°, 6′ field",
+  "url": "https://perigee-liard.vercel.app/?view=query&ra=83.822&dec=-5.391&fov=6",
+  "shows_old": false
+ },
+ {
+  "check": "share_url",
+  "url": "https://perigee-liard.vercel.app/?view=query&ra=83.822&dec=-5.391&fov=6",
+  "contains_note": false
+ }
+]
