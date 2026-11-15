@@ -26,7 +26,7 @@
 | 08 | Catalog and assets | **Done** | PR #10; R7 `454d027`; production assets 200 |
 | 09 | Epsilon Indi B case | **Done** | Review `a4d2de9` plus revision `b5aff70`, accepted |
 | 10 | Barnard case | **Done** | Review `eaa59fe` plus revision `b4fcc8c`, accepted |
-| 11 | Five-target identity audit | **In progress** | Worker launched 2026-11-15; see section 5 when it lands |
+| 11 | Five-target identity audit | **Done (review)**; text-only candidate awaits Sathvik | `science/reviews/targets/` (`63ac37d`, cherry-picked from `claude/parallel-11-target-audit` `49f4f8c`). The candidate `487bf8a` is on that branch, not merged. See section 5 |
 | 12 | Evidence export | **Done** | PR #30; QA-F1; production export verified |
 | 13 | Quality controls | **Done** | PR #33; production flags and flag-screen panel |
 | 14 | API review | **Done** | PR #20; R1–R7 fixed; D1–D3 settled (`03bb179`) |
@@ -73,7 +73,7 @@ Each work-sequence item from the issue body maps to released evidence. "**Gap**"
 | Item | Evidence |
 |---|---|
 | Establish the current integration state | `coordination/claude-dispatch.md` (coordinator on Sathvik's behalf) |
-| Verify target identity and coordinate context | Partly: the science branch (#8) plus the case reviews 09/10 and acceptance 15. The independent five-target audit is task 11, **in progress** |
+| Verify target identity and coordinate context | **Done.** Task 11 found all five presets match SIMBAD: names, J2000 positions, proper motion, parallax and RV. Query centers match within 1e-4″ and markers reproduce within 0.0007 px. Two text items await Sathvik (section 5) |
 | Select the first comparison case | `fair_comparison` (Epsilon Indi B), from #8 |
 | Validate the moving-star investigation | Barnard review `eaa59fe`; revision #22 accepted |
 | Author concise case content | Both case JSONs, `science_owner_approved` (`6f08d56`) |
@@ -177,6 +177,15 @@ Official rules, from the project submission guide read on 2026-11-14:
 
 ## 5. Remaining gaps and notes
 - **Fix needed: none found.** The production journey and contract checks surfaced no application defect.
-- **Task 11** (five-target identity audit): in progress; its result will be added here.
+- **Task 11 (five-target identity audit): done; no coordinate value changes.** Review in `science/reviews/targets/README.md`, with raw source snapshots and scripts. Findings needing a science-owner decision, held as **candidate `487bf8a`** on `claude/parallel-11-target-audit` (`backend/content/targets.json` only, text only; no product rebuild; backend tests 330 passed / 18 skipped):
+  1. **Mislabeled source.** WISE 0855 `astrometry_reference` says "CatWISE2020 (2021ApJS..253....7K)". That bibcode is Kirkpatrick et al. 2021, the 20 pc census; CatWISE2020 is 2021ApJS..253....8M. The label also appears in the 34 shipped WISE 0855 records' `marker.source` until a future rebuild.
+  2. **New field-star note.** Gaia DR3 5756956644387831296 (G 16.3) lies 4.5–11.8″ from the WISE 0855 marker in shipped frames, and about 3.2″ around 2026.73. A spot near the marker is likely that star, not WISE 0855. The candidate adds one sentence to the WISE 0855 `quality_summary`.
+  - **No change recommended:**
+    - Eps Ind B sits 0.56 ± 0.07 display px from the marker, consistent across 32 frames. Gaia's proper-motion fit is poor (RUWE 4.30) because Ba/Bb is an unresolved binary. That is 0.13 native px, and no quality screen changes.
+    - The Barnard's Star radial-velocity epoch convention moves the marker 0.27 px.
+    - RW Aur is an A/B blend, offset 0.56 px.
+    - R Dra's missing RV has an effect under 1e-5 px.
+    - The WISE 0855 challenge coordinate matches its catalog track at 2010.45.
+  - **Limitations:** centroids are a consistency check (6.1″ native pixels, crude centroid). The Ba/Bb orbit was not modeled. WISE 0855's own detectability was not tested.
 - **Optional, release owner:** immutable caching for hashed `/assets/*`; a Vercel Firewall rate-limit rule.
 - **Not covered by anyone:** a physical phone, a screen reader, the native print dialog, browsers other than Chrome.
