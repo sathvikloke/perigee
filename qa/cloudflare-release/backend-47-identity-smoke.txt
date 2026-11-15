@@ -1,0 +1,38 @@
+Perigee release smoke: https://perigee.lokesathvik.workers.dev
+PASS  access (logged-out visitor): no Vercel login redirect
+PASS  frontend /: 200 text/html root=yes
+PASS  frontend /?preset=barnards_star: 200 text/html root=yes
+PASS  frontend /?view=query&ra=83.822&dec=-5.391&fov=6: 200 text/html root=yes
+PASS  frontend /smoke/unknown/client/path: 200 text/html root=yes
+PASS  static release digest matches expected: live 548e7202640872b3 vs expected 548e7202640872b3; live source label fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb
+PASS  static frontend digest matches expected: live 82e0c2649458cf84 vs expected 82e0c2649458cf84
+PASS  static catalog digest matches expected: live a82761e71bd2e220 vs expected a82761e71bd2e220
+PASS  static worker digest matches expected: live 4a4073ba9fd628fc vs expected 4a4073ba9fd628fc
+PASS  source label matches expected build: live fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb vs expected fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb
+PASS  deployed Worker matches identity: X-Perigee-Worker 4a4073ba9fd628fc; identity 4a4073ba9fd628fc; expected 4a4073ba9fd628fc
+PASS  served index.html matches identity: 200 sha ea982beba0f794ca
+PASS  served assets/index-yzmhwLOW.js matches identity: 200 327624 B
+PASS  deck PDF type and bytes: 200 application/pdf 2369713 B sha ffab44ce1f9fe182
+PASS  health is JSON: 200 application/json
+PASS  health token signing from env secret: token_signing=env (expect 'env'; 'missing'/'too_short' means PERIGEE_TOKEN_SECRET is not set for this environment; 'dev_secret_refused'/'dev_mode_refused' mean the public dev secret or PERIGEE_DEV_MODE reached a hosted deployment)
+PASS  health status ok: status=ok api_version=0.1.0 processor=backend.data.process.process_frame (processor-a adapter)
+PASS  presets is JSON: 200 application/json
+PASS  five presets: ['barnards_star', 'epsilon_indi_b', 'wise_0855', 'rw_aurigae', 'r_draconis']
+PASS  barnards_star frames is JSON: 200 application/json
+PASS  barnards_star frames listed: 34 frames, 34 with image src
+PASS  preset image asset is PNG: /api/v1/assets/barnards_star--frames-2025W33_2C_0386_4_D3--2943e1fd593d.png -> 200 image/png 7795 B cache=public, max-age=31536000, immutable
+PASS  case fair_comparison is JSON: 200 application/json
+PASS  case fair_comparison content: case_id=fair_comparison limitations=5
+PASS  JSON 404 /api/v1/__smoke_unknown__: 404 application/json
+PASS  JSON 404 /api/__smoke_unknown__: 404 application/json
+PASS  JSON 404 /api/v1/assets/..%2F..%2Fmain.py: 404 application/json
+PASS  live non-preset /search: 200 status=ready total=377 observations=2 usable=2 collections=['spherex_dr1', 'spherex_qr3'] query=83.822,-5.391 2.6s
+PASS  live /frame: 200 2025W36_2B_0338_1 quality=flagged lambda=1.06052968057377 2.6s 19 KB png=10642 B
+
+Static release at this origin (frontend + catalog + deck):
+  release_digest 548e7202640872b3ea524061ac50a28d0be5d3b3a930048bf1ffac0b5b88024d  source fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb  content targets-2026-11-15a  worker 4a4073ba9fd628fc
+  compared with the expected build: see the 'static ...' checks above
+Live Python API behind /api/v1/health, /search, /frame:
+  health status ok, api_version 0.1.0, token_signing env; its deployed commit is not exposed by /health and is not implied by the static release above
+
+RESULT: PASS 29/29. Logged-out access verified.

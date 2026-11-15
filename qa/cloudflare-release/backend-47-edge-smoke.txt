@@ -1,0 +1,28 @@
+PASS  SPA /: 200 text/html
+PASS  SPA /?preset=epsilon_indi_b: 200 text/html
+PASS  SPA /some/client/route: 200 text/html
+PASS  demo PDF: 200 application/pdf 2369713 B
+PASS  static build identity equals local build: 200 application/json live 548e7202640872b3 vs local 548e7202640872b3 (fbb664749a8c31a13cb02cb42ceb2fdeb2ae83bb)
+PASS  deployed Worker equals local build: X-Perigee-Worker 4a4073ba9fd628fc vs local 4a4073ba9fd628fc
+PASS  favicon: 200 image/svg+xml
+PASS  JS bundle: 200 327624 B
+PASS  catalog /api/v1/presets: 200 application/json
+PASS  catalog /api/v1/cases/fair_comparison: 200 application/json
+PASS  catalog /api/v1/cases/moving_neighbor: 200 application/json
+PASS  catalog /api/v1/presets/barnards_star/frames: 200 application/json
+PASS  catalog /api/v1/presets/barnards_star/frames?case_id=moving_neighbor: 200 application/json
+PASS  catalog /api/v1/presets/epsilon_indi_b/frames: 200 application/json
+PASS  catalog /api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison: 200 application/json
+PASS  catalog /api/v1/presets/wise_0855/frames: 200 application/json
+PASS  catalog /api/v1/presets/rw_aurigae/frames: 200 application/json
+PASS  catalog /api/v1/presets/r_draconis/frames: 200 application/json
+PASS  asset application/json canonical=True: 200 application/json public, max-age=31536000, immutable
+PASS  asset image/png canonical=False: 200 image/png public, max-age=300, must-revalidate
+PASS  asset image/png canonical=True: 200 image/png public, max-age=31536000, immutable
+PASS  edge rejects encoded NUL before Worker: 400 text/html
+PASS  route parity (58 recorded FastAPI answers): all match
+PASS  internal path hidden /api/__perigee/catalog-manifest.json: 404 application/json
+PASS  internal path hidden /api/v1/presets.json: 404 application/json
+PASS  internal path hidden /api/v1/presets/epsilon_indi_b/frames.json: 404 application/json
+
+RESULT: PASS 26/26
