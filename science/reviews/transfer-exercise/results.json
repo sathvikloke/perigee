@@ -223,6 +223,7 @@
   "NONFUNC": "Permanently unusable",
   "PERSIST": "Persistent charge above threshold",
   "OUTLIER": "Pixel flagged by Detect Outliers",
+  "SOURCE": "Pixel mapped to a known source",
   "HALO": "Pixel part of a transient halo"
  },
  "spot_threshold": "native local maximum >= the frame's display_scale.high (drawn white)",
@@ -1285,5 +1286,525 @@
    "sep_from_marker_arcsec": 4.47,
    "adverse_native_flags_at_neighbour": []
   }
+ },
+ "flagged_features": [
+  {
+   "frame": "P",
+   "frame_key": "2025W45_2A_0278_1_D2",
+   "native_xy_0based": [
+    9,
+    40
+   ],
+   "detector_xy": [
+    1689,
+    1364
+   ],
+   "display_xy": [
+    32.4,
+    111.8
+   ],
+   "ra_deg": 133.797395,
+   "dec_deg": -7.235856,
+   "flags_value": 268959749,
+   "flag_bit_indices": [
+    0,
+    2,
+    19,
+    28
+   ],
+   "flag_bits_set": [
+    "HALO",
+    "OUTLIER",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "adverse_flags": [
+    "HALO",
+    "OUTLIER",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "peak_MJy_sr": 12.55,
+   "frame_median_MJy_sr": 0.286,
+   "native_3x3_MJy_sr": [
+    [
+     0.3,
+     0.26,
+     0.28
+    ],
+    [
+     0.29,
+     12.55,
+     0.26
+    ],
+    [
+     0.29,
+     8.38,
+     0.27
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 2,
+   "brightest_within_9arcsec_in_other_frames": {
+    "Q": 0.29,
+    "R": 0.29
+   }
+  },
+  {
+   "frame": "P",
+   "frame_key": "2025W45_2A_0278_1_D2",
+   "native_xy_0based": [
+    29,
+    40
+   ],
+   "detector_xy": [
+    1709,
+    1364
+   ],
+   "display_xy": [
+    114.9,
+    82.9
+   ],
+   "ra_deg": 133.764927,
+   "dec_deg": -7.224568,
+   "flags_value": 2097221,
+   "flag_bit_indices": [
+    0,
+    2,
+    6,
+    21
+   ],
+   "flag_bits_set": [
+    "NONFUNC",
+    "SOURCE",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "adverse_flags": [
+    "NONFUNC",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "peak_MJy_sr": 234.55,
+   "frame_median_MJy_sr": 0.286,
+   "native_3x3_MJy_sr": [
+    [
+     0.29,
+     0.34,
+     0.26
+    ],
+    [
+     0.3,
+     234.55,
+     0.29
+    ],
+    [
+     0.27,
+     0.26,
+     0.33
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 1,
+   "brightest_within_9arcsec_in_other_frames": {
+    "Q": 237.91,
+    "R": 0.3
+   }
+  },
+  {
+   "frame": "Q",
+   "frame_key": "2025W46_1A_0108_1_D2",
+   "native_xy_0based": [
+    30,
+    40
+   ],
+   "detector_xy": [
+    1709,
+    1364
+   ],
+   "display_xy": [
+    117.9,
+    80.6
+   ],
+   "ra_deg": 133.763743,
+   "dec_deg": -7.223653,
+   "flags_value": 69,
+   "flag_bit_indices": [
+    0,
+    2,
+    6
+   ],
+   "flag_bits_set": [
+    "NONFUNC",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "adverse_flags": [
+    "NONFUNC",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "peak_MJy_sr": 237.91,
+   "frame_median_MJy_sr": 0.278,
+   "native_3x3_MJy_sr": [
+    [
+     0.26,
+     0.27,
+     0.27
+    ],
+    [
+     0.31,
+     237.91,
+     0.24
+    ],
+    [
+     0.29,
+     0.26,
+     0.31
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 1,
+   "brightest_within_9arcsec_in_other_frames": {
+    "P": 234.55,
+    "R": 0.3
+   }
+  },
+  {
+   "frame": "Q",
+   "frame_key": "2025W46_1A_0108_1_D2",
+   "native_xy_0based": [
+    36,
+    50
+   ],
+   "detector_xy": [
+    1715,
+    1374
+   ],
+   "display_xy": [
+    128.7,
+    30.4
+   ],
+   "ra_deg": 133.759502,
+   "dec_deg": -7.204058,
+   "flags_value": 2097152,
+   "flag_bit_indices": [
+    21
+   ],
+   "flag_bits_set": [
+    "SOURCE"
+   ],
+   "adverse_flags": [],
+   "peak_MJy_sr": 2.54,
+   "frame_median_MJy_sr": 0.278,
+   "native_3x3_MJy_sr": [
+    [
+     0.33,
+     0.7,
+     0.33
+    ],
+    [
+     0.48,
+     2.54,
+     0.39
+    ],
+    [
+     0.34,
+     0.37,
+     0.29
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 1,
+   "brightest_within_9arcsec_in_other_frames": {
+    "P": 2.43,
+    "R": 2.23
+   }
+  },
+  {
+   "frame": "R",
+   "frame_key": "2026W20_1A_0214_1_D2",
+   "native_xy_0based": [
+    22,
+    8
+   ],
+   "detector_xy": [
+    705,
+    629
+   ],
+   "display_xy": [
+    128.3,
+    32.3
+   ],
+   "ra_deg": 133.759657,
+   "dec_deg": -7.204789,
+   "flags_value": 2097152,
+   "flag_bit_indices": [
+    21
+   ],
+   "flag_bits_set": [
+    "SOURCE"
+   ],
+   "adverse_flags": [],
+   "peak_MJy_sr": 2.23,
+   "frame_median_MJy_sr": 0.253,
+   "native_3x3_MJy_sr": [
+    [
+     0.38,
+     0.54,
+     0.25
+    ],
+    [
+     0.68,
+     2.23,
+     0.3
+    ],
+    [
+     0.35,
+     0.34,
+     0.24
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 1,
+   "brightest_within_9arcsec_in_other_frames": {
+    "P": 2.43,
+    "Q": 2.54
+   }
+  },
+  {
+   "frame": "R",
+   "frame_key": "2026W20_1A_0214_1_D2",
+   "native_xy_0based": [
+    58,
+    39
+   ],
+   "detector_xy": [
+    741,
+    660
+   ],
+   "display_xy": [
+    22.4,
+    209.7
+   ],
+   "ra_deg": 133.801366,
+   "dec_deg": -7.274078,
+   "flags_value": 69,
+   "flag_bit_indices": [
+    0,
+    2,
+    6
+   ],
+   "flag_bits_set": [
+    "NONFUNC",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "adverse_flags": [
+    "NONFUNC",
+    "SUR_ERROR",
+    "TRANSIENT"
+   ],
+   "peak_MJy_sr": 2.88,
+   "frame_median_MJy_sr": 0.253,
+   "native_3x3_MJy_sr": [
+    [
+     0.26,
+     0.24,
+     null
+    ],
+    [
+     0.21,
+     2.88,
+     null
+    ],
+    [
+     0.23,
+     0.26,
+     null
+    ]
+   ],
+   "native_pixels_in_3x3_above_5x_frame_median": 1,
+   "brightest_within_9arcsec_in_other_frames": {
+    "P": 0.33,
+    "Q": 0.3
+   }
+  }
+ ],
+ "detector_pixel_1709_1364": {
+  "native_xy_0based": {
+   "P": [
+    29,
+    40
+   ],
+   "Q": [
+    30,
+    40
+   ]
+  },
+  "sky_separation_of_pixel_centre_P_to_Q_arcsec": 5.36,
+  "display_shift_px": 3.81,
+  "display_shift_arcsec": 5.36,
+  "native_scale_arcsec_per_px": 6.1491,
+  "field_star_peaks_sep_from_gaia_arcsec_max": {
+   "P": 3.3,
+   "Q": 3.6,
+   "R": 3.1
+  },
+  "field_star_peak_count": {
+   "P": 6,
+   "Q": 6,
+   "R": 6
+  },
+  "note": "The same detector pixel maps to sky positions this far apart because the two pointings differ. Field-star peaks (native local maxima, quantized to ~6.2 arcsec native pixels) stay within the listed distance of their fixed Gaia positions in each frame."
+ },
+ "near_marker": {
+  "P": {
+   "marker_native_xy_0based": [
+    28.36,
+    29.34
+   ],
+   "local_max_native_xy_0based": [
+    30,
+    30
+   ],
+   "local_max_MJy_sr": 0.683,
+   "frame_median_MJy_sr": 0.286,
+   "frame_robust_scatter_MJy_sr": 0.025,
+   "peak_excess_over_robust_scatter": 15.9,
+   "first_moment_display_xy": [
+    132.5,
+    125.0
+   ],
+   "first_moment_sep_from_marker_arcsec": 8.7,
+   "first_moment_sep_from_gaia_neighbour_arcsec": 0.8,
+   "local_max_adverse_flags": [],
+   "screened_adverse_pixels": [],
+   "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+  },
+  "Q": {
+   "marker_native_xy_0based": [
+    28.54,
+    29.06
+   ],
+   "local_max_native_xy_0based": [
+    30,
+    29
+   ],
+   "local_max_MJy_sr": 1.06,
+   "frame_median_MJy_sr": 0.278,
+   "frame_robust_scatter_MJy_sr": 0.024,
+   "peak_excess_over_robust_scatter": 32.9,
+   "first_moment_display_xy": [
+    132.3,
+    125.8
+   ],
+   "first_moment_sep_from_marker_arcsec": 7.9,
+   "first_moment_sep_from_gaia_neighbour_arcsec": 0.7,
+   "local_max_adverse_flags": [],
+   "screened_adverse_pixels": [
+    {
+     "native_xy_0based": [
+      30,
+      30
+     ],
+     "flags_value": 2228224,
+     "adverse_flags": [
+      "PERSIST"
+     ],
+     "value_MJy_sr": 0.469
+    },
+    {
+     "native_xy_0based": [
+      30,
+      31
+     ],
+     "flags_value": 2228224,
+     "adverse_flags": [
+      "PERSIST"
+     ],
+     "value_MJy_sr": 0.272
+    }
+   ],
+   "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+  },
+  "R": {
+   "marker_native_xy_0based": [
+    28.58,
+    28.92
+   ],
+   "local_max_native_xy_0based": [
+    28,
+    29
+   ],
+   "local_max_MJy_sr": 0.775,
+   "frame_median_MJy_sr": 0.253,
+   "frame_robust_scatter_MJy_sr": 0.023,
+   "peak_excess_over_robust_scatter": 22.4,
+   "first_moment_display_xy": [
+    132.3,
+    125.8
+   ],
+   "first_moment_sep_from_marker_arcsec": 4.2,
+   "first_moment_sep_from_gaia_neighbour_arcsec": 0.7,
+   "local_max_adverse_flags": [],
+   "screened_adverse_pixels": [],
+   "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+  }
+ },
+ "frame_background": {
+  "frames": {
+   "P": {
+    "grid_median_MJy_sr": 0.2861,
+    "grid_p16_MJy_sr": 0.2634,
+    "grid_p84_MJy_sr": 0.3156,
+    "grey_of_median_shipped_per_frame": 16,
+    "grey_of_median_shared_P_Q": 19
+   },
+   "Q": {
+    "grid_median_MJy_sr": 0.2777,
+    "grid_p16_MJy_sr": 0.2554,
+    "grid_p84_MJy_sr": 0.3051,
+    "grey_of_median_shipped_per_frame": 20,
+    "grey_of_median_shared_P_Q": 16
+   },
+   "R": {
+    "grid_median_MJy_sr": 0.2532,
+    "grid_p16_MJy_sr": 0.2319,
+    "grid_p84_MJy_sr": 0.281,
+    "grey_of_median_shipped_per_frame": 19
+   }
+  },
+  "median_ratio_Q_over_P": 0.971,
+  "note": "Medians of the display-grid pixel values in the record unit (MJy / sr). Descriptive only: no background model, calibration check or uncertainty; not photometry."
+ },
+ "case_stretch_probe": {
+  "values_MJy_sr": [
+   0.5,
+   1.0,
+   2.0,
+   2.5
+  ],
+  "grey_level": {
+   "P": [
+    81,
+    159,
+    228,
+    249
+   ],
+   "Q": [
+    81,
+    159,
+    228,
+    249
+   ],
+   "R": [
+    99,
+    177,
+    245,
+    255
+   ]
+  },
+  "note": "Staged case products: P and Q on one shared stretch (ingest shared_groups_for_case), R on its own."
+ },
+ "pipeline_builds": {
+  "P": "l2b-v27-2026-247",
+  "Q": "l2b-v27-2026-206",
+  "R": "l2b-v27-2026-246"
  }
 }
