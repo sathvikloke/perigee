@@ -1,0 +1,12 @@
+{
+  "pages": 7,
+  "reviewed_render_size": [
+    1280,
+    720
+  ],
+  "typeface": "Avenir Next",
+  "artifact_page": "page_c2bdc1167fb481918cc92fabeb2bfc58",
+  "pdf_sha256": "64d47ecb98dfcaf499e86ab1ee520d2d799dbaebb0f89831cff8524e823e8c3c",
+  "native_pdf_export": "Unavailable for local Avenir font; public PDF assembled from reviewed live slide renders. Spaces text remains editable.",
+  "render_review": "All seven slides inspected; processing column and observation pair repaired and re-rendered."
+}

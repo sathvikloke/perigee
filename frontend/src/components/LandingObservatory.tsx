@@ -4,7 +4,7 @@ import { CartoonOutline } from "./CartoonOutline";
 import { createObservatoryMotion, type ObservatoryController } from "../lib/observatoryMotion";
 
 /** Reference-informed artistic illustration, never a mission photograph or live orbit. */
-export function LandingObservatory({ active = true, onReplayIntro }: { active?: boolean; onReplayIntro?: () => void } = {}) {
+export function LandingObservatory({ active = true, animateEntrance = true, onReplayIntro }: { active?: boolean; animateEntrance?: boolean; onReplayIntro?: () => void } = {}) {
   const host=useRef<HTMLDivElement>(null);
   const driftHost=useRef<HTMLDivElement>(null);
   const illustration=useRef<HTMLImageElement>(null);
@@ -15,7 +15,10 @@ export function LandingObservatory({ active = true, onReplayIntro }: { active?: 
   const [failed,setFailed]=useState(false);
   const [entering,setEntering]=useState(false);
   const pauseRef=useRef(paused);
+  const arrivalRef=useRef(animateEntrance);
+  const arrived=useRef(false);
   pauseRef.current=paused;
+  arrivalRef.current=animateEntrance;
 
   useEffect(()=>{
     const query=window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -26,11 +29,13 @@ export function LandingObservatory({ active = true, onReplayIntro }: { active?: 
   },[]);
   useEffect(()=>{
     setEntering(false);
+    if(!active) arrived.current=false;
     if(!active || reduced || !ready || !host.current || !driftHost.current || typeof host.current.animate!=="function") return;
     controller.current=createObservatoryMotion(host.current,driftHost.current,{
-      paused:pauseRef.current,onEnter:()=>setEntering(true),onRest:()=>setEntering(false),
+      paused:pauseRef.current,enter:arrivalRef.current && !arrived.current,
+      onEnter:()=>setEntering(true),onRest:()=>{arrived.current=true;setEntering(false);},
     });
-    return()=>{controller.current?.dispose();controller.current=null;};
+    return()=>{arrived.current=true;controller.current?.dispose();controller.current=null;};
   },[active,reduced,ready]);
   useEffect(()=>{controller.current?.setPaused(paused);},[paused]);
 
