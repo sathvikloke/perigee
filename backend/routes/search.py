@@ -11,8 +11,12 @@
     SIA MAXREC (``collections_capped``; ``truncated`` true, ``total_matches`` null).
   - empty: every collection answered in full and none matched.
   Upstream failure with no results is an error envelope, never "empty".
+* Matching is a coverage search: images whose footprint contains the query center
+  (``SEARCH_RADIUS_DEG``, 3.6"). ``fov_arcmin`` sets the cutout/display field only and
+  does not change which images match. There is no date filter or pagination in v1.
 * Descriptors are sorted by mjd then frame_key. When more than ``limit`` match, an
-  evenly spaced-in-time subset is returned and ``truncated`` is true.
+  evenly spaced-in-time subset (always including the first and last) is returned and
+  ``truncated`` is true.
 """
 
 from __future__ import annotations
@@ -27,6 +31,7 @@ from fastapi.responses import JSONResponse
 from backend.models.common import ErrorCode
 from backend.models.search import (
     DEFAULT_COLLECTIONS,
+    LIMIT_MAX,
     SUPPORTED_COLLECTIONS,
     NormalizedQuery,
     ObservationDescriptor,
@@ -157,14 +162,16 @@ async def search(
     if overflow:
         warnings.append(
             "The archive returned its maximum number of records for {} ({} per collection), so the total "
-            "is unknown and some images are not included. A smaller field of view returns fewer.".format(
+            "is unknown and some matching images were not retrieved. The search matches images that cover "
+            "this position; the field of view sets the cutout size, not which images match.".format(
                 ", ".join(capped), SIA_MAXREC
             )
         )
     if len(selected) < len(merged):
         warnings.append(
-            f"Showing {len(selected)} of {len(merged)} matching images, evenly spaced in time. "
-            "Narrow the request or raise the limit (max 48) to see others."
+            f"Showing {len(selected)} of {len(merged)} matching images, evenly spaced in time from the "
+            f"earliest to the latest. Raising the limit (up to {LIMIT_MAX}) shows more; the field of view "
+            "sets the cutout size, not which images match."
         )
     if duplicates:
         warnings.append(f"{duplicates} image(s) appeared in more than one release; kept the DR1 copy.")

@@ -51,6 +51,19 @@ def main(argv=None) -> int:
     want = (PUBLIC / "demo/perigee-demo.pdf").read_bytes()
     check("demo PDF", r.status_code == 200 and r.headers.get("content-type", "").startswith("application/pdf")
           and r.content == want and r.content[:5] == b"%PDF-", f"{r.status_code} {r.headers.get('content-type')} {len(r.content)} B")
+    # B3: the deployed static release identity equals the local build being verified.
+    ident_file = PUBLIC / "perigee-build.json"
+    if ident_file.is_file():
+        want = json.loads(ident_file.read_text(encoding="utf-8"))
+        r = c.get(base + "/perigee-build.json")
+        got = r.json() if r.headers.get("content-type", "").startswith("application/json") else None
+        check("static build identity equals local build", r.status_code == 200 and got == want,
+              f"{r.status_code} {r.headers.get('content-type')} live {str((got or {}).get('release_digest'))[:16]} "
+              f"vs local {want['release_digest'][:16]} ({want['source']['label']})")
+        r = c.get(base + "/api/v1/presets")
+        got_worker = r.headers.get("x-perigee-worker")
+        check("deployed Worker equals local build", got_worker == want["worker"]["digest"],
+              f"X-Perigee-Worker {str(got_worker)[:16]} vs local {want['worker']['digest'][:16]}")
     r = c.get(base + "/favicon.svg")
     check("favicon", r.status_code == 200 and "svg" in r.headers.get("content-type", ""), f"{r.status_code} {r.headers.get('content-type')}")
     js = next((PUBLIC / "assets").glob("index-*.js"))

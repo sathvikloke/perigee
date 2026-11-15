@@ -46,6 +46,7 @@ import binascii
 import io
 import ipaddress
 import json
+from pathlib import Path
 import os
 import sys
 import time
@@ -374,12 +375,106 @@ def check_live(res: Results, s: Session) -> None:
             + (f" ({why})" if why else f" png={len(png or b'')} B"))
 
 
+IDENTITY_PATH = "/perigee-build.json"  # written by cloudflare/build.py (static release identity)
+WORKER_HEADER = "x-perigee-worker"  # set by the Cloudflare Worker on /api responses
+
+
+def load_expected_identity(path: str) -> dict:
+    """Expected static identity from a build's build-info.json (key "identity") or perigee-build.json."""
+    doc = json.loads(Path(path).read_text(encoding="utf-8"))
+    ident = doc.get("identity", doc) if isinstance(doc, dict) else None
+    if not isinstance(ident, dict) or not isinstance(ident.get("release_digest"), str):
+        raise ValueError(f"{path} has no release_digest")
+    return ident
+
+
+def fetch_identity(res: Results, s: Session) -> dict | None:
+    r = s.request(res, "static build identity", "GET", IDENTITY_PATH)
+    if r is None:
+        return None
+    if r.status_code != 200 or not is_json(r):
+        res.add("static build identity", False, f"{IDENTITY_PATH} -> {r.status_code} {ctype(r)} (no identity published)")
+        return None
+    return json_body(res, "static build identity", r)
+
+
+def _sha(data: bytes) -> str:
+    import hashlib
+
+    return hashlib.sha256(data).hexdigest()
+
+
+def check_static_identity(res: Results, s: Session, expected: dict | None, expected_digest: str | None) -> dict | None:
+    """Compare the deployed static release with the build that was meant to be deployed.
+
+    Checks the published identity document AND the served bytes it describes (index.html,
+    entry scripts, the deck PDF with its MIME type), so a stale or partial upload fails.
+    """
+    live = fetch_identity(res, s)
+    want_digest = expected_digest or (expected or {}).get("release_digest")
+    if live is None:
+        return None
+    if want_digest:
+        res.add("static release digest matches expected", live.get("release_digest") == want_digest,
+                f"live {str(live.get('release_digest'))[:16]} vs expected {want_digest[:16]}; "
+                f"live source label {(live.get('source') or {}).get('label')}")
+    if expected:
+        for part in ("frontend", "catalog", "worker"):
+            a, b = (live.get(part) or {}).get("digest"), (expected.get(part) or {}).get("digest")
+            res.add(f"static {part} digest matches expected", a == b, f"live {str(a)[:16]} vs expected {str(b)[:16]}")
+        # The build that was meant to be deployed, not merely identical content.
+        a, b = (live.get("source") or {}).get("label"), (expected.get("source") or {}).get("label")
+        res.add("source label matches expected build", a == b, f"live {a} vs expected {b}")
+    # The Worker code actually answering /api must be the one this identity describes
+    # (Wrangler deploys the Worker and the static files together, but a stale build
+    # directory or a separate Worker upload would otherwise go unnoticed).
+    r = s.request(res, "deployed Worker matches identity", "GET", "/api/v1/presets")
+    if r is not None:
+        got = r.headers.get(WORKER_HEADER)
+        claimed = (live.get("worker") or {}).get("digest")
+        want = (expected.get("worker") or {}).get("digest") if expected else claimed
+        res.add("deployed Worker matches identity", bool(got) and got == claimed and got == want,
+                f"X-Perigee-Worker {str(got)[:16]}; identity {str(claimed)[:16]}; expected {str(want)[:16]}")
+    # The bytes actually served must match the identity being claimed.
+    fe = live.get("frontend") or {}
+    r = s.request(res, "served index.html matches identity", "GET", "/")
+    if r is not None:
+        res.add("served index.html matches identity", r.status_code == 200 and _sha(r.content) == fe.get("index_html_sha256"),
+                f"{r.status_code} sha {_sha(r.content)[:16]}")
+    for rel, digest in sorted((fe.get("entry_scripts") or {}).items()):
+        r = s.request(res, f"served {rel} matches identity", "GET", "/" + rel)
+        if r is not None:
+            res.add(f"served {rel} matches identity", r.status_code == 200 and _sha(r.content) == digest,
+                    f"{r.status_code} {len(r.content)} B")
+    pdf = live.get("demo_pdf") or {}
+    if pdf.get("path"):
+        r = s.request(res, "deck PDF type and bytes", "GET", "/" + pdf["path"])
+        if r is not None:
+            ok = (r.status_code == 200 and ctype(r) == "application/pdf" and r.content[:5] == b"%PDF-"
+                  and _sha(r.content) == pdf.get("sha256")
+                  and (not expected or pdf.get("sha256") == (expected.get("demo_pdf") or {}).get("sha256")))
+            res.add("deck PDF type and bytes", ok, f"{r.status_code} {ctype(r)} {len(r.content)} B sha {_sha(r.content)[:16]}")
+    return live
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--base", required=True, help="deployment origin, e.g. https://perigee-git-...vercel.app")
     ap.add_argument("--bypass", action="store_true", help="send VERCEL_AUTOMATION_BYPASS_SECRET as a bypass header")
     ap.add_argument("--no-live", action="store_true", help="skip the archive search and frame")
+    ap.add_argument("--expect-build", metavar="PATH",
+                    help="build-info.json (or perigee-build.json) of the build that should be deployed; "
+                         "a different static release fails the run")
+    ap.add_argument("--expect-release-digest", metavar="SHA256",
+                    help="expected static release_digest (alternative to --expect-build)")
     args = ap.parse_args(argv)
+    expected = None
+    if args.expect_build:
+        try:
+            expected = load_expected_identity(args.expect_build)
+        except (OSError, ValueError) as exc:
+            print(f"REFUSED: --expect-build: {exc}")
+            return 1
     try:
         base = validate_base(args.base)
     except BaseURLError as exc:
@@ -409,6 +504,12 @@ def main(argv: list[str] | None = None) -> int:
                           "nothing about the app itself was tested. Owner action: Deployment Protection.")
                     return 2
             check_frontend(res, s)
+            identity = None
+            if expected or args.expect_release_digest:
+                identity = check_static_identity(res, s, expected, args.expect_release_digest)
+            else:
+                identity = fetch_identity(Results(), s)  # informational only
+            health = s.request(Results(), "health (report)", "GET", "/api/v1/health")
             check_health(res, s)
             check_catalog(res, s)
             check_routing(res, s)
@@ -418,6 +519,28 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as exc:  # noqa: BLE001 - report, never a traceback, for a release check
         print(f"\nRESULT: FAIL (exit 1). Unexpected error: {type(exc).__name__}: {str(exc)[:200]}")
         return 1
+
+    # Two separately deployed parts, reported separately: never one combined "version".
+    print("\nStatic release at this origin (frontend + catalog + deck):")
+    if identity:
+        src = identity.get("source") or {}
+        print(f"  release_digest {identity.get('release_digest')}  source {src.get('label')}  "
+              f"content {(identity.get('catalog') or {}).get('content_version')}  "
+              f"worker {str((identity.get('worker') or {}).get('digest'))[:16]}")
+        if expected or args.expect_release_digest:
+            print("  compared with the expected build: see the 'static ...' checks above")
+        else:
+            print("  not compared (pass --expect-build or --expect-release-digest to require a specific build)")
+    else:
+        print(f"  no identity document at {IDENTITY_PATH} (origin is not a Cloudflare build, or predates it)")
+    print("Live Python API behind /api/v1/health, /search, /frame:")
+    try:
+        hb = health.json() if health is not None and is_json(health) else {}
+    except ValueError:
+        hb = {}
+    caps = hb.get("capabilities") if isinstance(hb.get("capabilities"), dict) else {}
+    print(f"  health status {hb.get('status')}, api_version {hb.get('api_version')}, token_signing {caps.get('token_signing')}; "
+          "its deployed commit is not exposed by /health and is not implied by the static release above")
 
     failed = res.failed()
     if args.bypass:
