@@ -1,6 +1,6 @@
 # Perigee: judge demo handoff
 
-**Current release:** the [app](https://perigee.lokesathvik.workers.dev), [source code](https://github.com/sathvikloke/perigee), and [seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) are public. The [deck notes and validation](DECK.md) describe the finished presentation. Nothing has been submitted for judging.
+**Current submission plan:** use the [29-second script, shot list and Sunday schedule](SUBMISSION_VIDEO.md), with the [revised project-page draft](../SUBMISSION_DRAFT.md). The [app](https://perigee.lokesathvik.workers.dev) and [source](https://github.com/sathvikloke/perigee) include the final usability release and three guided cases. The public seven-slide PDF and rehearsal below are historical; refresh their captures and scientific wording before using them for submission. No successful submission has been confirmed.
 
 For Sathvik, who owns the pitch and makes every final call. The rehearsal below remains a historical record of its stated build; the production evidence is linked in section 5.
 - The first draft was written by worker 20 at `007b6aa`.

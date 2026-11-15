@@ -1,12 +1,12 @@
 # Use of AI (Super Intelligence) in Perigee
 
-**DRAFT for Sagar (submission owner) and Sathvik.** Written by parallel worker 22 on 2026-11-14 against `claude/perigee-integration` @ `5b4c9c7`. Everything stated as fact below was checked in the repository: commit trailers, branch history, the dispatch log and the prompt files. Items marked **[TO CONFIRM]** could not be confirmed from the repository and must be filled in or deleted by a team member before submission.
+**DRAFT for Sagar (submission owner) and Sathvik.** The initial implementation account was written on 2026-11-14 against `claude/perigee-integration` @ `5b4c9c7`; the release and validation account was updated on 15 November. Commit counts below describe that historical integration snapshot, not every later commit. Items marked **[TO CONFIRM]** require accurate team input before submission.
 
 The Space Apps [submission guide](https://www.spaceappschallenge.org/resources/project-submission-guide/) requires teams to "clearly indicate where and how SI tools were utilized". For code and data, the rule is: "Must acknowledge SI generation in descriptive text and metadata." For images and videos: "Must include a visible watermark to indicate SI generation." The guide also says SI "should not be used to (come up with your idea of how to solve the challenge)".
 
 ## Short statement (for the submission form and slides)
 
-> Perigee was built with AI coding assistance. The team directed the work; Claude Code agents wrote most of the application code, tests and review documents as parallel candidates, and Codex set the UI design direction. Decisions that change scientific meaning were left to the team. Every processed SPHEREx frame was independently re-derived from the original FITS files and checked against Gaia DR3. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. **[TO CONFIRM: "The idea and challenge approach are the team's own." Keep this sentence only if it is true.]**
+> Perigee was built with AI assistance. The team directed Claude Code and OpenAI Codex work on research, implementation, tests, review code, UI design, release coordination and presentation drafting. Processing consistency was checked using a separate code path and original FITS files; an independent Gaia-based alignment check reports both passed and inconclusive frames. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. OpenAI image generation produced the visibly labeled decorative landing illustration. **[TO CONFIRM: accurately describe how the idea arose and any additional AI tools used; do not assert exclusive human authorship unless true.]**
 
 ## Which AI tools were used, and for what
 
@@ -60,7 +60,7 @@ These cover the 5 commits without a Claude trailer:
 
 `prompts/README.md` describes the master prompts as "Individual AI coding prompts" of about 18,000 words each, written for coding agents.
 
-- **[TO CONFIRM: which tool drafted these documents (the branch name suggests Codex), and which parts were written by people.]**
+- Codex drafted planning and task prompts under the user's direction, and prepared the 15 November submission script and revised project text. **[TO CONFIRM: any additional human-authored portions or other tools used outside this conversation.]**
 
 ### Sagar's data pipeline (PR #19, `codex/sagar-data`)
 
@@ -84,7 +84,7 @@ Confirmed from the repository:
 - **API review items D1–D3 were settled as implementation choices within the written contract** and are documented in `backend/tests/api/REVIEW.md`. Deployment protection and any rate-limit rule stay owner decisions.
 - **Agents may not change deployment protection, secrets or production promotion.** These are owner actions in `docs/DEPLOYMENT.md`.
 - **The human data owner's work was compared, not overwritten.** Sagar's processor (PR #19) was compared with processor A using the same acceptance checker and tests. Specific pieces were then adopted with attribution: the manifest re-download script, the field-registration check and the stricter "unknown" quality rule (processor A 0.1.2).
-- **Agents worked in isolation.** Every agent worked on its own branch and draft PR. Only selected candidates were merged into the integration branch.
+- **Initial candidates worked in isolation.** The initial coordinator build used separate branches and draft PRs. The 15 November Codex audit also used agents with assigned file ownership in a shared checkout, followed by integration tests and independent review. The separate landing agent supplied an isolated commit for integration.
 
 Not confirmed from the repository:
 - **[TO CONFIRM: which team members read or tested which merged code, and whether anyone besides Sathvik approved merges.]** The candidates were selected and merged by the coordinator Claude session, under Sathvik's authorization. The log does not record line-by-line human review, so do not claim it unless it happened.
@@ -106,7 +106,7 @@ The landing-page spacecraft illustration was generated with OpenAI image generat
 
 ## How scientific claims were checked
 
-- **Every processed record was re-derived independently.** All 189 processed records (183 frames plus 6 case copies) were re-derived from the original FITS bytes by code independent of the processor (`science/reviews/acceptance/`). 189/189 pass. The checks covered:
+- **Historical processing acceptance sweep.** The sweep re-derived 189 records (183 frames plus 6 case copies) from the original FITS bytes through a separate code path (`science/reviews/acceptance/`). The 189/189 processing-consistency result is scoped to that sweep, not a claim that every later generated case copy received independent astrometric validation. The checks covered:
   - sky registration through the header TAN-SIP WCS;
   - wavelength from the `WCS-WAVE` table, by two independent methods;
   - time from `DATE-AVG` and `MJD-AVG`;
@@ -114,7 +114,7 @@ The landing-page spacecraft illustration was generated with OpenAI image generat
   - coverage;
   - display stretch;
   - provenance, including the sha256 of each raw file.
-- **The registration was checked against Gaia DR3.** Field stars land a median 0.45 display px from their Gaia DR3 positions, propagated to each frame's epoch.
+- **Processing consistency is distinct from independent alignment.** The 189/189 result above does not validate the astrometry of every frame. The independent Gaia-based check returned 133 PASS, 56 UNKNOWN and 0 FAIL across those records, or 128 PASS and 55 UNKNOWN across the 183 unique cutouts. UNKNOWN means too few usable stars. The earlier 0.45-display-pixel median describes the stars that survived its association check, not all-frame accuracy. See the correction in `science/reviews/acceptance/README.md` and the independent `science/reviews/registration-audit/README.md`.
 - **The Barnard's Star imagery was checked separately** (`science/reviews/barnard/`). The predicted marker moves about 7 display px (about 10″) from frame A to C. Six Gaia field stars stay within 0.77 px.
 - **These checks were written by AI agents too.** Their independence comes from separate code and the original data, not from human authorship. **[TO CONFIRM: any spot checks Sathvik or Sagar did by hand, e.g. the science branch's own independent checks.]**
 - **Barnard's Star case text corrected.** An earlier version gave the wrong expected motion ("about 2 display pixels"). The shipped text now says about 4 display px from A to B and about 7 (about 10″) from A to C on the 6′ grid, matching the review above.
@@ -126,6 +126,6 @@ The landing-page spacecraft illustration was generated with OpenAI image generat
 | `README.md`, "Use of AI" section | Added in this change |
 | This file, `docs/AI_USE.md` | Added in this change |
 | Commit metadata: `Co-Authored-By: Claude Opus 5.5` trailers | Present on 51 of 56 integration commits |
-| App footer or "Observation sources & processing" panel: one plain sentence | **Not done.** This is a frontend change for Akshobya or a frontend worker. Suggested text: "Built with AI coding assistance (Claude Code, Codex). No AI runs in this app." |
+| App footer | **AI use disclosure** links to this account in the public release. |
 | Submission form "Use of SI" answer and the final slide | **Sagar and Sathvik.** Use the short statement above once the [TO CONFIRM] items are settled. |
 | Any AI-generated image or video in the demo | **Must be visibly watermarked.** |

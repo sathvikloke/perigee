@@ -1,5 +1,7 @@
 # Seven-slide presentation
 
+**Historical deck:** this PDF predates the final usability release and third-case integration. Use the [current video script and submission plan](SUBMISSION_VIDEO.md). If this deck is selected instead of the video, refresh its captures and claims first; in particular, quality flags establish unreliable evidence, not the cause of an artifact, and the processing sweep is distinct from independent astrometric coverage.
+
 The completed deck uses the released app and real processed NASA SPHEREx images. It includes the team and challenge, a learner story, the actual interface, the data sources, and the product limits.
 
 - [Public presentation PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf)
@@ -7,7 +9,7 @@ The completed deck uses the released app and real processed NASA SPHEREx images.
 - [Live investigation](https://perigee.lokesathvik.workers.dev/?preset=epsilon_indi_b)
 - [Longer demo script and rehearsal](README.md)
 
-The PDF has seven 16:9 pages. An editable presentation is saved in Sathvik's connected Spaces account as **Perigee — NASA Space Apps demo**. The public PDF preserves the reviewed slide renders; use the editable deck for changes, then replace this public copy. This deck is ready for team review and submission; it has not been submitted.
+The PDF has seven 16:9 pages. An editable presentation is saved in Sathvik's connected Spaces account as **Perigee — NASA Space Apps demo**. The public PDF preserves the historical reviewed slide renders; use the editable deck for changes, then replace this public copy. A successful submission has not been confirmed.
 
 ## Presenter notes and sources
 

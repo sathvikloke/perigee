@@ -32,4 +32,12 @@ Working record for the November 15 usability and release pass. A source change i
 - Final Safari export (`perigee-final-print.pdf`) keeps image tops aligned. The earlier backgrounds-off export verifies hatching and flag colors. These print checks use an empty local test notebook; populated-note serialization was verified in JSON.
 - Landing worker commit `77c8add` integrated as `9bdf567`; its independent responsive, motion/reduced-motion and preview-pair evidence remains in `qa/landing-motion/VERIFICATION.md`.
 
-Production release identity and public checks will be added after deployment.
+## Published release
+
+- PR [#54](https://github.com/sathvikloke/perigee/pull/54) merged as `4e247cf365300baf8f3df174ace2142a49479428`. The combined source was clean when built.
+- Cloudflare Worker version `7e8dfc44-b674-4f6a-ba1c-e4d0e848210c`; release digest `26926a7f39a04a6aa37d5d6e87b14ccde5bd07e7e8b95ab0b01a076f5715c275`. Python origin production deployment `dpl_9fXBZRwep1nUtLkdLkZHrEyHHpgH` is READY at the same Git revision, as reported by Vercel's deployment API.
+- Logged-out [public app](https://perigee.lokesathvik.workers.dev/): 28/28 Cloudflare edge checks and 29/29 release/API checks passed. Static source/digests and served bundle bytes matched the expected build. The live non-preset query returned 377 matches, sampled two observations and processed a real frame successfully.
+- In the public browser, **Try Barnard's Star** resolved its name, displayed the real loading/progress states, selected a ready image while others loaded, and finished with 12/12 frames ready. No console errors were captured in this checked journey. This is one bounded run, not a general upstream reliability guarantee.
+- Public investigation entry, comparison playback, restored notes, the investigations anchor/focus and the 390 px WISE view were checked. The narrower fresh complete notebook flow is covered by the integrated local test above. `published-investigation.jpg`, `published-phone.jpg` and `published-search.jpg` record the public states.
+- Public OG/Twitter metadata matches the expected fields. The social PNG returned HTTP 200, image/png, 117,404 bytes and bytes identical to the local asset. SHA-256: `021fe6fc426e8d342f07b0dfdeb3233aa30c29e6bdbe7213ab5c4692ad782b20`.
+- Subsequent presentation/documentation edits do not change this deployed application identity. The final video and competition submission are separate remaining team actions; see `docs/presentation/SUBMISSION_VIDEO.md`.
