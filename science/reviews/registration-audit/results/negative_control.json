@@ -1,0 +1,558 @@
+{
+ "description": "Derived fixtures: the pixels of a real cutout are moved by a known amount relative to its unchanged header (shift in native px, or rotation about the cutout centre), and the PNG is re-rendered from the moved pixels exactly as processor A would. This is what a wrong header registration looks like to every check that trusts the header. Not real observations; nothing is written to the product tree.",
+ "runs": [
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "identity",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 13,
+   "legacy_gaia_n_png": 13,
+   "legacy_png_median_offset_display_px": 0.377238,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 17,
+   "validator_zero_offset_matches": 12,
+   "validator_best_support": 12,
+   "validator_recovered_offset_px": [
+    -0.060312,
+    -0.013302
+   ],
+   "validator_recovered_rot_deg": 0.067763,
+   "validator_rot_sigma_deg": 0.066897
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "shift_0.5px_x",
+   "injected_dx_px": 0.5,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 12,
+   "legacy_gaia_n_png": 11,
+   "legacy_png_median_offset_display_px": 1.887322,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 13,
+   "validator_zero_offset_matches": 11,
+   "validator_best_support": 11,
+   "validator_recovered_offset_px": [
+    0.442297,
+    -0.017964
+   ],
+   "validator_recovered_rot_deg": 0.046879,
+   "validator_rot_sigma_deg": 0.067003
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "shift_1px_x",
+   "injected_dx_px": 1.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 13,
+   "legacy_gaia_n_png": 9,
+   "legacy_png_median_offset_display_px": 3.678349,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 0.94 native px (21.7 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 16,
+   "validator_zero_offset_matches": 9,
+   "validator_best_support": 12,
+   "validator_recovered_offset_px": [
+    0.939688,
+    -0.013302
+   ],
+   "validator_recovered_rot_deg": 0.067763,
+   "validator_rot_sigma_deg": 0.066897
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "shift_2px_y",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 2.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 12,
+   "legacy_gaia_n_png": 0,
+   "legacy_png_median_offset_display_px": null,
+   "legacy_gaia_evidence_present": false,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 1.99 native px (45.9 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 17,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 12,
+   "validator_recovered_offset_px": [
+    -0.060141,
+    1.986532
+   ],
+   "validator_recovered_rot_deg": 0.065773,
+   "validator_rot_sigma_deg": 0.066977
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "shift_5px_x",
+   "injected_dx_px": 5.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 3,
+   "legacy_gaia_n_png": 0,
+   "legacy_png_median_offset_display_px": null,
+   "legacy_gaia_evidence_present": false,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 4.94 native px (109.3 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 12,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 11,
+   "validator_recovered_offset_px": [
+    4.941333,
+    -0.00101
+   ],
+   "validator_recovered_rot_deg": 0.118914,
+   "validator_rot_sigma_deg": 0.068448
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "rot_1deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 1.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 11,
+   "legacy_gaia_n_png": 11,
+   "legacy_png_median_offset_display_px": 1.615608,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "rotation 0.82 +/- 0.13 deg"
+   ],
+   "validator_n_detections": 11,
+   "validator_zero_offset_matches": 10,
+   "validator_best_support": 10,
+   "validator_recovered_offset_px": [
+    0.201544,
+    -0.08159
+   ],
+   "validator_recovered_rot_deg": 0.818969,
+   "validator_rot_sigma_deg": 0.125989
+  },
+  {
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "why": "moving_neighbor A, SWIR D3, many field stars",
+   "perturbation": "rot_3deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 3.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 11,
+   "legacy_gaia_n_png": 3,
+   "legacy_png_median_offset_display_px": 2.215003,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 0.86 native px (6.0 sigma) between detections and Gaia",
+    "rotation 2.17 +/- 0.21 deg",
+    "rotating the catalog by +3.1 deg raises Gaia support from 6 to 10 detections"
+   ],
+   "validator_n_detections": 11,
+   "validator_zero_offset_matches": 3,
+   "validator_best_support": 6,
+   "validator_recovered_offset_px": [
+    0.772771,
+    -0.385173
+   ],
+   "validator_recovered_rot_deg": 2.16972,
+   "validator_rot_sigma_deg": 0.208287
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "identity",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 6,
+   "legacy_gaia_n_png": 6,
+   "legacy_png_median_offset_display_px": 0.641517,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 12,
+   "validator_zero_offset_matches": 5,
+   "validator_best_support": 5,
+   "validator_recovered_offset_px": [
+    0.030464,
+    -0.091659
+   ],
+   "validator_recovered_rot_deg": -0.616204,
+   "validator_rot_sigma_deg": 0.301897
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "shift_0.5px_x",
+   "injected_dx_px": 0.5,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 5,
+   "legacy_gaia_n_png": 4,
+   "legacy_png_median_offset_display_px": 1.909255,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 14,
+   "validator_zero_offset_matches": 3,
+   "validator_best_support": 3,
+   "validator_recovered_offset_px": [
+    0.488655,
+    -0.089374
+   ],
+   "validator_recovered_rot_deg": -0.39672,
+   "validator_rot_sigma_deg": 0.351285
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "shift_1px_x",
+   "injected_dx_px": 1.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 6,
+   "legacy_gaia_n_png": 2,
+   "legacy_png_median_offset_display_px": 3.202978,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 0.98 native px (9.3 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 11,
+   "validator_zero_offset_matches": 2,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    0.973241,
+    -0.148808
+   ],
+   "validator_recovered_rot_deg": -0.545389,
+   "validator_rot_sigma_deg": 0.341488
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "shift_2px_y",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 2.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 7,
+   "legacy_gaia_n_png": 1,
+   "legacy_png_median_offset_display_px": 3.702949,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 1.85 native px (17.5 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 11,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    -0.025904,
+    1.851193
+   ],
+   "validator_recovered_rot_deg": -0.545253,
+   "validator_rot_sigma_deg": 0.341113
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "shift_5px_x",
+   "injected_dx_px": 5.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 1,
+   "legacy_gaia_n_png": 0,
+   "legacy_png_median_offset_display_px": null,
+   "legacy_gaia_evidence_present": false,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 5.03 native px (37.5 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 10,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 3,
+   "validator_recovered_offset_px": [
+    5.030464,
+    -0.205955
+   ],
+   "validator_recovered_rot_deg": -0.700643,
+   "validator_rot_sigma_deg": 0.378892
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "rot_1deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 1.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 5,
+   "legacy_gaia_n_png": 4,
+   "legacy_png_median_offset_display_px": 1.108892,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 15,
+   "validator_zero_offset_matches": 4,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    0.018391,
+    0.152219
+   ],
+   "validator_recovered_rot_deg": 0.420019,
+   "validator_rot_sigma_deg": 0.410217
+  },
+  {
+   "frame_key": "2026W19_1A_0227_1_D4",
+   "why": "MWIR D4",
+   "perturbation": "rot_3deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 3.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 6,
+   "legacy_gaia_n_png": 3,
+   "legacy_png_median_offset_display_px": 2.820637,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "rotating the catalog by +2.4 deg raises Gaia support from 3 to 5 detections"
+   ],
+   "validator_n_detections": 16,
+   "validator_zero_offset_matches": 3,
+   "validator_best_support": 3,
+   "validator_recovered_offset_px": [
+    -0.648708,
+    -0.032454
+   ],
+   "validator_recovered_rot_deg": 2.517941,
+   "validator_rot_sigma_deg": 0.5732
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "identity",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 4,
+   "legacy_gaia_n_png": 4,
+   "legacy_png_median_offset_display_px": 0.415218,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 7,
+   "validator_zero_offset_matches": 4,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    -0.039777,
+    -0.184585
+   ],
+   "validator_recovered_rot_deg": -0.182326,
+   "validator_rot_sigma_deg": 0.290863
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "shift_0.5px_x",
+   "injected_dx_px": 0.5,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 4,
+   "legacy_gaia_n_png": 3,
+   "legacy_png_median_offset_display_px": 1.551363,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 7,
+   "validator_zero_offset_matches": 4,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    0.49881,
+    -0.028602
+   ],
+   "validator_recovered_rot_deg": -0.160583,
+   "validator_rot_sigma_deg": 0.22478
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "shift_1px_x",
+   "injected_dx_px": 1.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 4,
+   "legacy_gaia_n_png": 2,
+   "legacy_png_median_offset_display_px": 2.810762,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 0.98 native px (11.4 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 7,
+   "validator_zero_offset_matches": 3,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    0.960223,
+    -0.184585
+   ],
+   "validator_recovered_rot_deg": -0.182326,
+   "validator_rot_sigma_deg": 0.290863
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "shift_2px_y",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 2.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 4,
+   "legacy_gaia_n_png": 0,
+   "legacy_png_median_offset_display_px": null,
+   "legacy_gaia_evidence_present": false,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 1.82 native px (21.2 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 7,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    -0.039777,
+    1.815415
+   ],
+   "validator_recovered_rot_deg": -0.182326,
+   "validator_rot_sigma_deg": 0.290863
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "shift_5px_x",
+   "injected_dx_px": 5.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 0.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 1,
+   "legacy_gaia_n_png": 0,
+   "legacy_png_median_offset_display_px": null,
+   "legacy_gaia_evidence_present": false,
+   "validator_verdict": "FAIL",
+   "validator_reasons": [
+    "systematic offset 4.99 native px (44.9 sigma) between detections and Gaia"
+   ],
+   "validator_n_detections": 6,
+   "validator_zero_offset_matches": 0,
+   "validator_best_support": 3,
+   "validator_recovered_offset_px": [
+    4.987804,
+    -0.203437
+   ],
+   "validator_recovered_rot_deg": -0.205589,
+   "validator_rot_sigma_deg": 0.508889
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "rot_1deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 1.0,
+   "legacy_acceptance_check_one_registration": true,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 4,
+   "legacy_gaia_n_png": 3,
+   "legacy_png_median_offset_display_px": 1.337961,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "PASS",
+   "validator_reasons": [],
+   "validator_n_detections": 8,
+   "validator_zero_offset_matches": 4,
+   "validator_best_support": 4,
+   "validator_recovered_offset_px": [
+    -0.057669,
+    -0.163758
+   ],
+   "validator_recovered_rot_deg": 0.848601,
+   "validator_rot_sigma_deg": 0.291031
+  },
+  {
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "why": "fair_comparison A (same exposure as C), few stars",
+   "perturbation": "rot_3deg",
+   "injected_dx_px": 0.0,
+   "injected_dy_px": 0.0,
+   "injected_rot_deg": 3.0,
+   "legacy_acceptance_check_one_registration": false,
+   "legacy_png_reconstruction_alpha_match": 1.0,
+   "legacy_gaia_n_native": 3,
+   "legacy_gaia_n_png": 2,
+   "legacy_png_median_offset_display_px": 2.991085,
+   "legacy_gaia_evidence_present": true,
+   "validator_verdict": "UNKNOWN",
+   "validator_reasons": [
+    "only 5 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence"
+   ],
+   "validator_n_detections": 5,
+   "validator_zero_offset_matches": 2,
+   "validator_best_support": 2,
+   "validator_recovered_offset_px": [
+    -0.475466,
+    -0.028212
+   ],
+   "validator_recovered_rot_deg": null,
+   "validator_rot_sigma_deg": null
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "case_id": "fair_comparison",
-  "content_version": "fair_comparison-2026-11-14b",
+  "content_version": "fair_comparison-2026-11-15a",
   "status": "science_owner_approved",
   "title": "Is this a fair comparison?",
   "target_id": "epsilon_indi_b",
@@ -13,7 +13,7 @@
       "SPHEREx uses a filter whose wavelength varies across each detector. The same detector number does not guarantee the same wavelength; you must check the wavelength at the object's position.",
       "Brown dwarfs look very different at different infrared wavelengths because molecules in their atmospheres (such as water and methane) absorb some colors more than others. Field stars also change in relative brightness with wavelength.",
       "The two brown dwarfs (Ba and Bb) are about 0.7 arcseconds apart, far smaller than one SPHEREx pixel (about 6.15 arcseconds), so they are not resolved.",
-      "The quality screen used here checks a small circle (radius 2.5 pixels) around the catalog-predicted position for problem flags such as saturation, cosmic-ray hits or detector defects. Passing it means no problem flags were found there. It does not prove the object is detected or measure its brightness.",
+      "The quality screen used here checks a small circle (radius 2.5 pixels) around the catalog-predicted position for problem flags such as saturation, transient events or detector defects. Passing it means no problem flags were found there. It does not prove the object is detected or measure its brightness.",
       "Epsilon Indi B orbits the bright star Epsilon Indi A, about 6.7 arcminutes to the west (to the right in these north-up pictures), just outside the images. In A and B the background is brighter toward the right; the cause was not established, and it is background, not Epsilon Indi B."
     ]
   },
@@ -87,7 +87,7 @@
       "id": "quality",
       "prompt": "One thing does come and go: a bright dot just below and to the right of Epsilon Indi B in A. Turn on 'Show flagged pixels'. What is it?",
       "check": ["quality.status"],
-      "hint": "It is a flagged detector pixel (TRANSIENT and NONFUNC), not something in the sky. It lies outside the small circle screened around Epsilon Indi B, which passes the screen in both A and B. Passing means no problem flags there; it does not measure brightness."
+      "hint": "It is a flagged detector pixel (TRANSIENT and NONFUNC), so it gives no reason to think something changed in the sky. The flags say not to trust that pixel; they do not say what caused it. It lies outside the small circle screened around Epsilon Indi B, which passes the screen in both A and B. Passing means no problem flags there; it does not measure brightness."
     },
     {
       "id": "unfair_pair",
@@ -105,9 +105,9 @@
   },
   "conclusion_guide": {
     "supported": [
-      "A and B are a fair pair: five months apart, same detector, wavelengths 2.323 and 2.322 µm, and no problem flags at Epsilon Indi B.",
+      "A and B are a fair pair for looking at change over time: five months apart, same detector, wavelengths 2.323 and 2.322 µm, and no problem flags at Epsilon Indi B. They still differ in data release (DR1 and QR3), pipeline build and telescope pointing and rotation.",
       "In A and B, Epsilon Indi B looks the same: the same white spot at the marker, with the same field stars around it. I see no change.",
-      "The dot that appears next to Epsilon Indi B in A but not in B is a flagged detector pixel, not a change in the sky.",
+      "The dot that appears next to Epsilon Indi B in A but not in B is a flagged detector pixel, so it gives no reason to claim a change in the sky.",
       "A and C look different because they record different colors of infrared light at the same moment. At 4.94 µm Epsilon Indi B stands out while most field stars fade."
     ],
     "not_supported": [

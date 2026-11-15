@@ -1,0 +1,184 @@
+frame_key,preset,detector,verdict,n_detections,zero_offset_matches,best_support,best_offset_dx_px,best_offset_dy_px,best_offset_abs_px,offset_significance,rotation_deg,rotation_sigma_deg,legacy_retained,reasons
+2025W33_2C_0386_4_D3,barnards_star,3,PASS,20,12,12,-0.010909,-0.018455,0.021438,0.495101,0.102161,0.059102,13,
+2025W34_2B_0557_1_D5,barnards_star,5,PASS,12,10,10,-0.005161,0.036586,0.036948,0.778936,0.023326,0.095595,11,
+2025W34_2B_0557_4_D2,barnards_star,2,PASS,23,12,12,-0.019553,0.003258,0.019823,0.457789,0.123776,0.062005,13,
+2025W35_1A_0008_1_D3,barnards_star,3,PASS,17,12,12,-0.060312,-0.013357,0.061774,1.426601,0.067439,0.066847,13,
+2025W35_1A_0444_3_D5,barnards_star,5,PASS,12,10,10,0.006684,0.012557,0.014225,0.299888,0.144206,0.083998,11,
+2025W35_1A_0444_4_D2,barnards_star,2,PASS,22,12,12,-0.002448,-0.038274,0.038352,0.885711,0.117581,0.073194,13,
+2025W35_2A_0233_1_D1,barnards_star,1,PASS,20,11,11,-0.051361,-0.014149,0.053274,1.177942,0.113262,0.091286,12,
+2025W35_2A_0233_1_D4,barnards_star,4,PASS,14,11,11,-0.012373,0.032432,0.034712,0.767512,0.102403,0.06773,12,
+2025W36_1A_0024_1_D1,barnards_star,1,PASS,17,12,12,-0.047467,-0.0348,0.058858,1.359258,0.09889,0.07371,13,
+2025W36_1A_0024_1_D4,barnards_star,4,PASS,12,10,10,-0.039243,0.005491,0.039625,0.835369,0.050508,0.050398,11,
+2026W11_1A_0511_1_D1,barnards_star,1,PASS,22,12,12,-0.035305,0.026323,0.044038,1.017015,0.096714,0.091859,13,
+2026W11_1A_0511_1_D4,barnards_star,4,PASS,15,11,11,-0.042494,0.008336,0.043304,0.957493,0.105504,0.070737,12,
+2026W11_1A_0556_1_D1,barnards_star,1,PASS,20,11,11,-0.044638,-0.020172,0.048985,1.083089,0.04818,0.096675,12,
+2026W11_1A_0556_1_D4,barnards_star,4,PASS,13,10,10,-0.05718,0.006672,0.057568,1.213633,0.076586,0.090485,11,
+2026W11_2A_0513_1_D2,barnards_star,2,PASS,22,10,10,-0.038472,0.034043,0.051371,1.083005,0.133451,0.090287,11,
+2026W11_2A_0513_1_D5,barnards_star,5,PASS,12,11,11,-0.050367,-0.008537,0.051085,1.129537,0.071267,0.091421,12,
+2026W12_1A_0311_4_D2,barnards_star,2,PASS,22,11,11,-0.053282,0.011069,0.05442,1.203262,0.146145,0.065732,12,
+2026W12_1A_0311_4_D5,barnards_star,5,PASS,10,10,10,-0.067481,0.029987,0.073844,1.556759,0.091998,0.077014,11,
+2026W12_1A_0610_2_D3,barnards_star,3,PASS,14,10,10,-0.062249,-0.00104,0.062257,1.312498,0.091228,0.077766,11,
+2026W12_1A_0610_2_D6,barnards_star,6,PASS,9,9,9,-0.047254,-0.008862,0.048078,0.961552,0.120873,0.112624,10,
+2026W13_1A_0129_4_D3,barnards_star,3,PASS,19,12,12,-0.019758,0.0232,0.030473,0.703752,0.046339,0.069681,13,
+2026W13_1A_0129_4_D6,barnards_star,6,PASS,7,7,7,-0.043066,-0.03044,0.052738,0.930205,0.26904,0.149203,8,
+2026W34_1A_0007_3_D6,barnards_star,6,PASS,10,10,10,-0.028567,0.004699,0.028951,0.610345,0.044129,0.095875,11,
+2026W34_1A_0007_4_D3,barnards_star,3,PASS,21,10,10,0.001104,-0.022788,0.022814,0.480966,0.089129,0.068073,11,
+2026W34_1A_0431_1_D3,barnards_star,3,PASS,19,12,12,0.032619,0.040375,0.051905,1.198702,0.026737,0.087956,13,
+2026W34_1A_0431_1_D6,barnards_star,6,PASS,8,8,8,3.4e-05,0.018296,0.018296,0.34499,0.067539,0.12809,9,
+2026W34_2A_0178_3_D2,barnards_star,2,PASS,21,12,12,-0.004773,0.021593,0.022115,0.510714,0.121533,0.10366,13,
+2026W34_2A_0178_3_D5,barnards_star,5,PASS,11,8,8,-0.025321,0.041594,0.048695,0.918201,0.129485,0.072493,9,
+2026W34_2A_0249_3_D2,barnards_star,2,PASS,18,10,10,0.02564,0.001702,0.025697,0.541734,0.065539,0.076289,11,
+2026W34_2A_0249_3_D5,barnards_star,5,PASS,12,9,9,0.005451,-0.017117,0.017964,0.359275,0.175629,0.072448,10,
+2026W35_1A_0079_1_D1,barnards_star,1,PASS,22,11,11,0.001125,-0.015704,0.015745,0.348129,0.155737,0.096373,12,
+2026W35_1A_0079_1_D4,barnards_star,4,PASS,17,12,12,-0.016155,0.03764,0.04096,0.945933,0.112515,0.081763,13,
+2026W35_1A_0375_4_D1,barnards_star,1,PASS,15,10,10,-0.04488,0.014389,0.04713,0.99359,0.07558,0.085808,11,
+2026W35_1A_0375_4_D4,barnards_star,4,PASS,11,9,9,-0.045048,0.015263,0.047563,0.951267,0.065834,0.068326,10,
+2025W17_4B_0077_2_D1,epsilon_indi_b,1,UNKNOWN,2,1,1,0.006746,0.14436,0.144517,0.481724,,,1,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W17_4B_0077_2_D4,epsilon_indi_b,4,UNKNOWN,2,1,1,-0.012228,0.132559,0.133122,0.443741,,,1,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W17_4B_0222_3_D2,epsilon_indi_b,2,PASS,13,8,8,0.023032,-0.011035,0.025539,0.481566,0.061351,0.122298,6,
+2025W17_4B_0222_3_D5,epsilon_indi_b,5,PASS,4,3,3,-0.018531,0.05537,0.058389,0.674214,-0.095468,0.156367,2,
+2025W17_4B_0468_1_D1,epsilon_indi_b,1,UNKNOWN,2,2,2,-0.021896,-0.129591,0.131428,1.239114,,,2,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W17_4B_0468_1_D4,epsilon_indi_b,4,PASS,8,5,5,-0.039981,0.076515,0.086331,1.286943,-0.072957,0.179986,4,
+2025W18_1B_0091_3_D6,epsilon_indi_b,6,UNKNOWN,1,1,1,-0.119536,0.005674,0.11967,0.398901,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W18_1B_0091_4_D3,epsilon_indi_b,3,PASS,11,7,7,-0.014304,0.079735,0.081008,1.428845,0.07754,0.118984,6,
+2025W18_2B_0011_4_D6,epsilon_indi_b,6,UNKNOWN,2,1,1,0.008663,0.060371,0.060989,0.203298,,,1,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W19_1B_0274_1_D3,epsilon_indi_b,3,PASS,10,6,6,-0.061024,0.02384,0.065515,1.069863,-0.225903,0.176419,6,
+2025W23_2B_0258_2_D2,epsilon_indi_b,2,PASS,12,8,8,0.037771,0.013048,0.039961,0.753508,0.061958,0.089128,6,
+2025W23_2B_0258_2_D5,epsilon_indi_b,5,PASS,6,5,5,-0.036832,0.029073,0.046924,0.699497,0.116946,0.140699,4,
+2025W40_1A_0067_4_D3,epsilon_indi_b,3,PASS,12,8,8,-0.037691,0.012335,0.039659,0.74781,-0.098355,0.110734,6,
+2025W40_1A_0067_4_D6,epsilon_indi_b,6,UNKNOWN,1,1,1,-0.024539,0.019069,0.031077,0.10359,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W40_1A_0489_2_D3,epsilon_indi_b,3,PASS,10,6,6,-0.044767,0.020753,0.049343,0.805774,0.027911,0.176115,6,
+2025W40_1A_0489_2_D6,epsilon_indi_b,6,UNKNOWN,1,1,1,-0.068939,-0.057578,0.089821,0.299403,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W40_1A_0675_3_D2,epsilon_indi_b,2,PASS,12,7,7,-0.114961,-0.017768,0.116326,2.05179,0.095239,0.09708,5,
+2025W40_1A_0675_4_D5,epsilon_indi_b,5,UNKNOWN,3,2,2,0.009323,-0.026045,0.027663,0.260812,,,2,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W41_1A_0242_2_D1,epsilon_indi_b,1,PASS,8,6,6,-0.120129,-0.001173,0.120135,1.961791,-0.032169,0.130281,5,
+2025W41_1A_0242_2_D4,epsilon_indi_b,4,PASS,10,7,7,-0.022886,0.008296,0.024343,0.429369,0.02794,0.088413,6,
+2025W41_2B_0173_3_D2,epsilon_indi_b,2,PASS,12,9,9,-0.060788,0.041234,0.073454,1.469072,0.034682,0.10733,6,
+2025W41_2B_0173_3_D5,epsilon_indi_b,5,UNKNOWN,3,2,2,-0.004219,-0.03125,0.031533,0.297297,,,2,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W42_1A_0259_1_D1,epsilon_indi_b,1,PASS,14,7,7,-0.049643,0.032366,0.059262,1.045288,-0.08733,0.118603,5,
+2025W42_1A_0259_1_D4,epsilon_indi_b,4,PASS,9,5,5,-0.047434,-0.033142,0.057865,0.862607,-0.049165,0.165531,5,
+2026W17_1B_0162_4_D1,epsilon_indi_b,1,PASS,6,5,5,-0.027375,-0.00369,0.027622,0.411768,-0.063832,0.149432,5,
+2026W17_1B_0162_4_D4,epsilon_indi_b,4,PASS,10,7,7,-0.005836,-0.001079,0.005935,0.104689,0.197759,0.126545,6,
+2026W17_1B_0337_3_D1,epsilon_indi_b,1,PASS,10,8,8,0.006896,0.02064,0.021762,0.410343,0.090049,0.094644,6,
+2026W17_1B_0337_3_D4,epsilon_indi_b,4,PASS,7,4,4,-0.044179,0.035832,0.056883,0.662965,-0.074189,0.317065,4,
+2026W17_2A_0308_3_D5,epsilon_indi_b,5,PASS,7,4,4,-0.024806,0.103743,0.106667,1.422232,-0.153984,0.104266,3,
+2026W17_2A_0355_1_D2,epsilon_indi_b,2,PASS,13,8,8,0.034997,-0.005976,0.035503,0.669454,0.087781,0.10058,6,
+2026W17_2A_0355_3_D5,epsilon_indi_b,5,UNKNOWN,3,2,2,-0.04314,0.006853,0.043681,0.411828,,,2,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W17_2A_0355_4_D2,epsilon_indi_b,2,PASS,12,7,7,0.015004,-0.006019,0.016166,0.285145,-0.034296,0.123303,6,
+2026W18_1A_0457_2_D3,epsilon_indi_b,3,PASS,10,6,6,-0.03755,0.018844,0.042013,0.686069,0.039652,0.087609,5,
+2026W18_1A_0475_1_D6,epsilon_indi_b,6,UNKNOWN,1,1,1,-0.086723,0.02067,0.089152,0.297173,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W18_1A_0516_1_D3,epsilon_indi_b,3,PASS,7,4,4,-0.039777,-0.184585,0.188823,2.203276,-0.182326,0.290863,4,
+2026W18_1A_0516_1_D6,epsilon_indi_b,6,UNKNOWN,1,0,1,3.486623,-0.008592,3.486633,11.622111,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W39_1A_0578_3_D3,epsilon_indi_b,3,PASS,13,7,7,-0.085549,-0.027245,0.089782,1.583609,0.003274,0.132243,6,
+2026W39_1A_0578_3_D6,epsilon_indi_b,6,UNKNOWN,2,1,1,-0.080682,0.076104,0.110912,0.369707,,,1,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W39_2A_0597_4_D3,epsilon_indi_b,3,PASS,10,6,6,-0.049169,-0.019844,0.053022,0.865853,0.111107,0.177382,6,
+2026W39_2A_0597_4_D6,epsilon_indi_b,6,UNKNOWN,1,1,1,-0.004306,0.102957,0.103047,0.343489,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W40_1A_0453_1_D2,epsilon_indi_b,2,PASS,10,6,6,-0.030549,0.025225,0.039617,0.646947,-0.171222,0.142581,6,
+2026W40_1A_0453_1_D5,epsilon_indi_b,5,UNKNOWN,3,2,2,-0.032835,-0.020749,0.038842,0.366203,,,2,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W40_2A_0143_1_D2,epsilon_indi_b,2,PASS,10,7,7,-0.039719,0.006517,0.04025,0.70994,0.025793,0.088932,6,
+2026W40_2A_0143_1_D5,epsilon_indi_b,5,PASS,5,3,3,-0.129594,-0.164036,0.209051,2.41391,0.075062,0.081057,2,
+2025W21_1B_0329_2_D3,r_draconis,3,UNKNOWN,1,1,1,-0.067978,0.066397,0.095024,0.316746,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W21_1B_0329_2_D6,r_draconis,6,UNKNOWN,1,1,1,-0.068483,0.060467,0.091357,0.304524,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W24_1A_0215_3_D2,r_draconis,2,UNKNOWN,1,1,1,-0.25377,-0.129878,0.285075,0.950248,,,2,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W24_1A_0215_3_D5,r_draconis,5,UNKNOWN,1,0,0,0.0,0.0,0.0,0.0,,,0,only 1 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W24_1A_0631_2_D6,r_draconis,6,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W24_1A_0631_3_D3,r_draconis,3,UNKNOWN,2,0,0,0.0,0.0,0.0,0.0,,,0,only 2 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W26_1A_0517_2_D5,r_draconis,5,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W26_2A_0170_4_D2,r_draconis,2,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W27_2A_0331_1_D1,r_draconis,1,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W27_2A_0331_1_D4,r_draconis,4,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W29_2A_0288_1_D1,r_draconis,1,UNKNOWN,2,2,2,-0.092279,-0.193751,0.214604,2.023304,,,2,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W29_2A_0288_1_D4,r_draconis,4,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W42_2A_0526_3_D4,r_draconis,4,UNKNOWN,1,1,1,0.038224,-0.004003,0.038433,0.128111,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W42_2A_0526_4_D1,r_draconis,1,UNKNOWN,2,2,2,0.015495,-0.08732,0.088684,0.836123,,,1,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W45_2A_0458_1_D4,r_draconis,4,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W45_2A_0458_2_D1,r_draconis,1,PASS,3,3,3,0.019504,-0.069429,0.072116,0.829438,0.351198,0.369079,4,
+2025W48_2A_0693_4_D2,r_draconis,2,PASS,3,3,3,0.025698,-0.019893,0.032498,0.336102,0.079869,0.532104,4,
+2025W48_2A_0693_4_D5,r_draconis,5,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W50_2A_0259_3_D2,r_draconis,2,UNKNOWN,2,2,2,0.173973,0.05913,0.183747,1.732388,,,3,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W50_2A_0259_3_D5,r_draconis,5,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W52_2A_0227_3_D3,r_draconis,3,UNKNOWN,1,1,1,0.020586,0.168584,0.169836,0.566121,,,2,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W52_2A_0227_3_D6,r_draconis,6,UNKNOWN,1,0,0,0.0,0.0,0.0,0.0,,,0,only 1 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W01_2A_0426_1_D3,r_draconis,3,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W01_2A_0426_1_D6,r_draconis,6,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W17_2A_0255_3_D3,r_draconis,3,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W19_1A_0842_1_D6,r_draconis,6,UNKNOWN,1,1,1,-0.087874,0.091416,0.126802,0.422673,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W21_2A_0325_1_D3,r_draconis,3,UNKNOWN,1,1,1,-0.122415,0.085919,0.149558,0.498525,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W21_2A_0325_2_D6,r_draconis,6,UNKNOWN,1,1,1,-0.006155,-0.01545,0.016631,0.055437,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W25_2A_0661_1_D2,r_draconis,2,UNKNOWN,2,2,2,-0.178424,-0.026803,0.180426,1.701068,,,3,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W25_2A_0661_1_D5,r_draconis,5,UNKNOWN,1,0,1,-1.993155,0.080552,1.994783,6.649275,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W26_1A_0242_2_D2,r_draconis,2,UNKNOWN,3,2,2,-0.162954,-0.011604,0.163367,1.540239,,,3,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W26_1A_0242_2_D5,r_draconis,5,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W28_1A_0671_2_D1,r_draconis,1,UNKNOWN,2,2,2,-0.151529,-0.110513,0.187548,1.768218,,,3,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W28_1A_0671_2_D4,r_draconis,4,UNKNOWN,1,0,0,0.0,0.0,0.0,0.0,,,0,only 1 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W29_1A_0015_3_D1,r_draconis,1,PASS,4,4,4,-0.099875,0.030604,0.104459,1.117755,0.081821,0.459153,3,
+2026W29_1A_0015_3_D4,r_draconis,4,UNKNOWN,0,0,0,0.0,0.0,0.0,0.0,,,0,only 0 eligible detections / 0 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W36_1A_0233_3_D1,rw_aurigae,1,PASS,25,7,7,-0.030843,0.059999,0.067463,1.189934,-0.068393,0.188162,7,
+2025W36_1A_0233_3_D4,rw_aurigae,4,PASS,18,7,7,0.110691,-0.134098,0.173882,2.970965,-0.025138,0.199115,7,
+2025W36_1A_0663_1_D1,rw_aurigae,1,PASS,24,6,6,-0.080987,0.05289,0.096728,1.579559,-0.03365,0.20358,6,
+2025W36_1A_0663_1_D4,rw_aurigae,4,PASS,13,6,6,-0.048331,0.031343,0.057604,0.940677,-0.061237,0.198013,6,
+2025W37_1A_0069_1_D2,rw_aurigae,2,PASS,13,3,3,0.042653,0.03015,0.052233,0.603132,0.001621,0.318206,3,
+2025W37_1A_0379_2_D2,rw_aurigae,2,PASS,28,7,7,-0.029936,0.055683,0.06322,1.047274,-0.024338,0.21329,7,
+2025W37_1A_0379_2_D5,rw_aurigae,5,PASS,7,7,7,-0.001991,0.047498,0.04754,0.65287,-0.010816,0.252984,7,
+2025W38_1A_0691_1_D3,rw_aurigae,3,PASS,29,7,7,-0.016889,0.056613,0.059078,0.829689,0.117876,0.233888,7,
+2025W38_1A_0691_1_D6,rw_aurigae,6,PASS,4,4,4,-0.043657,0.024116,0.049875,0.664997,0.161331,0.249595,4,
+2025W38_2C_0023_2_D3,rw_aurigae,3,PASS,26,7,7,-0.050364,0.059388,0.077868,1.193407,-0.103157,0.230338,8,
+2025W38_2C_0023_2_D6,rw_aurigae,6,UNKNOWN,2,2,2,-0.223517,0.022947,0.224692,2.056693,,,2,only 2 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W08_2A_0361_1_D3,rw_aurigae,3,PASS,26,7,7,-0.013466,-0.057772,0.059321,0.847978,-0.196566,0.229589,7,
+2026W08_2A_0361_1_D6,rw_aurigae,6,PASS,4,4,4,-0.044122,-0.069058,0.08195,0.706153,0.171952,0.450524,4,
+2026W09_2A_0289_3_D3,rw_aurigae,3,PASS,7,5,5,0.042813,0.050914,0.066522,0.672336,-0.157642,0.346038,5,
+2026W09_2A_0289_3_D6,rw_aurigae,6,UNKNOWN,1,1,1,0.054688,-0.022392,0.059095,0.196982,,,1,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W10_1A_0092_1_D2,rw_aurigae,2,PASS,29,7,7,-0.037245,-0.027591,0.046351,0.801435,-0.047803,0.186128,7,
+2026W10_1A_0092_1_D5,rw_aurigae,5,PASS,5,5,5,-0.050385,0.051379,0.071962,0.74643,0.109643,0.31358,5,
+2026W10_1A_0639_4_D2,rw_aurigae,2,PASS,30,6,6,-0.019513,-0.043422,0.047605,0.758539,-0.089452,0.218333,7,
+2026W10_1A_0639_4_D5,rw_aurigae,5,PASS,8,7,7,-0.038924,0.001392,0.038949,0.61659,0.013324,0.210311,8,
+2026W10_2B_0137_1_D1,rw_aurigae,1,PASS,28,7,7,-0.020279,0.014697,0.025045,0.441751,-0.095415,0.153614,7,
+2026W10_2B_0137_1_D4,rw_aurigae,4,PASS,15,6,6,-0.028455,-0.018558,0.033972,0.554756,-0.194257,0.156642,6,
+2026W10_2B_0626_4_D1,rw_aurigae,1,PASS,23,6,6,-0.118341,-0.017473,0.119624,1.953452,0.089335,0.200638,6,
+2026W10_2B_0626_4_D4,rw_aurigae,4,PASS,6,4,4,0.026106,0.047909,0.05456,0.727469,0.19507,0.136382,4,
+2026W36_1A_0493_1_D1,rw_aurigae,1,PASS,21,6,6,-0.029348,0.03974,0.049402,0.806737,-0.019641,0.203848,6,
+2026W36_1A_0493_1_D4,rw_aurigae,4,PASS,12,6,6,-0.097036,0.014615,0.09813,1.602461,0.111826,0.198148,6,
+2026W37_1A_0331_4_D1,rw_aurigae,1,PASS,27,7,7,-0.038077,0.04887,0.061953,1.092753,0.055071,0.174551,7,
+2026W37_1A_0331_4_D4,rw_aurigae,4,PASS,15,6,6,-0.000947,0.037249,0.037261,0.511355,-0.150671,0.252567,7,
+2026W37_2A_0287_3_D2,rw_aurigae,2,UNKNOWN,6,1,1,-0.031957,0.038176,0.049786,0.165952,,,1,only 6 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W37_2A_0287_3_D5,rw_aurigae,5,PASS,4,4,4,-0.039288,-0.022406,0.045228,0.547775,0.19411,0.268826,4,
+2026W38_1A_0064_2_D2,rw_aurigae,2,PASS,29,6,6,-0.001838,0.012694,0.012826,0.209448,0.00768,0.169109,6,
+2026W38_1A_0064_2_D5,rw_aurigae,5,PASS,5,5,5,0.047051,0.024121,0.052873,0.646392,-0.1025,0.303058,6,
+2026W38_1A_0162_1_D3,rw_aurigae,3,PASS,29,7,7,-0.03311,0.055559,0.064677,1.075997,0.027639,0.214847,8,
+2026W38_1A_0162_1_D6,rw_aurigae,6,PASS,4,4,4,0.006681,0.005901,0.008913,0.112374,-0.029736,0.321883,4,
+2026W38_1A_0359_4_D3,rw_aurigae,3,PASS,30,7,7,-0.020967,0.062021,0.065469,0.979277,0.044466,0.233268,8,
+2026W38_1A_0359_4_D6,rw_aurigae,6,PASS,4,4,4,0.056226,0.007524,0.056727,0.310612,0.695751,0.63996,4,
+2025W19_1B_0116_1_D6,wise_0855,6,UNKNOWN,3,2,2,-0.10102,-0.149823,0.180698,1.449624,,,3,only 3 eligible detections / 2 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W19_1B_0116_2_D3,wise_0855,3,PASS,10,5,5,0.019767,-0.062719,0.06576,0.725354,0.027867,0.375847,5,
+2025W19_1B_0116_2_D6,wise_0855,6,UNKNOWN,1,0,1,6.301831,3.110075,7.027492,23.424973,,,0,only 1 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2025W19_1B_0181_2_D2,wise_0855,2,PASS,19,8,8,-0.019436,-0.062694,0.065638,1.237679,-0.223186,0.10554,7,
+2025W19_1B_0181_2_D5,wise_0855,5,PASS,4,3,3,0.051873,0.008137,0.052508,0.606308,-0.462725,0.303895,3,
+2025W19_1B_0231_2_D2,wise_0855,2,PASS,17,8,8,-0.014244,-0.020339,0.024831,0.467735,0.024312,0.117089,6,
+2025W19_1B_0231_2_D5,wise_0855,5,PASS,6,4,4,0.093453,-0.04985,0.105918,1.119956,-0.220226,0.44102,4,
+2025W19_1B_0241_1_D1,wise_0855,1,PASS,18,8,8,-0.01784,-0.04227,0.045881,0.456647,0.097862,0.241585,7,
+2025W19_1B_0241_1_D4,wise_0855,4,PASS,9,6,6,0.047917,0.012351,0.049483,0.80806,-0.018257,0.142586,6,
+2025W19_1B_0241_3_D1,wise_0855,1,PASS,15,7,7,-0.052586,-0.056221,0.076981,0.81363,-0.358565,0.250434,7,
+2025W19_1B_0241_3_D4,wise_0855,4,PASS,9,5,5,-0.042328,-0.053009,0.067835,1.011232,-0.041169,0.239292,5,
+2025W44_2B_0321_1_D1,wise_0855,1,PASS,16,8,8,0.007175,0.025347,0.026343,0.469807,-0.068354,0.179397,7,
+2025W44_2B_0321_1_D4,wise_0855,4,PASS,9,5,5,0.021937,0.059036,0.06298,0.938852,-0.282038,0.188323,5,
+2025W45_1A_0095_4_D1,wise_0855,1,PASS,10,7,7,0.034248,-0.042764,0.054788,0.966371,-0.075559,0.127173,6,
+2025W45_1A_0095_4_D4,wise_0855,4,PASS,10,4,4,-0.023741,0.063789,0.068064,0.907517,-0.174593,0.083423,4,
+2025W45_2A_0278_1_D2,wise_0855,2,PASS,18,8,8,0.049477,0.042905,0.065489,1.088757,-0.136932,0.14409,7,
+2025W45_2A_0278_1_D5,wise_0855,5,PASS,6,4,4,0.027469,0.043089,0.0511,0.681331,-0.105302,0.049315,4,
+2025W46_1A_0090_2_D3,wise_0855,3,PASS,16,7,7,-0.00011,0.060375,0.060375,1.064918,0.045834,0.188936,7,
+2025W46_1A_0090_2_D6,wise_0855,6,PASS,4,3,3,0.008196,-0.018492,0.020227,0.23356,-0.023911,0.263526,3,
+2025W46_1A_0108_1_D2,wise_0855,2,PASS,19,8,8,0.015574,0.025293,0.029703,0.560091,-0.091592,0.141716,7,
+2025W46_1A_0108_1_D5,wise_0855,5,PASS,6,4,4,0.015245,0.006301,0.016496,0.219951,-0.03539,0.118208,3,
+2025W46_2A_0226_3_D3,wise_0855,3,PASS,17,8,8,0.017034,-0.04057,0.044001,0.520356,-0.359809,0.174853,7,
+2025W46_2A_0226_3_D6,wise_0855,6,UNKNOWN,2,1,1,0.106585,0.09771,0.144594,0.481981,,,2,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W17_1B_0507_3_D3,wise_0855,3,PASS,17,6,6,-0.07038,-0.052061,0.087543,0.998086,-0.346574,0.23723,5,
+2026W17_1B_0507_3_D6,wise_0855,6,PASS,4,3,3,-0.015204,-0.099979,0.101129,1.01934,-0.556988,0.445513,3,
+2026W18_2A_0065_1_D6,wise_0855,6,UNKNOWN,2,1,1,-0.050765,-0.04684,0.069073,0.230243,,,2,only 2 eligible detections / 1 supporting Gaia pairs (< 3): no independent star-based registration evidence
+2026W18_2A_0247_4_D2,wise_0855,2,PASS,19,9,9,-0.006075,-0.030587,0.031184,0.623685,-0.028895,0.124678,7,
+2026W18_2A_0247_4_D5,wise_0855,5,PASS,7,5,5,-0.009745,0.016695,0.019331,0.288166,-0.17213,0.205509,4,
+2026W18_2A_0424_4_D1,wise_0855,1,PASS,12,8,8,0.002853,-0.006413,0.007019,0.132349,-0.018336,0.132653,7,
+2026W18_2A_0424_4_D4,wise_0855,4,PASS,13,7,7,0.028332,-0.008524,0.029586,0.495162,-0.231811,0.121259,6,
+2026W19_1A_0227_1_D1,wise_0855,1,PASS,16,8,8,0.017044,-0.039403,0.042931,0.809513,0.010267,0.123556,7,
+2026W19_1A_0227_1_D4,wise_0855,4,PASS,12,5,5,0.030464,-0.091659,0.096589,0.991127,-0.616202,0.301836,6,
+2026W20_1A_0214_1_D2,wise_0855,2,PASS,20,8,8,0.002137,-0.010887,0.011095,0.2092,-0.042975,0.094242,6,
+2026W20_1A_0214_1_D5,wise_0855,5,PASS,4,3,3,0.000377,0.027348,0.027351,0.31582,-0.549535,0.185516,3,

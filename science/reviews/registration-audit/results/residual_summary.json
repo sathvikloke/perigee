@@ -1,0 +1,409 @@
+{
+ "important": "These are residuals of stars that survived the selection funnel (SNR >= 15, centroid within 1 native px of Gaia, clean PNG window). The 1 px association cut truncates the native distribution by construction, so a median over these matches is NOT a global accuracy bound for all 189 products. 27 of 183 unique frames have no retained star at all.",
+ "units": {
+  "native_px_arcsec_summary": {
+   "n": 183,
+   "min": 6.132531,
+   "max": 6.196343,
+   "mean": 6.152779,
+   "p50": 6.154329
+  },
+  "display_px_arcsec": 1.40625,
+  "native_px_in_display_px": 4.376411
+ },
+ "retained_matches": {
+  "n_stars": 958,
+  "n_frames": 156,
+  "native_r_px": {
+   "n": 958,
+   "min": 0.00297,
+   "max": 0.995859,
+   "mean": 0.195607,
+   "p5": 0.027566,
+   "p16": 0.051353,
+   "p50": 0.121121,
+   "p84": 0.312961,
+   "p90": 0.503797,
+   "p95": 0.688084,
+   "p99": 0.88609
+  },
+  "native_r_arcsec": {
+   "n": 958,
+   "min": 0.018271,
+   "max": 6.131801,
+   "mean": 1.203434,
+   "p5": 0.169633,
+   "p16": 0.315314,
+   "p50": 0.74555,
+   "p84": 1.931456,
+   "p90": 3.114857,
+   "p95": 4.235738,
+   "p99": 5.449511
+  },
+  "png_r_display_px": {
+   "n": 958,
+   "min": 0.029988,
+   "max": 3.008156,
+   "mean": 0.687529,
+   "p5": 0.126804,
+   "p16": 0.212705,
+   "p50": 0.449837,
+   "p84": 1.129304,
+   "p90": 1.532549,
+   "p95": 2.427229,
+   "p99": 2.849477
+  },
+  "png_r_arcsec": {
+   "n": 958,
+   "min": 0.042171,
+   "max": 4.23022,
+   "mean": 0.966838,
+   "p5": 0.178318,
+   "p16": 0.299116,
+   "p50": 0.632584,
+   "p84": 1.588083,
+   "p90": 2.155146,
+   "p95": 3.41329,
+   "p99": 4.007077
+  },
+  "median_vector_native_px": [
+   -0.022117,
+   0.008838
+  ],
+  "median_vector_png_display_px": [
+   0.014777,
+   -0.023356
+  ]
+ },
+ "retained_unambiguous_only": {
+  "n_stars": 769,
+  "png_r_display_px": {
+   "n": 769,
+   "min": 0.029988,
+   "max": 2.298208,
+   "mean": 0.446688,
+   "p5": 0.113469,
+   "p16": 0.189495,
+   "p50": 0.378857,
+   "p84": 0.710352,
+   "p90": 0.845843,
+   "p95": 1.002552,
+   "p99": 1.288418
+  },
+  "native_r_arcsec": {
+   "n": 769,
+   "min": 0.018271,
+   "max": 5.114016,
+   "mean": 0.792104,
+   "p5": 0.163978,
+   "p16": 0.280027,
+   "p50": 0.597477,
+   "p84": 1.354732,
+   "p90": 1.630035,
+   "p95": 1.932209,
+   "p99": 2.928543
+  }
+ },
+ "png_tail_over_2_display_px": {
+  "n": 75,
+  "catalog_ambiguous": 74,
+  "note": "The legacy PNG centroid uses a 17x17 display px window (about 4 native px); a catalog neighbour within ~4 native px pulls it. 'ambiguous' = another cached Gaia star within 4 native px."
+ },
+ "per_frame_median_png_r_display_px_unique_frames": {
+  "n": 156,
+  "min": 0.08195,
+  "max": 2.008685,
+  "mean": 0.570205,
+  "p50": 0.450605,
+  "p90": 0.958054,
+  "p95": 1.40255
+ },
+ "legacy_headline_reproduced": {
+  "description": "median over records (incl. 5 case copies) of each record's median PNG offset; the published headline was 0.45 display px over 161 records, worst 2.0",
+  "value": {
+   "n_records": 161,
+   "median": 0.447502,
+   "max": 2.008685
+  }
+ },
+ "snr_eligible_before_association": {
+  "n_stars": 1078,
+  "native_r_px": {
+   "n": 1078,
+   "min": 0.00297,
+   "max": 3.174534,
+   "mean": 0.229629,
+   "p5": 0.027825,
+   "p16": 0.051162,
+   "p50": 0.124429,
+   "p84": 0.368603,
+   "p90": 0.595793,
+   "p95": 0.84382,
+   "p99": 1.269291
+  },
+  "fraction_dropped_by_1px_association": 0.03154,
+  "note": "Still bounded at ~3 native px by the forced window (search +-1 px, 5x5 centroid). See blind_matching.json for an unbounded view."
+ },
+ "strata_retained_png_r_display_px": {
+  "detector": {
+   "D1": {
+    "n": 190,
+    "min": 0.04679,
+    "max": 3.008156,
+    "mean": 0.68061,
+    "p50": 0.450811,
+    "p90": 1.489123
+   },
+   "D2": {
+    "n": 206,
+    "min": 0.029988,
+    "max": 2.849351,
+    "mean": 0.661573,
+    "p50": 0.409546,
+    "p90": 1.506284
+   },
+   "D3": {
+    "n": 188,
+    "min": 0.055077,
+    "max": 2.920399,
+    "mean": 0.687557,
+    "p50": 0.527085,
+    "p90": 1.429337
+   },
+   "D4": {
+    "n": 163,
+    "min": 0.054178,
+    "max": 2.872368,
+    "mean": 0.649124,
+    "p50": 0.422997,
+    "p90": 1.406664
+   },
+   "D5": {
+    "n": 134,
+    "min": 0.042985,
+    "max": 2.988224,
+    "mean": 0.743149,
+    "p50": 0.47294,
+    "p90": 2.200018
+   },
+   "D6": {
+    "n": 77,
+    "min": 0.06671,
+    "max": 2.958639,
+    "mean": 0.758485,
+    "p50": 0.480781,
+    "p90": 1.822275
+   }
+  },
+  "band": {
+   "MWIR": {
+    "n": 374,
+    "min": 0.042985,
+    "max": 2.988224,
+    "mean": 0.705327,
+    "p50": 0.447031,
+    "p90": 1.809296
+   },
+   "SWIR": {
+    "n": 584,
+    "min": 0.029988,
+    "max": 3.008156,
+    "mean": 0.676131,
+    "p50": 0.452297,
+    "p90": 1.474885
+   }
+  },
+  "preset": {
+   "barnards_star": {
+    "n": 391,
+    "min": 0.031779,
+    "max": 2.988224,
+    "mean": 0.613469,
+    "p50": 0.389353,
+    "p90": 1.349478
+   },
+   "epsilon_indi_b": {
+    "n": 168,
+    "min": 0.029988,
+    "max": 1.533993,
+    "mean": 0.465377,
+    "p50": 0.394817,
+    "p90": 0.851783
+   },
+   "r_draconis": {
+    "n": 30,
+    "min": 0.138305,
+    "max": 2.606271,
+    "mean": 1.241734,
+    "p50": 1.419395,
+    "p90": 2.454937
+   },
+   "rw_aurigae": {
+    "n": 198,
+    "min": 0.042985,
+    "max": 2.589585,
+    "mean": 0.773216,
+    "p50": 0.681728,
+    "p90": 1.500015
+   },
+   "wise_0855": {
+    "n": 171,
+    "min": 0.060869,
+    "max": 3.008156,
+    "mean": 0.878683,
+    "p50": 0.535515,
+    "p90": 2.638161
+   }
+  },
+  "adverse_flag_in_centroid_window": {
+   "False": {
+    "n": 718,
+    "min": 0.029988,
+    "max": 3.008156,
+    "mean": 0.69718,
+    "p50": 0.443738,
+    "p90": 1.557132
+   },
+   "True": {
+    "n": 240,
+    "min": 0.031779,
+    "max": 2.958639,
+    "mean": 0.658659,
+    "p50": 0.483527,
+    "p90": 1.280643
+   }
+  },
+  "catalog_ambiguous": {
+   "False": {
+    "n": 769,
+    "min": 0.029988,
+    "max": 2.298208,
+    "mean": 0.446688,
+    "p50": 0.378857,
+    "p90": 0.845843
+   },
+   "True": {
+    "n": 189,
+    "min": 0.169292,
+    "max": 3.008156,
+    "mean": 1.667463,
+    "p50": 1.52126,
+    "p90": 2.674182
+   }
+  },
+  "snr_bin": {
+   "15-30": {
+    "n": 221,
+    "min": 0.029988,
+    "max": 2.988224,
+    "mean": 0.76205,
+    "p50": 0.555687,
+    "p90": 1.533993
+   },
+   "30-100": {
+    "n": 399,
+    "min": 0.042985,
+    "max": 2.993214,
+    "mean": 0.746263,
+    "p50": 0.510924,
+    "p90": 1.890218
+   },
+   ">=100": {
+    "n": 338,
+    "min": 0.031779,
+    "max": 3.008156,
+    "mean": 0.569471,
+    "p50": 0.348497,
+    "p90": 1.425404
+   }
+  },
+  "within_90arcsec_of_target": {
+   "False": {
+    "n": 847,
+    "min": 0.029988,
+    "max": 3.008156,
+    "mean": 0.693859,
+    "p50": 0.44495,
+    "p90": 1.621561
+   },
+   "True": {
+    "n": 111,
+    "min": 0.042985,
+    "max": 2.589585,
+    "mean": 0.63923,
+    "p50": 0.487031,
+    "p90": 1.191829
+   }
+  }
+ },
+ "strata_retained_native_r_arcsec": {
+  "band": {
+   "MWIR": {
+    "n": 374,
+    "min": 0.036522,
+    "max": 5.964899,
+    "mean": 1.255995,
+    "p50": 0.764037,
+    "p90": 3.391643
+   },
+   "SWIR": {
+    "n": 584,
+    "min": 0.018271,
+    "max": 6.131801,
+    "mean": 1.169774,
+    "p50": 0.734421,
+    "p90": 2.691178
+   }
+  },
+  "detector": {
+   "D1": {
+    "n": 190,
+    "min": 0.057404,
+    "max": 5.970507,
+    "mean": 1.168005,
+    "p50": 0.749423,
+    "p90": 2.29373
+   },
+   "D2": {
+    "n": 206,
+    "min": 0.035639,
+    "max": 5.596632,
+    "mean": 1.123372,
+    "p50": 0.668838,
+    "p90": 2.747071
+   },
+   "D3": {
+    "n": 188,
+    "min": 0.018271,
+    "max": 6.131801,
+    "mean": 1.222406,
+    "p50": 0.749248,
+    "p90": 3.230045
+   },
+   "D4": {
+    "n": 163,
+    "min": 0.036522,
+    "max": 5.964899,
+    "mean": 1.185149,
+    "p50": 0.756849,
+    "p90": 2.701578
+   },
+   "D5": {
+    "n": 134,
+    "min": 0.075436,
+    "max": 5.647477,
+    "mean": 1.270589,
+    "p50": 0.753826,
+    "p90": 3.653462
+   },
+   "D6": {
+    "n": 77,
+    "min": 0.04118,
+    "max": 5.394737,
+    "mean": 1.38057,
+    "p50": 0.84367,
+    "p90": 3.482807
+   }
+  }
+ }
+}

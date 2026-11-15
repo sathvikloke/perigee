@@ -1,0 +1,239 @@
+{
+ "case_id": "wise_0855_quality_trap",
+ "verdict": "admit",
+ "checks": [
+  {
+   "name": "structure",
+   "status": "warn",
+   "failures": [],
+   "warnings": [
+    "status is 'staged_candidate': not approved for shipping"
+   ],
+   "details": {
+    "refs": [
+     "A",
+     "B",
+     "C"
+    ],
+    "steps": [
+     "matched_pair",
+     "jumping_dot",
+     "only_in_a",
+     "stretch",
+     "marker",
+     "motion_test"
+    ],
+    "status_field": "staged_candidate"
+   }
+  },
+  {
+   "name": "frame_references",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {}
+  },
+  {
+   "name": "provenance",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {}
+  },
+  {
+   "name": "metadata_agreement",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "rows": [
+     {
+      "ref": "A",
+      "date_ok": true,
+      "mjd_ok": true,
+      "wavelength_um_ok": true,
+      "bandwidth_um_ok": true,
+      "quality_ok": true
+     },
+     {
+      "ref": "B",
+      "date_ok": true,
+      "mjd_ok": true,
+      "wavelength_um_ok": true,
+      "bandwidth_um_ok": true,
+      "quality_ok": true
+     },
+     {
+      "ref": "C",
+      "date_ok": true,
+      "mjd_ok": true,
+      "wavelength_um_ok": true,
+      "bandwidth_um_ok": true,
+      "quality_ok": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "quoted_numbers",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "verified": [
+     "opening_question: date 7 and 10 November 2025",
+     "opening_question: date 7 and 10 November 2025",
+     "opening_question: date 11 May 2026",
+     "background.short: 1.257 µm",
+     "background.short: 1.444 µm",
+     "background.short: 1.444 µm",
+     "background.short: 8.1 arcsec/yr",
+     "background.short: 7.4 light-years",
+     "background.details[3]: 2.5 native px",
+     "background.details[4]: 4.5 arcsec",
+     "background.details[4]: 11.8 arcsec",
+     "display_requirements.marker: 0.06 arcsec",
+     "display_requirements.marker: 4.1 arcsec",
+     "display_requirements.marker: 0.04 display px",
+     "display_requirements.marker: 2.9 display px",
+     "steps[0].hint: 1.257 µm",
+     "steps[0].hint: 0.00005 µm",
+     "steps[0].hint: 1.444 µm",
+     "steps[0].hint: 2.7 days",
+     "steps[0].hint: 0.2 %",
+     "steps[1].hint: 5 arcsec",
+     "steps[1].hint: 5 arcsec",
+     "steps[4].hint: 2 of 19 pixels",
+     "steps[4].hint: 1 arcsec",
+     "steps[4].hint: 8 arcsec",
+     "steps[4].hint: 4.2 arcsec",
+     "steps[5].hint: 0.187 µm",
+     "conclusion_guide.supported[0]: 1.257 µm",
+     "conclusion_guide.supported[0]: 2.7 days",
+     "conclusion_guide.supported[4]: 1 arcsec",
+     "conclusion_guide.example_claim: 2.7 days"
+    ],
+    "unverified": [],
+    "registry_entries": 29,
+    "frames": [
+     "A",
+     "B",
+     "C"
+    ]
+   }
+  },
+  {
+   "name": "confounds",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "confounds_present": {
+     "time": "frames have different observation times",
+     "wavelength": "target wavelengths differ by more than half a band width between some frames",
+     "stretch": "frames are drawn with different display stretches",
+     "quality": "at least one frame is flagged at the screened position"
+    }
+   }
+  },
+  {
+   "name": "display_claims",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "grid_ids": {
+     "A": "f448bdf044c35cf1",
+     "B": "f448bdf044c35cf1",
+     "C": "f448bdf044c35cf1"
+    },
+    "stretch_groups": [
+     [
+      "A",
+      "B"
+     ],
+     [
+      "C"
+     ]
+    ],
+    "claimed_shared": [
+     [
+      "A",
+      "B"
+     ]
+    ],
+    "claimed_own": [
+     "C",
+     "C",
+     "C"
+    ],
+    "grey_level_checks": [
+     "steps[3].hint: 1.0 MJy/sr in A: text 159, computed 159",
+     "steps[3].hint: 1.0 MJy/sr in B: text 159, computed 159",
+     "steps[3].hint: 1.0 MJy/sr in C: text 177, computed 177"
+    ]
+   }
+  },
+  {
+   "name": "quality_interpretation",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "flag_vocabulary_size": 13
+   }
+  },
+  {
+   "name": "identity_and_prediction",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {}
+  },
+  {
+   "name": "answer_key",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "supported": 7,
+    "not_supported": 9,
+    "evidence_files": [
+     "science/reviews/transfer-exercise/README.md",
+     "science/reviews/transfer-exercise/answer_evidence.json",
+     "science/reviews/transfer-exercise/check_transfer.py",
+     "science/staging/README.md",
+     "tools/ingest/admit_case.py"
+    ],
+    "evidence_map": "every conclusion mapped to answer evidence ids"
+   }
+  },
+  {
+   "name": "no_new_dependencies",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {}
+  },
+  {
+   "name": "catalog_integration",
+   "status": "pass",
+   "failures": [],
+   "warnings": [],
+   "details": {
+    "served_frames": 3,
+    "status": "ready",
+    "sets": [
+     "case-wise_0855_quality_trap"
+    ],
+    "content_root": "temporary copy (staged products)"
+   }
+  }
+ ],
+ "inputs": {
+  "case": "science/staging/wise_0855_quality_trap/case.json",
+  "products": "science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap",
+  "evidence_map": true,
+  "manifest": true
+ }
+}

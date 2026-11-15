@@ -262,6 +262,32 @@ def git_show(ref, path):
 # ----------------------------------------------------------------- main check
 
 
+_REGCHECK = None
+_GAIA_CATS = {}
+
+
+def _astrometry_verdict(hdul, rec, target_radec):
+    """N3's WCS-free registration verdict (science/reviews/registration-audit/regcheck.py)."""
+    global _REGCHECK
+    if _REGCHECK is None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("perigee_regcheck", HERE.parent / "registration-audit" / "regcheck.py")
+        _REGCHECK = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = _REGCHECK  # dataclasses need their module registered
+        spec.loader.exec_module(_REGCHECK)
+    preset = rec["preset_id"]
+    path = HERE / "gaia" / f"{preset}.csv"
+    if not path.exists():
+        return None
+    if preset not in _GAIA_CATS:
+        _GAIA_CATS[preset] = _REGCHECK.read_catalog(path)
+    fr = _REGCHECK.frame_from_hdul(hdul, rec["frame_key"])
+    v = _REGCHECK.registration_verdict(fr, _GAIA_CATS[preset], target_radec)
+    keep = ("verdict", "n_detections", "zero_offset_matches", "best_support", "best_offset_px", "best_offset_abs_px", "reason")
+    return {k: v[k] for k in keep if k in v}
+
+
 def check_one(rec, png_path, flags_path, raw_path, mrec, tgt, all_records_in_set):
     out = {"frame_key": rec["frame_key"], "checks": {}, "evidence": {}}
     C, E = out["checks"], out["evidence"]
@@ -400,6 +426,16 @@ def check_one(rec, png_path, flags_path, raw_path, mrec, tgt, all_records_in_set
         E["gaia"] = None
     C["registration"] = bool(reg_ok)
     E["registration_notes"] = notes
+    # "registration" above is internal consistency with the FITS header (marker, grid,
+    # PNG reconstruction) plus a Gaia comparison that only runs when some star survives a
+    # 1-native-px association. A frame whose pixels are shifted against its header loses
+    # every association and would still read True (N3 negative control). "astrometry" is
+    # the independent check: WCS-free detections voted against Gaia DR3 (N3's
+    # regcheck.registration_verdict). True = PASS, False = FAIL, None = UNKNOWN (too few
+    # usable stars; NOT a pass).
+    v = _astrometry_verdict(hdul, rec, (pra, pdec))
+    C["astrometry"] = {"PASS": True, "FAIL": False}.get(v["verdict"]) if v else None
+    E["astrometry"] = v
 
     # ---- 2. wavelength
     if inside:
@@ -629,7 +665,7 @@ def main(argv=None):
         gate[str(ep)] = {"ra": float(p.ra.deg), "dec": float(p.dec.deg),
                          "sep_from_330.84_-56.786_arcsec": float(SkyCoord(p.ra, p.dec).separation(q).arcsec)}
 
-    summary_cols = ["registration", "wavelength", "time", "flags", "coverage", "stretch", "provenance", "case_match"]
+    summary_cols = ["registration", "astrometry", "wavelength", "time", "flags", "coverage", "stretch", "provenance", "case_match"]
     matrix = [{"frame_key": o["frame_key"], "preset": o["preset"], "set": o["set"], "why": o["why"], "status": o["status"],
                **{c: o["checks"].get(c) for c in summary_cols}} for o in results]
     out = {"processor_commit": subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

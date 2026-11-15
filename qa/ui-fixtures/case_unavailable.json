@@ -1,0 +1,30 @@
+{
+ "scenario": "Authored case frames cannot be served (bundled content unusable)",
+ "requests": [
+  {
+   "method": "GET",
+   "path": "/api/v1/presets/epsilon_indi_b/frames?case_id=fair_comparison",
+   "status": 503,
+   "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-store",
+    "x-request-id": "ui-fixture-0001",
+    "x-perigee-worker": "4a4073ba9fd628fc3ea2ef85601819165fce8de938234c9e13dde31e18fa3016"
+   },
+   "body": {
+    "schema_version": 1,
+    "request_id": "ui-fixture-0001",
+    "error": {
+     "code": "CONTENT_UNAVAILABLE",
+     "message": "Bundled catalog content is unavailable.",
+     "retryable": false,
+     "details": null
+    }
+   }
+  }
+ ],
+ "expected_ui": [
+  "Show that the investigation's case images are unavailable and offer retry.",
+  "Do NOT silently fall back to the general per-frame-stretch sequence for the comparison plates (F4): the case relies on its shared stretch."
+ ]
+}

@@ -1,0 +1,226 @@
+{
+ "label": "ILLUSTRATIVE LEARNER RECORD. The claim, observations and uncertainty text were written by the coordinator to show the shape of an initial and a revised claim. They are not from a real participant and must never be presented as user feedback.",
+ "generated_by": "qa/ui-fixtures/make_case_evidence_fixture.mjs (cards built with frontend/src/evidence/card.ts, schema_version 1)",
+ "case_id": "wise_0855_quality_trap",
+ "case_status": "staged_candidate",
+ "initial_card": {
+  "schema_version": 1,
+  "id": "00000000-0000-4000-8000-illustrative1",
+  "created_at_utc": "2026-11-15T00:00:00.000Z",
+  "updated_at_utc": "2026-11-15T00:05:00.000Z",
+  "app_version": "fixture",
+  "data_origin": "fixture",
+  "case_id": "wise_0855_quality_trap",
+  "preset_id": "wise_0855",
+  "title": "A dot that jumps",
+  "query": null,
+  "frames": [
+   {
+    "ref": "A",
+    "frame_key": "2025W45_2A_0278_1_D2",
+    "frame_id": "2025W45_2A_0278_1_D2",
+    "observation_id": "2025W45_2A_0278_1",
+    "detector": 2,
+    "collection_id": "spherex_dr1",
+    "observed_at_utc": "2025-11-07T18:48:11.654Z",
+    "mjd": 60986.783468215,
+    "wavelength_um": 1.257192202600437,
+    "bandwidth_um": 0.030050855013517876,
+    "wavelength_location": "Spectral WCS (key W) sampled at the catalog-predicted position of WISE 0855 at this frame's mid-exposure time (native pixel x=28.36, y=29.34). Other pixels in the image record other wavelengths.",
+    "quality_status": "clear",
+    "quality_flag_names": [],
+    "display_scale_mode": "shared",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+    "limitations": [
+     "Display image is nearest-neighbour resampled from ~6.14 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+     "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+     "The quality screen checks flags in a small circle around one position. A clear result is not a detection.",
+     "The marker is a catalog prediction, not a position measured in this image."
+    ],
+    "processing": {
+     "processing_version": "perigee-processor-a/0.1.2",
+     "pipeline_version": "l2b-v27-2026-247",
+     "file_sha256": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0",
+     "registration_method": "nearest_neighbour",
+     "display_scale_method": "asinh",
+     "marker_kind": "catalog_prediction"
+    }
+   },
+   {
+    "ref": "B",
+    "frame_key": "2025W46_1A_0108_1_D2",
+    "frame_id": "2025W46_1A_0108_1_D2",
+    "observation_id": "2025W46_1A_0108_1",
+    "detector": 2,
+    "collection_id": "spherex_dr1",
+    "observed_at_utc": "2025-11-10T10:31:39.500Z",
+    "mjd": 60989.438651617,
+    "wavelength_um": 1.2572468098336553,
+    "bandwidth_um": 0.030053123908964603,
+    "wavelength_location": "Spectral WCS (key W) sampled at the catalog-predicted position of WISE 0855 at this frame's mid-exposure time (native pixel x=28.54, y=29.06). Other pixels in the image record other wavelengths.",
+    "quality_status": "flagged",
+    "quality_flag_names": [
+     "PERSIST"
+    ],
+    "display_scale_mode": "shared",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+    "limitations": [
+     "Display image is nearest-neighbour resampled from ~6.14 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+     "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+     "The quality screen checks flags in a small circle around one position. A clear result is not a detection.",
+     "The marker is a catalog prediction, not a position measured in this image."
+    ],
+    "processing": {
+     "processing_version": "perigee-processor-a/0.1.2",
+     "pipeline_version": "l2b-v27-2026-206",
+     "file_sha256": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f",
+     "registration_method": "nearest_neighbour",
+     "display_scale_method": "asinh",
+     "marker_kind": "catalog_prediction"
+    }
+   }
+  ],
+  "claim": "A bright dot moved between 7 and 10 November while the stars stayed still, so something near WISE 0855 may be moving.",
+  "observations": "Blinking A and B, one dot above and left of the centre jumps a few display pixels. Another dot near the left edge is only in A.",
+  "uncertainty": "I have not checked the dates, wavelengths or flagged pixels yet.",
+  "case_limitations": [
+   "Nothing in this case is photometry, a detection test or a measured position. Raw pixel values were used only to show that the flagged dots are one or two pixels wide.",
+   "Flag names and meanings come from each file's FLAGS header. The physical cause of a flagged pixel is not established here.",
+   "The faintness of WISE 0855 at these wavelengths is an expectation from published near-infrared measurements (Faherty et al. 2014; Schneider et al. 2016) and SPHEREx's design depth (Doré et al. 2014). It was not measured here and is not an upper limit.",
+   "The match between the dot near the marker and the Gaia star is positional, from a crude 3x3 first moment on undersampled pixels. It is an association, not an identification.",
+   "The inspected features are the brightest compact spots in each frame (drawn white by that frame's own stretch). Fainter changes were not searched for.",
+   "A, B and C come from different pipeline builds of Data Release 1 (l2b-v27-2026-247, l2b-v27-2026-206 and l2b-v27-2026-246).",
+   "The marker is a catalog prediction from SIMBAD with Kirkpatrick et al. 2021 astrometry, not a position measured by Perigee. Annual parallax is not modeled."
+  ],
+  "sources": [
+   {
+    "label": "SPHEREx data at NASA/IPAC IRSA",
+    "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"
+   }
+  ]
+ },
+ "revised_card": {
+  "schema_version": 1,
+  "id": "00000000-0000-4000-8000-illustrative1",
+  "created_at_utc": "2026-11-15T00:00:00.000Z",
+  "updated_at_utc": "2026-11-15T00:12:00.000Z",
+  "app_version": "fixture",
+  "data_origin": "fixture",
+  "case_id": "wise_0855_quality_trap",
+  "preset_id": "wise_0855",
+  "title": "A dot that jumps",
+  "query": null,
+  "frames": [
+   {
+    "ref": "A",
+    "frame_key": "2025W45_2A_0278_1_D2",
+    "frame_id": "2025W45_2A_0278_1_D2",
+    "observation_id": "2025W45_2A_0278_1",
+    "detector": 2,
+    "collection_id": "spherex_dr1",
+    "observed_at_utc": "2025-11-07T18:48:11.654Z",
+    "mjd": 60986.783468215,
+    "wavelength_um": 1.257192202600437,
+    "bandwidth_um": 0.030050855013517876,
+    "wavelength_location": "Spectral WCS (key W) sampled at the catalog-predicted position of WISE 0855 at this frame's mid-exposure time (native pixel x=28.36, y=29.34). Other pixels in the image record other wavelengths.",
+    "quality_status": "clear",
+    "quality_flag_names": [],
+    "display_scale_mode": "shared",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+    "limitations": [
+     "Display image is nearest-neighbour resampled from ~6.14 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+     "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+     "The quality screen checks flags in a small circle around one position. A clear result is not a detection.",
+     "The marker is a catalog prediction, not a position measured in this image."
+    ],
+    "processing": {
+     "processing_version": "perigee-processor-a/0.1.2",
+     "pipeline_version": "l2b-v27-2026-247",
+     "file_sha256": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0",
+     "registration_method": "nearest_neighbour",
+     "display_scale_method": "asinh",
+     "marker_kind": "catalog_prediction"
+    }
+   },
+   {
+    "ref": "B",
+    "frame_key": "2025W46_1A_0108_1_D2",
+    "frame_id": "2025W46_1A_0108_1_D2",
+    "observation_id": "2025W46_1A_0108_1",
+    "detector": 2,
+    "collection_id": "spherex_dr1",
+    "observed_at_utc": "2025-11-10T10:31:39.500Z",
+    "mjd": 60989.438651617,
+    "wavelength_um": 1.2572468098336553,
+    "bandwidth_um": 0.030053123908964603,
+    "wavelength_location": "Spectral WCS (key W) sampled at the catalog-predicted position of WISE 0855 at this frame's mid-exposure time (native pixel x=28.54, y=29.06). Other pixels in the image record other wavelengths.",
+    "quality_status": "flagged",
+    "quality_flag_names": [
+     "PERSIST"
+    ],
+    "display_scale_mode": "shared",
+    "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+    "limitations": [
+     "Display image is nearest-neighbour resampled from ~6.14 arcsec native pixels onto a 256x256 grid of 1.406 arcsec display pixels; it adds no resolution.",
+     "Pixels are contrast-stretched for viewing only; no background subtraction; not photometry.",
+     "The quality screen checks flags in a small circle around one position. A clear result is not a detection.",
+     "The marker is a catalog prediction, not a position measured in this image."
+    ],
+    "processing": {
+     "processing_version": "perigee-processor-a/0.1.2",
+     "pipeline_version": "l2b-v27-2026-206",
+     "file_sha256": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f",
+     "registration_method": "nearest_neighbour",
+     "display_scale_method": "asinh",
+     "marker_kind": "catalog_prediction"
+    }
+   }
+  ],
+  "claim": "A and B match in wavelength, but the dot that jumps is one flagged detector pixel in both, and the dot only in A is flagged too. Among the dots I checked, nothing supports a new or moving object.",
+  "observations": "With 'Show flagged pixels' on, the jumping dot is covered in A and B and is one native pixel wide (NONFUNC, TRANSIENT, SUR_ERROR). The dot only in A is flagged (TRANSIENT, OUTLIER, HALO, SUR_ERROR) and B shows background there. The dot by the marker lines up with a catalogued star. B is flagged PERSIST at the marker.",
+  "uncertainty": "I only checked the bright dots, using display images and flags. The flags do not tell me what caused those pixels. WISE 0855 should be too faint at these wavelengths, so these images cannot show whether it moved.",
+  "case_limitations": [
+   "Nothing in this case is photometry, a detection test or a measured position. Raw pixel values were used only to show that the flagged dots are one or two pixels wide.",
+   "Flag names and meanings come from each file's FLAGS header. The physical cause of a flagged pixel is not established here.",
+   "The faintness of WISE 0855 at these wavelengths is an expectation from published near-infrared measurements (Faherty et al. 2014; Schneider et al. 2016) and SPHEREx's design depth (Doré et al. 2014). It was not measured here and is not an upper limit.",
+   "The match between the dot near the marker and the Gaia star is positional, from a crude 3x3 first moment on undersampled pixels. It is an association, not an identification.",
+   "The inspected features are the brightest compact spots in each frame (drawn white by that frame's own stretch). Fainter changes were not searched for.",
+   "A, B and C come from different pipeline builds of Data Release 1 (l2b-v27-2026-247, l2b-v27-2026-206 and l2b-v27-2026-246).",
+   "The marker is a catalog prediction from SIMBAD with Kirkpatrick et al. 2021 astrometry, not a position measured by Perigee. Annual parallax is not modeled."
+  ],
+  "sources": [
+   {
+    "label": "SPHEREx data at NASA/IPAC IRSA",
+    "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"
+   }
+  ]
+ },
+ "revision": {
+  "what_changed": "The learner turned on 'Show flagged pixels' (case steps jumping_dot and only_in_a) and read the flag names; the claim moved from 'something may be moving' to 'nothing among the checked dots supports a new or moving object'.",
+  "justifying_observation": "The flag overlay covers the jumping dot in both A and B, and the dot is one native pixel wide.",
+  "computed_facts_backing_the_reference_answer": [
+   {
+    "fact": "Jumping dot = detector pixel (1709, 1364) in both frames; display (114.9, 82.9) in A, (117.9, 80.6) in B; apparent shift 3.81 display px = 5.36 arcsec, matching the 5.38 arcsec predicted from the field-star pointing shift.",
+    "source": "science/reviews/overnight-controls/results/B_features.csv; science/reviews/transfer-exercise/answer_evidence.json A2_jumping_dot"
+   },
+   {
+    "fact": "Dot only in A = detector pixel (1689, 1364), display (32.4, 111.8), flagged HALO, OUTLIER, SUR_ERROR, TRANSIENT; B at the same detector pixel reads 0.27 MJy/sr with no adverse flag.",
+    "source": "science/reviews/overnight-controls/results/B_features.csv (F2)"
+   },
+   {
+    "fact": "Dot near the marker, first moment about (132.3, 125.8) display px, lies within about 1 arcsec of Gaia DR3 5756956644387831296.",
+    "source": "science/reviews/transfer-exercise/answer_evidence.json"
+   }
+  ],
+  "answer_evidence_ids": [
+   "A1_matched_pair",
+   "A2_jumping_dot",
+   "A3_P_only_dot",
+   "A4_other_unmatched_spots",
+   "A5_brightness",
+   "A6_marker_and_nearby_dot",
+   "A7_motion_test"
+  ],
+  "author_text_vs_computed": "Everything in initial_card/revised_card claim, observations and uncertainty is learner text (here illustrative). Frame fields (dates, wavelengths, quality, sha256, display_scale_mode) are copied from the API FrameRecord by frameToEvidence. The reference answer lives only in case.json conclusion_guide and must not be written into the learner's card."
+ }
+}

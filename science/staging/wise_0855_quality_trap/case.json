@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "case_id": "wise_0855_quality_trap",
+  "content_version": "wise_0855_quality_trap-2026-11-15-staged1",
+  "status": "staged_candidate",
+  "title": "A dot that jumps",
+  "target_id": "wise_0855",
+  "opening_question": "SPHEREx photographed the field around the cold brown dwarf WISE 0855 on 7 and 10 November 2025 (A and B) and on 11 May 2026 (C). When you blink A and B, one bright dot jumps while the stars stay still, and another dot is only in A. Did something move or appear in the sky? Before you decide, check each frame's date, wavelength, display stretch and pixel quality.",
+  "summary": "Blink two SPHEREx images taken three days apart at nearly the same wavelength, then a third taken six months later at a different wavelength. Decide which differences could come from the sky and which come from flagged pixels, the display stretch or the wavelength, and whether the dot near the marker is WISE 0855.",
+  "background": {
+    "short": "WISE 0855 is one of the coldest known brown dwarfs, about 7.4 light-years away and moving about 8.1 arcseconds per year. At the near-infrared wavelengths of these images (1.257 and 1.444 µm) it is expected to be far too faint for SPHEREx: published J-band measurements from other telescopes put it far below SPHEREx's designed survey depth, and the 1.444 µm frame lies just beyond J band, where it is expected to be fainter still. That is an expectation from published measurements, not something measured here.",
+    "details": [
+      "Each SPHEREx picture records one narrow wavelength of infrared light at the marker, and that wavelength changes across the detector. Check the wavelength at the marker, not just the detector number.",
+      "The flag overlay marks pixels the SPHEREx pipeline flagged. The flag meanings come from each file's header: NONFUNC 'Permanently unusable', TRANSIENT 'Transient detected during SUR', SUR_ERROR 'Error in onboard processing', OUTLIER 'Pixel flagged by Detect Outliers', HALO 'Pixel part of a transient halo', PERSIST 'Persistent charge above threshold'. A flag says a pixel should not be trusted. It does not by itself say what physically happened.",
+      "Every frame is drawn on the same north-up sky grid. A feature tied to one detector pixel therefore lands on slightly different sky positions when the telescope points slightly differently.",
+      "The quality screen checks a small circle (radius 2.5 native pixels) around the catalog-predicted position for problem flags. Passing it means no problem flags were found there. It is not a detection.",
+      "A catalogued Gaia DR3 field star (5756956644387831296) lies 4.5 to 11.8 arcseconds from the WISE 0855 marker in the retained SPHEREx frames of this field."
+    ]
+  },
+  "frames": [
+    {
+      "ref": "A",
+      "frame_key": "2025W45_2A_0278_1_D2",
+      "observation_id": "2025W45_2A_0278_1",
+      "detector": 2,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-11-07T18:48:11.654",
+      "mjd": 60986.783468215,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 1.2572,
+      "bandwidth_um": 0.0301,
+      "wavelength_location": "Catalog-predicted position of WISE 0855 at this observation time",
+      "expected_quality_status": "clear",
+      "role": "first frame of the matched-wavelength pair",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+      "sha256_of_retained_cutout": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0"
+    },
+    {
+      "ref": "B",
+      "frame_key": "2025W46_1A_0108_1_D2",
+      "observation_id": "2025W46_1A_0108_1",
+      "detector": 2,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2025-11-10T10:31:39.500",
+      "mjd": 60989.438651617,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 1.2572,
+      "bandwidth_um": 0.0301,
+      "wavelength_location": "Catalog-predicted position of WISE 0855 at this observation time",
+      "expected_quality_status": "flagged",
+      "role": "second frame of the matched-wavelength pair",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+      "sha256_of_retained_cutout": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f"
+    },
+    {
+      "ref": "C",
+      "frame_key": "2026W20_1A_0214_1_D2",
+      "observation_id": "2026W20_1A_0214_1",
+      "detector": 2,
+      "collection_id": "spherex_dr1",
+      "observed_at_utc": "2026-05-11T13:37:42.970",
+      "mjd": 61171.567858446,
+      "time_basis": "DATE-AVG / MJD-AVG (mid-exposure) from the IMAGE header",
+      "wavelength_um": 1.4443,
+      "bandwidth_um": 0.0353,
+      "wavelength_location": "Catalog-predicted position of WISE 0855 at this observation time",
+      "expected_quality_status": "clear",
+      "role": "six months later at a different wavelength (time and wavelength both change)",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits",
+      "sha256_of_retained_cutout": "ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388"
+    }
+  ],
+  "display_requirements": {
+    "grid": "Fixed north-up, east-left grid centered on the preset query_center; identical for A, B and C.",
+    "stretch": "A and B share one asinh stretch (case-wise_0855_quality_trap products). C has its own stretch and is labeled 'Brightness not directly comparable'.",
+    "marker": "Catalog prediction for each frame's observation time, labeled as a prediction (not a detection). It moves 0.04 display px (0.06 arcsec) from A to B and 2.9 display px (4.1 arcsec) from A to C (proper motion only; annual parallax is not modeled and would add less than one native pixel), so this case has no guide line.",
+    "flag_overlay": "Steps 2 and 3 need 'Show flagged pixels' for A, B and C. Read colors from flag_image.legend. The flagged dots are away from the marker, so the marker's quality status alone does not reveal them."
+  },
+  "steps": [
+    {
+      "id": "matched_pair",
+      "prompt": "Read each frame's date and its wavelength at the marker. Which pair has closely matched wavelength, so it is the better pair for looking for a change over time? What else still differs between those two frames?",
+      "check": ["observed_at_utc", "wavelength_um", "quality.status"],
+      "hint": "A and B are 2.7 days apart, both at 1.257 µm: their wavelengths differ by only 0.00005 µm, about 0.2% of the band width. C is six months later at 1.444 µm. A and B still differ in other ways: B is flagged at the marker (PERSIST), the telescope pointed slightly differently, and the two come from different pipeline builds. Matched wavelength makes A and B the better pair, not a pair that differs only in time."
+    },
+    {
+      "id": "jumping_dot",
+      "prompt": "Blink A and B. Find the bright dot above and a little left of the centre that jumps while the stars stay still. Turn on 'Show flagged pixels'. What covers it, and how big is it?",
+      "check": ["flag_image"],
+      "hint": "It is a single native pixel, hundreds of times brighter than its neighbours, and the flag overlay covers it in both A and B. The pipeline flags it NONFUNC, TRANSIENT and SUR_ERROR. It is the same detector pixel in both frames. The telescope pointed about 5 arcsec differently, so that pixel lands about 5 arcsec apart on the sky grid: it seems to jump while the stars stay put. The flags and its one-pixel shape mean it should not be treated as a moving source. They do not tell us what physically caused it."
+    },
+    {
+      "id": "only_in_a",
+      "prompt": "Now find the dot near the left edge that is in A but not in B or C. What covers it?",
+      "check": ["flag_image"],
+      "hint": "It covers two neighbouring native pixels flagged TRANSIENT, OUTLIER, HALO and SUR_ERROR, and B and C show only background at that sky position. Flagged data like this gives no reason to claim a new object. Its physical cause is not established here. C has a flagged single pixel of its own near its lower-left corner (NONFUNC, TRANSIENT, SUR_ERROR); it is not a new object either."
+    },
+    {
+      "id": "stretch",
+      "prompt": "Compare A or B with C. Can the grey levels tell you whether the sky or the stars are brighter in C? Check how each image was stretched.",
+      "check": ["display_scale"],
+      "hint": "C has its own contrast stretch, so the same sky value is drawn as a different grey: 1.0 MJy/sr is grey 159 in A and B but grey 177 in C. That is a display effect. It does not rule out a real difference in the background light, and C also records a different wavelength. Nothing here measures brightness."
+    },
+    {
+      "id": "marker",
+      "prompt": "Turn on the marker. Is the dot just to its upper right WISE 0855?",
+      "check": ["marker.kind", "quality.status", "quality.flag_names"],
+      "hint": "The marker is a catalog prediction, not a detection. The nearby dot lies within about 1 arcsec of a catalogued Gaia DR3 star and about 8 arcsec from the marker in A and B (4.2 arcsec in C), so its position matches that star. Position alone does not prove what it is. WISE 0855 is expected to be far too faint at these wavelengths. B's flag at the marker is PERSIST on 2 of 19 screened pixels: a warning not to trust those pixels, not a sign that something appeared."
+    },
+    {
+      "id": "motion_test",
+      "prompt": "Could A and C show whether WISE 0855 moved?",
+      "check": ["wavelength_um", "marker.kind"],
+      "hint": "Not with these frames. WISE 0855 is not securely detected or identified here and no position was fitted, so there is no measured position to compare. A and C also differ by six months and by 0.187 µm (about six band widths), which changes which sources appear and how they look. Comparing positions across wavelengths or measuring shifts smaller than a pixel is possible in general with a detected source and a proper fit; these frames do not provide one."
+    }
+  ],
+  "claim_prompt": "What, if anything, changed in the sky between A and B? What caused each difference you saw: time, wavelength, display stretch or flagged pixels? What can these images not tell you about WISE 0855?",
+  "evidence_requirements": {
+    "min_selected_frames": 2,
+    "must_include_refs_any_of": [["A", "B"]],
+    "fields": ["claim", "observations", "uncertainty"],
+    "card_must_show_per_frame": ["observation_id", "detector", "collection_id", "observed_at_utc", "wavelength_um", "quality status", "source_url"]
+  },
+  "conclusion_guide": {
+    "supported": [
+      "A and B are the better pair for looking at change over time: 2.7 days apart with matched wavelength (1.257 µm in both). They still differ in pointing, pipeline build and the PERSIST flag at the marker in B.",
+      "The dot that jumps between A and B is a single flagged pixel (NONFUNC, TRANSIENT, SUR_ERROR) at the same detector position in both frames. Its flags and one-pixel shape mean it should not be treated as a moving or new source. Its physical cause is not known from these data.",
+      "The dot only in A is flagged (TRANSIENT, OUTLIER, HALO, SUR_ERROR) and B and C show background there, so it gives no reason to claim a new object.",
+      "Among the features I checked, nothing supports a new or moving object between A and B.",
+      "The dot near the marker lines up with a catalogued Gaia field star (within about 1 arcsec), so it is not evidence of WISE 0855. The marker is a catalog prediction.",
+      "C has its own stretch, so its grey levels cannot be compared with A and B.",
+      "These images cannot show whether WISE 0855 moved: it is not identified in them and no position was measured."
+    ],
+    "not_supported": [
+      "A new object appeared or something moved between A and B. The two dots that change are flagged pixels, and nothing about them supports a source in the sky.",
+      "The jumping dot was a cosmic ray, or any other specific cause. The flags say the pixel is unusable and a transient was detected; they do not establish what physically caused it.",
+      "Nothing at all changed in the sky. Only the bright features inspected here were checked, using display images and pipeline flags; that is not an exhaustive search.",
+      "The dot by the marker is WISE 0855. Its position matches a catalogued star, and position alone does not prove identity.",
+      "The marker shows where WISE 0855 was detected. The marker is a catalog prediction.",
+      "C's sky is brighter or dimmer than A's. C has its own stretch and a different wavelength, and no brightness was measured.",
+      "A and C show WISE 0855's motion. It is not identified in these frames and no position was fitted.",
+      "WISE 0855 is proven absent, or SPHEREx's detection limit here is known. Its faintness is an expectation from published measurements, not a measured non-detection or upper limit.",
+      "Different wavelengths or shifts smaller than a pixel can never be compared. They can, with a detected source, suitable data and a proper fit; these frames lack the detected source and no fit was made."
+    ],
+    "example_claim": "A and B are the better pair (2.7 days apart at the same wavelength), but the two dots that change between them are flagged detector pixels, so I found no evidence of a new or moving object among the features I checked. The dot near the marker lines up with a catalogued star rather than with the WISE 0855 prediction, and WISE 0855 should be too faint here. These images can't tell me whether WISE 0855 moved."
+  },
+  "limitations": [
+    "Nothing in this case is photometry, a detection test or a measured position. Raw pixel values were used only to show that the flagged dots are one or two pixels wide.",
+    "Flag names and meanings come from each file's FLAGS header. The physical cause of a flagged pixel is not established here.",
+    "The faintness of WISE 0855 at these wavelengths is an expectation from published near-infrared measurements (Faherty et al. 2014; Schneider et al. 2016) and SPHEREx's design depth (Doré et al. 2014). It was not measured here and is not an upper limit.",
+    "The match between the dot near the marker and the Gaia star is positional, from a crude 3x3 first moment on undersampled pixels. It is an association, not an identification.",
+    "The inspected features are the brightest compact spots in each frame (drawn white by that frame's own stretch). Fainter changes were not searched for.",
+    "A, B and C come from different pipeline builds of Data Release 1 (l2b-v27-2026-247, l2b-v27-2026-206 and l2b-v27-2026-246).",
+    "The marker is a catalog prediction from SIMBAD with Kirkpatrick et al. 2021 astrometry, not a position measured by Perigee. Annual parallax is not modeled."
+  ],
+  "sources": [
+    {"label": "SPHEREx data at NASA/IPAC IRSA", "url": "https://irsa.ipac.caltech.edu/Missions/spherex.html"},
+    {"label": "SIMBAD (CDS), CfA Harvard mirror: WISE 0855", "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=WISEA+J085510.74-071442.5"},
+    {"label": "Gaia DR3 archive (ESA)", "url": "https://gea.esac.esa.int/archive/"},
+    {"label": "Faherty et al. 2014, near-infrared photometry of WISE 0855 (arXiv:1408.4671)", "url": "https://arxiv.org/abs/1408.4671"},
+    {"label": "Schneider et al. 2016, HST near-infrared photometry of WISE 0855 (arXiv:1605.05618)", "url": "https://arxiv.org/abs/1605.05618"},
+    {"label": "Doré et al. 2014, SPHEREx survey design (arXiv:1412.4872)", "url": "https://arxiv.org/abs/1412.4872"},
+    {"label": "Planet X and SPHEREx challenge", "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"}
+  ],
+  "verification": {
+    "approval": "Not shipped. Staged candidate: passed computational admission (tools/ingest/admit_case.py, verdict admit). It stays staged until Codex reviews the frontend integration and the release owner copies it into backend/content/cases/. No human-study or teammate review is a prerequisite.",
+    "checked_by": "science/reviews/transfer-exercise/check_transfer.py; tools/ingest/admit_case.py",
+    "record": "science/reviews/transfer-exercise/README.md; science/reviews/transfer-exercise/answer_evidence.json; science/staging/README.md",
+    "must_recheck_against_processor_output": false,
+    "processor_recheck": "Staged products regenerated with tools.ingest.ingest (perigee-processor-a/0.1.2) into science/staging/wise_0855_quality_trap/presets/wise_0855/case-wise_0855_quality_trap/."
+  }
+}

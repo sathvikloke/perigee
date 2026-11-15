@@ -1,0 +1,1265 @@
+{
+ "schema": "perigee-answer-evidence/1",
+ "exercise": "science/reviews/transfer-exercise/README.md",
+ "staged_case": "science/staging/wise_0855_quality_trap/case.json",
+ "generated_by": "science/reviews/transfer-exercise/check_transfer.py",
+ "results": "results.json (same output directory)",
+ "status": "computational review; not a learner outcome or human validation",
+ "frames": {
+  "P": {
+   "ref": "P",
+   "case_ref": "A",
+   "frame_key": "2025W45_2A_0278_1_D2",
+   "observation_id": "2025W45_2A_0278_1",
+   "detector": 2,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-07T18:48:11.654Z",
+   "mjd": 60986.783468215,
+   "wavelength_um": 1.257192202600437,
+   "bandwidth_um": 0.030050855013517876,
+   "quality_status": "clear",
+   "quality_flag_names": [],
+   "adverse_screened": [
+    0,
+    20
+   ],
+   "display_scale_preset_frames": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "low": 0.2377636581659317,
+    "high": 2.7494914531707764,
+    "unit": "MJy / sr"
+   },
+   "pipeline_build": "l2b-v27-2026-247",
+   "grid_id": "f448bdf044c35cf1",
+   "sha256": "fbcca340f53c5652bde70d84c23263219eb22ac0364f02a99a56acd5e26fedd0",
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W45_2A/l2b-v27-2026-247/2/level2_2025W45_2A_0278_1D2_spx_l2b-v27-2026-247.fits",
+   "record": "backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.json",
+   "image": "backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.png",
+   "flag_image": "backend/content/presets/wise_0855/frames/2025W45_2A_0278_1_D2.flags.png",
+   "reproduced_by_processor_a": true
+  },
+  "Q": {
+   "ref": "Q",
+   "case_ref": "B",
+   "frame_key": "2025W46_1A_0108_1_D2",
+   "observation_id": "2025W46_1A_0108_1",
+   "detector": 2,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2025-11-10T10:31:39.500Z",
+   "mjd": 60989.438651617,
+   "wavelength_um": 1.2572468098336553,
+   "bandwidth_um": 0.030053123908964603,
+   "quality_status": "flagged",
+   "quality_flag_names": [
+    "PERSIST"
+   ],
+   "adverse_screened": [
+    2,
+    19
+   ],
+   "display_scale_preset_frames": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "low": 0.2291477769613266,
+    "high": 2.249807357788086,
+    "unit": "MJy / sr"
+   },
+   "pipeline_build": "l2b-v27-2026-206",
+   "grid_id": "f448bdf044c35cf1",
+   "sha256": "044658e75337cbd35f04b9ba77fa79e9cef96ea7a6489e33f88896506e5cd90f",
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W46_1A/l2b-v27-2026-206/2/level2_2025W46_1A_0108_1D2_spx_l2b-v27-2026-206.fits",
+   "record": "backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.json",
+   "image": "backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.png",
+   "flag_image": "backend/content/presets/wise_0855/frames/2025W46_1A_0108_1_D2.flags.png",
+   "reproduced_by_processor_a": true
+  },
+  "R": {
+   "ref": "R",
+   "case_ref": "C",
+   "frame_key": "2026W20_1A_0214_1_D2",
+   "observation_id": "2026W20_1A_0214_1",
+   "detector": 2,
+   "collection_id": "spherex_dr1",
+   "observed_at_utc": "2026-05-11T13:37:42.970Z",
+   "mjd": 61171.567858446,
+   "wavelength_um": 1.4442523414907646,
+   "bandwidth_um": 0.035338719018344886,
+   "quality_status": "clear",
+   "quality_flag_names": [],
+   "adverse_screened": [
+    0,
+    19
+   ],
+   "display_scale_preset_frames": {
+    "mode": "per_frame",
+    "method": "asinh",
+    "low": 0.20695532858371735,
+    "high": 2.2293758392333984,
+    "unit": "MJy / sr"
+   },
+   "pipeline_build": "l2b-v27-2026-246",
+   "grid_id": "f448bdf044c35cf1",
+   "sha256": "ad926a6715df338cf920660cb81011cbe9456bf68a2c7880ff9be3d776d43388",
+   "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W20_1A/l2b-v27-2026-246/2/level2_2026W20_1A_0214_1D2_spx_l2b-v27-2026-246.fits",
+   "record": "backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.json",
+   "image": "backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.png",
+   "flag_image": "backend/content/presets/wise_0855/frames/2026W20_1A_0214_1_D2.flags.png",
+   "reproduced_by_processor_a": true
+  }
+ },
+ "flag_definitions_from_FITS_header": {
+  "TRANSIENT": "Transient detected during SUR",
+  "SUR_ERROR": "Error in onboard processing",
+  "NONFUNC": "Permanently unusable",
+  "PERSIST": "Persistent charge above threshold",
+  "OUTLIER": "Pixel flagged by Detect Outliers",
+  "SOURCE": "Pixel mapped to a known source",
+  "HALO": "Pixel part of a transient halo"
+ },
+ "external_sources": {
+  "faherty2014": {
+   "label": "Faherty et al. 2014, ApJL 793, L16 (arXiv:1408.4671)",
+   "url": "https://arxiv.org/abs/1408.4671",
+   "fact": "WISE 0855 J3 = 24.8 (+0.33/-0.53) mag at 2.6 sigma, equivalently J3 > 23.8 mag at 5 sigma (Vega)."
+  },
+  "schneider2016": {
+   "label": "Schneider et al. 2016 (arXiv:1605.05618)",
+   "url": "https://arxiv.org/abs/1605.05618",
+   "fact": "HST F125W = 26.41 +/- 0.27 mag (Vega), a marginal (S/N ~4) detection."
+  },
+  "dore2014": {
+   "label": "Dore et al. 2014, SPHEREx cosmology design paper (arXiv:1412.4872)",
+   "url": "https://arxiv.org/abs/1412.4872",
+   "fact": "All-sky point-source requirement of about 18.5 AB mag (5 sigma) per spectral element after the full survey; a single exposure is shallower."
+  },
+  "targets_review": {
+   "label": "science/reviews/targets/README.md row 8",
+   "url": "science/reviews/targets/README.md",
+   "fact": "Gaia DR3 5756956644387831296 (G 16.3, nearly static) lies 4.5-11.8 arcsec from the WISE 0855 marker in the 34 shipped frames."
+  }
+ },
+ "n2_controls_crosscheck": {
+  "source": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/",
+  "read_not_rederived": "Values below were read from the N2 control outputs on 2026-11-15 and are cited, not recomputed here.",
+  "stretch_probe": {
+   "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/A_stretch_probes.csv",
+   "fact": "1.0 MJy/sr -> grey 156 (P) / 174 (Q) per-frame, 159 / 159 shared; observed PNG grey ranges agree."
+  },
+  "background_order_reverses": {
+   "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/results.json",
+   "fact": "Shipped per-frame PNG median grey Q 20 vs P 16; shared stretch P 19 vs Q 16; physical median Q/P = 0.971."
+  },
+  "jump_pointing": {
+   "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_features.csv; origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_field_sources.csv",
+   "fact": "Detector pixel (1709,1364): sky jump 5.36 arcsec, 3.81 display px. Three strict-quality Gaia field stars agree between P and Q to median 0.40 arcsec (max 0.76); their detector shift (about -0.83, -0.28 native px) predicts 5.38 arcsec for a detector-fixed pixel. R's cutout does not contain detector pixel (1709,1364)."
+  },
+  "p_only_dot": {
+   "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_features.csv",
+   "fact": "Detector pixel (1689,1364), two pixels 12.55 and 8.38 MJy/sr; same detector pixel in Q = 0.27 MJy/sr, unflagged; R's cutout does not contain that detector pixel."
+  },
+  "pairs": {
+   "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/C_pairs.csv",
+   "fact": "P-Q: delta lambda 0.0018 band widths (smaller band width), same detector, release, software and rotation; differ in pipeline build, stretch, quality screen, pointing (0.87 native px). P-R: 184.8 d, 6.22 band widths, field rotated about 180 deg."
+  }
+ },
+ "target_identity": {
+  "target": "WISE 0855",
+  "status": "not_identified",
+  "marker": "catalog prediction (not a detection)",
+  "nearest_feature": "positionally associated with Gaia DR3 5756956644387831296",
+  "expectation": "far below SPHEREx sensitivity at 1.26-1.44 um (sourced expectation, not a measured limit)"
+ },
+ "quantities": [
+  {
+   "id": "days_PQ",
+   "value": 2.655,
+   "unit": "days",
+   "tolerance": 0.05,
+   "results_path": "pairs.P-Q.days_apart",
+   "note": ""
+  },
+  {
+   "id": "days_PR",
+   "value": 184.784,
+   "unit": "days",
+   "tolerance": 0.5,
+   "results_path": "pairs.P-R.days_apart",
+   "note": ""
+  },
+  {
+   "id": "dlambda_PQ",
+   "value": 5e-05,
+   "unit": "um",
+   "tolerance": 1e-05,
+   "results_path": "pairs.P-Q.delta_wavelength_um",
+   "note": ""
+  },
+  {
+   "id": "dlambda_PR",
+   "value": 0.18706,
+   "unit": "um",
+   "tolerance": 0.0005,
+   "results_path": "pairs.P-R.delta_wavelength_um",
+   "note": ""
+  },
+  {
+   "id": "dlambda_over_bw_PQ_percent",
+   "value": 0.2,
+   "unit": "%",
+   "tolerance": 0.1,
+   "results_path": "pairs.P-Q.delta_wavelength_over_bandwidth x 100",
+   "note": ""
+  },
+  {
+   "id": "dlambda_over_bw_PR",
+   "value": 6.225,
+   "unit": "band widths",
+   "tolerance": 0.3,
+   "results_path": "pairs.P-R.delta_wavelength_over_bandwidth",
+   "note": ""
+  },
+  {
+   "id": "marker_shift_PQ_px",
+   "value": 0.04,
+   "unit": "display px",
+   "tolerance": 0.02,
+   "results_path": "pairs.P-Q.predicted_marker_shift_display_px",
+   "note": "catalog prediction, not measured"
+  },
+  {
+   "id": "marker_shift_PQ_arcsec",
+   "value": 0.06,
+   "unit": "arcsec",
+   "tolerance": 0.02,
+   "results_path": "pairs.P-Q.predicted_marker_shift_arcsec",
+   "note": "catalog prediction, not measured"
+  },
+  {
+   "id": "marker_shift_PR_px",
+   "value": 2.93,
+   "unit": "display px",
+   "tolerance": 0.1,
+   "results_path": "pairs.P-R.predicted_marker_shift_display_px",
+   "note": "catalog prediction, not measured"
+  },
+  {
+   "id": "marker_shift_PR_arcsec",
+   "value": 4.12,
+   "unit": "arcsec",
+   "tolerance": 0.1,
+   "results_path": "pairs.P-R.predicted_marker_shift_arcsec",
+   "note": "catalog prediction, not measured"
+  },
+  {
+   "id": "pointing_shift_detector_pixel_arcsec",
+   "value": 5.36,
+   "unit": "arcsec",
+   "tolerance": 0.5,
+   "results_path": "detector_pixel_1709_1364.sky_separation_of_pixel_centre_P_to_Q_arcsec",
+   "note": ""
+  },
+  {
+   "id": "jump_display_shift_px",
+   "value": 3.81,
+   "unit": "display px",
+   "tolerance": 0.3,
+   "results_path": "detector_pixel_1709_1364.display_shift_px",
+   "note": ""
+  },
+  {
+   "id": "near_spot_to_gaia_arcsec_max",
+   "value": 0.8,
+   "unit": "arcsec",
+   "tolerance": 0.5,
+   "results_path": "near_marker.*.first_moment_sep_from_gaia_neighbour_arcsec (max)",
+   "note": "range 0.7-0.8; quoted as 'within about 1 arcsec'"
+  },
+  {
+   "id": "near_spot_to_marker_P_arcsec",
+   "value": 8.7,
+   "unit": "arcsec",
+   "tolerance": 1.0,
+   "results_path": "near_marker.P.first_moment_sep_from_marker_arcsec",
+   "note": ""
+  },
+  {
+   "id": "near_spot_to_marker_Q_arcsec",
+   "value": 7.9,
+   "unit": "arcsec",
+   "tolerance": 1.0,
+   "results_path": "near_marker.Q.first_moment_sep_from_marker_arcsec",
+   "note": ""
+  },
+  {
+   "id": "near_spot_to_marker_R_arcsec",
+   "value": 4.2,
+   "unit": "arcsec",
+   "tolerance": 0.5,
+   "results_path": "near_marker.R.first_moment_sep_from_marker_arcsec",
+   "note": ""
+  },
+  {
+   "id": "gaia_star_to_marker_range_low_arcsec",
+   "value": 4.5,
+   "unit": "arcsec",
+   "tolerance": 0.05,
+   "results_path": "external: targets_review",
+   "note": "over the 34 shipped frames"
+  },
+  {
+   "id": "gaia_star_to_marker_range_high_arcsec",
+   "value": 11.8,
+   "unit": "arcsec",
+   "tolerance": 0.05,
+   "results_path": "external: targets_review",
+   "note": "over the 34 shipped frames"
+  },
+  {
+   "id": "probe_value",
+   "value": 1.0,
+   "unit": "MJy/sr",
+   "tolerance": 1e-09,
+   "results_path": "case_stretch_probe.values_MJy_sr[1]",
+   "note": ""
+  },
+  {
+   "id": "grey_case_AB_at_1",
+   "value": 159,
+   "unit": "grey",
+   "tolerance": 0,
+   "results_path": "case_stretch_probe.grey_level.P[1]",
+   "note": ""
+  },
+  {
+   "id": "grey_case_C_at_1",
+   "value": 177,
+   "unit": "grey",
+   "tolerance": 0,
+   "results_path": "case_stretch_probe.grey_level.R[1]",
+   "note": ""
+  },
+  {
+   "id": "grey_preset_P_at_1",
+   "value": 156,
+   "unit": "grey",
+   "tolerance": 0,
+   "results_path": "stretch_probe.grey_level.P[1]",
+   "note": ""
+  },
+  {
+   "id": "grey_preset_Q_at_1",
+   "value": 174,
+   "unit": "grey",
+   "tolerance": 0,
+   "results_path": "stretch_probe.grey_level.Q[1]",
+   "note": ""
+  },
+  {
+   "id": "jump_peak_over_neighbour_min",
+   "value": 699.1,
+   "unit": "x",
+   "tolerance": 50,
+   "results_path": "bright_spots[detector_xy=1709,1364].peak_over_brightest_neighbour (min)",
+   "note": "quoted as 'hundreds of times'"
+  },
+  {
+   "id": "screen_radius_native_px",
+   "value": 2.5,
+   "unit": "native px",
+   "tolerance": 0,
+   "results_path": "frames.*.quality screen_radius_native_px (record)",
+   "note": ""
+  },
+  {
+   "id": "persist_pixels_Q",
+   "value": 2,
+   "unit": "pixels",
+   "tolerance": 0,
+   "results_path": "frames.Q.adverse_aperture_pixels",
+   "note": ""
+  },
+  {
+   "id": "screened_pixels_Q",
+   "value": 19,
+   "unit": "pixels",
+   "tolerance": 0,
+   "results_path": "frames.Q.screened_pixels",
+   "note": ""
+  },
+  {
+   "id": "wise0855_pm_arcsec_per_yr",
+   "value": 8.1,
+   "unit": "arcsec/yr",
+   "tolerance": 0.06,
+   "results_path": "external: backend/content/targets.json wise_0855.one_line",
+   "note": ""
+  },
+  {
+   "id": "wise0855_distance_ly",
+   "value": 7.4,
+   "unit": "light-years",
+   "tolerance": 0.05,
+   "results_path": "external: backend/content/targets.json wise_0855.one_line",
+   "note": ""
+  }
+ ],
+ "answers": [
+  {
+   "id": "A1_matched_pair",
+   "defect_fixed": 1,
+   "question": "Which pair has closely matched target wavelength for investigating a temporal difference, and what still differs?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "observations": {
+    "P-Q": {
+     "days_apart": 2.655,
+     "delta_wavelength_um": 5e-05,
+     "delta_wavelength_over_bandwidth": 0.002,
+     "same_detector": true,
+     "same_grid": true,
+     "stretch_high_ratio": 0.818
+    },
+    "P-R": {
+     "days_apart": 184.784,
+     "delta_wavelength_um": 0.18706,
+     "delta_wavelength_over_bandwidth": 6.225,
+     "same_detector": true,
+     "same_grid": true
+    },
+    "quality": {
+     "P": [
+      "clear",
+      []
+     ],
+     "Q": [
+      "flagged",
+      [
+       "PERSIST"
+      ]
+     ],
+     "R": [
+      "clear",
+      []
+     ]
+    },
+    "pipeline_builds": {
+     "P": "l2b-v27-2026-247",
+     "Q": "l2b-v27-2026-206",
+     "R": "l2b-v27-2026-246"
+    },
+    "pointing_shift_at_detector_pixel_arcsec": 5.36
+   },
+   "calculation": "pairs.* in results.json: |delta MJD|, |delta wavelength at marker|, divided by the smaller band width.",
+   "image_reference": "contact_sheet.png, top row tiles 1-3 (labels and dates are in results.json frames.*)",
+   "supported_conclusion": "P/Q is the better pair for looking at change over time: 2.655 days apart with target wavelengths 0.00005 um apart (0.2% of the band width), on the same detector and grid.",
+   "remaining_controls": [
+    "Q is flagged PERSIST at the marker (2 of 19 screened pixels); P is clear.",
+    "Pointing differs by 5.36 arcsec at detector pixel (1709, 1364).",
+    "Different pipeline builds (l2b-v27-2026-247 vs -206).",
+    "Per-frame display stretch in the preset products (shared only in the staged case products)."
+   ],
+   "same_for_P_Q": "detector, release (spherex_dr1), field rotation (N2 C_pairs.csv)",
+   "n2_crosscheck": {
+    "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/C_pairs.csv",
+    "fact": "P-Q: delta lambda 0.0018 band widths (smaller band width), same detector, release, software and rotation; differ in pipeline build, stretch, quality screen, pointing (0.87 native px). P-R: 184.8 d, 6.22 band widths, field rotated about 180 deg."
+   },
+   "limit": "Matched wavelength makes P/Q the better pair, not a pair that differs only in time."
+  },
+  {
+   "id": "A2_jumping_dot",
+   "defect_fixed": [
+    2,
+    3
+   ],
+   "question": "What is the dot that jumps between P and Q while the stars stay still?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "features": [
+    {
+     "frame": "P",
+     "frame_key": "2025W45_2A_0278_1_D2",
+     "native_xy_0based": [
+      29,
+      40
+     ],
+     "detector_xy": [
+      1709,
+      1364
+     ],
+     "display_xy": [
+      114.9,
+      82.9
+     ],
+     "ra_deg": 133.764927,
+     "dec_deg": -7.224568,
+     "flags_value": 2097221,
+     "flag_bit_indices": [
+      0,
+      2,
+      6,
+      21
+     ],
+     "flag_bits_set": [
+      "NONFUNC",
+      "SOURCE",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_flags": [
+      "NONFUNC",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "peak_MJy_sr": 234.55,
+     "frame_median_MJy_sr": 0.286,
+     "native_3x3_MJy_sr": [
+      [
+       0.29,
+       0.34,
+       0.26
+      ],
+      [
+       0.3,
+       234.55,
+       0.29
+      ],
+      [
+       0.27,
+       0.26,
+       0.33
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 1,
+     "brightest_within_9arcsec_in_other_frames": {
+      "Q": 237.91,
+      "R": 0.3
+     }
+    },
+    {
+     "frame": "Q",
+     "frame_key": "2025W46_1A_0108_1_D2",
+     "native_xy_0based": [
+      30,
+      40
+     ],
+     "detector_xy": [
+      1709,
+      1364
+     ],
+     "display_xy": [
+      117.9,
+      80.6
+     ],
+     "ra_deg": 133.763743,
+     "dec_deg": -7.223653,
+     "flags_value": 69,
+     "flag_bit_indices": [
+      0,
+      2,
+      6
+     ],
+     "flag_bits_set": [
+      "NONFUNC",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_flags": [
+      "NONFUNC",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "peak_MJy_sr": 237.91,
+     "frame_median_MJy_sr": 0.278,
+     "native_3x3_MJy_sr": [
+      [
+       0.26,
+       0.27,
+       0.27
+      ],
+      [
+       0.31,
+       237.91,
+       0.24
+      ],
+      [
+       0.29,
+       0.26,
+       0.31
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 1,
+     "brightest_within_9arcsec_in_other_frames": {
+      "P": 234.55,
+      "R": 0.3
+     }
+    }
+   ],
+   "flag_meanings_from_FITS_header": {
+    "NONFUNC": "Permanently unusable",
+    "TRANSIENT": "Transient detected during SUR",
+    "SUR_ERROR": "Error in onboard processing"
+   },
+   "observations": {
+    "same_detector_pixel": true,
+    "detector_xy": [
+     1709,
+     1364
+    ],
+    "morphology": "one native pixel above 5x the frame median in its 3x3 neighbourhood in both frames",
+    "peak_over_brightest_neighbour": [
+     699.1,
+     759.2
+    ],
+    "pointing": {
+     "native_xy_0based": {
+      "P": [
+       29,
+       40
+      ],
+      "Q": [
+       30,
+       40
+      ]
+     },
+     "sky_separation_of_pixel_centre_P_to_Q_arcsec": 5.36,
+     "display_shift_px": 3.81,
+     "display_shift_arcsec": 5.36,
+     "native_scale_arcsec_per_px": 6.1491,
+     "field_star_peaks_sep_from_gaia_arcsec_max": {
+      "P": 3.3,
+      "Q": 3.6,
+      "R": 3.1
+     },
+     "field_star_peak_count": {
+      "P": 6,
+      "Q": 6,
+      "R": 6
+     },
+     "note": "The same detector pixel maps to sky positions this far apart because the two pointings differ. Field-star peaks (native local maxima, quantized to ~6.2 arcsec native pixels) stay within the listed distance of their fixed Gaia positions in each frame."
+    },
+    "R_at_same_sky_position_MJy_sr": 0.3
+   },
+   "calculation": "WCS (key A) detector coordinates of the native local maximum; WCS celestial position of the same pixel centre in P and Q; separation in arcsec.",
+   "image_reference": "contact_sheet.png, yellow boxes at display (114.9, 82.9) in P and (117.9, 80.6) in Q; bottom row shows the shipped flag overlay (red) covering it",
+   "supported_conclusion": "The jumping dot is one flagged native pixel (NONFUNC, TRANSIENT, SUR_ERROR) at the same detector pixel in P and Q. It shifts on the sky grid because the pointing differs. The flags and single-pixel morphology do not justify treating it as a moving or new source.",
+   "n2_crosscheck": {
+    "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_features.csv; origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_field_sources.csv",
+    "fact": "Detector pixel (1709,1364): sky jump 5.36 arcsec, 3.81 display px. Three strict-quality Gaia field stars agree between P and Q to median 0.40 arcsec (max 0.76); their detector shift (about -0.83, -0.28 native px) predicts 5.38 arcsec for a detector-fixed pixel. R's cutout does not contain detector pixel (1709,1364)."
+   },
+   "limit": "The flags say the pixel is unusable and that a transient was detected during onboard processing; they do not establish a physical cause (no cosmic-ray, hot-pixel or other mechanism is claimed). R's cutout does not contain this detector pixel, so R's background at that sky position is only a statement about the sky there, not evidence about the detector pixel."
+  },
+  {
+   "id": "A3_P_only_dot",
+   "defect_fixed": [
+    2,
+    3
+   ],
+   "question": "What is the dot present only in P?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "features": [
+    {
+     "frame": "P",
+     "frame_key": "2025W45_2A_0278_1_D2",
+     "native_xy_0based": [
+      9,
+      40
+     ],
+     "detector_xy": [
+      1689,
+      1364
+     ],
+     "display_xy": [
+      32.4,
+      111.8
+     ],
+     "ra_deg": 133.797395,
+     "dec_deg": -7.235856,
+     "flags_value": 268959749,
+     "flag_bit_indices": [
+      0,
+      2,
+      19,
+      28
+     ],
+     "flag_bits_set": [
+      "HALO",
+      "OUTLIER",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_flags": [
+      "HALO",
+      "OUTLIER",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "peak_MJy_sr": 12.55,
+     "frame_median_MJy_sr": 0.286,
+     "native_3x3_MJy_sr": [
+      [
+       0.3,
+       0.26,
+       0.28
+      ],
+      [
+       0.29,
+       12.55,
+       0.26
+      ],
+      [
+       0.29,
+       8.38,
+       0.27
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 2,
+     "brightest_within_9arcsec_in_other_frames": {
+      "Q": 0.29,
+      "R": 0.29
+     }
+    }
+   ],
+   "flag_meanings_from_FITS_header": {
+    "TRANSIENT": "Transient detected during SUR",
+    "OUTLIER": "Pixel flagged by Detect Outliers",
+    "HALO": "Pixel part of a transient halo",
+    "SUR_ERROR": "Error in onboard processing"
+   },
+   "observations": {
+    "native_pixels_in_3x3_above_5x_frame_median": 2,
+    "other_frames_at_same_sky_position_MJy_sr": {
+     "Q": 0.29,
+     "R": 0.29
+    }
+   },
+   "calculation": "native 3x3 values and FLAGS bits at the local maximum; brightest value within 1.5 native px of the same sky position in Q and R.",
+   "image_reference": "contact_sheet.png, yellow box at display (32.4, 111.8) in P",
+   "supported_conclusion": "The P-only dot covers two adjacent native pixels flagged TRANSIENT, OUTLIER, HALO and SUR_ERROR, and Q and R show background at that sky position. It gives no support for a new astronomical source.",
+   "n2_crosscheck": {
+    "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/B_features.csv",
+    "fact": "Detector pixel (1689,1364), two pixels 12.55 and 8.38 MJy/sr; same detector pixel in Q = 0.27 MJy/sr, unflagged; R's cutout does not contain that detector pixel."
+   },
+   "limit": "Physical cause not established. Absence from Q and R is a statement about these three frames only."
+  },
+  {
+   "id": "A4_other_unmatched_spots",
+   "defect_fixed": 2,
+   "question": "Are there other bright spots without a Gaia counterpart?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "features": [
+    {
+     "frame": "R",
+     "frame_key": "2026W20_1A_0214_1_D2",
+     "native_xy_0based": [
+      58,
+      39
+     ],
+     "detector_xy": [
+      741,
+      660
+     ],
+     "display_xy": [
+      22.4,
+      209.7
+     ],
+     "ra_deg": 133.801366,
+     "dec_deg": -7.274078,
+     "flags_value": 69,
+     "flag_bit_indices": [
+      0,
+      2,
+      6
+     ],
+     "flag_bits_set": [
+      "NONFUNC",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_flags": [
+      "NONFUNC",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "peak_MJy_sr": 2.88,
+     "frame_median_MJy_sr": 0.253,
+     "native_3x3_MJy_sr": [
+      [
+       0.26,
+       0.24,
+       null
+      ],
+      [
+       0.21,
+       2.88,
+       null
+      ],
+      [
+       0.23,
+       0.26,
+       null
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 1,
+     "brightest_within_9arcsec_in_other_frames": {
+      "P": 0.33,
+      "Q": 0.3
+     }
+    },
+    {
+     "frame": "Q",
+     "frame_key": "2025W46_1A_0108_1_D2",
+     "native_xy_0based": [
+      36,
+      50
+     ],
+     "detector_xy": [
+      1715,
+      1374
+     ],
+     "display_xy": [
+      128.7,
+      30.4
+     ],
+     "ra_deg": 133.759502,
+     "dec_deg": -7.204058,
+     "flags_value": 2097152,
+     "flag_bit_indices": [
+      21
+     ],
+     "flag_bits_set": [
+      "SOURCE"
+     ],
+     "adverse_flags": [],
+     "peak_MJy_sr": 2.54,
+     "frame_median_MJy_sr": 0.278,
+     "native_3x3_MJy_sr": [
+      [
+       0.33,
+       0.7,
+       0.33
+      ],
+      [
+       0.48,
+       2.54,
+       0.39
+      ],
+      [
+       0.34,
+       0.37,
+       0.29
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 1,
+     "brightest_within_9arcsec_in_other_frames": {
+      "P": 2.43,
+      "R": 2.23
+     }
+    },
+    {
+     "frame": "R",
+     "frame_key": "2026W20_1A_0214_1_D2",
+     "native_xy_0based": [
+      22,
+      8
+     ],
+     "detector_xy": [
+      705,
+      629
+     ],
+     "display_xy": [
+      128.3,
+      32.3
+     ],
+     "ra_deg": 133.759657,
+     "dec_deg": -7.204789,
+     "flags_value": 2097152,
+     "flag_bit_indices": [
+      21
+     ],
+     "flag_bits_set": [
+      "SOURCE"
+     ],
+     "adverse_flags": [],
+     "peak_MJy_sr": 2.23,
+     "frame_median_MJy_sr": 0.253,
+     "native_3x3_MJy_sr": [
+      [
+       0.38,
+       0.54,
+       0.25
+      ],
+      [
+       0.68,
+       2.23,
+       0.3
+      ],
+      [
+       0.35,
+       0.34,
+       0.24
+      ]
+     ],
+     "native_pixels_in_3x3_above_5x_frame_median": 1,
+     "brightest_within_9arcsec_in_other_frames": {
+      "P": 2.43,
+      "Q": 2.54
+     }
+    }
+   ],
+   "observations": {
+    "bright_spots_total": 24,
+    "matched_to_gaia_within_9arcsec": 18
+   },
+   "calculation": "census in results.json bright_spots (native local maxima >= the frame's display high).",
+   "image_reference": "contact_sheet.png yellow boxes",
+   "supported_conclusion": "One more flagged single pixel sits at R's edge (NONFUNC, TRANSIENT, SUR_ERROR). One unflagged, star-like spot near display (128, 31) is present in all three frames with similar values; it is a steady source not in the G < 17 Gaia cache and is not identified.",
+   "limit": "The census only covers spots drawn white by each frame's own stretch; fainter changes were not searched for."
+  },
+  {
+   "id": "A5_brightness",
+   "defect_fixed": 6,
+   "question": "Q looks brighter overall than P in the preset view (and C differs from A/B in the case view). Is that the sky?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "observations": {
+    "stretch_probe_preset_per_frame": {
+     "values_MJy_sr": [
+      0.5,
+      1.0,
+      2.0,
+      2.5
+     ],
+     "grey_level": {
+      "P": [
+       78,
+       156,
+       225,
+       246
+      ],
+      "Q": [
+       94,
+       174,
+       244,
+       255
+      ],
+      "R": [
+       99,
+       177,
+       245,
+       255
+      ]
+     },
+     "note": "Same sky value, different displayed grey: each shipped frame has its own stretch (display_scale.mode = per_frame). Rounding to 8-bit is approximate."
+    },
+    "stretch_probe_staged_case": {
+     "values_MJy_sr": [
+      0.5,
+      1.0,
+      2.0,
+      2.5
+     ],
+     "grey_level": {
+      "P": [
+       81,
+       159,
+       228,
+       249
+      ],
+      "Q": [
+       81,
+       159,
+       228,
+       249
+      ],
+      "R": [
+       99,
+       177,
+       245,
+       255
+      ]
+     },
+     "note": "Staged case products: P and Q on one shared stretch (ingest shared_groups_for_case), R on its own."
+    },
+    "frame_background": {
+     "frames": {
+      "P": {
+       "grid_median_MJy_sr": 0.2861,
+       "grid_p16_MJy_sr": 0.2634,
+       "grid_p84_MJy_sr": 0.3156,
+       "grey_of_median_shipped_per_frame": 16,
+       "grey_of_median_shared_P_Q": 19
+      },
+      "Q": {
+       "grid_median_MJy_sr": 0.2777,
+       "grid_p16_MJy_sr": 0.2554,
+       "grid_p84_MJy_sr": 0.3051,
+       "grey_of_median_shipped_per_frame": 20,
+       "grey_of_median_shared_P_Q": 16
+      },
+      "R": {
+       "grid_median_MJy_sr": 0.2532,
+       "grid_p16_MJy_sr": 0.2319,
+       "grid_p84_MJy_sr": 0.281,
+       "grey_of_median_shipped_per_frame": 19
+      }
+     },
+     "median_ratio_Q_over_P": 0.971,
+     "note": "Medians of the display-grid pixel values in the record unit (MJy / sr). Descriptive only: no background model, calibration check or uncertainty; not photometry."
+    }
+   },
+   "calculation": "grey = 255 asinh(10 t)/asinh(10), t = clip((v - low)/(high - low)); low/high from each record's display_scale (or the shared P+Q limits); background = median of display-grid values.",
+   "image_reference": "contact_sheet.png: top row tiles 1-2 (per-frame) vs tiles 4-5 (shared P+Q stretch)",
+   "supported_conclusion": "The same input radiance gets a different grey level under each frame's own stretch (1.0 MJy/sr: grey 156 in P, 174 in Q), so the per-frame stretch changes grey levels between frames. Under one shared stretch the same value gets the same grey (159 in both). Q's grid median is 0.971 of P's, yet the per-frame stretch draws Q lighter; under the shared stretch the order reverses.",
+   "n2_crosscheck": [
+    {
+     "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/A_stretch_probes.csv",
+     "fact": "1.0 MJy/sr -> grey 156 (P) / 174 (Q) per-frame, 159 / 159 shared; observed PNG grey ranges agree."
+    },
+    {
+     "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/results.json",
+     "fact": "Shipped per-frame PNG median grey Q 20 vs P 16; shared stretch P 19 vs Q 16; physical median Q/P = 0.971."
+    }
+   ],
+   "limit": "This proves a display effect exists; it does not prove every frame-wide brightness difference has only that cause, and the small physical difference in median (Q 0.971 of P) has no established cause. The medians are descriptive, uncalibrated and carry no uncertainty; no brightness change or constancy is measured. For R (C in the case), wavelength also differs."
+  },
+  {
+   "id": "A6_marker_and_nearby_dot",
+   "defect_fixed": [
+    5,
+    7
+   ],
+   "question": "Is the dot near the marker WISE 0855?",
+   "frames": [
+    "P",
+    "Q",
+    "R"
+   ],
+   "observations": {
+    "near_marker": {
+     "P": {
+      "marker_native_xy_0based": [
+       28.36,
+       29.34
+      ],
+      "local_max_native_xy_0based": [
+       30,
+       30
+      ],
+      "local_max_MJy_sr": 0.683,
+      "frame_median_MJy_sr": 0.286,
+      "frame_robust_scatter_MJy_sr": 0.025,
+      "peak_excess_over_robust_scatter": 15.9,
+      "first_moment_display_xy": [
+       132.5,
+       125.0
+      ],
+      "first_moment_sep_from_marker_arcsec": 8.7,
+      "first_moment_sep_from_gaia_neighbour_arcsec": 0.8,
+      "local_max_adverse_flags": [],
+      "screened_adverse_pixels": [],
+      "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+     },
+     "Q": {
+      "marker_native_xy_0based": [
+       28.54,
+       29.06
+      ],
+      "local_max_native_xy_0based": [
+       30,
+       29
+      ],
+      "local_max_MJy_sr": 1.06,
+      "frame_median_MJy_sr": 0.278,
+      "frame_robust_scatter_MJy_sr": 0.024,
+      "peak_excess_over_robust_scatter": 32.9,
+      "first_moment_display_xy": [
+       132.3,
+       125.8
+      ],
+      "first_moment_sep_from_marker_arcsec": 7.9,
+      "first_moment_sep_from_gaia_neighbour_arcsec": 0.7,
+      "local_max_adverse_flags": [],
+      "screened_adverse_pixels": [
+       {
+        "native_xy_0based": [
+         30,
+         30
+        ],
+        "flags_value": 2228224,
+        "adverse_flags": [
+         "PERSIST"
+        ],
+        "value_MJy_sr": 0.469
+       },
+       {
+        "native_xy_0based": [
+         30,
+         31
+        ],
+        "flags_value": 2228224,
+        "adverse_flags": [
+         "PERSIST"
+        ],
+        "value_MJy_sr": 0.272
+       }
+      ],
+      "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+     },
+     "R": {
+      "marker_native_xy_0based": [
+       28.58,
+       28.92
+      ],
+      "local_max_native_xy_0based": [
+       28,
+       29
+      ],
+      "local_max_MJy_sr": 0.775,
+      "frame_median_MJy_sr": 0.253,
+      "frame_robust_scatter_MJy_sr": 0.023,
+      "peak_excess_over_robust_scatter": 22.4,
+      "first_moment_display_xy": [
+       132.3,
+       125.8
+      ],
+      "first_moment_sep_from_marker_arcsec": 4.2,
+      "first_moment_sep_from_gaia_neighbour_arcsec": 0.7,
+      "local_max_adverse_flags": [],
+      "screened_adverse_pixels": [],
+      "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+     }
+    },
+    "gaia_neighbour_catalog": {
+     "P": {
+      "gaia_dr3": "5756956644387831296",
+      "G": 16.314917,
+      "display_xy": [
+       132.06,
+       125.36
+      ],
+      "sep_from_marker_arcsec": 7.9,
+      "adverse_native_flags_at_neighbour": []
+     },
+     "Q": {
+      "gaia_dr3": "5756956644387831296",
+      "G": 16.314917,
+      "display_xy": [
+       132.06,
+       125.36
+      ],
+      "sep_from_marker_arcsec": 7.85,
+      "adverse_native_flags_at_neighbour": []
+     },
+     "R": {
+      "gaia_dr3": "5756956644387831296",
+      "G": 16.314917,
+      "display_xy": [
+       132.07,
+       125.36
+      ],
+      "sep_from_marker_arcsec": 4.47,
+      "adverse_native_flags_at_neighbour": []
+     }
+    },
+    "marker_kind": "catalog_prediction"
+   },
+   "calculation": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median; separations from the marker and from the cached Gaia DR3 position at each epoch.",
+   "image_reference": "contact_sheet.png magenta circles (catalog prediction)",
+   "external_sources": [
+    {
+     "label": "science/reviews/targets/README.md row 8",
+     "url": "science/reviews/targets/README.md",
+     "fact": "Gaia DR3 5756956644387831296 (G 16.3, nearly static) lies 4.5-11.8 arcsec from the WISE 0855 marker in the 34 shipped frames."
+    },
+    {
+     "label": "Faherty et al. 2014, ApJL 793, L16 (arXiv:1408.4671)",
+     "url": "https://arxiv.org/abs/1408.4671",
+     "fact": "WISE 0855 J3 = 24.8 (+0.33/-0.53) mag at 2.6 sigma, equivalently J3 > 23.8 mag at 5 sigma (Vega)."
+    },
+    {
+     "label": "Schneider et al. 2016 (arXiv:1605.05618)",
+     "url": "https://arxiv.org/abs/1605.05618",
+     "fact": "HST F125W = 26.41 +/- 0.27 mag (Vega), a marginal (S/N ~4) detection."
+    },
+    {
+     "label": "Dore et al. 2014, SPHEREx cosmology design paper (arXiv:1412.4872)",
+     "url": "https://arxiv.org/abs/1412.4872",
+     "fact": "All-sky point-source requirement of about 18.5 AB mag (5 sigma) per spectral element after the full survey; a single exposure is shallower."
+    }
+   ],
+   "supported_conclusion": "The marker is a catalog prediction, not an image detection. The dot nearest it lies 0.7-0.8 arcsec from the catalogued Gaia DR3 star 5756956644387831296 and 4.2-8.7 arcsec from the marker: a positional association with that star, so it is not evidence of WISE 0855.",
+   "limit": "A positional association is not an identification; the first moment is crude (3x3, undersampled PSF). That WISE 0855 is far below SPHEREx sensitivity at 1.26-1.44 um is a sourced expectation (published J-band brightness vs SPHEREx design depth), not a measured non-detection or an upper limit. In Q two PERSIST-flagged pixels sit inside the screen circle next to this dot."
+  },
+  {
+   "id": "A7_motion_test",
+   "defect_fixed": 4,
+   "question": "Can P and R show whether WISE 0855 moved?",
+   "frames": [
+    "P",
+    "R"
+   ],
+   "observations": {
+    "P-R": {
+     "days_apart": 184.784,
+     "delta_wavelength_um": 0.18706,
+     "delta_wavelength_over_bandwidth": 6.225,
+     "same_detector": true,
+     "stretch_high_ratio": 0.811,
+     "stretch_low_ratio": 0.87,
+     "predicted_marker_shift_display_px": 2.93,
+     "predicted_marker_shift_arcsec": 4.12,
+     "same_grid": true
+    },
+    "near_marker_R": {
+     "marker_native_xy_0based": [
+      28.58,
+      28.92
+     ],
+     "local_max_native_xy_0based": [
+      28,
+      29
+     ],
+     "local_max_MJy_sr": 0.775,
+     "frame_median_MJy_sr": 0.253,
+     "frame_robust_scatter_MJy_sr": 0.023,
+     "peak_excess_over_robust_scatter": 22.4,
+     "first_moment_display_xy": [
+      132.3,
+      125.8
+     ],
+     "first_moment_sep_from_marker_arcsec": 4.2,
+     "first_moment_sep_from_gaia_neighbour_arcsec": 0.7,
+     "local_max_adverse_flags": [],
+     "screened_adverse_pixels": [],
+     "method": "brightest native local maximum within 3 native px of the marker; 3x3 first moment above the frame median"
+    }
+   },
+   "calculation": "pairs.P-R; predicted shift from the catalog markers only.",
+   "n2_crosscheck": {
+    "file": "origin/claude/n2-controls@45ee56b science/reviews/overnight-controls/results/C_pairs.csv",
+    "fact": "P-Q: delta lambda 0.0018 band widths (smaller band width), same detector, release, software and rotation; differ in pipeline build, stretch, quality screen, pointing (0.87 native px). P-R: 184.8 d, 6.22 band widths, field rotated about 180 deg."
+   },
+   "image_reference": "contact_sheet.png tiles 1 and 3",
+   "supported_conclusion": "P/R does not establish WISE 0855 motion here: the target is not securely detected or identified in these frames, and no astrometric fit was made. The pair also mixes 185 days with a 0.18706 um wavelength change (6.225 band widths).",
+   "limit": "No universal rule is implied: positions can be compared across wavelengths, and shifts below one native pixel can be measured with a detected source, adequate signal, PSF knowledge and a proper fit. Wavelength, PSF, sensitivity, sampling and quality all have to be considered; here the first requirement (a detected, identified target) already fails."
+  }
+ ]
+}

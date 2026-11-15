@@ -1,0 +1,91 @@
+{
+ "case_id": "wise_0855_quality_trap",
+ "shared_groups": [
+  [
+   "2025W45_2A_0278_1_D2",
+   "2025W46_1A_0108_1_D2"
+  ],
+  [
+   "2026W20_1A_0214_1_D2"
+  ]
+ ],
+ "comparison": [
+  {
+   "ref": "A",
+   "frame_key": "2025W45_2A_0278_1_D2",
+   "expected_wavelength_um": 1.2572,
+   "observed_wavelength_um": 1.257192202600437,
+   "wavelength_ok": true,
+   "expected_bandwidth_um": 0.0301,
+   "observed_bandwidth_um": 0.030050855013517876,
+   "expected_observed_at_utc": "2025-11-07T18:48:11.654",
+   "observed_at_utc": "2025-11-07T18:48:11.654Z",
+   "date_ok": true,
+   "expected_quality": "clear",
+   "observed_quality": "clear",
+   "observed_flag_names": [],
+   "adverse/screened": "0/20",
+   "quality_ok": true,
+   "sha256_ok": true,
+   "source_url_ok": true,
+   "collection_ok": true,
+   "marker_xy": [
+    127.143,
+    128.071
+   ],
+   "all_ok": true
+  },
+  {
+   "ref": "B",
+   "frame_key": "2025W46_1A_0108_1_D2",
+   "expected_wavelength_um": 1.2572,
+   "observed_wavelength_um": 1.2572468098336553,
+   "wavelength_ok": true,
+   "expected_bandwidth_um": 0.0301,
+   "observed_bandwidth_um": 0.030053123908964603,
+   "expected_observed_at_utc": "2025-11-10T10:31:39.500",
+   "observed_at_utc": "2025-11-10T10:31:39.500Z",
+   "date_ok": true,
+   "expected_quality": "flagged",
+   "observed_quality": "flagged",
+   "observed_flag_names": [
+    "PERSIST"
+   ],
+   "adverse/screened": "2/19",
+   "quality_ok": true,
+   "sha256_ok": true,
+   "source_url_ok": true,
+   "collection_ok": true,
+   "marker_xy": [
+    127.185,
+    128.068
+   ],
+   "all_ok": true
+  },
+  {
+   "ref": "C",
+   "frame_key": "2026W20_1A_0214_1_D2",
+   "expected_wavelength_um": 1.4443,
+   "observed_wavelength_um": 1.4442523414907646,
+   "wavelength_ok": true,
+   "expected_bandwidth_um": 0.0353,
+   "observed_bandwidth_um": 0.035338719018344886,
+   "expected_observed_at_utc": "2026-05-11T13:37:42.970",
+   "observed_at_utc": "2026-05-11T13:37:42.970Z",
+   "date_ok": true,
+   "expected_quality": "clear",
+   "observed_quality": "clear",
+   "observed_flag_names": [],
+   "adverse/screened": "0/19",
+   "quality_ok": true,
+   "sha256_ok": true,
+   "source_url_ok": true,
+   "collection_ok": true,
+   "marker_xy": [
+    130.065,
+    127.829
+   ],
+   "all_ok": true
+  }
+ ]
+}

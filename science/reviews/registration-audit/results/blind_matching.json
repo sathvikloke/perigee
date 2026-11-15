@@ -1,0 +1,153 @@
+{
+ "method": "Blind detections (local maxima of the despiked image, finite 7x7 window, peak SNR >= 15 MAD; no catalog, no WCS) more than 40\" from the target, matched to every Gaia star projected through the header WCS. Chance rate: the same detections matched to the catalog rotated by 90/180/270 deg about the cutout centre (same density, no true counterparts).",
+ "totals": {
+  "n_detections": 1812,
+  "matched_r0.5": 940,
+  "matched_r1.0": 962,
+  "matched_r1.5": 966,
+  "matched_r2.0": 967,
+  "matched_r3.0": 994,
+  "matched_r5.0": 1043,
+  "chance_r0.5": 4.333333,
+  "chance_r1.0": 15.0,
+  "chance_r1.5": 45.0,
+  "chance_r2.0": 79.333333,
+  "chance_r3.0": 181.0,
+  "chance_r5.0": 422.333333,
+  "ambiguous_r0.5": 1,
+  "ambiguous_r1.0": 77,
+  "ambiguous_r1.5": 108,
+  "ambiguous_r2.0": 108,
+  "ambiguous_r3.0": 114,
+  "ambiguous_r5.0": 367
+ },
+ "matched_fraction_by_radius": {
+  "0.5": 0.518764,
+  "1.0": 0.530905,
+  "1.5": 0.533113,
+  "2.0": 0.533664,
+  "3.0": 0.548565,
+  "5.0": 0.575607
+ },
+ "chance_fraction_by_radius": {
+  "0.5": 0.002391,
+  "1.0": 0.008278,
+  "1.5": 0.024834,
+  "2.0": 0.043782,
+  "3.0": 0.09989,
+  "5.0": 0.233076
+ },
+ "ambiguous_fraction_by_radius": {
+  "0.5": 0.000552,
+  "1.0": 0.042494,
+  "1.5": 0.059603,
+  "2.0": 0.059603,
+  "3.0": 0.062914,
+  "5.0": 0.202539
+ },
+ "nearest_gaia_distance_px": {
+  "n": 1812,
+  "min": 0.00297,
+  "max": 26.692362,
+  "mean": 4.847076,
+  "p25": 0.102351,
+  "p50": 0.368459,
+  "p75": 10.076453,
+  "p90": 13.409782
+ },
+ "nearest_gaia_distance_px_chance": {
+  "n": 5436,
+  "min": 0.112152,
+  "max": 31.862557,
+  "mean": 8.905584,
+  "p25": 5.2287,
+  "p50": 8.294931,
+  "p75": 11.943079,
+  "p90": 15.082061
+ },
+ "interpretation": "Unmatched detections are expected: the cached catalog stops at G=15 (Barnard, RW Aur) or G=17, so red or faint near-IR sources have no entry. Widening the radius adds matches at roughly the chance rate shown, i.e. they are not secure identifications.",
+ "validator_on_real_frames": {
+  "verdict_counts": {
+   "PASS": 128,
+   "UNKNOWN": 55
+  },
+  "pass_best_offset_abs_px": {
+   "n": 128,
+   "min": 0.005935,
+   "max": 0.209051,
+   "mean": 0.054095,
+   "p50": 0.049679,
+   "p90": 0.091824,
+   "p95": 0.106405
+  },
+  "pass_offset_significance": {
+   "n": 128,
+   "min": 0.104689,
+   "max": 2.970965,
+   "mean": 0.860487,
+   "p50": 0.806255,
+   "p90": 1.423542,
+   "p95": 1.595863
+  },
+  "pass_abs_rotation_deg": {
+   "n": 128,
+   "min": 0.001621,
+   "max": 0.695751,
+   "mean": 0.118849,
+   "p50": 0.08975,
+   "p90": 0.224001,
+   "p95": 0.355986
+  },
+  "pass_rotation_z": {
+   "n": 128,
+   "min": 0.005096,
+   "max": 2.962189,
+   "mean": 0.811231,
+   "p50": 0.636573,
+   "p90": 1.720309,
+   "p95": 2.052089
+  },
+  "thresholds": {
+   "snr_min": 15.0,
+   "target_excl_arcsec": 40.0,
+   "vote_radius_px": 8.0,
+   "tol_px": 1.0,
+   "min_support": 3,
+   "max_offset_px": 0.6,
+   "offset_sigma": 4.0,
+   "max_rot_deg": 0.5,
+   "rot_sigma": 3.0,
+   "min_rot_pairs": 5,
+   "rot_grid_deg": [
+    -5.0,
+    -4.5,
+    -4.0,
+    -3.5,
+    -3.0,
+    -2.5,
+    -2.0,
+    -1.5,
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5,
+    5.0
+   ],
+   "scan_min_rot_deg": 1.0,
+   "scan_min_gain": 2
+  },
+  "legacy_vs_validator": {
+   "legacy_checked__validator_PASS": 128,
+   "legacy_checked__validator_UNKNOWN": 28,
+   "legacy_none__validator_UNKNOWN": 27
+  }
+ }
+}

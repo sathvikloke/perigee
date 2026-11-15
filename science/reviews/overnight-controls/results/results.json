@@ -1,0 +1,3273 @@
+{
+ "generator": "science/reviews/overnight-controls/run_controls.py",
+ "status": "Deliberately chosen teaching counterexamples, not a representative survey. No photometry, astrometry, detection test, learner study or AI benchmark. Deterministic mappings use tolerances, not statistics.",
+ "processing_version": "perigee-processor-a/0.1.2",
+ "integrity": {
+  "rule": "record provenance.sha256 == manifest.json sha256 == sha256(raw FITS bytes)",
+  "n": 12,
+  "n_all_equal": 12,
+  "frames": [
+   {
+    "record": "wise_0855/frames/2025W45_2A_0278_1_D2",
+    "all_equal": true
+   },
+   {
+    "record": "wise_0855/frames/2025W46_1A_0108_1_D2",
+    "all_equal": true
+   },
+   {
+    "record": "wise_0855/frames/2026W20_1A_0214_1_D2",
+    "all_equal": true
+   },
+   {
+    "record": "epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D3",
+    "all_equal": true
+   },
+   {
+    "record": "epsilon_indi_b/case-fair_comparison/2026W39_2A_0597_4_D3",
+    "all_equal": true
+   },
+   {
+    "record": "epsilon_indi_b/case-fair_comparison/2026W18_1A_0516_1_D6",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/case-moving_neighbor/2025W35_1A_0008_1_D3",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/case-moving_neighbor/2026W12_1A_0610_2_D3",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/case-moving_neighbor/2026W34_1A_0431_1_D3",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/frames/2025W35_1A_0008_1_D3",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/frames/2026W12_1A_0610_2_D3",
+    "all_equal": true
+   },
+   {
+    "record": "barnards_star/frames/2026W34_1A_0431_1_D3",
+    "all_equal": true
+   }
+  ]
+ },
+ "controls": {
+  "A": {
+   "question": "Does one physical value (MJy/sr) receive different grey levels under the shipped per-frame stretches of P and Q, and the same grey level under one shared stretch?",
+   "frames": {
+    "P": "2025W45_2A_0278_1_D2",
+    "Q": "2025W46_1A_0108_1_D2"
+   },
+   "reproduction_of_shipped_per_frame": {
+    "P": {
+     "png_bytes_equal_shipped": true,
+     "display_scale_equal_shipped": true
+    },
+    "Q": {
+     "png_bytes_equal_shipped": true,
+     "display_scale_equal_shipped": true
+    }
+   },
+   "shared_stretch": {
+    "low": 0.23187221586704254,
+    "high": 2.671905517578125,
+    "unit": "MJy / sr",
+    "method": "asinh",
+    "asinh_softening": 10.0,
+    "rule": "percentiles 1-99.5 of the pooled finite grid pixels of P and Q",
+    "basis": "N2 control A: shared asinh stretch, percentiles 1-99.5 of the pooled finite grid pixels of P and Q (same rule tools/ingest uses for authored cases). Display only; not photometry."
+   },
+   "finite_value_treatment": "A display pixel is finite when its native IMAGE value is finite and VARIANCE is finite and > 0 (processor A rule). Non-finite pixels are transparent (alpha 0) and excluded from the percentile stretch and from every statistic here.",
+   "mapping_checks": {
+    "P_per_frame": {
+     "png": "A_P_per_frame.png",
+     "png_sha256": "9885db2805b381045b459fe0caf851ba263ab33644f2e6d6199e584118e9e08d",
+     "display_scale": {
+      "mode": "per_frame",
+      "method": "asinh",
+      "asinh_softening": 10.0,
+      "low": 0.2377636581659317,
+      "high": 2.7494914531707764,
+      "unit": "MJy / sr"
+     },
+     "finite_display_pixels": 58147,
+     "alpha_matches_finite_mask": true,
+     "max_abs_grey_minus_formula": 0,
+     "pixels_differing_from_formula": 0,
+     "median_grey": 16.0,
+     "fraction_white_255": 0.0053,
+     "fraction_black_0": 0.0131
+    },
+    "Q_per_frame": {
+     "png": "A_Q_per_frame.png",
+     "png_sha256": "30264720b17426ef1e2d42f0ff68aba5cce789cfde640d65315bfd20d27b5a91",
+     "display_scale": {
+      "mode": "per_frame",
+      "method": "asinh",
+      "asinh_softening": 10.0,
+      "low": 0.2291477769613266,
+      "high": 2.249807357788086,
+      "unit": "MJy / sr"
+     },
+     "finite_display_pixels": 58156,
+     "alpha_matches_finite_mask": true,
+     "max_abs_grey_minus_formula": 0,
+     "pixels_differing_from_formula": 0,
+     "median_grey": 20.0,
+     "fraction_white_255": 0.0052,
+     "fraction_black_0": 0.0111
+    },
+    "P_shared": {
+     "png": "A_P_shared.png",
+     "png_sha256": "54655c188d831f464ee3064b1488310635f415271de1934bd6fc13800e45dc42",
+     "display_scale": {
+      "mode": "shared",
+      "method": "asinh",
+      "asinh_softening": 10.0,
+      "low": 0.23187221586704254,
+      "high": 2.671905517578125,
+      "unit": "MJy / sr"
+     },
+     "finite_display_pixels": 58147,
+     "alpha_matches_finite_mask": true,
+     "max_abs_grey_minus_formula": 0,
+     "pixels_differing_from_formula": 0,
+     "median_grey": 19.0,
+     "fraction_white_255": 0.006,
+     "fraction_black_0": 0.0061
+    },
+    "Q_shared": {
+     "png": "A_Q_shared.png",
+     "png_sha256": "02d573964cd60e235aad66e48d17af55d0645eb4d6ff804b8d5c095b67560e00",
+     "display_scale": {
+      "mode": "shared",
+      "method": "asinh",
+      "asinh_softening": 10.0,
+      "low": 0.23187221586704254,
+      "high": 2.671905517578125,
+      "unit": "MJy / sr"
+     },
+     "finite_display_pixels": 58156,
+     "alpha_matches_finite_mask": true,
+     "max_abs_grey_minus_formula": 0,
+     "pixels_differing_from_formula": 0,
+     "median_grey": 16.0,
+     "fraction_white_255": 0.0045,
+     "fraction_black_0": 0.0172
+    }
+   },
+   "tolerance": "PNG grey must equal round(255*asinh(10*t)/asinh(10)), t = clip((v-low)/(high-low), 0, 1), within 0 grey levels (8-bit rounding is part of the formula).",
+   "probes": [
+    {
+     "value_MJy_sr": 0.25,
+     "grey_P_per_frame": 4,
+     "grey_Q_per_frame": 9,
+     "grey_P_shared": 6,
+     "grey_Q_shared": 6,
+     "per_frame_Q_minus_P": 5,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 13752,
+     "observed_grey_P_per_frame": "0-11",
+     "formula_grey_range_over_bin_P_per_frame": "0-11",
+     "observed_grey_P_shared": "0-13",
+     "formula_grey_range_over_bin_P_shared": "0-13",
+     "n_real_pixels_Q": 20880,
+     "observed_grey_Q_per_frame": "0-17",
+     "formula_grey_range_over_bin_Q_per_frame": "0-17",
+     "observed_grey_Q_shared": "0-13",
+     "formula_grey_range_over_bin_Q_shared": "0-13"
+    },
+    {
+     "value_MJy_sr": 0.5,
+     "grey_P_per_frame": 78,
+     "grey_Q_per_frame": 94,
+     "grey_P_shared": 81,
+     "grey_Q_shared": 81,
+     "per_frame_Q_minus_P": 16,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 113,
+     "observed_grey_P_per_frame": "73-79",
+     "formula_grey_range_over_bin_P_per_frame": "73-82",
+     "observed_grey_P_shared": "76-82",
+     "formula_grey_range_over_bin_P_shared": "76-85",
+     "n_real_pixels_Q": 169,
+     "observed_grey_Q_per_frame": "89-96",
+     "formula_grey_range_over_bin_Q_per_frame": "89-99",
+     "observed_grey_Q_shared": "76-83",
+     "formula_grey_range_over_bin_Q_shared": "76-85"
+    },
+    {
+     "value_MJy_sr": 1.0,
+     "grey_P_per_frame": 156,
+     "grey_Q_per_frame": 174,
+     "grey_P_shared": 159,
+     "grey_Q_shared": 159,
+     "per_frame_Q_minus_P": 18,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 76,
+     "observed_grey_P_per_frame": "154-157",
+     "formula_grey_range_over_bin_P_per_frame": "153-158",
+     "observed_grey_P_shared": "157-160",
+     "formula_grey_range_over_bin_P_shared": "156-161",
+     "n_real_pixels_Q": 19,
+     "observed_grey_Q_per_frame": "175-175",
+     "formula_grey_range_over_bin_Q_per_frame": "172-176",
+     "observed_grey_Q_shared": "159-159",
+     "formula_grey_range_over_bin_Q_shared": "156-161"
+    },
+    {
+     "value_MJy_sr": 1.5,
+     "grey_P_per_frame": 197,
+     "grey_Q_per_frame": 216,
+     "grey_P_shared": 200,
+     "grey_Q_shared": 200,
+     "per_frame_Q_minus_P": 19,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 0,
+     "observed_grey_P_per_frame": "",
+     "formula_grey_range_over_bin_P_per_frame": "196-198",
+     "observed_grey_P_shared": "",
+     "formula_grey_range_over_bin_P_shared": "199-201",
+     "n_real_pixels_Q": 0,
+     "observed_grey_Q_per_frame": "",
+     "formula_grey_range_over_bin_Q_per_frame": "215-217",
+     "observed_grey_Q_shared": "",
+     "formula_grey_range_over_bin_Q_shared": "199-201"
+    },
+    {
+     "value_MJy_sr": 2.0,
+     "grey_P_per_frame": 225,
+     "grey_Q_per_frame": 244,
+     "grey_P_shared": 228,
+     "grey_Q_shared": 228,
+     "per_frame_Q_minus_P": 19,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 0,
+     "observed_grey_P_per_frame": "",
+     "formula_grey_range_over_bin_P_per_frame": "224-226",
+     "observed_grey_P_shared": "",
+     "formula_grey_range_over_bin_P_shared": "227-229",
+     "n_real_pixels_Q": 18,
+     "observed_grey_Q_per_frame": "244-244",
+     "formula_grey_range_over_bin_Q_per_frame": "243-245",
+     "observed_grey_Q_shared": "228-228",
+     "formula_grey_range_over_bin_Q_shared": "227-229"
+    },
+    {
+     "value_MJy_sr": 2.5,
+     "grey_P_per_frame": 246,
+     "grey_Q_per_frame": 255,
+     "grey_P_shared": 249,
+     "grey_Q_shared": 249,
+     "per_frame_Q_minus_P": 9,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 17,
+     "observed_grey_P_per_frame": "247-247",
+     "formula_grey_range_over_bin_P_per_frame": "245-247",
+     "observed_grey_P_shared": "249-249",
+     "formula_grey_range_over_bin_P_shared": "248-250",
+     "n_real_pixels_Q": 0,
+     "observed_grey_Q_per_frame": "",
+     "formula_grey_range_over_bin_Q_per_frame": "255-255",
+     "observed_grey_Q_shared": "",
+     "formula_grey_range_over_bin_Q_shared": "248-250"
+    },
+    {
+     "value_MJy_sr": 3.0,
+     "grey_P_per_frame": 255,
+     "grey_Q_per_frame": 255,
+     "grey_P_shared": 255,
+     "grey_Q_shared": 255,
+     "per_frame_Q_minus_P": 0,
+     "shared_Q_minus_P": 0,
+     "n_real_pixels_P": 0,
+     "observed_grey_P_per_frame": "",
+     "formula_grey_range_over_bin_P_per_frame": "255-255",
+     "observed_grey_P_shared": "",
+     "formula_grey_range_over_bin_P_shared": "255-255",
+     "n_real_pixels_Q": 0,
+     "observed_grey_Q_per_frame": "",
+     "formula_grey_range_over_bin_Q_per_frame": "255-255",
+     "observed_grey_Q_shared": "",
+     "formula_grey_range_over_bin_Q_shared": "255-255"
+    }
+   ],
+   "probe_bin_half_width_MJy_sr": 0.02,
+   "sweep_0_to_5_MJy_sr_step_0.001": {
+    "per_frame_max_abs_grey_diff_P_vs_Q": 19,
+    "per_frame_value_at_max_diff_MJy_sr": 0.706,
+    "per_frame_values_with_any_diff_fraction": 0.5007,
+    "shared_max_abs_grey_diff_P_vs_Q": 0
+   },
+   "physical_frame_statistics": {
+    "P": {
+     "median": 0.2861,
+     "p16": 0.2634,
+     "p84": 0.3156,
+     "unit": "MJy / sr",
+     "n": 58147
+    },
+    "Q": {
+     "median": 0.2777,
+     "p16": 0.2554,
+     "p84": 0.3051,
+     "unit": "MJy / sr",
+     "n": 58156
+    }
+   },
+   "physical_median_ratio_Q_over_P": 0.9706
+  },
+  "B": {
+   "question": "Is the dot that 'jumps' between P and Q fixed on the sky (a source) or fixed on the detector? Where is the P-only dot on the detector and sky, and is anything there in Q or R?",
+   "cutout_origin_convention": {
+    "native": "0-based FITS pixel centres of the IMAGE extension of each retained cutout (x = column, y = row; row 0 is the first FITS row). FITS 1-based = native + 1.",
+    "detector": "WCS key A of the IMAGE header, WCSNAMEA '0-based active pixel coordinates' (LINEAR, CRVAL=0). detector = native + 1 - CRPIXnA (CRPIXnA is 1-based, so the offset differs per cutout).",
+    "display": "processor A grid: origin at the PNG top-left corner, x right, y down, pixel centres at i+0.5; north up, east left; 256 px over 6 arcmin (1.40625 arcsec per display px).",
+    "sky": "ICRS RA/Dec from the IMAGE TAN-SIP WCS at the native pixel centre."
+   },
+   "frames": {
+    "P": {
+     "frame_key": "2025W45_2A_0278_1_D2",
+     "CRPIX1A": -1679.0,
+     "CRPIX2A": -1323.0,
+     "native_shape_yx": [
+      59,
+      59
+     ],
+     "detector_range_covered": {
+      "x": [
+       1680,
+       1738
+      ],
+      "y": [
+       1324,
+       1382
+      ]
+     },
+     "display_high_MJy_sr": 2.7495
+    },
+    "Q": {
+     "frame_key": "2025W46_1A_0108_1_D2",
+     "CRPIX1A": -1678.0,
+     "CRPIX2A": -1323.0,
+     "native_shape_yx": [
+      59,
+      59
+     ],
+     "detector_range_covered": {
+      "x": [
+       1679,
+       1737
+      ],
+      "y": [
+       1324,
+       1382
+      ]
+     },
+     "display_high_MJy_sr": 2.2498
+    },
+    "R": {
+     "frame_key": "2026W20_1A_0214_1_D2",
+     "CRPIX1A": -682.0,
+     "CRPIX2A": -620.0,
+     "native_shape_yx": [
+      59,
+      59
+     ],
+     "detector_range_covered": {
+      "x": [
+       683,
+       741
+      ],
+      "y": [
+       621,
+       679
+      ]
+     },
+     "display_high_MJy_sr": 2.2294
+    }
+   },
+   "spot_census": {
+    "rule": "native local maximum >= the frame's own display_scale.high (drawn white), inside the grid; nearest star from the cached Gaia DR3 G<17 cone (science/reviews/acceptance/gaia/wise_0855.csv)",
+    "spots": {
+     "P": [
+      {
+       "native_xy": [
+        3,
+        9
+       ],
+       "detector_xy": [
+        1683,
+        1333
+       ],
+       "display_xy": [
+        51.0,
+        249.1
+       ],
+       "value_MJy_sr": 4.58,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 3.3,
+       "nearest_gaia_id": "5756955166919081600"
+      },
+      {
+       "native_xy": [
+        30,
+        10
+       ],
+       "detector_xy": [
+        1710,
+        1334
+       ],
+       "display_xy": [
+        160.9,
+        205.9
+       ],
+       "value_MJy_sr": 2.75,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.7,
+       "nearest_gaia_id": "5756956163351495168"
+      },
+      {
+       "native_xy": [
+        27,
+        13
+       ],
+       "detector_xy": [
+        1707,
+        1337
+       ],
+       "display_xy": [
+        144.4,
+        197.8
+       ],
+       "value_MJy_sr": 5.11,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 3.3,
+       "nearest_gaia_id": "5756956163351495040"
+      },
+      {
+       "native_xy": [
+        5,
+        28
+       ],
+       "detector_xy": [
+        1685,
+        1352
+       ],
+       "display_xy": [
+        32.7,
+        167.4
+       ],
+       "value_MJy_sr": 13.36,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 1.6,
+       "nearest_gaia_id": "5756955785394371328"
+      },
+      {
+       "native_xy": [
+        50,
+        33
+       ],
+       "detector_xy": [
+        1730,
+        1357
+       ],
+       "display_xy": [
+        211.2,
+        81.6
+       ],
+       "value_MJy_sr": 13.78,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.4,
+       "nearest_gaia_id": "5756956541308616832"
+      },
+      {
+       "native_xy": [
+        56,
+        36
+       ],
+       "detector_xy": [
+        1736,
+        1360
+       ],
+       "display_xy": [
+        231.8,
+        60.4
+       ],
+       "value_MJy_sr": 7.81,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.2,
+       "nearest_gaia_id": "5756959491950135168"
+      },
+      {
+       "native_xy": [
+        9,
+        40
+       ],
+       "detector_xy": [
+        1689,
+        1364
+       ],
+       "display_xy": [
+        32.4,
+        111.8
+       ],
+       "value_MJy_sr": 12.55,
+       "adverse_flags": [
+        "HALO",
+        "OUTLIER",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 51.5,
+       "nearest_gaia_id": "5756956708811536128"
+      },
+      {
+       "native_xy": [
+        29,
+        40
+       ],
+       "detector_xy": [
+        1709,
+        1364
+       ],
+       "display_xy": [
+        114.9,
+        82.9
+       ],
+       "value_MJy_sr": 234.55,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 40.9,
+       "nearest_gaia_id": "5756956644387830912"
+      }
+     ],
+     "Q": [
+      {
+       "native_xy": [
+        4,
+        8
+       ],
+       "detector_xy": [
+        1683,
+        1332
+       ],
+       "display_xy": [
+        55.4,
+        250.9
+       ],
+       "value_MJy_sr": 4.82,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 3.4,
+       "nearest_gaia_id": "5756955166919081600"
+      },
+      {
+       "native_xy": [
+        30,
+        10
+       ],
+       "detector_xy": [
+        1709,
+        1334
+       ],
+       "display_xy": [
+        159.8,
+        205.0
+       ],
+       "value_MJy_sr": 4.54,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 0.8,
+       "nearest_gaia_id": "5756956163351495168"
+      },
+      {
+       "native_xy": [
+        27,
+        13
+       ],
+       "detector_xy": [
+        1706,
+        1337
+       ],
+       "display_xy": [
+        143.2,
+        196.9
+       ],
+       "value_MJy_sr": 8.71,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 1.4,
+       "nearest_gaia_id": "5756956163351495040"
+      },
+      {
+       "native_xy": [
+        5,
+        28
+       ],
+       "detector_xy": [
+        1684,
+        1352
+       ],
+       "display_xy": [
+        31.6,
+        166.5
+       ],
+       "value_MJy_sr": 7.05,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 3.6,
+       "nearest_gaia_id": "5756955785394371328"
+      },
+      {
+       "native_xy": [
+        50,
+        33
+       ],
+       "detector_xy": [
+        1729,
+        1357
+       ],
+       "display_xy": [
+        210.1,
+        80.7
+       ],
+       "value_MJy_sr": 16.97,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 0.5,
+       "nearest_gaia_id": "5756956541308616832"
+      },
+      {
+       "native_xy": [
+        56,
+        36
+       ],
+       "detector_xy": [
+        1735,
+        1360
+       ],
+       "display_xy": [
+        230.7,
+        59.5
+       ],
+       "value_MJy_sr": 9.25,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 1.5,
+       "nearest_gaia_id": "5756959491950135168"
+      },
+      {
+       "native_xy": [
+        30,
+        40
+       ],
+       "detector_xy": [
+        1709,
+        1364
+       ],
+       "display_xy": [
+        117.9,
+        80.6
+       ],
+       "value_MJy_sr": 237.91,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 39.5,
+       "nearest_gaia_id": "5756956644387830912"
+      },
+      {
+       "native_xy": [
+        36,
+        50
+       ],
+       "detector_xy": [
+        1715,
+        1374
+       ],
+       "display_xy": [
+        128.7,
+        30.4
+       ],
+       "value_MJy_sr": 2.54,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 97.5,
+       "nearest_gaia_id": "5756956644387830912"
+      }
+     ],
+     "R": [
+      {
+       "native_xy": [
+        22,
+        8
+       ],
+       "detector_xy": [
+        705,
+        629
+       ],
+       "display_xy": [
+        128.3,
+        32.3
+       ],
+       "value_MJy_sr": 2.23,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 94.9,
+       "nearest_gaia_id": "5756956644387830912"
+      },
+      {
+       "native_xy": [
+        1,
+        21
+       ],
+       "detector_xy": [
+        684,
+        642
+       ],
+       "display_xy": [
+        233.1,
+        57.5
+       ],
+       "value_MJy_sr": 5.89,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 3.1,
+       "nearest_gaia_id": "5756959491950135168"
+      },
+      {
+       "native_xy": [
+        8,
+        24
+       ],
+       "detector_xy": [
+        691,
+        645
+       ],
+       "display_xy": [
+        208.3,
+        79.4
+       ],
+       "value_MJy_sr": 10.44,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.7,
+       "nearest_gaia_id": "5756956541308616832"
+      },
+      {
+       "native_xy": [
+        53,
+        31
+       ],
+       "detector_xy": [
+        736,
+        652
+       ],
+       "display_xy": [
+        32.0,
+        169.7
+       ],
+       "value_MJy_sr": 8.2,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.9,
+       "nearest_gaia_id": "5756955785394371328"
+      },
+      {
+       "native_xy": [
+        58,
+        39
+       ],
+       "detector_xy": [
+        741,
+        660
+       ],
+       "display_xy": [
+        22.4,
+        209.7
+       ],
+       "value_MJy_sr": 2.88,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 58.4,
+       "nearest_gaia_id": "5756955579235940608"
+      },
+      {
+       "native_xy": [
+        31,
+        45
+       ],
+       "detector_xy": [
+        714,
+        666
+       ],
+       "display_xy": [
+        142.3,
+        197.7
+       ],
+       "value_MJy_sr": 9.01,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 1.4,
+       "nearest_gaia_id": "5756956163351495040"
+      },
+      {
+       "native_xy": [
+        28,
+        48
+       ],
+       "detector_xy": [
+        711,
+        669
+       ],
+       "display_xy": [
+        158.9,
+        206.0
+       ],
+       "value_MJy_sr": 3.6,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 2.2,
+       "nearest_gaia_id": "5756956163351495168"
+      },
+      {
+       "native_xy": [
+        54,
+        50
+       ],
+       "detector_xy": [
+        737,
+        671
+       ],
+       "display_xy": [
+        54.1,
+        249.7
+       ],
+       "value_MJy_sr": 7.15,
+       "adverse_flags": [],
+       "nearest_gaia_sep_arcsec": 1.6,
+       "nearest_gaia_id": "5756955166919081600"
+      }
+     ]
+    },
+    "unmatched_adverse_over_9arcsec": {
+     "P": [
+      {
+       "native_xy": [
+        9,
+        40
+       ],
+       "detector_xy": [
+        1689,
+        1364
+       ],
+       "display_xy": [
+        32.4,
+        111.8
+       ],
+       "value_MJy_sr": 12.55,
+       "adverse_flags": [
+        "HALO",
+        "OUTLIER",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 51.5,
+       "nearest_gaia_id": "5756956708811536128"
+      },
+      {
+       "native_xy": [
+        29,
+        40
+       ],
+       "detector_xy": [
+        1709,
+        1364
+       ],
+       "display_xy": [
+        114.9,
+        82.9
+       ],
+       "value_MJy_sr": 234.55,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 40.9,
+       "nearest_gaia_id": "5756956644387830912"
+      }
+     ],
+     "Q": [
+      {
+       "native_xy": [
+        30,
+        40
+       ],
+       "detector_xy": [
+        1709,
+        1364
+       ],
+       "display_xy": [
+        117.9,
+        80.6
+       ],
+       "value_MJy_sr": 237.91,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 39.5,
+       "nearest_gaia_id": "5756956644387830912"
+      }
+     ],
+     "R": [
+      {
+       "native_xy": [
+        58,
+        39
+       ],
+       "detector_xy": [
+        741,
+        660
+       ],
+       "display_xy": [
+        22.4,
+        209.7
+       ],
+       "value_MJy_sr": 2.88,
+       "adverse_flags": [
+        "NONFUNC",
+        "SUR_ERROR",
+        "TRANSIENT"
+       ],
+       "nearest_gaia_sep_arcsec": 58.4,
+       "nearest_gaia_id": "5756955579235940608"
+      }
+     ]
+    }
+   },
+   "F1_PQ_detector_pixel": {
+    "detector_xy": [
+     1709,
+     1364
+    ],
+    "per_frame": {
+     "P": {
+      "native_xy_0based": [
+       29,
+       40
+      ],
+      "native_xy_fits_1based": [
+       30,
+       41
+      ],
+      "detector_xy_0based_active": [
+       1709,
+       1364
+      ],
+      "ra_deg": 133.7649272986985,
+      "dec_deg": -7.224567661688449,
+      "display_xy": [
+       114.89,
+       82.91
+      ],
+      "value_MJy_sr": 234.547,
+      "variance": 6.10115,
+      "flags_int": 2097221,
+      "flag_bits_set": [
+       0,
+       2,
+       6,
+       21
+      ],
+      "flag_names_all": [
+       "NONFUNC",
+       "SOURCE",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "flag_names_adverse": [
+       "NONFUNC",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "neighbourhood_3x3_MJy_sr_rows_south_to_north": [
+       [
+        0.293,
+        0.336,
+        0.261
+       ],
+       [
+        0.299,
+        234.547,
+        0.291
+       ],
+       [
+        0.273,
+        0.26,
+        0.331
+       ]
+      ],
+      "peak_over_brightest_neighbour": 698.1,
+      "covered_by_cutout": true,
+      "in_spot_census": true
+     },
+     "Q": {
+      "native_xy_0based": [
+       30,
+       40
+      ],
+      "native_xy_fits_1based": [
+       31,
+       41
+      ],
+      "detector_xy_0based_active": [
+       1709,
+       1364
+      ],
+      "ra_deg": 133.76374257941714,
+      "dec_deg": -7.22365300208335,
+      "display_xy": [
+       117.9,
+       80.57
+      ],
+      "value_MJy_sr": 237.912,
+      "variance": 6.18868,
+      "flags_int": 69,
+      "flag_bits_set": [
+       0,
+       2,
+       6
+      ],
+      "flag_names_all": [
+       "NONFUNC",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "flag_names_adverse": [
+       "NONFUNC",
+       "SUR_ERROR",
+       "TRANSIENT"
+      ],
+      "neighbourhood_3x3_MJy_sr_rows_south_to_north": [
+       [
+        0.256,
+        0.27,
+        0.268
+       ],
+       [
+        0.313,
+        237.912,
+        0.24
+       ],
+       [
+        0.286,
+        0.263,
+        0.305
+       ]
+      ],
+      "peak_over_brightest_neighbour": 760.1,
+      "covered_by_cutout": true,
+      "in_spot_census": true
+     },
+     "R": {
+      "covered_by_cutout": false,
+      "detector_range_covered": {
+       "x": [
+        683,
+        741
+       ],
+       "y": [
+        621,
+        679
+       ]
+      }
+     }
+    },
+    "apparent_shift_P_to_Q": {
+     "same_detector_pixel_sky_separation_arcsec": 5.36,
+     "same_detector_pixel_display_delta_xy": [
+      3.01,
+      -2.34
+     ],
+     "same_detector_pixel_display_distance_px": 3.81,
+     "observed_display_footprint": {
+      "P": {
+       "n_display_px": 20,
+       "centroid_display_xy": [
+        114.7,
+        82.9
+       ]
+      },
+      "Q": {
+       "n_display_px": 20,
+       "centroid_display_xy": [
+        118.0,
+        80.5
+       ]
+      }
+     },
+     "observed_footprint_centroid_delta_xy": [
+      3.3,
+      -2.4
+     ],
+     "observed_footprint_centroid_distance_px": 4.08,
+     "observed_minus_detector_fixed_prediction_px": 0.3,
+     "tolerance_note": "Nearest-neighbour resampling places each native pixel (~4.4 display px) as a block whose edges are quantized to whole display px, so the footprint centroid can differ from the native pixel centre by up to ~0.5 display px per axis per frame.",
+     "footprint_threshold": "display pixels above half of the feature's native peak value in that frame"
+    },
+    "at_P_sky_position_in_other_frames": {
+     "Q": {
+      "brightest_within_1.5_native_px_MJy_sr": 237.912,
+      "containing_native_pixel": [
+       29,
+       40
+      ],
+      "containing_pixel_value_MJy_sr": 0.313,
+      "containing_detector_xy": [
+       1708,
+       1364
+      ],
+      "adverse_flags_at_containing_pixel": []
+     },
+     "R": {
+      "brightest_within_1.5_native_px_MJy_sr": 0.304,
+      "containing_native_pixel": [
+       29,
+       18
+      ],
+      "containing_pixel_value_MJy_sr": 0.289,
+      "containing_detector_xy": [
+       712,
+       639
+      ],
+      "adverse_flags_at_containing_pixel": [
+       "OUTLIER"
+      ]
+     }
+    },
+    "usable_field_sources_P_Q": {
+     "selection": "cached Gaia DR3 G<17 stars whose native centroid in both P and Q is finite, SNR >= 15 (MAD), not a single-pixel spike, free of adverse flags in the 5x5 window, and within 1 native px of the propagated Gaia position. Positions measured with each frame's own header WCS.",
+     "n": 3,
+     "sky_shift_arcsec": {
+      "median": 0.4,
+      "max": 0.76
+     },
+     "display_grid_shift_px": {
+      "median": 0.36,
+      "max": 0.69,
+      "n": 3
+     },
+     "detector_shift_px_median_xy": [
+      -0.826,
+      -0.281
+     ],
+     "stars": [
+      {
+       "gaia_dr3": "5756956644387830912",
+       "G": 16.35,
+       "P": {
+        "native_centroid": [
+         32.995,
+         34.841
+        ],
+        "snr": 47.6,
+        "ra_deg": 133.7556045687499,
+        "dec_deg": -7.230672487593589,
+        "detector_xy": [
+         1712.995,
+         1358.841
+        ],
+        "display_xy_from_native": [
+         138.567,
+         98.535
+        ],
+        "display_grid_centroid": [
+         138.947,
+         98.438
+        ]
+       },
+       "Q": {
+        "native_centroid": [
+         33.169,
+         34.44
+        ],
+        "snr": 30.6,
+        "ra_deg": 133.75554146291026,
+        "dec_deg": -7.230873170216296,
+        "detector_xy": [
+         1712.169,
+         1358.44
+        ],
+        "display_xy_from_native": [
+         138.727,
+         99.049
+        ],
+        "display_grid_centroid": [
+         139.144,
+         99.101
+        ]
+       },
+       "sky_shift_arcsec": 0.76,
+       "detector_shift_px": [
+        -0.826,
+        -0.401
+       ],
+       "display_grid_shift_px": 0.69
+      },
+      {
+       "gaia_dr3": "5756956163351495040",
+       "G": 15.34,
+       "P": {
+        "native_centroid": [
+         26.735,
+         13.293
+        ],
+        "snr": 215.4,
+        "ra_deg": 133.75391571114483,
+        "dec_deg": -7.269123432271735,
+        "detector_xy": [
+         1706.735,
+         1337.293
+        ],
+        "display_xy_from_native": [
+         142.855,
+         196.97
+        ],
+        "display_grid_centroid": [
+         142.546,
+         196.615
+        ]
+       },
+       "Q": {
+        "native_centroid": [
+         26.853,
+         13.046
+        ],
+        "snr": 372.8,
+        "ra_deg": 133.75402714576984,
+        "dec_deg": -7.269107601174566,
+        "detector_xy": [
+         1705.853,
+         1337.046
+        ],
+        "display_xy_from_native": [
+         142.572,
+         196.929
+        ],
+        "display_grid_centroid": [
+         142.496,
+         196.707
+        ]
+       },
+       "sky_shift_arcsec": 0.4,
+       "detector_shift_px": [
+        -0.882,
+        -0.247
+       ],
+       "display_grid_shift_px": 0.1
+      },
+      {
+       "gaia_dr3": "5756956708811536128",
+       "G": 16.93,
+       "P": {
+        "native_centroid": [
+         14.087,
+         46.912
+        ],
+        "snr": 24.6,
+        "ra_deg": 133.79293766010196,
+        "dec_deg": -7.221784760362874,
+        "detector_xy": [
+         1694.087,
+         1370.912
+        ],
+        "display_xy_from_native": [
+         43.752,
+         75.786
+        ],
+        "display_grid_centroid": [
+         42.869,
+         76.165
+        ]
+       },
+       "Q": {
+        "native_centroid": [
+         14.268,
+         46.631
+        ],
+        "snr": 15.1,
+        "ra_deg": 133.79292694021603,
+        "dec_deg": -7.221788631168028,
+        "detector_xy": [
+         1693.268,
+         1370.631
+        ],
+        "display_xy_from_native": [
+         43.78,
+         75.796
+        ],
+        "display_grid_centroid": [
+         42.834,
+         76.522
+        ]
+       },
+       "sky_shift_arcsec": 0.04,
+       "detector_shift_px": [
+        -0.819,
+        -0.281
+       ],
+       "display_grid_shift_px": 0.36
+      }
+     ],
+     "relaxed_tier_sensitivity": {
+      "selection": "same, but SNR >= 8 and adverse flags allowed in the window",
+      "n": 4,
+      "sky_shift_arcsec_median": 0.58,
+      "sky_shift_arcsec_max": 1.62,
+      "detector_shift_px_median_xy": [
+       -0.854,
+       -0.341
+      ],
+      "per_star": [
+       {
+        "gaia_dr3": "5756956644387830912",
+        "G": 16.35,
+        "sky_shift_arcsec": 0.76,
+        "detector_shift_px": [
+         -0.826,
+         -0.401
+        ]
+       },
+       {
+        "gaia_dr3": "5756956163351495040",
+        "G": 15.34,
+        "sky_shift_arcsec": 0.4,
+        "detector_shift_px": [
+         -0.882,
+         -0.247
+        ]
+       },
+       {
+        "gaia_dr3": "5756956708811536128",
+        "G": 16.93,
+        "sky_shift_arcsec": 0.04,
+        "detector_shift_px": [
+         -0.819,
+         -0.281
+        ]
+       },
+       {
+        "gaia_dr3": "5756956644387831296",
+        "G": 16.31,
+        "sky_shift_arcsec": 1.62,
+        "detector_shift_px": [
+         -0.928,
+         -0.518
+        ]
+       }
+      ]
+     }
+    },
+    "star_implied_prediction": {
+     "method": "A sky-fixed star moves by s detector px (median of usable stars, P->Q). A detector-fixed pixel D then samples in Q the sky that detector position D - s sampled in P, so it should appear displaced by sep(sky_P(D), sky_P(D - s)) relative to the stars. Uses P's WCS and the star centroids only.",
+     "star_median_detector_shift_px": [
+      -0.826,
+      -0.281
+     ],
+     "predicted_sky_shift_arcsec": 5.38,
+     "measured_same_pixel_sky_shift_arcsec": 5.36,
+     "difference_arcsec": 0.02
+    },
+    "two_reference_frames": {
+     "on_sky_grid": "feature moves 5.36 arcsec; usable field stars move median 0.4 arcsec",
+     "on_detector": "feature stays at detector pixel [1709, 1364] (shift 0); usable field stars shift by median [-0.826, -0.281] detector px"
+    },
+    "R_note": "R's cutout covers a different part of the detector (see detector_range_covered), so R cannot test whether detector pixel (1709, 1364) is elevated in May 2026; R only shows the same SKY position."
+   },
+   "F2_P_only_feature": {
+    "selection": "P census spots with adverse flags and no cached Gaia DR3 star within 9 arcsec, excluding F1",
+    "n_candidates": 1,
+    "P": {
+     "native_xy_0based": [
+      9,
+      40
+     ],
+     "native_xy_fits_1based": [
+      10,
+      41
+     ],
+     "detector_xy_0based_active": [
+      1689,
+      1364
+     ],
+     "ra_deg": 133.79739501228207,
+     "dec_deg": -7.23585564569832,
+     "display_xy": [
+      32.44,
+      111.81
+     ],
+     "value_MJy_sr": 12.552,
+     "variance": 0.35077,
+     "flags_int": 268959749,
+     "flag_bits_set": [
+      0,
+      2,
+      19,
+      28
+     ],
+     "flag_names_all": [
+      "HALO",
+      "OUTLIER",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "flag_names_adverse": [
+      "HALO",
+      "OUTLIER",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "neighbourhood_3x3_MJy_sr_rows_south_to_north": [
+      [
+       0.3,
+       0.262,
+       0.28
+      ],
+      [
+       0.291,
+       12.552,
+       0.264
+      ],
+      [
+       0.288,
+       8.376,
+       0.273
+      ]
+     ],
+     "peak_over_brightest_neighbour": 1.5
+    },
+    "P_display_footprint": {
+     "n_display_px": 38,
+     "centroid_display_xy": [
+      31.74,
+      109.63
+     ]
+    },
+    "other_frames": {
+     "Q": {
+      "same_detector_pixel": {
+       "covered_by_cutout": true,
+       "native_xy_0based": [
+        10,
+        40
+       ],
+       "value_MJy_sr": 0.27,
+       "flag_names_adverse": [],
+       "display_xy": [
+        35.45,
+        109.47
+       ],
+       "peak_over_brightest_neighbour": 0.9
+      },
+      "same_sky_position": {
+       "brightest_within_1.5_native_px_MJy_sr": 0.287,
+       "containing_native_pixel": [
+        9,
+        40
+       ],
+       "containing_pixel_value_MJy_sr": 0.231,
+       "adverse_flags_at_containing_pixel": []
+      }
+     },
+     "R": {
+      "same_detector_pixel": {
+       "covered_by_cutout": false,
+       "detector_range_covered": {
+        "x": [
+         683,
+         741
+        ],
+        "y": [
+         621,
+         679
+        ]
+       }
+      },
+      "same_sky_position": {
+       "brightest_within_1.5_native_px_MJy_sr": 0.286,
+       "containing_native_pixel": [
+        49,
+        18
+       ],
+       "containing_pixel_value_MJy_sr": 0.27,
+       "adverse_flags_at_containing_pixel": []
+      }
+     }
+    },
+    "P_background_median_MJy_sr": 0.286
+   },
+   "flag_meanings_from_FITS_header_MSKD": {
+    "TRANSIENT": "Transient detected during SUR",
+    "SUR_ERROR": "Error in onboard processing",
+    "NONFUNC": "Permanently unusable",
+    "OUTLIER": "Pixel flagged by Detect Outliers",
+    "SOURCE": "Pixel mapped to a known source",
+    "HALO": "Pixel part of a transient halo"
+   }
+  },
+  "C": {
+   "question": "For each pair, which observing, processing and display variables differ, and how closely are the target wavelengths matched relative to the channel band widths?",
+   "normalization": {
+    "primary": "delta_lambda / min(bandwidth_1, bandwidth_2), using each record's bandwidth_um (the WCS-WAVE 'approximated per-pixel bandwidth' at the target) - the same normalization tools/ingest uses",
+    "also_reported": [
+     "delta_lambda / mean(bandwidth)",
+     "delta_lambda / mean(lambda)",
+     "top-hat overlap: overlap of [lambda +- bw/2] intervals divided by the narrower band (an idealization; real SPHEREx channel responses are not top-hats)"
+    ]
+   },
+   "processor_rule": "tools/ingest shared_groups_for_case: frames share a display stretch when same detector and delta_lambda < min(bandwidth). This is Perigee's display grouping rule, not a scientific threshold for when comparisons are valid.",
+   "differs_rule": "A variable is listed in 'differs' when its values are not exactly equal. No threshold is applied; magnitudes are in the numeric columns.",
+   "frames": [
+    {
+     "set": "fair_comparison",
+     "ref": "A",
+     "frame_key": "2026W18_1A_0516_1_D3",
+     "record_dir": "epsilon_indi_b/case-fair_comparison",
+     "observed_at_utc": "2026-04-29T12:05:47.874Z",
+     "mjd": 61159.504026317,
+     "header_DATE_AVG": "2026-04-29T12:05:47.874",
+     "date_matches_header": true,
+     "obsid": "2026W18_1A_0516_1",
+     "detector": 3,
+     "header_DETECTOR": 3,
+     "wavelength_um": 2.323168495440948,
+     "bandwidth_um": 0.05770944648649273,
+     "wavelength_recomputed_um": 2.323168495440948,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_dr1",
+     "pipeline_version": "l2b-v27-2026-244",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 7.448,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      789.58,
+      226.67
+     ],
+     "native_y_axis_PA_deg_E_of_N": 335.764,
+     "display_mode": "shared",
+     "display_low": 0.11586961895227432,
+     "display_high": 1.177802324295044,
+     "quality_status": "clear",
+     "quality_flags": "",
+     "adverse_over_screened": "0/19",
+     "grid_id": "ffa7fe686b918c3e",
+     "sha_record_manifest_file_equal": true
+    },
+    {
+     "set": "fair_comparison",
+     "ref": "B",
+     "frame_key": "2026W39_2A_0597_4_D3",
+     "record_dir": "epsilon_indi_b/case-fair_comparison",
+     "observed_at_utc": "2026-09-27T07:44:24.312Z",
+     "mjd": 61310.322503608,
+     "header_DATE_AVG": "2026-09-27T07:44:24.312",
+     "date_matches_header": true,
+     "obsid": "2026W39_2A_0597_4",
+     "detector": 3,
+     "header_DETECTOR": 3,
+     "wavelength_um": 2.321953403606271,
+     "bandwidth_um": 0.05733009073399494,
+     "wavelength_recomputed_um": 2.321953403606271,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_qr3",
+     "pipeline_version": "l2b-v27-2026-271",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 7.448,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      187.51,
+      262.7
+     ],
+     "native_y_axis_PA_deg_E_of_N": 150.569,
+     "display_mode": "shared",
+     "display_low": 0.11586961895227432,
+     "display_high": 1.177802324295044,
+     "quality_status": "clear",
+     "quality_flags": "",
+     "adverse_over_screened": "0/18",
+     "grid_id": "ffa7fe686b918c3e",
+     "sha_record_manifest_file_equal": true
+    },
+    {
+     "set": "fair_comparison",
+     "ref": "C",
+     "frame_key": "2026W18_1A_0516_1_D6",
+     "record_dir": "epsilon_indi_b/case-fair_comparison",
+     "observed_at_utc": "2026-04-29T12:05:47.874Z",
+     "mjd": 61159.504026317,
+     "header_DATE_AVG": "2026-04-29T12:05:47.874",
+     "date_matches_header": true,
+     "obsid": "2026W18_1A_0516_1",
+     "detector": 6,
+     "header_DETECTOR": 6,
+     "wavelength_um": 4.939878573720873,
+     "bandwidth_um": 0.03758797275503262,
+     "wavelength_recomputed_um": 4.939878573720873,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_dr1",
+     "pipeline_version": "l2b-v27-2026-244",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 9.042,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      787.7,
+      216.38
+     ],
+     "native_y_axis_PA_deg_E_of_N": 335.862,
+     "display_mode": "per_frame",
+     "display_low": 0.4351555109024048,
+     "display_high": 2.530604839324951,
+     "quality_status": "clear",
+     "quality_flags": "",
+     "adverse_over_screened": "0/20",
+     "grid_id": "ffa7fe686b918c3e",
+     "sha_record_manifest_file_equal": true
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "ref": "P",
+     "frame_key": "2025W45_2A_0278_1_D2",
+     "record_dir": "wise_0855/frames",
+     "observed_at_utc": "2025-11-07T18:48:11.654Z",
+     "mjd": 60986.783468215,
+     "header_DATE_AVG": "2025-11-07T18:48:11.654",
+     "date_matches_header": true,
+     "obsid": "2025W45_2A_0278_1",
+     "detector": 2,
+     "header_DETECTOR": 2,
+     "wavelength_um": 1.257192202600437,
+     "bandwidth_um": 0.030050855013517876,
+     "wavelength_recomputed_um": 1.257192202600437,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_dr1",
+     "pipeline_version": "l2b-v27-2026-247",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 7.461,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      1708.36,
+      1353.34
+     ],
+     "native_y_axis_PA_deg_E_of_N": 18.607,
+     "display_mode": "per_frame",
+     "display_low": 0.2377636581659317,
+     "display_high": 2.7494914531707764,
+     "quality_status": "clear",
+     "quality_flags": "",
+     "adverse_over_screened": "0/20",
+     "grid_id": "f448bdf044c35cf1",
+     "sha_record_manifest_file_equal": true
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "ref": "Q",
+     "frame_key": "2025W46_1A_0108_1_D2",
+     "record_dir": "wise_0855/frames",
+     "observed_at_utc": "2025-11-10T10:31:39.500Z",
+     "mjd": 60989.438651617,
+     "header_DATE_AVG": "2025-11-10T10:31:39.500",
+     "date_matches_header": true,
+     "obsid": "2025W46_1A_0108_1",
+     "detector": 2,
+     "header_DETECTOR": 2,
+     "wavelength_um": 1.2572468098336553,
+     "bandwidth_um": 0.030053123908964603,
+     "wavelength_recomputed_um": 1.2572468098336553,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_dr1",
+     "pipeline_version": "l2b-v27-2026-206",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 7.461,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      1707.54,
+      1353.06
+     ],
+     "native_y_axis_PA_deg_E_of_N": 18.607,
+     "display_mode": "per_frame",
+     "display_low": 0.2291477769613266,
+     "display_high": 2.249807357788086,
+     "quality_status": "flagged",
+     "quality_flags": "PERSIST",
+     "adverse_over_screened": "2/19",
+     "grid_id": "f448bdf044c35cf1",
+     "sha_record_manifest_file_equal": true
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "ref": "R",
+     "frame_key": "2026W20_1A_0214_1_D2",
+     "record_dir": "wise_0855/frames",
+     "observed_at_utc": "2026-05-11T13:37:42.970Z",
+     "mjd": 61171.567858446,
+     "header_DATE_AVG": "2026-05-11T13:37:42.970",
+     "date_matches_header": true,
+     "obsid": "2026W20_1A_0214_1",
+     "detector": 2,
+     "header_DETECTOR": 2,
+     "wavelength_um": 1.4442523414907646,
+     "bandwidth_um": 0.035338719018344886,
+     "wavelength_recomputed_um": 1.4442523414907646,
+     "wavelength_recomputed_abs_diff": 0.0,
+     "collection_id": "spherex_dr1",
+     "pipeline_version": "l2b-v27-2026-246",
+     "ssdc_software_version": "7.0.5",
+     "header_VERSION": "7.0.5",
+     "processing_version": "perigee-processor-a/0.1.2",
+     "l2_dqa": "Pass",
+     "psf_fwhm_arcsec_header_median": 7.461,
+     "exposure_s": 113.583,
+     "target_detector_xy": [
+      711.58,
+      649.92
+     ],
+     "native_y_axis_PA_deg_E_of_N": 198.514,
+     "display_mode": "per_frame",
+     "display_low": 0.20695532858371735,
+     "display_high": 2.2293758392333984,
+     "quality_status": "clear",
+     "quality_flags": "",
+     "adverse_over_screened": "0/19",
+     "grid_id": "f448bdf044c35cf1",
+     "sha_record_manifest_file_equal": true
+    }
+   ],
+   "pairs": [
+    {
+     "set": "fair_comparison",
+     "pair": "A-B",
+     "frames": "2026W18_1A_0516_1_D3 / 2026W39_2A_0597_4_D3",
+     "delta_t_days": 150.8185,
+     "delta_t_hours": 3619.643,
+     "same_exposure": false,
+     "delta_lambda_um": 0.001215,
+     "dl_over_min_bandwidth": 0.0212,
+     "dl_over_mean_bandwidth": 0.0211,
+     "dl_over_mean_lambda": 0.00052,
+     "tophat_band_overlap_fraction_of_narrower": 0.9821,
+     "same_detector": true,
+     "target_detector_shift_px": 603.15,
+     "native_y_PA_difference_deg": 174.805,
+     "psf_fwhm_ratio": 1.0,
+     "processor_shared_stretch_rule_eligible": true,
+     "differs": "time; exposure (OBSID); wavelength; bandwidth; release (collection); pipeline build; pointing (target detector position)"
+    },
+    {
+     "set": "fair_comparison",
+     "pair": "A-C",
+     "frames": "2026W18_1A_0516_1_D3 / 2026W18_1A_0516_1_D6",
+     "delta_t_days": 0.0,
+     "delta_t_hours": 0.0,
+     "same_exposure": true,
+     "delta_lambda_um": 2.61671,
+     "dl_over_min_bandwidth": 69.6156,
+     "dl_over_mean_bandwidth": 54.9167,
+     "dl_over_mean_lambda": 0.72055,
+     "tophat_band_overlap_fraction_of_narrower": 0.0,
+     "same_detector": false,
+     "target_detector_shift_px": null,
+     "native_y_PA_difference_deg": 0.098,
+     "psf_fwhm_ratio": 1.214,
+     "processor_shared_stretch_rule_eligible": false,
+     "differs": "wavelength; bandwidth; detector; header PSF FWHM; display stretch"
+    },
+    {
+     "set": "fair_comparison",
+     "pair": "B-C",
+     "frames": "2026W39_2A_0597_4_D3 / 2026W18_1A_0516_1_D6",
+     "delta_t_days": 150.8185,
+     "delta_t_hours": 3619.643,
+     "same_exposure": false,
+     "delta_lambda_um": 2.617925,
+     "dl_over_min_bandwidth": 69.6479,
+     "dl_over_mean_bandwidth": 55.1618,
+     "dl_over_mean_lambda": 0.72101,
+     "tophat_band_overlap_fraction_of_narrower": 0.0,
+     "same_detector": false,
+     "target_detector_shift_px": null,
+     "native_y_PA_difference_deg": -174.707,
+     "psf_fwhm_ratio": 1.214,
+     "processor_shared_stretch_rule_eligible": false,
+     "differs": "time; exposure (OBSID); wavelength; bandwidth; detector; release (collection); pipeline build; header PSF FWHM; display stretch"
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "pair": "P-Q",
+     "frames": "2025W45_2A_0278_1_D2 / 2025W46_1A_0108_1_D2",
+     "delta_t_days": 2.6552,
+     "delta_t_hours": 63.724,
+     "same_exposure": false,
+     "delta_lambda_um": 5.5e-05,
+     "dl_over_min_bandwidth": 0.0018,
+     "dl_over_mean_bandwidth": 0.0018,
+     "dl_over_mean_lambda": 4e-05,
+     "tophat_band_overlap_fraction_of_narrower": 0.9982,
+     "same_detector": true,
+     "target_detector_shift_px": 0.87,
+     "native_y_PA_difference_deg": 0.0,
+     "psf_fwhm_ratio": 1.0,
+     "processor_shared_stretch_rule_eligible": true,
+     "differs": "time; exposure (OBSID); wavelength; bandwidth; pipeline build; display stretch; quality screen; pointing (target detector position)"
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "pair": "P-R",
+     "frames": "2025W45_2A_0278_1_D2 / 2026W20_1A_0214_1_D2",
+     "delta_t_days": 184.7844,
+     "delta_t_hours": 4434.825,
+     "same_exposure": false,
+     "delta_lambda_um": 0.18706,
+     "dl_over_min_bandwidth": 6.2248,
+     "dl_over_mean_bandwidth": 5.7214,
+     "dl_over_mean_lambda": 0.13849,
+     "tophat_band_overlap_fraction_of_narrower": 0.0,
+     "same_detector": true,
+     "target_detector_shift_px": 1219.99,
+     "native_y_PA_difference_deg": 179.907,
+     "psf_fwhm_ratio": 1.0,
+     "processor_shared_stretch_rule_eligible": false,
+     "differs": "time; exposure (OBSID); wavelength; bandwidth; pipeline build; display stretch; pointing (target detector position)"
+    },
+    {
+     "set": "transfer exercise (staged, not shipped)",
+     "pair": "Q-R",
+     "frames": "2025W46_1A_0108_1_D2 / 2026W20_1A_0214_1_D2",
+     "delta_t_days": 182.1292,
+     "delta_t_hours": 4371.101,
+     "same_exposure": false,
+     "delta_lambda_um": 0.187006,
+     "dl_over_min_bandwidth": 6.2225,
+     "dl_over_mean_bandwidth": 5.7195,
+     "dl_over_mean_lambda": 0.13845,
+     "tophat_band_overlap_fraction_of_narrower": 0.0,
+     "same_detector": true,
+     "target_detector_shift_px": 1219.16,
+     "native_y_PA_difference_deg": 179.907,
+     "psf_fwhm_ratio": 1.0,
+     "processor_shared_stretch_rule_eligible": false,
+     "differs": "time; exposure (OBSID); wavelength; bandwidth; pipeline build; display stretch; quality screen; pointing (target detector position)"
+    }
+   ]
+  },
+  "D": {
+   "question": "In the Barnard case, do image-based visual proxies show the glow moving relative to the field stars in the direction and roughly the size of the catalog prediction, and how much do they depend on the method/window?",
+   "frames": {
+    "A": "2025W35_1A_0008_1_D3",
+    "B": "2026W12_1A_0610_2_D3",
+    "C": "2026W34_1A_0431_1_D3"
+   },
+   "warning_saturated_core": {
+    "A": {
+     "frame_key": "2025W35_1A_0008_1_D3",
+     "quality_status": "flagged",
+     "flag_names": [
+      "BLOOM",
+      "OVERFLOW",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_over_screened": "19/19",
+     "nonfinite_aperture_pixels": 3,
+     "transparent_display_px_within_10px_of_marker": 61
+    },
+    "B": {
+     "frame_key": "2026W12_1A_0610_2_D3",
+     "quality_status": "flagged",
+     "flag_names": [
+      "BLOOM",
+      "NONFUNC",
+      "OVERFLOW",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_over_screened": "20/20",
+     "nonfinite_aperture_pixels": 3,
+     "transparent_display_px_within_10px_of_marker": 56
+    },
+    "C": {
+     "frame_key": "2026W34_1A_0431_1_D3",
+     "quality_status": "flagged",
+     "flag_names": [
+      "BLOOM",
+      "OVERFLOW",
+      "SUR_ERROR",
+      "TRANSIENT"
+     ],
+     "adverse_over_screened": "19/19",
+     "nonfinite_aperture_pixels": 2,
+     "transparent_display_px_within_10px_of_marker": 38
+    }
+   },
+   "catalog_prediction": {
+    "marker_xy": {
+     "A": [
+      127.798,
+      130.61
+     ],
+     "B": [
+      128.121,
+      126.434
+     ],
+     "C": [
+      128.36,
+      123.341
+     ]
+    },
+    "shift": {
+     "AB": {
+      "dx": 0.32,
+      "dy": -4.18,
+      "dist_px": 4.19,
+      "dist_arcsec": 5.89,
+      "direction_deg_E_of_N": -4.4
+     },
+     "AC": {
+      "dx": 0.56,
+      "dy": -7.27,
+      "dist_px": 7.29,
+      "dist_arcsec": 10.25,
+      "direction_deg_E_of_N": -4.4
+     }
+    },
+    "basis": "processor A marker: catalog position propagated with proper motion (annual parallax not modeled). Not measured from the images."
+   },
+   "image_proxies": {
+    "png_shared_half5": {
+     "family": "glow centre on the case PNG (shared stretch); transparent core counted white",
+     "window": "11x11 display px",
+     "xy": {
+      "A": [
+       127.529,
+       130.499
+      ],
+      "B": [
+       128.5,
+       126.5
+      ],
+      "C": [
+       128.5,
+       123.5
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": 0.97,
+       "dy": -4.0,
+       "dist_px": 4.12,
+       "dist_arcsec": 5.79,
+       "direction_deg_E_of_N": -13.6
+      },
+      "AC": {
+       "dx": 0.97,
+       "dy": -7.0,
+       "dist_px": 7.07,
+       "dist_arcsec": 9.94,
+       "direction_deg_E_of_N": -7.9
+      }
+     }
+    },
+    "png_shared_half7": {
+     "family": "glow centre on the case PNG (shared stretch); transparent core counted white",
+     "window": "15x15 display px",
+     "xy": {
+      "A": [
+       127.692,
+       130.621
+      ],
+      "B": [
+       128.359,
+       126.488
+      ],
+      "C": [
+       128.555,
+       123.474
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": 0.67,
+       "dy": -4.13,
+       "dist_px": 4.19,
+       "dist_arcsec": 5.89,
+       "direction_deg_E_of_N": -9.2
+      },
+      "AC": {
+       "dx": 0.86,
+       "dy": -7.15,
+       "dist_px": 7.2,
+       "dist_arcsec": 10.12,
+       "direction_deg_E_of_N": -6.9
+      }
+     }
+    },
+    "png_shared_half10": {
+     "family": "glow centre on the case PNG (shared stretch); transparent core counted white",
+     "window": "21x21 display px",
+     "xy": {
+      "A": [
+       128.902,
+       130.688
+      ],
+      "B": [
+       127.425,
+       126.78
+      ],
+      "C": [
+       128.866,
+       123.677
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.48,
+       "dy": -3.91,
+       "dist_px": 4.18,
+       "dist_arcsec": 5.88,
+       "direction_deg_E_of_N": 20.7
+      },
+      "AC": {
+       "dx": -0.04,
+       "dy": -7.01,
+       "dist_px": 7.01,
+       "dist_arcsec": 9.86,
+       "direction_deg_E_of_N": 0.3
+      }
+     }
+    },
+    "png_shared_half15": {
+     "family": "glow centre on the case PNG (shared stretch); transparent core counted white",
+     "window": "31x31 display px",
+     "xy": {
+      "A": [
+       129.156,
+       130.611
+      ],
+      "B": [
+       127.41,
+       126.884
+      ],
+      "C": [
+       129.471,
+       123.363
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.75,
+       "dy": -3.73,
+       "dist_px": 4.12,
+       "dist_arcsec": 5.79,
+       "direction_deg_E_of_N": 25.1
+      },
+      "AC": {
+       "dx": 0.31,
+       "dy": -7.25,
+       "dist_px": 7.25,
+       "dist_arcsec": 10.2,
+       "direction_deg_E_of_N": -2.5
+      }
+     }
+    },
+    "png_perframe_half7": {
+     "family": "glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white",
+     "window": "15x15 display px",
+     "xy": {
+      "A": [
+       127.638,
+       130.618
+      ],
+      "B": [
+       128.365,
+       126.489
+      ],
+      "C": [
+       128.546,
+       123.422
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": 0.73,
+       "dy": -4.13,
+       "dist_px": 4.19,
+       "dist_arcsec": 5.9,
+       "direction_deg_E_of_N": -10.0
+      },
+      "AC": {
+       "dx": 0.91,
+       "dy": -7.2,
+       "dist_px": 7.25,
+       "dist_arcsec": 10.2,
+       "direction_deg_E_of_N": -7.2
+      }
+     }
+    },
+    "png_perframe_half15": {
+     "family": "glow centre on the shipped per-frame-stretch preset PNG; transparent core counted white",
+     "window": "31x31 display px",
+     "xy": {
+      "A": [
+       129.121,
+       130.582
+      ],
+      "B": [
+       127.436,
+       126.9
+      ],
+      "C": [
+       129.343,
+       123.32
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.69,
+       "dy": -3.68,
+       "dist_px": 4.05,
+       "dist_arcsec": 5.69,
+       "direction_deg_E_of_N": 24.6
+      },
+      "AC": {
+       "dx": 0.22,
+       "dy": -7.26,
+       "dist_px": 7.27,
+       "dist_arcsec": 10.22,
+       "direction_deg_E_of_N": -1.8
+      }
+     }
+    },
+    "native_r3": {
+     "family": "glow centre on native pixels (non-finite core = window max), mapped through the header WCS",
+     "window": "r = 3 native px",
+     "xy": {
+      "A": [
+       129.258,
+       130.728
+      ],
+      "B": [
+       127.994,
+       126.378
+      ],
+      "C": [
+       128.601,
+       123.892
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.26,
+       "dy": -4.35,
+       "dist_px": 4.53,
+       "dist_arcsec": 6.37,
+       "direction_deg_E_of_N": 16.2
+      },
+      "AC": {
+       "dx": -0.66,
+       "dy": -6.84,
+       "dist_px": 6.87,
+       "dist_arcsec": 9.66,
+       "direction_deg_E_of_N": 5.5
+      }
+     }
+    },
+    "native_r4": {
+     "family": "glow centre on native pixels (non-finite core = window max), mapped through the header WCS",
+     "window": "r = 4 native px",
+     "xy": {
+      "A": [
+       129.252,
+       130.716
+      ],
+      "B": [
+       127.988,
+       126.364
+      ],
+      "C": [
+       128.603,
+       123.876
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.26,
+       "dy": -4.35,
+       "dist_px": 4.53,
+       "dist_arcsec": 6.37,
+       "direction_deg_E_of_N": 16.2
+      },
+      "AC": {
+       "dx": -0.65,
+       "dy": -6.84,
+       "dist_px": 6.87,
+       "dist_arcsec": 9.66,
+       "direction_deg_E_of_N": 5.4
+      }
+     }
+    },
+    "native_r5": {
+     "family": "glow centre on native pixels (non-finite core = window max), mapped through the header WCS",
+     "window": "r = 5 native px",
+     "xy": {
+      "A": [
+       129.247,
+       130.715
+      ],
+      "B": [
+       127.969,
+       126.36
+      ],
+      "C": [
+       128.607,
+       123.828
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.28,
+       "dy": -4.36,
+       "dist_px": 4.54,
+       "dist_arcsec": 6.38,
+       "direction_deg_E_of_N": 16.4
+      },
+      "AC": {
+       "dx": -0.64,
+       "dy": -6.89,
+       "dist_px": 6.92,
+       "dist_arcsec": 9.73,
+       "direction_deg_E_of_N": 5.3
+      }
+     }
+    },
+    "native_r6": {
+     "family": "glow centre on native pixels (non-finite core = window max), mapped through the header WCS",
+     "window": "r = 6 native px",
+     "xy": {
+      "A": [
+       129.233,
+       130.683
+      ],
+      "B": [
+       127.94,
+       126.346
+      ],
+      "C": [
+       128.611,
+       123.818
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -1.29,
+       "dy": -4.34,
+       "dist_px": 4.53,
+       "dist_arcsec": 6.36,
+       "direction_deg_E_of_N": 16.6
+      },
+      "AC": {
+       "dx": -0.62,
+       "dy": -6.86,
+       "dist_px": 6.89,
+       "dist_arcsec": 9.69,
+       "direction_deg_E_of_N": 5.2
+      }
+     }
+    },
+    "nonfinite_core": {
+     "family": "centroid of non-finite (saturated, no value) native pixels within 3 native px",
+     "window": "r = 3 native px",
+     "xy": {
+      "A": [
+       130.771,
+       131.83
+      ],
+      "B": [
+       127.311,
+       126.488
+      ],
+      "C": [
+       128.804,
+       123.182
+      ]
+     },
+     "shift": {
+      "AB": {
+       "dx": -3.46,
+       "dy": -5.34,
+       "dist_px": 6.36,
+       "dist_arcsec": 8.95,
+       "direction_deg_E_of_N": 32.9
+      },
+      "AC": {
+       "dx": -1.97,
+       "dy": -8.65,
+       "dist_px": 8.87,
+       "dist_arcsec": 12.47,
+       "direction_deg_E_of_N": 12.8
+      }
+     }
+    }
+   },
+   "field_stars_case_png": [
+    {
+     "gaia_dr3": "4472836292758713216",
+     "G": 11.86,
+     "A": [
+      134.385,
+      56.634
+     ],
+     "B": [
+      134.133,
+      56.756
+     ],
+     "C": [
+      134.51,
+      56.192
+     ],
+     "AB": {
+      "dx": -0.25,
+      "dy": 0.12,
+      "dist_px": 0.28,
+      "dist_arcsec": 0.39,
+      "direction_deg_E_of_N": 115.9
+     },
+     "AC": {
+      "dx": 0.13,
+      "dy": -0.44,
+      "dist_px": 0.46,
+      "dist_arcsec": 0.65,
+      "direction_deg_E_of_N": -15.8
+     }
+    },
+    {
+     "gaia_dr3": "4472836327118455552",
+     "G": 13.45,
+     "A": [
+      181.58,
+      51.502
+     ],
+     "B": [
+      181.556,
+      51.755
+     ],
+     "C": [
+      181.338,
+      51.6
+     ],
+     "AB": {
+      "dx": -0.02,
+      "dy": 0.25,
+      "dist_px": 0.25,
+      "dist_arcsec": 0.36,
+      "direction_deg_E_of_N": 174.5
+     },
+     "AC": {
+      "dx": -0.24,
+      "dy": 0.1,
+      "dist_px": 0.26,
+      "dist_arcsec": 0.37,
+      "direction_deg_E_of_N": 112.0
+     }
+    },
+    {
+     "gaia_dr3": "4472837495349546240",
+     "G": 13.47,
+     "A": [
+      43.668,
+      70.201
+     ],
+     "B": [
+      43.506,
+      70.147
+     ],
+     "C": [
+      43.69,
+      70.202
+     ],
+     "AB": {
+      "dx": -0.16,
+      "dy": -0.05,
+      "dist_px": 0.17,
+      "dist_arcsec": 0.24,
+      "direction_deg_E_of_N": 71.6
+     },
+     "AC": {
+      "dx": 0.02,
+      "dy": 0.0,
+      "dist_px": 0.02,
+      "dist_arcsec": 0.03,
+      "direction_deg_E_of_N": -90.8
+     }
+    },
+    {
+     "gaia_dr3": "4472835846082110464",
+     "G": 14.44,
+     "A": [
+      188.245,
+      171.244
+     ],
+     "B": [
+      187.478,
+      171.573
+     ],
+     "C": [
+      187.591,
+      171.44
+     ],
+     "AB": {
+      "dx": -0.77,
+      "dy": 0.33,
+      "dist_px": 0.83,
+      "dist_arcsec": 1.17,
+      "direction_deg_E_of_N": 113.2
+     },
+     "AC": {
+      "dx": -0.65,
+      "dy": 0.2,
+      "dist_px": 0.68,
+      "dist_arcsec": 0.96,
+      "direction_deg_E_of_N": 106.7
+     }
+    },
+    {
+     "gaia_dr3": "4472832513187484544",
+     "G": 14.49,
+     "A": [
+      160.809,
+      205.057
+     ],
+     "B": [
+      161.006,
+      205.3
+     ],
+     "C": [
+      160.734,
+      204.815
+     ],
+     "AB": {
+      "dx": 0.2,
+      "dy": 0.24,
+      "dist_px": 0.31,
+      "dist_arcsec": 0.44,
+      "direction_deg_E_of_N": -141.0
+     },
+     "AC": {
+      "dx": -0.07,
+      "dy": -0.24,
+      "dist_px": 0.25,
+      "dist_arcsec": 0.36,
+      "direction_deg_E_of_N": 17.2
+     }
+    },
+    {
+     "gaia_dr3": "4472835914801589888",
+     "G": 14.84,
+     "A": [
+      208.865,
+      161.832
+     ],
+     "B": [
+      208.252,
+      162.053
+     ],
+     "C": [
+      208.351,
+      161.413
+     ],
+     "AB": {
+      "dx": -0.61,
+      "dy": 0.22,
+      "dist_px": 0.65,
+      "dist_arcsec": 0.92,
+      "direction_deg_E_of_N": 109.8
+     },
+     "AC": {
+      "dx": -0.51,
+      "dy": -0.42,
+      "dist_px": 0.66,
+      "dist_arcsec": 0.93,
+      "direction_deg_E_of_N": 50.8
+     }
+    }
+   ],
+   "summary": {
+    "n_proxies": 11,
+    "AC_dist_px_range": [
+     6.87,
+     8.87
+    ],
+    "AB_dist_px_range": [
+     4.05,
+     6.36
+    ],
+    "AC_direction_deg_range": [
+     -7.9,
+     12.8
+    ],
+    "AC_proxies_with_dy_negative_north": 11,
+    "AB_proxies_with_dy_negative_north": 11,
+    "AC_proxy_minus_marker_dist_px_range": [
+     0.25,
+     2.88
+    ],
+    "field_star_n": 6,
+    "field_star_max_abs_component_shift_px": 0.77,
+    "field_star_max_shift_px": 0.83,
+    "AC_min_proxy_over_field_star_max": 8.28
+   },
+   "all_retained_frames_native_r4_minus_marker": {
+    "n": 34,
+    "median_dx": -0.06,
+    "median_dy": 0.24,
+    "dist_min": 0.15,
+    "dist_median": 0.66,
+    "dist_max": 2.67,
+    "note": "Every retained Barnard frame whose record covers the star (mixed detectors/wavelengths). Descriptive spread of one proxy around the prediction; not a sampling-based uncertainty.",
+    "frames": [
+     {
+      "frame_key": "2025W33_2C_0386_4_D3",
+      "detector": 3,
+      "wavelength_um": 1.6698,
+      "dx": -1.81,
+      "dy": 0.32,
+      "dist": 1.84
+     },
+     {
+      "frame_key": "2025W34_2B_0557_1_D5",
+      "detector": 5,
+      "wavelength_um": 3.8544,
+      "dx": 1.09,
+      "dy": 0.63,
+      "dist": 1.26
+     },
+     {
+      "frame_key": "2025W34_2B_0557_4_D2",
+      "detector": 2,
+      "wavelength_um": 1.2096,
+      "dx": -2.66,
+      "dy": 0.28,
+      "dist": 2.67
+     },
+     {
+      "frame_key": "2025W35_1A_0008_1_D3",
+      "detector": 3,
+      "wavelength_um": 2.0062,
+      "dx": 1.45,
+      "dy": 0.11,
+      "dist": 1.46
+     },
+     {
+      "frame_key": "2025W35_1A_0444_3_D5",
+      "detector": 5,
+      "wavelength_um": 4.0602,
+      "dx": -1.29,
+      "dy": 0.1,
+      "dist": 1.3
+     },
+     {
+      "frame_key": "2025W35_1A_0444_4_D2",
+      "detector": 2,
+      "wavelength_um": 1.329,
+      "dx": -1.59,
+      "dy": 0.01,
+      "dist": 1.59
+     },
+     {
+      "frame_key": "2025W35_2A_0233_1_D1",
+      "detector": 1,
+      "wavelength_um": 1.0318,
+      "dx": 1.73,
+      "dy": 0.6,
+      "dist": 1.84
+     },
+     {
+      "frame_key": "2025W35_2A_0233_1_D4",
+      "detector": 4,
+      "wavelength_um": 3.5082,
+      "dx": 1.48,
+      "dy": 1.1,
+      "dist": 1.84
+     },
+     {
+      "frame_key": "2025W36_1A_0024_1_D1",
+      "detector": 1,
+      "wavelength_um": 1.0165,
+      "dx": 0.23,
+      "dy": 0.87,
+      "dist": 0.89
+     },
+     {
+      "frame_key": "2025W36_1A_0024_1_D4",
+      "detector": 4,
+      "wavelength_um": 3.449,
+      "dx": 0.79,
+      "dy": 0.9,
+      "dist": 1.2
+     },
+     {
+      "frame_key": "2026W11_1A_0511_1_D1",
+      "detector": 1,
+      "wavelength_um": 0.8041,
+      "dx": -0.13,
+      "dy": 0.32,
+      "dist": 0.34
+     },
+     {
+      "frame_key": "2026W11_1A_0511_1_D4",
+      "detector": 4,
+      "wavelength_um": 2.6365,
+      "dx": -0.16,
+      "dy": 0.24,
+      "dist": 0.29
+     },
+     {
+      "frame_key": "2026W11_1A_0556_1_D1",
+      "detector": 1,
+      "wavelength_um": 0.9935,
+      "dx": -0.44,
+      "dy": 0.24,
+      "dist": 0.5
+     },
+     {
+      "frame_key": "2026W11_1A_0556_1_D4",
+      "detector": 4,
+      "wavelength_um": 3.3603,
+      "dx": -0.63,
+      "dy": 0.31,
+      "dist": 0.7
+     },
+     {
+      "frame_key": "2026W11_2A_0513_1_D2",
+      "detector": 2,
+      "wavelength_um": 1.1971,
+      "dx": -0.24,
+      "dy": -0.3,
+      "dist": 0.38
+     },
+     {
+      "frame_key": "2026W11_2A_0513_1_D5",
+      "detector": 5,
+      "wavelength_um": 3.9407,
+      "dx": -0.44,
+      "dy": -0.05,
+      "dist": 0.45
+     },
+     {
+      "frame_key": "2026W12_1A_0311_4_D2",
+      "detector": 2,
+      "wavelength_um": 1.4116,
+      "dx": -0.14,
+      "dy": -0.05,
+      "dist": 0.15
+     },
+     {
+      "frame_key": "2026W12_1A_0311_4_D5",
+      "detector": 5,
+      "wavelength_um": 4.1873,
+      "dx": -0.35,
+      "dy": -0.0,
+      "dist": 0.35
+     },
+     {
+      "frame_key": "2026W12_1A_0610_2_D3",
+      "detector": 3,
+      "wavelength_um": 2.0123,
+      "dx": -0.13,
+      "dy": -0.07,
+      "dist": 0.15
+     },
+     {
+      "frame_key": "2026W12_1A_0610_2_D6",
+      "detector": 6,
+      "wavelength_um": 4.7205,
+      "dx": -0.51,
+      "dy": 0.21,
+      "dist": 0.56
+     },
+     {
+      "frame_key": "2026W13_1A_0129_4_D3",
+      "detector": 3,
+      "wavelength_um": 1.7397,
+      "dx": -0.61,
+      "dy": -1.05,
+      "dist": 1.22
+     },
+     {
+      "frame_key": "2026W13_1A_0129_4_D6",
+      "detector": 6,
+      "wavelength_um": 4.5075,
+      "dx": -0.6,
+      "dy": 0.22,
+      "dist": 0.64
+     },
+     {
+      "frame_key": "2026W34_1A_0007_3_D6",
+      "detector": 6,
+      "wavelength_um": 4.5303,
+      "dx": 0.59,
+      "dy": 0.03,
+      "dist": 0.59
+     },
+     {
+      "frame_key": "2026W34_1A_0007_4_D3",
+      "detector": 3,
+      "wavelength_um": 1.8086,
+      "dx": 0.42,
+      "dy": 0.17,
+      "dist": 0.46
+     },
+     {
+      "frame_key": "2026W34_1A_0431_1_D3",
+      "detector": 3,
+      "wavelength_um": 2.0284,
+      "dx": 0.24,
+      "dy": 0.53,
+      "dist": 0.59
+     },
+     {
+      "frame_key": "2026W34_1A_0431_1_D6",
+      "detector": 6,
+      "wavelength_um": 4.7324,
+      "dx": 0.54,
+      "dy": 0.39,
+      "dist": 0.66
+     },
+     {
+      "frame_key": "2026W34_2A_0178_3_D2",
+      "detector": 2,
+      "wavelength_um": 1.1135,
+      "dx": 0.02,
+      "dy": -0.54,
+      "dist": 0.54
+     },
+     {
+      "frame_key": "2026W34_2A_0178_3_D5",
+      "detector": 5,
+      "wavelength_um": 3.8375,
+      "dx": 0.58,
+      "dy": 0.21,
+      "dist": 0.62
+     },
+     {
+      "frame_key": "2026W34_2A_0249_3_D2",
+      "detector": 2,
+      "wavelength_um": 1.4778,
+      "dx": 0.04,
+      "dy": 0.64,
+      "dist": 0.64
+     },
+     {
+      "frame_key": "2026W34_2A_0249_3_D5",
+      "detector": 5,
+      "wavelength_um": 4.2567,
+      "dx": -2.04,
+      "dy": 0.18,
+      "dist": 2.04
+     },
+     {
+      "frame_key": "2026W35_1A_0079_1_D1",
+      "detector": 1,
+      "wavelength_um": 0.8524,
+      "dx": 0.48,
+      "dy": 0.74,
+      "dist": 0.88
+     },
+     {
+      "frame_key": "2026W35_1A_0079_1_D4",
+      "detector": 4,
+      "wavelength_um": 2.818,
+      "dx": 0.63,
+      "dy": 0.89,
+      "dist": 1.1
+     },
+     {
+      "frame_key": "2026W35_1A_0375_4_D1",
+      "detector": 1,
+      "wavelength_um": 1.0972,
+      "dx": 0.57,
+      "dy": 0.33,
+      "dist": 0.66
+     },
+     {
+      "frame_key": "2026W35_1A_0375_4_D4",
+      "detector": 4,
+      "wavelength_um": 3.7624,
+      "dx": 0.53,
+      "dy": 0.6,
+      "dist": 0.8
+     }
+    ]
+   }
+  },
+  "E": {
+   "question": "Which investigation questions can and cannot be answered from the images alone, and from the images with time, wavelength, scale, quality and provenance restored?",
+   "status": "Information-availability matrix derived from computed facts. Not a human or AI trial; no score.",
+   "fields": {
+    "pixels": "the PNG pixel arrays only (already on a common grid, but neither grid nor order is stated)",
+    "time": "mid-exposure date/time of each frame",
+    "wavelength": "wavelength and band width at the target",
+    "scale": "display stretch parameters (mode, low, high, unit) plus grid scale/orientation/registration",
+    "quality": "quality screen status, flag overlay and flag meanings",
+    "provenance": "frame keys, detector, release, pipeline build, hashes, source URLs, raw-FITS access (native values, detector coordinates) and the marker labelled as a catalog prediction"
+   },
+   "representations": {
+    "I0 images only": [
+     "pixels"
+    ],
+    "I1 +time": [
+     "pixels",
+     "time"
+    ],
+    "I2 +wavelength": [
+     "pixels",
+     "time",
+     "wavelength"
+    ],
+    "I3 +scale": [
+     "pixels",
+     "scale",
+     "time",
+     "wavelength"
+    ],
+    "I4 +quality": [
+     "pixels",
+     "quality",
+     "scale",
+     "time",
+     "wavelength"
+    ],
+    "I5 +provenance": [
+     "pixels",
+     "provenance",
+     "quality",
+     "scale",
+     "time",
+     "wavelength"
+    ],
+    "full minus time": [
+     "pixels",
+     "provenance",
+     "quality",
+     "scale",
+     "wavelength"
+    ],
+    "full minus wavelength": [
+     "pixels",
+     "provenance",
+     "quality",
+     "scale",
+     "time"
+    ],
+    "full minus scale": [
+     "pixels",
+     "provenance",
+     "quality",
+     "time",
+     "wavelength"
+    ],
+    "full minus quality": [
+     "pixels",
+     "provenance",
+     "scale",
+     "time",
+     "wavelength"
+    ],
+    "full minus provenance": [
+     "pixels",
+     "quality",
+     "scale",
+     "time",
+     "wavelength"
+    ]
+   },
+   "rule": "A cell is 'yes' when every required field is present, 'partial' when the listed partial subset is present, else 'no'. Required fields were assigned per question from what the computing step in controls A-D needed.",
+   "matrix": [
+    {
+     "id": "Q1",
+     "case": "WISE P/Q/R",
+     "question": "Which pair is closer in time, and by how much?",
+     "required_fields": "time",
+     "I0 images only": "no",
+     "I1 +time": "yes",
+     "I2 +wavelength": "yes",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "no",
+     "full minus wavelength": "yes",
+     "full minus scale": "yes",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "P/Q 2.6552 d apart; P/R 184.7844 d (control C).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Without times, image order and spacing are unknown."
+    },
+    {
+     "id": "Q2",
+     "case": "WISE P/Q/R",
+     "question": "Which pair has closely matched target wavelength for a temporal comparison?",
+     "required_fields": "time|wavelength",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "yes",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "no",
+     "full minus wavelength": "no",
+     "full minus scale": "yes",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "P/Q: delta-lambda 0.0018 of a band width; P/R: 6.2248 band widths (control C). P/Q still differ in: time; exposure (OBSID); wavelength; bandwidth; pipeline build; display stretch; quality screen; pointing (target detector position).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Wavelength is not visible in the pixels."
+    },
+    {
+     "id": "Q3",
+     "case": "WISE P/Q",
+     "question": "Does the same physical value get the same grey level in P and Q as shipped?",
+     "required_fields": "scale",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "no",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "No: 1.0 MJy/sr is grey 156 in P and 174 in Q (per-frame); 159 in both under the shared stretch (control A).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Grey levels cannot be converted to physical values without the stretch."
+    },
+    {
+     "id": "Q4",
+     "case": "WISE P/Q",
+     "question": "Can 'Q looks brighter' be split into display mapping vs physical values?",
+     "required_fields": "provenance|scale",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "partial",
+     "I4 +quality": "partial",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "no",
+     "full minus quality": "yes",
+     "full minus provenance": "partial",
+     "answer_when_yes": "Yes: as shipped, Q's median grey is higher (20 vs 16) although Q's physical grid median is 0.9706 x P's; under the shared stretch Q's median grey is lower (16 vs 19). 'Q is brighter' is not supported by the physical values; the cause of the small physical difference is not established.",
+     "partial_means": "The stretch shows the mapping differs, but not whether the physical values also differ.",
+     "what_is_missing_otherwise": "No representation here establishes the cause of a physical background difference."
+    },
+    {
+     "id": "Q5",
+     "case": "WISE P/Q",
+     "question": "Is the 'jumping' dot covered by an adverse pipeline flag?",
+     "required_fields": "quality",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "yes",
+     "full minus quality": "no",
+     "full minus provenance": "yes",
+     "answer_when_yes": "Yes: NONFUNC, SUR_ERROR, TRANSIENT in P and Q (control B).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "The pixels show a compact white block, the same grey as star cores; flags are not in the pixels."
+    },
+    {
+     "id": "Q6",
+     "case": "WISE P/Q",
+     "question": "Is the dot fixed on the detector rather than on the sky?",
+     "required_fields": "provenance",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "yes",
+     "full minus quality": "yes",
+     "full minus provenance": "no",
+     "answer_when_yes": "Yes: same detector pixel [1709, 1364] in P and Q; on the sky it lands 5.36\" apart while usable stars agree to median 0.4\" (control B).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Detector coordinates require the raw FITS (key-A WCS)."
+    },
+    {
+     "id": "Q7",
+     "case": "WISE P/Q",
+     "question": "What physically produced the flagged pixel?",
+     "required_fields": "not available in any representation",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "no",
+     "full minus time": "no",
+     "full minus wavelength": "no",
+     "full minus scale": "no",
+     "full minus quality": "no",
+     "full minus provenance": "no",
+     "answer_when_yes": "",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Not answerable from any representation here. Flag names (e.g. TRANSIENT, NONFUNC) are pipeline labels, not an established cause."
+    },
+    {
+     "id": "Q8",
+     "case": "WISE",
+     "question": "Is the dot near the marker WISE 0855?",
+     "required_fields": "not available in any representation",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "partial",
+     "full minus time": "partial",
+     "full minus wavelength": "partial",
+     "full minus scale": "partial",
+     "full minus quality": "partial",
+     "full minus provenance": "no",
+     "answer_when_yes": "",
+     "partial_means": "Provenance labels the marker as a catalog prediction, not a detection; positional association with a catalogued star needs an external catalog (transfer-exercise review).",
+     "what_is_missing_otherwise": "Identity is not established by any representation here."
+    },
+    {
+     "id": "Q9",
+     "case": "Epsilon A/C",
+     "question": "Is the A vs C difference a change over time?",
+     "required_fields": "time|wavelength",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "yes",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "no",
+     "full minus wavelength": "no",
+     "full minus scale": "yes",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "No: same exposure (delta-t 0.0 d), delta-lambda 69.6156 band widths, detectors differ (control C).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Images alone look like 'before/after'."
+    },
+    {
+     "id": "Q10",
+     "case": "Epsilon A/C",
+     "question": "Can grey levels be compared between A and C?",
+     "required_fields": "scale",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "no",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "No: both use per-frame stretches with different limits (control C display columns).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Without stretch parameters a viewer cannot tell."
+    },
+    {
+     "id": "Q11",
+     "case": "Barnard A/B/C",
+     "question": "Does the glow move vs field stars; which direction, which time order?",
+     "required_fields": "pixels|scale|time",
+     "I0 images only": "partial",
+     "I1 +time": "partial",
+     "I2 +wavelength": "partial",
+     "I3 +scale": "yes",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "partial",
+     "full minus wavelength": "yes",
+     "full minus scale": "partial",
+     "full minus quality": "yes",
+     "full minus provenance": "yes",
+     "answer_when_yes": "Yes, qualitatively: A->C proxies shift 6.87-8.87 display px, 11/11 toward north; field stars move at most 0.83 px (control D).",
+     "partial_means": "A positional difference is visible, but co-registration, orientation (north) and time order are not stated.",
+     "what_is_missing_otherwise": ""
+    },
+    {
+     "id": "Q12",
+     "case": "Barnard A/B/C",
+     "question": "Is the dark/blue core a dark feature of the star?",
+     "required_fields": "quality",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "yes",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "yes",
+     "full minus quality": "no",
+     "full minus provenance": "yes",
+     "answer_when_yes": "No: those pixels are non-finite (saturated, no value) and flagged (control D warning block).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Transparent pixels look like a hole."
+    },
+    {
+     "id": "Q13",
+     "case": "Barnard A/B/C",
+     "question": "Does the visible shift agree with the catalog-predicted direction?",
+     "required_fields": "pixels|provenance|scale|time",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "yes",
+     "full minus time": "no",
+     "full minus wavelength": "yes",
+     "full minus scale": "no",
+     "full minus quality": "yes",
+     "full minus provenance": "no",
+     "answer_when_yes": "Consistent in direction: prediction A->C 7.29 px at -4.4 deg from north (east positive); proxy directions -7.9 to +12.8 deg (control D).",
+     "partial_means": "",
+     "what_is_missing_otherwise": "The marker and its basis are needed."
+    },
+    {
+     "id": "Q14",
+     "case": "Barnard A/B/C",
+     "question": "What is Barnard's Star's proper motion from these images?",
+     "required_fields": "not available in any representation",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "no",
+     "full minus time": "no",
+     "full minus wavelength": "no",
+     "full minus scale": "no",
+     "full minus quality": "no",
+     "full minus provenance": "no",
+     "answer_when_yes": "",
+     "partial_means": "",
+     "what_is_missing_otherwise": "Not answerable: saturated, flagged core; proxies span 6.87-8.87 px depending on method (control D)."
+    },
+    {
+     "id": "Q15",
+     "case": "all",
+     "question": "Can a reviewer re-obtain and verify the exact source data?",
+     "required_fields": "provenance",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "yes",
+     "full minus time": "yes",
+     "full minus wavelength": "yes",
+     "full minus scale": "yes",
+     "full minus quality": "yes",
+     "full minus provenance": "no",
+     "answer_when_yes": "Yes: record sha256 = manifest sha256 = file sha256 for 12/12 frames loaded with records (results.json integrity block); source URLs and pipeline builds in control C.",
+     "partial_means": "",
+     "what_is_missing_otherwise": "No source identity in the pixels."
+    },
+    {
+     "id": "Q16",
+     "case": "all",
+     "question": "Is any brightness change photometrically measured?",
+     "required_fields": "not available in any representation",
+     "I0 images only": "no",
+     "I1 +time": "no",
+     "I2 +wavelength": "no",
+     "I3 +scale": "no",
+     "I4 +quality": "no",
+     "I5 +provenance": "no",
+     "full minus time": "no",
+     "full minus wavelength": "no",
+     "full minus scale": "no",
+     "full minus quality": "no",
+     "full minus provenance": "no",
+     "answer_when_yes": "",
+     "partial_means": "",
+     "what_is_missing_otherwise": "No: nothing here is photometry; stretches are display mappings."
+    }
+   ],
+   "evidence_images_only": {
+    "png_metadata_chunks_present": {
+     "wise:P": [],
+     "wise:Q": [],
+     "wise:R": [],
+     "eps:A": [],
+     "eps:B": [],
+     "eps:C": [],
+     "barn:A": [],
+     "barn:B": [],
+     "barn:C": []
+    },
+    "png_metadata_note": "Processor A PNGs carry no tEXt/zTXt/iTXt/eXIf/tIME chunks, so the image files alone contain no date, wavelength, stretch or provenance.",
+    "F1_in_P_png": {
+     "max_grey": 255,
+     "white_px_7x7": 20
+    },
+    "usable_field_star_blocks_in_P_png": [
+     {
+      "gaia_dr3": "5756956644387830912",
+      "max_grey": 195,
+      "white_px_7x7": 0
+     },
+     {
+      "gaia_dr3": "5756956163351495040",
+      "max_grey": 255,
+      "white_px_7x7": 29
+     },
+     {
+      "gaia_dr3": "5756956708811536128",
+      "max_grey": 145,
+      "white_px_7x7": 0
+     }
+    ],
+    "note": "In the P PNG the flagged feature reaches grey 255 (20 white px in 7x7); 1 of 3 usable field-star cores also reach 255. Nearest-neighbour upsampling turns every native pixel into a ~4.4 display-px block. A compact block hints at a single native pixel, but the pipeline's flag judgement is not in the pixels."
+   }
+  }
+ }
+}
