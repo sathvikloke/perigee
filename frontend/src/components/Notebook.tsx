@@ -13,6 +13,8 @@ import {
 import { releaseLabel } from "../lib/compare";
 import { completionIssues } from "../evidence/completion";
 import { formatDateShort, formatMicrons, formatUtc, QUALITY_LABEL } from "../lib/format";
+import { useContentCue } from "../lib/contentMotion";
+import "../styles/content-motion.css";
 
 export type SaveState =
   | { kind: "idle" }
@@ -88,7 +90,7 @@ export function Notebook(props: {
   const [exportStatus, setExportStatus] = useState<string | null>(null);
   const refs = useRef<Partial<Record<Field, HTMLTextAreaElement | null>>>({});
   const requestedReference = useRef(false);
-  const referenceRef = useRef<HTMLElement>(null);
+  const notebookArrival = useContentCue<HTMLDivElement>("notebook", card.id);
   // Export and print carry the case's own limitations, verbatim, with the frames'.
   const out = withCaseContext(props.exportCard ?? card, caseContent);
   const limitations = printedLimitations(out);
@@ -100,6 +102,7 @@ export function Notebook(props: {
   // present while a revision autosaves instead of unmounting it each keystroke.
   const showReference = Boolean(caseContent && card.reference_shown &&
     completionIssues(out, caseContent, true).length === 0);
+  const referenceRef = useContentCue<HTMLElement>("reference", showReference);
   const canExport = out.frames.length > 0 && FIELDS.every((f) => card[f.key].trim());
   const groups = caseContent?.evidence_requirements?.must_include_refs_any_of ?? [];
   const needsRequiredPair = groups.length > 0 && !groups.some((group) => group.every((ref) => pairRefs.has(ref)));
@@ -155,7 +158,7 @@ export function Notebook(props: {
 
   return (
     <aside className="notebook" id="notebook" tabIndex={-1} aria-labelledby={`${id}-title`}>
-      <div className="notebook-heading">
+      <div className="notebook-heading" ref={notebookArrival}>
         <span className="notebook-icon" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="5" y="3" width="15" height="18" rx="2" /><path d="M9 3v18M3 7h4M3 12h4M3 17h4M12 8h5M12 12h5" />

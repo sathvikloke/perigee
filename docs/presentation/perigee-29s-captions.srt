@@ -1,33 +1,35 @@
 1
 00:00:00,000 --> 00:00:04,000
 That star seems to move.
-How would you check?
+How would a student know?
 
 2
 00:00:04,000 --> 00:00:09,000
-NASA's images are public. Perigee helps
-students turn them into evidence.
+NASA's images are public.
+Making sense of them takes guidance.
 
 3
-00:00:09,000 --> 00:00:11,400
-Compare real SPHEREx observations.
+00:00:09,000 --> 00:00:13,000
+Perigee turns real SPHEREx observations
+into short investigations.
 
 4
-00:00:11,400 --> 00:00:14,500
-Check dates, wavelengths,
-and quality flags.
+00:00:13,000 --> 00:00:17,500
+Compare images. Check dates, wavelengths,
+and unreliable pixels.
 
 5
-00:00:14,500 --> 00:00:20,500
-Then record what the images support—
-and what they cannot tell you.
+00:00:17,500 --> 00:00:21,000
+Then record what the evidence supports,
 
 6
-00:00:20,500 --> 00:00:24,000
-Your conclusion stays connected
-to its sources.
+00:00:21,000 --> 00:00:24,000
+with sources and uncertainty attached.
 
 7
-00:00:24,000 --> 00:00:29,000
-A student can explain their reasoning.
-A teacher can follow it.
+00:00:24,000 --> 00:00:26,200
+Students practice explaining a conclusion.
+
+8
+00:00:26,200 --> 00:00:29,000
+Teachers can see the reasoning behind it.

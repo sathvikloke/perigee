@@ -11,14 +11,14 @@ export function createObservatoryMotion(host: HTMLElement, driftHost: HTMLElemen
 }): ObservatoryController {
   let paused=options.paused, visible=true, disposed=false, entering=true;
   const entrance=host.animate([
-    { transform:"translate3d(22%, -6%, 0) rotate(-7deg) scale(1.12)" },
-    { transform:"translate3d(0, 0, 0) rotate(0deg) scale(1)" },
-  ], {duration:2800,easing:"cubic-bezier(.16, 1, .3, 1)",fill:"both"});
+    { transform:"translate3d(28%, 12%, 0) rotate(12deg) scale(.85)", opacity: 0 },
+    { transform:"translate3d(0, 0, 0) rotate(0deg) scale(1)", opacity: 1 },
+  ], {duration:1100,easing:"cubic-bezier(.16, 1, .3, 1)",fill:"both"});
   const drift=driftHost.animate([
     {transform:"translate3d(0, 0, 0) rotate(0deg)"},
-    {transform:"translate3d(-4px, -12px, 0) rotate(.7deg)"},
+    {transform:"translate3d(-14px, -22px, 0) rotate(-3deg)"},
     {transform:"translate3d(0, 0, 0) rotate(0deg)"},
-  ], {duration:14000,iterations:Infinity,easing:"ease-in-out"});
+  ], {duration:6800,iterations:Infinity,easing:"ease-in-out"});
   entrance.currentTime=0; entrance.pause(); drift.currentTime=0; drift.pause();
   const sync=()=>{
     if(disposed) return;

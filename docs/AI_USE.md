@@ -6,7 +6,7 @@ The Space Apps [submission guide](https://www.spaceappschallenge.org/resources/p
 
 ## Short statement (for the submission form and slides)
 
-> Perigee was built with AI assistance. The team directed Claude Code and OpenAI Codex work on research, implementation, tests, review code, UI design, release coordination and presentation drafting. Processing consistency was checked using a separate code path and original FITS files; an independent Gaia-based alignment check reports both passed and inconclusive frames. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. OpenAI image generation produced the visibly labeled decorative landing illustration. **[TO CONFIRM: accurately describe how the idea arose and any additional AI tools used; do not assert exclusive human authorship unless true.]**
+> Perigee was built with AI assistance. The team directed Claude Code and OpenAI Codex work on research, implementation, tests, review code, UI design, release coordination and presentation drafting. Processing consistency was checked using a separate code path and original FITS files; an independent Gaia-based alignment check reports both passed and inconclusive frames. The app itself runs no AI model: dates, wavelengths, positions and quality flags are computed deterministically from archive data. OpenAI image generation produced the visibly labeled decorative cartoon telescope and rocket/exhaust artwork. **[TO CONFIRM: accurately describe how the idea arose and any additional AI tools used; do not assert exclusive human authorship unless true.]**
 
 ## Which AI tools were used, and for what
 
@@ -100,9 +100,11 @@ The deployed app contains no AI model and calls no AI service.
 - Wavelengths, dates, registration, quality flags and the catalog marker are computed deterministically from FITS headers and pixels, SIMBAD positions and proper motions.
 - The case explanations are fixed text written in advance. They are not generated at run time.
 
-## Landing illustration
+## Landing illustrations
 
-The landing-page spacecraft illustration was generated with OpenAI image generation using NASA/JPL-Caltech SPHEREx hardware photographs as visual references. It is visibly labeled “AI illustration” in the landing figure. It is decorative artwork, not a mission photograph, engineering model, live spacecraft position or scientific observation. The image's prompt and reference provenance are recorded in `qa/landing-motion/ASSET.md`. No generated imagery is used as an observation in an investigation.
+The current landing artwork was generated with OpenAI image generation, directed by the user's supplied cartoon satellite reference: blue panels, silver body, dark ink contours and simple cel shading. It includes a decorative space telescope, a left-facing rocket body and a separate exhaust image animated in the interface. The telescope caption and opening animation visibly identify the art as an “AI illustration.” These cartoons are not mission photographs, engineering models, live spacecraft positions or scientific observations. The telescope is generic artwork, not a claim of accurate SPHEREx hardware. The source PNGs were converted to lossless WebP with alpha and visible color values verified unchanged. White contours are added by an interface filter.
+
+This replaces an earlier, more realistic SPHEREx-inspired illustration generated using NASA/JPL-Caltech hardware photographs. Current and historical reference provenance, conversion settings and source checksums are recorded in `qa/landing-motion/ASSET.md`. No generated imagery is used as an observation in an investigation.
 
 ## How scientific claims were checked
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import type { PerigeeApi } from "../api/client";
 import type { PresetDescriptor } from "../api/types";
 import {
@@ -20,7 +20,13 @@ import { routeToSearch, type Route } from "../lib/route";
 import { ErrorBlock, useAsync } from "./common";
 import { resolveAssetSrc } from "../api/client";
 import { LandingObservatory } from "./LandingObservatory";
+import { LandingIntro } from "./LandingIntro";
+import { introEligible } from "../lib/landingIntroMotion";
+import { useLandingContentMotion } from "../lib/useLandingContentMotion";
 import { downloadEvidence } from "./Notebook";
+
+const initialHomeVisit = typeof window !== "undefined" && introEligible(window.location.search, window.location.hash);
+let introSeen = false;
 
 export function Home(props: {
   api: PerigeeApi;
@@ -34,19 +40,36 @@ export function Home(props: {
   const ready = state.status === "ready" ? state.data : [];
   const guided = ready.filter((p) => p.case_ids.length > 0);
   const open = ready.filter((p) => p.case_ids.length === 0);
+  const content = useRef<HTMLDivElement>(null);
+  useLandingContentMotion(content, ready.length);
+  const [introActive, setIntroActive] = useState(() => initialHomeVisit && !introSeen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [heroRevealed, setHeroRevealed] = useState(!introActive);
+  const [arrival, setArrival] = useState(false);
+  const [introKey, setIntroKey] = useState(0);
+  useEffect(() => { introSeen = true; }, []);
+  const revealHero = () => { setHeroRevealed(true); setArrival(true); };
+  const finishIntro = () => {
+    setIntroActive(false);
+    window.requestAnimationFrame(() => document.getElementById("hero-title")?.focus({ preventScroll: true }));
+  };
+  const replayIntro = () => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setHeroRevealed(false); setArrival(false); setIntroKey((key) => key + 1); setIntroActive(true);
+  };
   return (
-    <div className="home">
+    <div className="home" data-hero-revealed={heroRevealed} data-hero-arrival={arrival}>
+      {introActive && <LandingIntro key={introKey} onReveal={revealHero} onFinish={finishIntro} />}
       <section className="landing-hero" aria-labelledby="hero-title">
-        <LandingObservatory />
+        <LandingObservatory active={heroRevealed} onReplayIntro={replayIntro} />
         <div className="hero-copy">
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
           <p className="hero-description">Compare infrared images from NASA’s SPHEREx mission, check what changed, and record what the evidence supports.</p>
-          <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating</button>
+          <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating <span className="hero-cta-arrow" aria-hidden="true">↗</span></button>
           {props.api.mode === "fixture" && <p className="hero-source">Development fixture · Not NASA observations</p>}
         </div>
       </section>
 
-      <div className="home-content">
+      <div className="home-content" ref={content}>
         <section className="investigations-section" id="investigations" aria-labelledby="presets-h">
           <div className="section-head editorial-heading">
             <div><p className="section-label">Your first investigation</p><h2 id="presets-h">Choose an investigation</h2></div>
@@ -78,7 +101,7 @@ export function Home(props: {
 
         <section className="coordinate-invitation" aria-labelledby="query-h">
           <div><p className="section-label">Your object, your question</p><h2 id="query-h">Have a patch of sky in mind?</h2><p>Find SPHEREx observations by object name or sky coordinates.</p></div>
-          <button type="button" className="primary" onClick={props.onOpenQuery}>Search archive</button>
+          <button type="button" className="primary" onClick={props.onOpenQuery}>Search archive <span className="home-action-arrow" aria-hidden="true">↗</span></button>
         </section>
         <SavedEvidence api={props.api} presets={state.status === "ready" ? state.data : null} onOpenRoute={props.onOpenRoute} />
       </div>
@@ -116,7 +139,7 @@ function PresetItem({ api, preset, onOpen, compact = false }: { api: PerigeeApi;
         <span className="target-overline">{preset.display_name}</span>
         <span className="target-title">{copy?.question ?? preset.display_name}</span>
         <span className="target-description">{copy?.description ?? preset.one_line}</span>
-        <span className="target-footer"><span>{compact ? "Open exploration" : "Guided investigation"}</span><span>{preset.frame_count ? `${preset.frame_count} observations` : "Explore target"}</span></span>
+        <span className="target-footer"><span>{compact ? "Open exploration" : "Guided investigation"}<span className="home-action-arrow" aria-hidden="true">↗</span></span><span>{preset.frame_count ? `${preset.frame_count} observations` : "Explore target"}</span></span>
       </span>
     </button>
   </li>;

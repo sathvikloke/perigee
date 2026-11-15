@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { OrbitField } from "./OrbitField";
+import { CartoonOutline } from "./CartoonOutline";
 import { createObservatoryMotion, type ObservatoryController } from "../lib/observatoryMotion";
 
 /** Reference-informed artistic illustration, never a mission photograph or live orbit. */
-export function LandingObservatory() {
+export function LandingObservatory({ active = true, onReplayIntro }: { active?: boolean; onReplayIntro?: () => void } = {}) {
   const host=useRef<HTMLDivElement>(null);
   const driftHost=useRef<HTMLDivElement>(null);
   const illustration=useRef<HTMLImageElement>(null);
@@ -13,7 +14,6 @@ export function LandingObservatory() {
   const [ready,setReady]=useState(false);
   const [failed,setFailed]=useState(false);
   const [entering,setEntering]=useState(false);
-  const [available,setAvailable]=useState(false);
   const pauseRef=useRef(paused);
   pauseRef.current=paused;
 
@@ -25,32 +25,32 @@ export function LandingObservatory() {
     return()=>query.removeEventListener("change",sync);
   },[]);
   useEffect(()=>{
-    setEntering(false);setAvailable(false);
-    if(reduced || !ready || !host.current || !driftHost.current || typeof host.current.animate!=="function") return;
+    setEntering(false);
+    if(!active || reduced || !ready || !host.current || !driftHost.current || typeof host.current.animate!=="function") return;
     controller.current=createObservatoryMotion(host.current,driftHost.current,{
       paused:pauseRef.current,onEnter:()=>setEntering(true),onRest:()=>setEntering(false),
     });
-    setAvailable(true);
     return()=>{controller.current?.dispose();controller.current=null;};
-  },[reduced,ready]);
+  },[active,reduced,ready]);
   useEffect(()=>{controller.current?.setPaused(paused);},[paused]);
 
   return <>
-    <OrbitField externallyPaused={paused || reduced} hideControl />
-    <figure className="observatory-stage" aria-label="Artistic illustration inspired by the SPHEREx space telescope">
+    <CartoonOutline id="satellite-sticker-outline" radius={14} />
+    <OrbitField externallyPaused={!active || paused || reduced} hideControl />
+    <figure className="observatory-stage" data-motion={entering ? "entering" : paused ? "paused" : "drifting"} aria-label="Cartoon space telescope">
       <div className="observatory-model" ref={host} aria-hidden="true">
         <div className="observatory-drift" ref={driftHost}>
-          {!failed && <img ref={illustration} className="observatory-art" src="/illustrations/spherex-observatory.webp"
-            alt="" width={1280} height={1280} fetchPriority="high"
+          {!failed && <img ref={illustration} className="observatory-art" src="/illustrations/perigee-satellite-cartoon.webp"
+            alt="" width={1254} height={1254} fetchPriority="high"
             onLoad={()=>setReady(true)} onError={()=>{setFailed(true);setReady(false);}} />}
         </div>
       </div>
-      <figcaption>{failed ? "SPHEREx illustration unavailable" : <>SPHEREx<span className="observatory-illustration">AI illustration</span></>}</figcaption>
+      <figcaption>{failed ? "Space telescope illustration unavailable" : <>Space telescope<span className="observatory-illustration">AI illustration</span></>}</figcaption>
     </figure>
     <div className="landing-motion-controls">
-      {!reduced && available && <button type="button" className="landing-replay" disabled={paused}
-        onClick={()=>entering ? controller.current?.skip() : controller.current?.replay()}>
-        {entering ? "Skip entrance" : "Replay entrance"}
+      {!reduced && <button type="button" className="landing-replay"
+        onClick={()=>{setPaused(false);onReplayIntro?.();}}>
+        Replay intro <span aria-hidden="true">↗</span>
       </button>}
       <button type="button" className="landing-pause" aria-pressed={paused || reduced} disabled={reduced}
         aria-label={reduced ? "Animation off for reduced motion" : paused ? "Resume animation" : "Pause animation"}
