@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-15T04:49:16.187726+00:00",
+  "title": "Design System: Perigee",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Black canvas",
+        "tonalRamp": [
+          "oklch(15.0% 0.0029 246.3)",
+          "oklch(26.4% 0.0029 246.3)",
+          "oklch(37.9% 0.0029 246.3)",
+          "oklch(49.3% 0.0029 246.3)",
+          "oklch(60.7% 0.0029 246.3)",
+          "oklch(72.1% 0.0029 246.3)",
+          "oklch(83.6% 0.0029 246.3)",
+          "oklch(95.0% 0.0029 246.3)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Graphite surface",
+        "tonalRamp": [
+          "oklch(15.0% 0.0051 248.1)",
+          "oklch(26.4% 0.0051 248.1)",
+          "oklch(37.9% 0.0051 248.1)",
+          "oklch(49.3% 0.0051 248.1)",
+          "oklch(60.7% 0.0051 248.1)",
+          "oklch(72.1% 0.0051 248.1)",
+          "oklch(83.6% 0.0051 248.1)",
+          "oklch(95.0% 0.0051 248.1)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "White ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0017 247.8)",
+          "oklch(26.4% 0.0017 247.8)",
+          "oklch(37.9% 0.0017 247.8)",
+          "oklch(49.3% 0.0017 247.8)",
+          "oklch(60.7% 0.0017 247.8)",
+          "oklch(72.1% 0.0017 247.8)",
+          "oklch(83.6% 0.0017 247.8)",
+          "oklch(95.0% 0.0017 247.8)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0110 248.0)",
+          "oklch(26.4% 0.0110 248.0)",
+          "oklch(37.9% 0.0110 248.0)",
+          "oklch(49.3% 0.0110 248.0)",
+          "oklch(60.7% 0.0110 248.0)",
+          "oklch(72.1% 0.0110 248.0)",
+          "oklch(83.6% 0.0110 248.0)",
+          "oklch(95.0% 0.0110 248.0)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0069 248.1)",
+          "oklch(26.4% 0.0069 248.1)",
+          "oklch(37.9% 0.0069 248.1)",
+          "oklch(49.3% 0.0069 248.1)",
+          "oklch(60.7% 0.0069 248.1)",
+          "oklch(72.1% 0.0069 248.1)",
+          "oklch(83.6% 0.0069 248.1)",
+          "oklch(95.0% 0.0069 248.1)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Line strong",
+        "tonalRamp": [
+          "oklch(15.0% 0.0124 248.1)",
+          "oklch(26.4% 0.0124 248.1)",
+          "oklch(37.9% 0.0124 248.1)",
+          "oklch(49.3% 0.0124 248.1)",
+          "oklch(60.7% 0.0124 248.1)",
+          "oklch(72.1% 0.0124 248.1)",
+          "oklch(83.6% 0.0124 248.1)",
+          "oklch(95.0% 0.0124 248.1)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Electric citron",
+        "tonalRamp": [
+          "oklch(15.0% 0.1696 121.9)",
+          "oklch(26.4% 0.1696 121.9)",
+          "oklch(37.9% 0.1696 121.9)",
+          "oklch(49.3% 0.1696 121.9)",
+          "oklch(60.7% 0.1696 121.9)",
+          "oklch(72.1% 0.1696 121.9)",
+          "oklch(83.6% 0.1696 121.9)",
+          "oklch(95.0% 0.1696 121.9)"
+        ]
+      },
+      "blue-deep": {
+        "role": "primary",
+        "displayName": "Citron hover",
+        "tonalRamp": [
+          "oklch(15.0% 0.1675 122.3)",
+          "oklch(26.4% 0.1675 122.3)",
+          "oklch(37.9% 0.1675 122.3)",
+          "oklch(49.3% 0.1675 122.3)",
+          "oklch(60.7% 0.1675 122.3)",
+          "oklch(72.1% 0.1675 122.3)",
+          "oklch(83.6% 0.1675 122.3)",
+          "oklch(95.0% 0.1675 122.3)"
+        ]
+      },
+      "blue-hover-line": {
+        "role": "primary",
+        "displayName": "Blue hover line",
+        "tonalRamp": [
+          "oklch(15.0% 0.1059 121.8)",
+          "oklch(26.4% 0.1059 121.8)",
+          "oklch(37.9% 0.1059 121.8)",
+          "oklch(49.3% 0.1059 121.8)",
+          "oklch(60.7% 0.1059 121.8)",
+          "oklch(72.1% 0.1059 121.8)",
+          "oklch(83.6% 0.1059 121.8)",
+          "oklch(95.0% 0.1059 121.8)"
+        ]
+      },
+      "blue-hover-bg": {
+        "role": "primary",
+        "displayName": "Blue hover bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0255 131.0)",
+          "oklch(26.4% 0.0255 131.0)",
+          "oklch(37.9% 0.0255 131.0)",
+          "oklch(49.3% 0.0255 131.0)",
+          "oklch(60.7% 0.0255 131.0)",
+          "oklch(72.1% 0.0255 131.0)",
+          "oklch(83.6% 0.0255 131.0)",
+          "oklch(95.0% 0.0255 131.0)"
+        ]
+      },
+      "cornflower": {
+        "role": "primary",
+        "displayName": "Olive selection",
+        "tonalRamp": [
+          "oklch(15.0% 0.0336 127.9)",
+          "oklch(26.4% 0.0336 127.9)",
+          "oklch(37.9% 0.0336 127.9)",
+          "oklch(49.3% 0.0336 127.9)",
+          "oklch(60.7% 0.0336 127.9)",
+          "oklch(72.1% 0.0336 127.9)",
+          "oklch(83.6% 0.0336 127.9)",
+          "oklch(95.0% 0.0336 127.9)"
+        ]
+      },
+      "cornflower-line": {
+        "role": "primary",
+        "displayName": "Cornflower line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0787 122.9)",
+          "oklch(26.4% 0.0787 122.9)",
+          "oklch(37.9% 0.0787 122.9)",
+          "oklch(49.3% 0.0787 122.9)",
+          "oklch(60.7% 0.0787 122.9)",
+          "oklch(72.1% 0.0787 122.9)",
+          "oklch(83.6% 0.0787 122.9)",
+          "oklch(95.0% 0.0787 122.9)"
+        ]
+      },
+      "lavender": {
+        "role": "neutral",
+        "displayName": "Notebook graphite",
+        "tonalRamp": [
+          "oklch(15.0% 0.0086 223.9)",
+          "oklch(26.4% 0.0086 223.9)",
+          "oklch(37.9% 0.0086 223.9)",
+          "oklch(49.3% 0.0086 223.9)",
+          "oklch(60.7% 0.0086 223.9)",
+          "oklch(72.1% 0.0086 223.9)",
+          "oklch(83.6% 0.0086 223.9)",
+          "oklch(95.0% 0.0086 223.9)"
+        ]
+      },
+      "lavender-line": {
+        "role": "neutral",
+        "displayName": "Lavender line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0162 221.8)",
+          "oklch(26.4% 0.0162 221.8)",
+          "oklch(37.9% 0.0162 221.8)",
+          "oklch(49.3% 0.0162 221.8)",
+          "oklch(60.7% 0.0162 221.8)",
+          "oklch(72.1% 0.0162 221.8)",
+          "oklch(83.6% 0.0162 221.8)",
+          "oklch(95.0% 0.0162 221.8)"
+        ]
+      },
+      "lavender-ink": {
+        "role": "neutral",
+        "displayName": "Lavender ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0211 219.7)",
+          "oklch(26.4% 0.0211 219.7)",
+          "oklch(37.9% 0.0211 219.7)",
+          "oklch(49.3% 0.0211 219.7)",
+          "oklch(60.7% 0.0211 219.7)",
+          "oklch(72.1% 0.0211 219.7)",
+          "oklch(83.6% 0.0211 219.7)",
+          "oklch(95.0% 0.0211 219.7)"
+        ]
+      },
+      "lime": {
+        "role": "secondary",
+        "displayName": "Lime",
+        "tonalRamp": [
+          "oklch(15.0% 0.0356 135.5)",
+          "oklch(26.4% 0.0356 135.5)",
+          "oklch(37.9% 0.0356 135.5)",
+          "oklch(49.3% 0.0356 135.5)",
+          "oklch(60.7% 0.0356 135.5)",
+          "oklch(72.1% 0.0356 135.5)",
+          "oklch(83.6% 0.0356 135.5)",
+          "oklch(95.0% 0.0356 135.5)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Quality green",
+        "tonalRamp": [
+          "oklch(15.0% 0.0845 129.9)",
+          "oklch(26.4% 0.0845 129.9)",
+          "oklch(37.9% 0.0845 129.9)",
+          "oklch(49.3% 0.0845 129.9)",
+          "oklch(60.7% 0.0845 129.9)",
+          "oklch(72.1% 0.0845 129.9)",
+          "oklch(83.6% 0.0845 129.9)",
+          "oklch(95.0% 0.0845 129.9)"
+        ]
+      },
+      "amber-bg": {
+        "role": "secondary",
+        "displayName": "Amber bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0280 75.6)",
+          "oklch(26.4% 0.0280 75.6)",
+          "oklch(37.9% 0.0280 75.6)",
+          "oklch(49.3% 0.0280 75.6)",
+          "oklch(60.7% 0.0280 75.6)",
+          "oklch(72.1% 0.0280 75.6)",
+          "oklch(83.6% 0.0280 75.6)",
+          "oklch(95.0% 0.0280 75.6)"
+        ]
+      },
+      "amber-ink": {
+        "role": "secondary",
+        "displayName": "Amber ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0914 79.1)",
+          "oklch(26.4% 0.0914 79.1)",
+          "oklch(37.9% 0.0914 79.1)",
+          "oklch(49.3% 0.0914 79.1)",
+          "oklch(60.7% 0.0914 79.1)",
+          "oklch(72.1% 0.0914 79.1)",
+          "oklch(83.6% 0.0914 79.1)",
+          "oklch(95.0% 0.0914 79.1)"
+        ]
+      },
+      "error-bg": {
+        "role": "secondary",
+        "displayName": "Error bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0353 28.1)",
+          "oklch(26.4% 0.0353 28.1)",
+          "oklch(37.9% 0.0353 28.1)",
+          "oklch(49.3% 0.0353 28.1)",
+          "oklch(60.7% 0.0353 28.1)",
+          "oklch(72.1% 0.0353 28.1)",
+          "oklch(83.6% 0.0353 28.1)",
+          "oklch(95.0% 0.0353 28.1)"
+        ]
+      },
+      "error-ink": {
+        "role": "secondary",
+        "displayName": "Error ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0870 32.1)",
+          "oklch(26.4% 0.0870 32.1)",
+          "oklch(37.9% 0.0870 32.1)",
+          "oklch(49.3% 0.0870 32.1)",
+          "oklch(60.7% 0.0870 32.1)",
+          "oklch(72.1% 0.0870 32.1)",
+          "oklch(83.6% 0.0870 32.1)",
+          "oklch(95.0% 0.0870 32.1)"
+        ]
+      },
+      "field-bg": {
+        "role": "neutral",
+        "displayName": "Field bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0053 219.8)",
+          "oklch(26.4% 0.0053 219.8)",
+          "oklch(37.9% 0.0053 219.8)",
+          "oklch(49.3% 0.0053 219.8)",
+          "oklch(60.7% 0.0053 219.8)",
+          "oklch(72.1% 0.0053 219.8)",
+          "oklch(83.6% 0.0053 219.8)",
+          "oklch(95.0% 0.0053 219.8)"
+        ]
+      },
+      "placeholder": {
+        "role": "neutral",
+        "displayName": "Placeholder",
+        "tonalRamp": [
+          "oklch(15.0% 0.0154 254.6)",
+          "oklch(26.4% 0.0154 254.6)",
+          "oklch(37.9% 0.0154 254.6)",
+          "oklch(49.3% 0.0154 254.6)",
+          "oklch(60.7% 0.0154 254.6)",
+          "oklch(72.1% 0.0154 254.6)",
+          "oklch(83.6% 0.0154 254.6)",
+          "oklch(95.0% 0.0154 254.6)"
+        ]
+      },
+      "sky-hatch-a": {
+        "role": "neutral",
+        "displayName": "Sky hatch a",
+        "tonalRamp": [
+          "oklch(15.0% 0.0379 264.5)",
+          "oklch(26.4% 0.0379 264.5)",
+          "oklch(37.9% 0.0379 264.5)",
+          "oklch(49.3% 0.0379 264.5)",
+          "oklch(60.7% 0.0379 264.5)",
+          "oklch(72.1% 0.0379 264.5)",
+          "oklch(83.6% 0.0379 264.5)",
+          "oklch(95.0% 0.0379 264.5)"
+        ]
+      },
+      "sky-hatch-b": {
+        "role": "neutral",
+        "displayName": "Sky hatch b",
+        "tonalRamp": [
+          "oklch(15.0% 0.0483 267.1)",
+          "oklch(26.4% 0.0483 267.1)",
+          "oklch(37.9% 0.0483 267.1)",
+          "oklch(49.3% 0.0483 267.1)",
+          "oklch(60.7% 0.0483 267.1)",
+          "oklch(72.1% 0.0483 267.1)",
+          "oklch(83.6% 0.0483 267.1)",
+          "oklch(95.0% 0.0483 267.1)"
+        ]
+      },
+      "sky-label": {
+        "role": "neutral",
+        "displayName": "Sky label",
+        "tonalRamp": [
+          "oklch(15.0% 0.0142 268.5)",
+          "oklch(26.4% 0.0142 268.5)",
+          "oklch(37.9% 0.0142 268.5)",
+          "oklch(49.3% 0.0142 268.5)",
+          "oklch(60.7% 0.0142 268.5)",
+          "oklch(72.1% 0.0142 268.5)",
+          "oklch(83.6% 0.0142 268.5)",
+          "oklch(95.0% 0.0142 268.5)"
+        ]
+      },
+      "sky-label-bg": {
+        "role": "neutral",
+        "displayName": "Sky label bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0318 264.7)",
+          "oklch(26.4% 0.0318 264.7)",
+          "oklch(37.9% 0.0318 264.7)",
+          "oklch(49.3% 0.0318 264.7)",
+          "oklch(60.7% 0.0318 264.7)",
+          "oklch(72.1% 0.0318 264.7)",
+          "oklch(83.6% 0.0318 264.7)",
+          "oklch(95.0% 0.0318 264.7)"
+        ]
+      },
+      "marker": {
+        "role": "secondary",
+        "displayName": "Catalog prediction",
+        "tonalRamp": [
+          "oklch(15.0% 0.1158 122.1)",
+          "oklch(26.4% 0.1158 122.1)",
+          "oklch(37.9% 0.1158 122.1)",
+          "oklch(49.3% 0.1158 122.1)",
+          "oklch(60.7% 0.1158 122.1)",
+          "oklch(72.1% 0.1158 122.1)",
+          "oklch(83.6% 0.1158 122.1)",
+          "oklch(95.0% 0.1158 122.1)"
+        ]
+      },
+      "guide": {
+        "role": "secondary",
+        "displayName": "Scientific guide",
+        "tonalRamp": [
+          "oklch(15.0% 0.0923 237.7)",
+          "oklch(26.4% 0.0923 237.7)",
+          "oklch(37.9% 0.0923 237.7)",
+          "oklch(49.3% 0.0923 237.7)",
+          "oklch(60.7% 0.0923 237.7)",
+          "oklch(72.1% 0.0923 237.7)",
+          "oklch(83.6% 0.0923 237.7)",
+          "oklch(95.0% 0.0923 237.7)"
+        ]
+      },
+      "action-ink": {
+        "role": "neutral",
+        "displayName": "Dark action text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0203 126.0)",
+          "oklch(26.4% 0.0203 126.0)",
+          "oklch(37.9% 0.0203 126.0)",
+          "oklch(49.3% 0.0203 126.0)",
+          "oklch(60.7% 0.0203 126.0)",
+          "oklch(72.1% 0.0203 126.0)",
+          "oklch(83.6% 0.0203 126.0)",
+          "oklch(95.0% 0.0203 126.0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing invitation only; narrower responsive overrides are in orbital.css."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Editorial sections on the landing continuation."
+      },
+      "investigation": {
+        "displayName": "Investigation",
+        "purpose": "Working-screen title."
+      },
+      "section": {
+        "displayName": "Section",
+        "purpose": "Operational section heading baseline."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Working explanations and notebook context."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Reusable scientific metadata and control labels."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Technical identifiers and provenance values."
+      }
+    },
+    "shadows": [
+      {
+        "name": "prediction-outline",
+        "value": "0 0 0 1px #0004",
+        "purpose": "Keep the scientific prediction ring legible over image content."
+      },
+      {
+        "name": "compass-text",
+        "value": "0 1px 3px black",
+        "purpose": "Text shadow for direction labels over real imagery."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-feedback",
+        "value": "160ms",
+        "purpose": "Color, background, border and 1px pressed movement; removed for reduced motion."
+      },
+      {
+        "name": "orbital-speed",
+        "value": "0.0025–0.0045 rad/s",
+        "purpose": "Decorative leftward visible arcs; paused by user, reduced motion, hidden or offscreen state."
+      },
+      {
+        "name": "orbital-frame-throttle",
+        "value": "30ms minimum draw interval",
+        "purpose": "Bound canvas draw work; cap pixel ratio at 2."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "landing-wide",
+        "value": "1500px"
+      },
+      {
+        "name": "notebook-wide",
+        "value": "1400px"
+      },
+      {
+        "name": "sequence-columns",
+        "value": "1250px"
+      },
+      {
+        "name": "bench-compact",
+        "value": "1100px"
+      },
+      {
+        "name": "landing-compact",
+        "value": "1050px"
+      },
+      {
+        "name": "notebook-stacked",
+        "value": "900px"
+      },
+      {
+        "name": "landing-stacked",
+        "value": "760px"
+      },
+      {
+        "name": "phone",
+        "value": "560px"
+      },
+      {
+        "name": "compact-controls",
+        "value": "380px"
+      },
+      {
+        "name": "narrow-landing",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Citron invitation or evidence action.",
+      "html": "<button type=\"button\" class=\"ds-primary\">Start investigating</button>",
+      "css": ".ds-primary{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);min-height:44px;padding:9px 13px;border:1px solid var(--line,#2a2d30);border-radius:var(--radius-sm,10px);font-size:14px;font-weight:500;cursor:pointer;transition:background 160ms,color 160ms,border-color 160ms,transform 160ms;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding-inline:22px;border-radius:999px;background:var(--blue,#d5f96e);border-color:var(--blue,#d5f96e);color:#11150b;font-size:13px;font-weight:600}.ds-primary:hover:not(:disabled){background:var(--blue-deep,#c3e75e);border-color:var(--blue-deep,#c3e75e)}.ds-primary:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}.ds-primary:active:not(:disabled){transform:translateY(1px)}.ds-primary:disabled{cursor:not-allowed;opacity:.55}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary control",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A compact working control.",
+      "html": "<button type=\"button\" class=\"ds-secondary\">Blink pair</button>",
+      "css": ".ds-secondary{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);min-height:44px;padding:9px 13px;border:1px solid var(--line,#2a2d30);border-radius:var(--radius-sm,10px);font-size:14px;font-weight:500;cursor:pointer;transition:background 160ms,color 160ms,border-color 160ms,transform 160ms;background:var(--surface,#121416);color:var(--ink,#f5f6f7)}.ds-secondary:hover:not(:disabled){background:var(--blue-hover-bg,#20271a);border-color:var(--blue-hover-line,#a5bb6d)}.ds-secondary:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}.ds-secondary:active:not(:disabled){transform:translateY(1px)}.ds-secondary:disabled{cursor:not-allowed;opacity:.55}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Inline action",
+      "kind": "button",
+      "refersTo": "button-link",
+      "description": "Text action with extended pointer target.",
+      "html": "<button type=\"button\" class=\"ds-link\">Inspect the source observations</button>",
+      "css": ".ds-link{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);position:relative;padding:0;border:0;background:none;color:var(--blue,#d5f96e);font-size:12px;font-weight:500;text-decoration:underline;text-underline-offset:4px;cursor:pointer;transition:transform 160ms}.ds-link::after{content:\"\";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}.ds-link:hover{background:none}.ds-link:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}.ds-link:active:not(:disabled){transform:translateY(1px)}.ds-link:disabled{cursor:not-allowed;opacity:.55}@media(prefers-reduced-motion:reduce){.ds-link{transition:none}}"
+    },
+    {
+      "name": "Evidence field",
+      "kind": "input",
+      "refersTo": "evidence-input",
+      "description": "A visible prompt, hint and resizable notebook field.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-claim\">What’s your claim?</label><span id=\"ds-claim-hint\">What do the observations support?</span><textarea id=\"ds-claim\" aria-describedby=\"ds-claim-hint\" rows=\"3\" placeholder=\"I think these observations…\"></textarea></div>",
+      "css": ".ds-field{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);color:var(--ink,#f5f6f7)}.ds-field label{display:block;font-size:13px;font-weight:500}.ds-field span{display:block;font-size:12px;color:var(--muted,#a6acb2);margin:4px 0 8px}.ds-field textarea{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);display:block;width:100%;min-height:88px;resize:vertical;padding:12px;border:1px solid var(--line-strong,#50565c);border-radius:var(--radius-sm,10px);background:var(--field-bg,#0c0f10);color:var(--ink,#f5f6f7);font-size:14px;line-height:1.6}.ds-field textarea::placeholder{color:var(--placeholder,#9aa1aa)}.ds-field textarea:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}@media(max-width:560px){.ds-field textarea{font-size:16px}}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Muted navigation with a graphite evidence destination.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a href=\"#investigations\" aria-current=\"page\">Investigations</a><a href=\"#query\">Search coordinates</a><a href=\"#my-evidence\">My evidence</a></nav>",
+      "css": ".ds-nav{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);display:flex;gap:8px;background:var(--paper,#08090a)}.ds-nav a{display:flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:450;color:var(--muted,#a6acb2);text-decoration:none}.ds-nav a:hover{color:var(--ink,#f5f6f7);background:var(--surface,#121416)}.ds-nav a[aria-current=page]{background:transparent;color:var(--ink,#f5f6f7)}.ds-nav a:last-child{background:#1b1e20;color:#e5e8eb;padding-inline:20px}.ds-nav a:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}@media(max-width:560px){.ds-nav{gap:0}.ds-nav a{padding:8px 10px;font-size:12px}.ds-nav a:first-child{display:none}.ds-nav a:last-child{padding-inline:12px}}"
+    },
+    {
+      "name": "Quality status",
+      "kind": "chip",
+      "refersTo": "quality-flagged",
+      "description": "Written status retains the meaning of its color.",
+      "html": "<span class=\"ds-quality\" data-status=\"flagged\">Flagged near target</span>",
+      "css": ".ds-quality{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);display:inline-block;font-size:12px;font-weight:500;padding:4px 7px;border-radius:var(--radius-xs,6px);white-space:nowrap}.ds-quality[data-status=flagged]{background:var(--amber-bg,#33291b);color:var(--amber-ink,#f3cc8d)}.ds-quality[data-status=clear]{background:var(--lime,#24301e);color:var(--green,#c7e5aa)}"
+    },
+    {
+      "name": "Evidence notebook",
+      "kind": "card",
+      "refersTo": "notebook",
+      "description": "Cool graphite distinguishes reasoning from the image bench.",
+      "html": "<section class=\"ds-notebook\"><header><p>Make your reasoning visible</p><h2>Evidence notebook</h2></header><div class=\"ds-notebook-body\">A useful answer includes what you saw and what you still can’t tell.</div></section>",
+      "css": ".ds-notebook{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);color:var(--ink,#f5f6f7);background:var(--surface,#121416);border:1px solid var(--lavender-line,#313c40);border-radius:var(--radius-lg,24px);overflow:hidden}.ds-notebook header{padding:22px 20px;background:var(--lavender,#14191b);border-bottom:1px solid var(--lavender-line,#313c40)}.ds-notebook header p{margin:0 0 4px;color:var(--lavender-eyebrow,#a3b8c0);text-transform:uppercase;font-size:12px;font-weight:500;letter-spacing:.06em;line-height:1.5}.ds-notebook h2{margin:0;font-size:21px;font-weight:500;letter-spacing:-.02em;line-height:1.3}.ds-notebook-body{padding:20px;color:var(--muted,#a6acb2);font-size:12px;line-height:1.6}"
+    },
+    {
+      "name": "Comparison selector",
+      "kind": "custom",
+      "refersTo": "comparison-selected",
+      "description": "Pressed state identifies the selected scientific pair.",
+      "html": "<div class=\"ds-pair\" role=\"group\" aria-label=\"Choose comparison\"><button type=\"button\" aria-pressed=\"true\">A + B<span>Different dates</span></button><button type=\"button\" aria-pressed=\"false\">A + C<span>Different wavelengths</span></button></div>",
+      "css": ".ds-pair{display:flex;flex-wrap:wrap;padding:3px;border:1px solid var(--line,#2a2d30);border-radius:12px;background:var(--paper,#08090a)}.ds-pair button{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);min-height:44px;padding:9px 13px;border:1px solid var(--line,#2a2d30);border-radius:var(--radius-sm,10px);font-size:14px;font-weight:500;cursor:pointer;transition:background 160ms,color 160ms,border-color 160ms,transform 160ms;min-height:45px;padding:6px 13px;background:transparent;border-color:transparent;text-align:left;font-size:12px;line-height:1.25;color:var(--ink,#f5f6f7)}.ds-pair button span{display:block;font-size:12px;font-weight:400;margin-top:3px;color:var(--muted,#a6acb2)}.ds-pair button[aria-pressed=true]{background:var(--cornflower,#222a18);border-color:var(--cornflower-line,#62723d);color:var(--blue-deep,#c3e75e)}.ds-pair button:hover:not(:disabled){border-color:var(--blue-hover-line,#a5bb6d)}.ds-pair button:focus-visible{outline:3px solid var(--blue,#d5f96e);outline-offset:3px;}.ds-pair button:active:not(:disabled){transform:translateY(1px)}@media(prefers-reduced-motion:reduce){.ds-pair button{transition:none}}"
+    },
+    {
+      "name": "Orbit mark",
+      "kind": "custom",
+      "refersTo": "brand-mark",
+      "description": "Exact inline geometry from BrandMark.tsx; decorative within a named brand link.",
+      "html": "<span class=\"ds-brand\"><svg viewBox=\"0 0 40 40\" fill=\"none\" aria-hidden=\"true\"><ellipse cx=\"20\" cy=\"20\" rx=\"18\" ry=\"10\" transform=\"rotate(-34 20 20)\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"20\" cy=\"20\" r=\"7\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"33.5\" cy=\"10.8\" r=\"3.1\" class=\"ds-orbit-point\"/></svg>perigee</span>",
+      "css": ".ds-brand{font-family:var(--font,\"Host Grotesk\",ui-sans-serif,sans-serif);display:inline-flex;align-items:center;gap:10px;color:var(--ink,#f5f6f7);font-size:26px;font-weight:600;letter-spacing:-.035em;line-height:1}.ds-brand svg{display:block;width:34px;height:34px}.ds-orbit-point{fill:var(--blue,#d5f96e);stroke:var(--paper,#08090a);stroke-width:1.5}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Orbital Observatory",
+    "overview": "A black sky, white typography and electric citron invite a learner into an investigation. The existing orbit mark is refined into a tilted ellipse, central ring and small orbital point. Host Grotesk connects the expansive, centered landing introduction to the quieter graphite workbench.\n\nThe landing surface uses decorative white stars and generous reading space. Working views concentrate on registered scientific images, nearby metadata and a reusable evidence notebook. This record describes the current React application, including its API and clearly labeled fixture modes; it does not describe the superseded light prototype or certify a deployment.",
+    "keyCharacteristics": [
+      "Black and white identity with electric citron actions and selection.",
+      "Self-hosted Host Grotesk with a large landing display and compact working hierarchy.",
+      "Rounded graphite containers, image-led investigations and persistent evidence context.",
+      "Decorative orbital motion on the landing page; deliberate user-controlled scientific playback in the bench."
+    ],
+    "rules": [
+      {
+        "name": "The Scientific Color Rule",
+        "body": "Keep quality states, coverage hatching, prediction markers and the guide visually distinct; the brand accent must not change what a scientific overlay means.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Densities Rule",
+        "body": "Use the large display for the landing invitation; keep investigation headings, controls and metadata compact enough to inspect evidence together.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Bench Rule",
+        "body": "Keep decorative perpetual motion off the investigation bench; image changes there follow explicit comparison or playback controls.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the fixed sky grid and keep dates, wavelength, quality and provenance associated with each frame.",
+      "Do use the real source imagery for target previews and retain visible fixture labeling when that mode is active.",
+      "Do keep a visible star pause control and honor reduced motion, offscreen state and document visibility.",
+      "Do retain claim, observations and uncertainty with local-save status and export actions."
+    ],
+    "donts": [
+      "Don't animate real scientific image data as part of the decorative orbital scene.",
+      "Don't treat a catalog prediction, clear quality screen or coverage match as a detection.",
+      "Don't apply the landing display scale or starfield to dense investigation controls.",
+      "Don't promote tiny incidental landing captions or print provenance into the reusable type scale."
+    ]
+  }
+}

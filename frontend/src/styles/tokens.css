@@ -1,76 +1,57 @@
-/*
- * Design tokens translated from Codex's selected direction
- * (perigee-ui-direction/design/HANDOFF.md and design/prototype/styles.css):
- * "classroom experiment bench" — cool paper, deep navy text, cobalt actions,
- * cornflower selection, lavender notebook, small lime check signals.
- * Soft 24px main corners, 16px image wells, 10px controls.
- *
- * This file holds every visual value. app.css references only these
- * custom properties, so a later design revision replaces this file.
- */
+/* Perigee orbital UI: black / white / electric citron. */
+@font-face { font-family: "Host Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("/fonts/host-grotesk-latin.woff2") format("woff2"); }
 :root {
-  color-scheme: light;
-
-  /* Palette (prototype names) */
-  --paper: #f6f7fb;
-  --surface: #ffffff;
-  --ink: #17213d;
-  --muted: #59647a;
-  --line: #dce1ee;
-  --line-strong: #bdc5dc;
-  --blue: #244de8;
-  --blue-deep: #193bb9;
-  --blue-hover-line: #9baad0;
-  --blue-hover-bg: #f2f5ff;
-  --cornflower: #e8eeff;
-  --cornflower-line: #c8d4ff;
-  --step-bg: #e9edf7;
-  --lavender: #eeebfa;
-  --lavender-line: #dedbef;
-  --lavender-ink: #5e4d8d;
-  --lavender-eyebrow: #645881;
-  --lavender-icon: #514376;
-  --lavender-number: #b8aed3;
-  --lime: #eaf4cd;
-  --lime-soft: #f1f6e6;
-  --lime-ink: #455632;
-  --green: #355319;
-  --insight-ink: #243969;
-  --insight-line: #b1c2f1;
-  --amber-bg: #fff1d9;
-  --amber-ink: #674715;
-  --error-bg: #fff0ec;
-  --error-ink: #8b361e;
-  --field-bg: #fcfcfe;
-  --placeholder: #758098;
-
-  /* Sky plate */
+  color-scheme: dark;
+  --paper: #08090a;
+  --surface: #121416;
+  --ink: #f5f6f7;
+  --muted: #a6acb2;
+  --line: #2a2d30;
+  --line-strong: #50565c;
+  --blue: #d5f96e;
+  --blue-deep: #c3e75e;
+  --blue-hover-line: #a5bb6d;
+  --blue-hover-bg: #20271a;
+  --cornflower: #222a18;
+  --cornflower-line: #62723d;
+  --step-bg: #171a1c;
+  --lavender: #14191b;
+  --lavender-line: #313c40;
+  --lavender-ink: #c6d8de;
+  --lavender-eyebrow: #a3b8c0;
+  --lavender-icon: #c6d8de;
+  --lavender-number: #788c94;
+  --lime: #24301e;
+  --lime-soft: #151d12;
+  --lime-ink: #c7e5aa;
+  --green: #c7e5aa;
+  --insight-ink: #d4e3e8;
+  --insight-line: #3c4e55;
+  --amber-bg: #33291b;
+  --amber-ink: #f3cc8d;
+  --error-bg: #341e1b;
+  --error-ink: #ffb7a8;
+  --field-bg: #0c0f10;
+  --placeholder: #9aa1aa;
   --sky-hatch-a: #1d2639;
-  /* Lighter than the prototype's #273044 so saturated holes read as "no data", not dark sky (science review). */
   --sky-hatch-b: #3a4560;
   --sky-label: #e1e5ef;
   --sky-label-bg: #111827b3;
   --marker: #d3ed95;
-  --marker-key: #51762c;
+  --marker-key: #c4e397;
   --guide: #8fd3ff;
-
-  /* Fixture warning (development only) */
   --fixture-bg: #674715;
   --fixture-ink: #ffffff;
-
-  /* Type */
-  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font: "Host Grotesk", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --text-xs: 12px;
   --text-sm: 13px;
   --text-md: 14px;
   --text-lg: 16px;
-  --text-h2: 20px;
-  --text-target: 23px;
-  --text-h1: clamp(28px, 2.65vw, 38px);
+  --text-h2: 22px;
+  --text-target: 24px;
+  --text-h1: clamp(30px, 3vw, 44px);
   --measure: 68ch;
-
-  /* Shape and space */
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 10px;
@@ -81,8 +62,7 @@
   --space-lg: 24px;
   --space-xl: 32px;
   --page-max: 1540px;
-  --page-pad: 36px;
+  --page-pad: 40px;
   --target-min: 44px;
-
   --duration-fast: 160ms;
 }

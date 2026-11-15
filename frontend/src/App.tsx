@@ -4,6 +4,7 @@ import type { FrameRecord, PresetDescriptor } from "./api/types";
 import { Home } from "./components/Home";
 import { PresetInvestigation } from "./components/PresetInvestigation";
 import { QueryInvestigation } from "./components/QueryInvestigation";
+import { BrandMark } from "./components/BrandMark";
 import { createFixtureApi } from "./fixtures/devFixture";
 import { focusHeadingIn } from "./lib/headingFocus";
 import { parseRoute, routeToSearch, type Route } from "./lib/route";
@@ -20,14 +21,16 @@ function initialFixtureMode(): boolean {
 export function App() {
   const [route, setRoute] = useState<Route>(() => parseRoute(window.location.search));
   const [fixtureMode, setFixtureMode] = useState(initialFixtureMode);
+  const [queryNavigation, setQueryNavigation] = useState(0);
   const api: PerigeeApi = useMemo(() => (fixtureMode ? createFixtureApi() : createHttpApi()), [fixtureMode]);
-  // Frames already processed this session, keyed by data source + frame_key.
+  // Bounded session cache, keyed by the full signed cutout request.
   const frameCache = useRef(new Map<string, FrameRecord>());
 
   useEffect(() => {
     const onPop = () => {
       setRoute(parseRoute(window.location.search));
       setFixtureMode(initialFixtureMode());
+      setQueryNavigation((n) => n + 1);
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
@@ -40,6 +43,7 @@ export function App() {
       else window.history.pushState(null, "", url);
       if (fixtures !== fixtureMode) setFixtureMode(fixtures);
       setRoute(next);
+      if (!replace && next.view === "query") setQueryNavigation((n) => n + 1);
       if (!replace) window.scrollTo(0, 0);
     },
     [fixtureMode],
@@ -62,16 +66,26 @@ export function App() {
   const routeKey = route.view === "preset" ? `preset:${route.presetId}` : route.view;
   useEffect(() => (mainRef.current ? focusHeadingIn(mainRef.current) : undefined), [routeKey]);
 
-  // "My evidence": the notebook on an investigation, or the saved list on the home view.
-  const goToEvidence = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const target = document.getElementById("notebook") ?? document.getElementById("my-evidence");
-    if (target) {
-      target.scrollIntoView();
-      return;
+  const pendingEvidence = useRef(window.location.hash === "#my-evidence");
+  const focusEvidence = () => {
+    const heading = document.getElementById("saved-h");
+    heading?.scrollIntoView({ block: "start" });
+    heading?.focus({ preventScroll: true });
+  };
+  useEffect(() => {
+    if (route.view === "home" && pendingEvidence.current) {
+      pendingEvidence.current = false;
+      focusEvidence();
     }
+  }, [route]);
+
+  // This navigation always opens the saved collection, not the current notebook.
+  const goToEvidence = (e: React.MouseEvent) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    if (route.view === "home") return focusEvidence();
+    pendingEvidence.current = true;
     navigate({ view: "home" });
-    window.setTimeout(() => document.getElementById("my-evidence")?.scrollIntoView(), 50);
   };
 
   const openQueryAt = (preset: PresetDescriptor) =>
@@ -80,7 +94,6 @@ export function App() {
       ra: String(preset.query_center?.ra_deg ?? ""),
       dec: String(preset.query_center?.dec_deg ?? ""),
       fov: String(preset.default_fov_arcmin ?? 6),
-      caseId: preset.case_ids[0],
     });
 
   return (
@@ -96,37 +109,29 @@ export function App() {
           </button>
         </div>
       )}
-      <header className="topbar">
+      <header className={`topbar${route.view === "home" ? " landing-nav" : ""}`}>
         <a
           href={`${window.location.pathname}${fixtureMode ? "?fixtures=1" : ""}`}
           className="brand"
           aria-label="Perigee home"
           onClick={(e) => {
+            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
             e.preventDefault();
             navigate({ view: "home" });
           }}
         >
-          <svg viewBox="0 0 36 36" aria-hidden="true">
-            <circle cx="18" cy="18" r="10" />
-            <ellipse cx="18" cy="18" rx="17" ry="6" transform="rotate(-36 18 18)" />
-            <circle className="satellite" cx="29" cy="9" r="3" />
-          </svg>
+          <BrandMark />
           perigee
-          <span className="brand-divider" aria-hidden="true" />
-          <span className="brand-caption">
-            A closer look at
-            <br />
-            our infrared sky
-          </span>
         </a>
         <nav aria-label="Main">
           <ul>
             <li>
               <a
-                href="?"
+                href={routeToSearch({ view: "home" }, fixtureMode) || "?"}
                 className="wide-only"
-                aria-current={route.view !== "query" ? "page" : undefined}
+                aria-current={route.view === "home" ? "page" : undefined}
                 onClick={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                   e.preventDefault();
                   navigate({ view: "home" });
                 }}
@@ -136,9 +141,10 @@ export function App() {
             </li>
             <li>
               <a
-                href="?view=query"
+                href={routeToSearch({ view: "query" }, fixtureMode)}
                 aria-current={route.view === "query" ? "page" : undefined}
                 onClick={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                   e.preventDefault();
                   navigate({ view: "query" });
                 }}
@@ -150,7 +156,7 @@ export function App() {
               </a>
             </li>
             <li>
-              <a href="#my-evidence" onClick={goToEvidence}>
+              <a href={`${window.location.pathname}${fixtureMode ? "?fixtures=1" : ""}#my-evidence`} onClick={goToEvidence}>
                 My evidence
               </a>
             </li>
@@ -158,7 +164,7 @@ export function App() {
         </nav>
       </header>
 
-      <main id="main" ref={mainRef} tabIndex={-1}>
+      <main id="main" className={route.view === "home" ? "landing-main" : "investigation-main"} ref={mainRef} tabIndex={-1}>
         {route.view === "home" && (
           <Home
             api={api}
@@ -181,7 +187,7 @@ export function App() {
         )}
         {route.view === "query" && (
           <QueryInvestigation
-            key={`${api.mode}:query`}
+            key={`${api.mode}:query:${queryNavigation}`}
             api={api}
             initial={route}
             frameCache={frameCache.current}
@@ -193,7 +199,7 @@ export function App() {
                   ra: String(q.ra_deg),
                   dec: String(q.dec_deg),
                   fov: String(q.fov_arcmin),
-                  caseId: route.caseId,
+                  limit: String(q.limit),
                 },
                 true,
               )
@@ -216,12 +222,11 @@ export function App() {
           )}
         </span>
         <a href="https://irsa.ipac.caltech.edu/Missions/spherex.html" target="_blank" rel="noreferrer">
-          Explore the SPHEREx archive ↗
+          SPHEREx archive
         </a>
         <p className="footer-ai">
           <a href={AI_USE_URL} target="_blank" rel="noreferrer">
-            Built with AI-assisted development (Claude Code, Codex). No AI runs in this app; all science checked
-            against original NASA files.
+            Development notes
           </a>
         </p>
       </footer>
