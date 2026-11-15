@@ -128,7 +128,9 @@ export function Notebook(props: {
     <aside className="notebook" id="notebook" tabIndex={-1} aria-labelledby={`${id}-title`}>
       <div className="notebook-heading">
         <span className="notebook-icon" aria-hidden="true">
-          ▤
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="5" y="3" width="15" height="18" rx="2" /><path d="M9 3v18M3 7h4M3 12h4M3 17h4M12 8h5M12 12h5" />
+          </svg>
         </span>
         <div>
           <p className="eyebrow">Make your reasoning visible</p>
@@ -174,7 +176,7 @@ export function Notebook(props: {
 
         <form onSubmit={submit} noValidate={false}>
           {FIELDS.map((f) => {
-            const hint = f.key === "claim" ? caseContent?.claim_prompt ?? "What do these images show?" : f.hint;
+            const hint = f.key === "claim" ? "State what these observations support." : f.hint;
             return (
               <div className="field" key={f.key}>
                 <label htmlFor={`${id}-${f.key}`}>{f.label}</label>
@@ -203,6 +205,12 @@ export function Notebook(props: {
                   <p className="count" id={`${id}-claim-count`}>
                     {card.claim.length} / {CLAIM_MAX}
                   </p>
+                )}
+                {f.key === "claim" && caseContent?.claim_prompt && (
+                  <details className="claim-guidance">
+                    <summary>Read the investigation question</summary>
+                    <p>{caseContent.claim_prompt}</p>
+                  </details>
                 )}
               </div>
             );

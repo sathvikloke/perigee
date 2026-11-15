@@ -47,7 +47,7 @@ typography:
     letterSpacing: "-0.03em"
   investigation:
     fontFamily: "\"Host Grotesk\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
-    fontSize: "clamp(30px, 3vw, 44px)"
+    fontSize: "clamp(30px, 2.8vw, 40px)"
     fontWeight: 500
     lineHeight: 1.16
     letterSpacing: "-0.03em"
@@ -59,12 +59,12 @@ typography:
     letterSpacing: "-0.02em"
   body:
     fontFamily: "\"Host Grotesk\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
-    fontSize: "14px"
+    fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "\"Host Grotesk\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
-    fontSize: "12px"
+    fontSize: "13px"
     lineHeight: 1.5
   mono:
     fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
@@ -185,19 +185,21 @@ The display is medium-weight, closely tracked and spacious in its surroundings. 
 - **Display:** centered landing question; narrows to `clamp(46px, 8.2vw, 62px)` below 760px and 42px below 360px.
 - **Headline:** editorial landing sections. Investigation headings use their own smaller responsive role.
 - **Section:** working section baseline; notebook headings adapt from 21px to 23px.
-- **Body:** 14px operational text. Landing descriptions use 17–21px; section explanations use 15–16px. Supporting measures are bounded, including the 68ch working-copy limit.
-- **Label:** the reusable 12px metadata role. Incidental landing captions are not a new type-scale step.
-- **Inputs:** notebook text is 14px with a 1.6 line height, increasing to 16px at the phone breakpoint.
+- **Body:** 16px operational text, with 14px supporting explanations. Landing descriptions use 17–21px; investigation-card descriptions use 16px. Supporting measures are bounded, including the 65ch introduction limit.
+- **Label:** the reusable 13px metadata role; control text is 14px. Incidental landing captions are not a new type-scale step.
+- **Inputs:** notebook text is 16px with a 1.55 line height at every breakpoint, with 24px between field groups.
 
 **The Two Densities Rule.** Use the large display for the landing invitation; keep investigation headings, controls and metadata compact enough to inspect evidence together.
 
 ## Layout
 
-The landing hero fills at least the viewport, keeps a calm centered reading column and uses stacked actions. Its top navigation floats over the scene. Continuation content has a 1200px maximum width: two image-led guided investigations, three compact open targets, a two-column evidence example, coordinate invitation and saved evidence. The evidence explanation and its h2 precede the example’s h3 in document order; desktop CSS places the example to the left without changing that reading order.
+The landing hero fills at least the viewport, keeps a calm centered reading column and uses stacked actions. Its top navigation floats over the scene. Continuation content has a 1200px maximum width: three image-led guided investigations, two compact open targets, a two-column evidence example, coordinate invitation and saved evidence. Guided cards share a footer baseline while their titles retain natural spacing. The evidence explanation and its h2 precede the example’s h3 in document order; desktop CSS places the example to the left without changing that reading order.
 
-At 760px and below, guided cards, open targets and the evidence section stack; the evidence explanation precedes its example. Landing gutters become 24px, then 18px below 360px. The 1050px adjustment tightens supporting composition; 1500px enlarges the hero description.
+At 1050px and below, each guided card occupies a row with its preview beside its copy. At 760px and below, previews return above the copy, open targets and the evidence section stack, and the evidence explanation precedes its example. Landing gutters become 24px, then 18px below 360px. The 1500px adjustment enlarges the hero description.
 
-Operational content retains the 1540px maximum with 40px desktop gutters. The comparison/notebook grid uses `minmax(0, 2.25fr) minmax(310px, 1fr)` and a 24px gap, tightening at 1100px. At 900px the notebook follows the comparison. A “Record your evidence” / “Back to observations” anchor loop connects the separated areas; both destinations are focusable and the links preserve 44px targets. At 560px one full-width plate is selected with explicit observation controls; the comparison padding becomes 12px and the short Compare / Check / Explain strip keeps the image close. The strip is compact across sizes: helper text is hidden and steps have transparent backgrounds. The sequence viewer gains a metadata column at 1250px. At 1400px notebook padding expands to 24px.
+Operational content retains the 1540px maximum with 40px desktop gutters; the top navigation follows the same outer alignment. The comparison/notebook grid uses `minmax(0, 2.25fr) minmax(310px, 1fr)` and a 24px gap. At 1100px the notebook follows the comparison. A “Record your evidence” / “Back to observations” anchor loop connects the separated areas; both destinations are focusable and the links preserve 44px targets. At 560px one full-width plate is selected with explicit observation controls and 12px comparison padding. The sequence viewer gains a metadata column at 1250px. At 1400px notebook padding expands to 24px.
+
+The investigation header combines a compact target label, bounded investigation switcher, question and short orientation. Comparison images precede the detailed steps. The complete authored opening remains in the About disclosure; the notebook's full investigation question has its own disclosure. The Compare / Check / Explain strip sits with the steps, followed by progress and review controls. Coordinate fields use four columns on desktop, two at 1100px and one at 560px.
 
 The reusable spacing scale runs from 4px to 32px. Larger landing section intervals are composition-specific. Ordinary controls have a 44px minimum target, primary actions 48px and the hero action 50px; inline text buttons extend their hit area without changing text layout. Print CSS restores light paper and semantic text, status, border and insight colors while retaining both selected plates, complete notes and provenance. This stylesheet behavior has not been verified through a runtime PDF print in this redesign pass.
 

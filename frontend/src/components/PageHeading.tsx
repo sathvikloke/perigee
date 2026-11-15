@@ -1,4 +1,5 @@
 import type { PresetDescriptor } from "../api/types";
+import type { ReactNode } from "react";
 
 /** Investigation heading row (design: `.heading-row`). */
 export function PageHeading(props: {
@@ -7,25 +8,31 @@ export function PageHeading(props: {
   title: string;
   intro?: string | null;
   mode: "api" | "fixture";
+  controls?: ReactNode;
 }) {
   return (
-    <div className="heading-row">
-      <div>
+    <header className="heading-row">
+      <div className="heading-topline">
         <p className="eyebrow">
           {props.eyebrow}
           {props.eyebrowDetail && <span>{props.eyebrowDetail}</span>}
         </p>
-        <h1>{props.title}</h1>
-        {props.intro && <p className="intro">{props.intro}</p>}
+        {props.controls}
       </div>
-      {props.mode === "fixture" ? (
-        <span className="real-data fixture">Development fixture — not NASA data</span>
-      ) : (
-        <span className="real-data">
-          <span aria-hidden="true">✦</span> Real NASA / IPAC observations
-        </span>
-      )}
-    </div>
+      <div className="heading-content">
+        <div className="heading-copy">
+          <h1>{props.title}</h1>
+          {props.intro && <p className="intro">{props.intro}</p>}
+        </div>
+        {props.mode === "fixture" ? (
+          <span className="real-data fixture">Development fixture — not NASA data</span>
+        ) : (
+          <span className="real-data">
+            <span aria-hidden="true">✦</span> Real NASA / IPAC observations
+          </span>
+        )}
+      </div>
+    </header>
   );
 }
 
@@ -40,13 +47,18 @@ export function InvestigationSwitcher(props: {
   onOpenQuery: () => void;
 }) {
   return (
-    <details className="panel switcher">
-      <summary>
+    <details className="panel switcher" onKeyDown={(event) => {
+      if (event.key === "Escape") {
+        event.currentTarget.open = false;
+        event.currentTarget.querySelector("summary")?.focus();
+      }
+    }}>
+      <summary aria-label="Change investigation, target or coordinates">
         <span>
           <span className="section-icon" aria-hidden="true">
             ⌖
           </span>
-          Change investigation, target or coordinates
+          Change investigation
         </span>
         <span className="expand" aria-hidden="true">
           +

@@ -127,12 +127,12 @@ export function Plate(props: {
       </div>
       <div className="plate-foot">
         {frame && xy ? (
-          <>
+          <span className="prediction-caption">
             <span className="prediction-key" aria-hidden="true">
               ⊕
             </span>{" "}
             Catalog prediction, not a detection
-          </>
+          </span>
         ) : frame ? (
           <span>No catalog marker for this frame</span>
         ) : null}
