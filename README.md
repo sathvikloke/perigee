@@ -114,3 +114,9 @@ The global submission deadline is Sunday, November 15, 2026, at 11:59 PM Chicago
 [Official challenge](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/) · [Team page](https://www.spaceappschallenge.org/2026/find-a-team/perigee/) · [Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/) · [Submission guide](https://www.spaceappschallenge.org/resources/project-submission-guide/)
 
 Keep secrets, raw datasets, virtual environments and ZIP archives out of Git. Original FITS files stay on the data owners' machines.
+
+## Submission materials
+
+- [Seven-slide project deck](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) — [editable source and transcript](docs/presentation/DECK.md).
+- [Technical report (8 pages)](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf) — [methods and reproducible build](docs/report/README.md).
+- [29-second video script, shot plan and submission schedule](docs/presentation/SUBMISSION_VIDEO.md).

@@ -2,7 +2,7 @@
 
 This draft is for the submission owner (Sagar) and Sathvik, reconciled with the 15 November released app. **No submission confirmation has been inspected.** Use the [current video script and Sunday schedule](presentation/SUBMISSION_VIDEO.md) for recording and timing.
 
-The fields below follow the official [Project Submission Guide](https://www.spaceappschallenge.org/resources/project-submission-guide/), read on 2026-11-14. The guide states no character limits for these fields. Every fact here comes from the released app (`main`), the README, `docs/presentation/` and the science reviews.
+The fields below follow the official [Project Submission Guide](https://www.spaceappschallenge.org/resources/project-submission-guide/), read on 2026-11-15. The guide states no character limits for these fields. Every fact here comes from the released app (`main`), the README, `docs/presentation/` and the science reviews.
 
 Items marked **OWNER** are personal team facts that only the team can confirm.
 
@@ -27,7 +27,7 @@ It addresses Planet X and SPHEREx through three guided investigations (Barnard's
 
 **OWNER: paste the public link to the final video after recording, uploading and checking it logged out.** The [59-word script and shot plan](presentation/SUBMISSION_VIDEO.md) target a 29-second export. This is the only unfilled media field; do not paste this instruction into the official form.
 
-The existing [seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) opens publicly, but contains older UI and needs a content refresh if chosen instead of the video. A working URL does not make an outdated presentation the final demo.
+The refreshed [seven-slide PDF](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) is the ready alternative for this field. Use one primary Project Demo link. If the video is primary, include the deck and report as supporting links in Detailed Project Description.
 
 ## Link to Final Project
 
@@ -36,6 +36,8 @@ https://perigee.lokesathvik.workers.dev
 This is the public web app; no login is needed. The source code is at https://github.com/sathvikloke/perigee and is public.
 
 ## Detailed Project Description
+
+Supporting materials: [Seven-slide project deck](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf) · [Technical report: methods, validation and reproducibility](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf). The report is optional supporting documentation, hosted publicly; the form does not upload documents directly.
 
 **What it does.** A learner opens an investigation and compares two SPHEREx observations of the same target.
 
@@ -125,7 +127,7 @@ Any SI-generated image or video shown in the demo needs a visible watermark. Scr
 
 ## OWNER checklist before "Submit for Judging"
 
-1. Record and upload the final video at **30 seconds or less**, or refresh and use a deck of **seven slides or fewer**. Check the public demo link logged out. Identify the team and selected challenge; decks must also name the team members. Do not include under-18 likenesses, including audio.
+1. Record and upload the final video at **30 seconds or less**, or use the refreshed **seven-slide deck**. Check the public demo link logged out. Identify the team and selected challenge; decks must also name the team members. Do not include under-18 likenesses, including audio.
 2. Paste the "Use of SI" answer above into the project page.
 3. Confirm that every team member is registered for the same Local Event; the team page is https://www.spaceappschallenge.org/2026/find-a-team/perigee/.
 4. Click **Submit for Judging** before **Sunday 15 November 2026, 11:59 p.m. Local Event time**.

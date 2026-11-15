@@ -1,6 +1,6 @@
 # Perigee submission script and recording plan
 
-Updated for Sathvik at approximately noon on Sunday, 15 November 2026. The [public app](https://perigee.lokesathvik.workers.dev/) is available; the latest cartoon artwork and motion revision is still being integrated and verified. Confirm the recording build before capture. This is the recording plan; a final video has not yet been recorded or submitted.
+Updated for Sathvik at approximately noon on Sunday, 15 November 2026. The [public app](https://perigee.lokesathvik.workers.dev/) is available; the cartoon artwork and content motion are live. The hero return fix and updated PDFs are documented in the final-deck release note. Confirm the recording build before capture. This is the recording plan; a final video has not yet been recorded or submitted.
 
 ## The story
 
@@ -149,6 +149,7 @@ The owner must accept the form's required declarations and use **Submit for Judg
 - **Team/project form:** https://www.spaceappschallenge.org/2026/find-a-team/perigee/
 - **Written submission:** [revised draft](../SUBMISSION_DRAFT.md).
 - **Video:** record and host the final file, then add its verified public URL. No video URL is implied by this plan.
-- **Existing PDF:** [historical seven-slide deck](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf). It contains older UI and requires a content refresh before being selected instead of the video. Do not submit it merely because its link works.
+- **Deck:** [Refreshed seven-slide presentation](https://perigee.lokesathvik.workers.dev/demo/perigee-demo.pdf). Use it as the Project Demo alternative or link it alongside the video from Detailed Project Description.
+- **Report:** [Eight-page technical report](https://perigee.lokesathvik.workers.dev/demo/perigee-technical-report.pdf), optional supporting material for Detailed Project Description.
 
 The latest visual revision still needs final integration and deployment verification. This document does not certify that release. Recording, final team attestations and the actual submission also remain to be completed.

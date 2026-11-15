@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import type { PerigeeApi } from "../api/client";
 import type { PresetDescriptor } from "../api/types";
 import {
@@ -23,6 +23,7 @@ import { LandingObservatory } from "./LandingObservatory";
 import { LandingIntro } from "./LandingIntro";
 import { introEligible } from "../lib/landingIntroMotion";
 import { useLandingContentMotion } from "../lib/useLandingContentMotion";
+import { createHeroArrivalMotion } from "../lib/heroArrivalMotion";
 import { downloadEvidence } from "./Notebook";
 
 const initialHomeVisit = typeof window !== "undefined" && introEligible(window.location.search, window.location.hash);
@@ -46,6 +47,11 @@ export function Home(props: {
   const [heroRevealed, setHeroRevealed] = useState(!introActive);
   const [arrival, setArrival] = useState(false);
   const [introKey, setIntroKey] = useState(0);
+  const heroCopy = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (!arrival || !heroCopy.current) return;
+    return createHeroArrivalMotion(heroCopy.current, () => setArrival(false));
+  }, [arrival]);
   useEffect(() => { introSeen = true; }, []);
   const revealHero = () => { setHeroRevealed(true); setArrival(true); };
   const finishIntro = () => {
@@ -60,8 +66,8 @@ export function Home(props: {
     <div className="home" data-hero-revealed={heroRevealed} data-hero-arrival={arrival}>
       {introActive && <LandingIntro key={introKey} onReveal={revealHero} onFinish={finishIntro} />}
       <section className="landing-hero" aria-labelledby="hero-title">
-        <LandingObservatory active={heroRevealed} onReplayIntro={replayIntro} />
-        <div className="hero-copy">
+        <LandingObservatory active={heroRevealed} animateEntrance={arrival} onReplayIntro={replayIntro} />
+        <div className="hero-copy" ref={heroCopy}>
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
           <p className="hero-description">Compare infrared images from NASA’s SPHEREx mission, check what changed, and record what the evidence supports.</p>
           <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating <span className="hero-cta-arrow" aria-hidden="true">↗</span></button>
