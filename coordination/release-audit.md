@@ -34,7 +34,7 @@
 | 16 | Deployed end-to-end | **Done** | `qa/production-journey/README.md` (this round) and Codex's `qa/public-release/` |
 | 17 | Mobile and keyboard | **Done** | PR #25; QA-F3 320 px and focus fixes; production at 390 and 320 |
 | 18 | Loading and recovery | **Done** | PR #32; production expired-token, stale-response and partial-retry checks |
-| 19 | Performance | **Done (recommendation)** | The delay is external (IRSA fetch is ~97% of the 3.7 s median frame); no code change. See `qa/production-journey/README.md` |
+| 19 | Performance | **Done (recommendation)** | Local processing takes 32 ms per frame; the hosted frame median is 3.67 s. The likely dominant cost is the external IRSA fetch plus hosting overhead. IRSA time was not measured separately. No code change. See `qa/production-journey/README.md` |
 | 20 | Pitch and demo | **Done (outline and script)** | `docs/presentation/README.md` and rehearsal assets. **The shareable deck itself is not built** (section 4) |
 | 21 | Judging critique | **Done** | PR #24; findings 1–3 addressed (public app, Play over series, README and AI disclosure) |
 | 22 | Submission links | **Done for links; submission is the team's** | Section 4: all key links return 200 logged out |
@@ -130,7 +130,7 @@ Each work-sequence item from the issue body maps to released evidence. "**Gap**"
 | Content catalog serving; safe asset serving | Catalog routes; traversal-safe, hash-checked assets; R7 |
 | Optional cache adapters | **Not built (optional).** Hashed assets are served immutable, the live path is stateless, and no need was measured |
 | Environment configuration | `PERIGEE_TOKEN_SECRET`, set by Codex for Production and Preview; dev secret refused on hosted |
-| Control bundle and runtime size | `.vercelignore`; `deploy_check`; JS 105 KB |
+| Control bundle and runtime size | `.vercelignore`; `deploy_check`; JS 327,624 B uncompressed (105,250 B Brotli transfer, 102,051 B gzip) |
 | Deployment verification | `backend/platform/smoke.py` (#34, hardened); `release-smoke.yml` (#36); run 43658316997 passed |
 | Production release behavior; operations and recovery handoff | `docs/DEPLOYMENT.md` (Codex's current-release rewrite, PR #37) |
 | **Acceptance** | **Met.** Public deployment, curated assets resolve, no team login. The automatic `deployment_status` trigger is still unverified, as documented; the manual run passed |

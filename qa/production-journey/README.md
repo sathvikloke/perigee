@@ -3,7 +3,10 @@
 **What was tested:**
 - **Target:** `https://perigee-liard.vercel.app`, Vercel deployment `dpl_4gggyXwZGgMaUtSPRUSJx6iJUMjq`.
 - **Code:** `main` @ `ef298900aa5769c47ec32f2bdb7c94ac27af14f3` (PR #27 merge). Codex's docs-only PR #37 (`c02adab`) leaves the app code unchanged, so it was not re-tested.
-- **When:** 2026-11-15, about 00:35–01:10 UTC. Coordinator Claude session.
+- **When (from the output files' timestamps), 2026-11-15, coordinator Claude session:**
+  - journey: export at 00:29:14Z, log written at 00:30:59Z;
+  - performance probe written at 00:32:48Z;
+  - final contract-check run written at 00:34:29Z.
 
 **Method:**
 - Headless Google Chrome driven by `playwright-core@1.49.1`.
@@ -60,13 +63,15 @@ Raw data: `performance-2026-11-15-ef29890.json`, from logged-out requests to pro
 | Path | Measured |
 |---|---|
 | `GET /` (edge `HIT`) | 181 ms, 509 B HTML |
-| JS bundle `index-*.js` | 105 KB decoded, served Brotli-compressed; CSS 7.5 KB |
+| JS bundle `index-yzmhwLOW.js` | Brotli **transfer** 105,250 B (the probe had no Brotli decoder, so this is the compressed body). The same hashed file from the local build is 327,624 B uncompressed and 102,051 B gzipped. CSS: 7,476 B Brotli transfer |
 | `GET /api/v1/health` | 78 ms |
 | `GET /api/v1/presets`, `…/frames?case_id=fair_comparison` | 162 ms / 8 KB; 131 ms / 16 KB |
 | `POST /api/v1/search`, limit 6 | 1.84 s, 1.60 s, 2.85 s |
 | `POST /api/v1/frame` | n = 8 OK: 2.3–5.5 s, **median 3.67 s**, median 19.6 KB; 1 × `UPSTREAM_UNAVAILABLE` |
 
-**The dominant delay is external.** Processor A's own work is 32 ms per frame across 183 cutouts (`coordination/processor-compare/bench_live_path_A.json`). Even Sagar's eager read on a 4.1 MB cutout takes 84–88 ms (PR #35). That is under 3% of the 3.7 s median. The rest is the IRSA cutout fetch, including the occasional 502 and the bounded server retry, plus function overhead.
+**The dominant cost is likely outside our processing.** Processor A's own work, measured locally, is 32 ms per frame across 183 cutouts (`coordination/processor-compare/bench_live_path_A.json`). Even Sagar's eager read on a 4.1 MB cutout takes 84–88 ms (PR #35). The hosted frame median is 3.67 s.
+
+The IRSA fetch time was **not measured separately**: no server-side timing breakdown was collected. The likely dominant cost is the external cutout fetch (with the occasional 502 and bounded server retry) plus hosting and function overhead. That is an inference from the two measurements, not a measured split.
 
 Responses are already small: a frame is about 20 KB, and curated cases make no archive calls.
 
@@ -76,7 +81,7 @@ Responses are already small: a frame is about 20 KB, and curated cases make no a
 
 - On first load and after client-side navigation, focus moves to the page `h1` (the QA-F3 design). The next Tab goes into the main content. The skip link and nav sit earlier in DOM order and are reached with Shift+Tab.
 - IRSA intermittently refuses individual cutouts with 502. The app shows them as failed in place, with retry; in this run the retry recovered all of them.
-- Locally (Vite preview only), the console shows a `/favicon.ico` 404. It was not seen on production.
+- Locally (Vite preview only), the console showed a `/favicon.ico` 404. It was not seen on production. PR #38 (`f797b34`, after this run) adds the existing orbit SVG as the browser icon.
 
 ## Not covered
 
