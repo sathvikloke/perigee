@@ -1,0 +1,312 @@
+{
+ "parameters": {
+  "snr_min": 15.0,
+  "assoc_px": 1.0,
+  "target_excl_arcsec": 40.0,
+  "half": 2,
+  "search": 1
+ },
+ "stage_definitions": {
+  "catalog_rows": "rows in the cached Gaia DR3 CSV for the preset (G<15 Barnard/RW Aur, G<17 others; r=0.075 deg)",
+  "two_parameter": "no proper motion in Gaia; skipped (not assumed static)",
+  "near_target": "propagated position within 40 arcsec of the catalog-predicted target (target and its halo)",
+  "outside_footprint": "projects outside the native cutout through the header WCS",
+  "attempted": "inside footprint and not near target, minus edge (measurement window fits)",
+  "edge": "measurement window (7x7 native px around the rounded position) leaves the cutout",
+  "nonfinite": "measurement window contains a non-finite pixel",
+  "low_snr": "peak - local median < 15 x MAD (eligibility; applied BEFORE association)",
+  "snr_eligible": "attempted measurements that pass the SNR cut",
+  "association": "SNR-eligible but native centroid >= 1 native px from Gaia (dropped by the legacy rule)",
+  "png_window": "native match, but the PNG 33x33 box has transparent pixels or leaves the grid",
+  "retained": "used in the published PNG residual headline"
+ },
+ "eligibility_note": "The SNR cut is evaluated in a window centred on the Gaia-predicted position (forced photometry). It precedes the 1 px association cut, but it is not independent of the registration: if the header were off by >~3 native px the star would leave the window and fail the SNR cut, so it would vanish silently instead of being counted as a mismatch. blind_matching.json uses a WCS-free eligibility to close this gap.",
+ "totals_over_unique_frames": {
+  "catalog_rows": 4035,
+  "two_parameter": 34,
+  "near_target": 208,
+  "outside_footprint": 1763,
+  "edge": 448,
+  "nonfinite": 22,
+  "low_snr": 482,
+  "association": 34,
+  "png_window": 86,
+  "retained": 958,
+  "attempted": 1582,
+  "snr_eligible": 1078,
+  "native_matched": 1044,
+  "retained_ambiguous": 189,
+  "retained_adverse_flag_in_window": 240
+ },
+ "unique_frames": 183,
+ "unique_frames_with_retained_star": 156,
+ "unique_frames_without_star_check": 27,
+ "records_with_retained_star_incl_case_copies": 161,
+ "records_total": 189,
+ "legacy_identity_check": {
+  "stars_compared": 2030,
+  "mismatches": 0
+ },
+ "case_copies": [
+  {
+   "set": "case-moving_neighbor",
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "retained": 13,
+   "median_png_r_display_px": 0.389191,
+   "frames_record_retained": 13
+  },
+  {
+   "set": "case-moving_neighbor",
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "retained": 11,
+   "median_png_r_display_px": 0.609313,
+   "frames_record_retained": 11
+  },
+  {
+   "set": "case-moving_neighbor",
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "retained": 13,
+   "median_png_r_display_px": 0.263672,
+   "frames_record_retained": 13
+  },
+  {
+   "set": "case-fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "retained": 4,
+   "median_png_r_display_px": 0.414731,
+   "frames_record_retained": 4
+  },
+  {
+   "set": "case-fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "retained": 0,
+   "median_png_r_display_px": null,
+   "frames_record_retained": 0
+  },
+  {
+   "set": "case-fair_comparison",
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "retained": 6,
+   "median_png_r_display_px": 0.667005,
+   "frames_record_retained": 6
+  }
+ ],
+ "frames_without_independent_star_check": [
+  {
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "preset": "epsilon_indi_b",
+   "detector": 6,
+   "catalog_rows": 17,
+   "max_snr_attempted": 8.585335,
+   "reason": "no attempted star reaches peak SNR 15 (max 8.6) [catalog 17: outside 5, near target 0, edge 5, non-finite 1, low SNR 6, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W21_1B_0329_2_D3",
+   "preset": "r_draconis",
+   "detector": 3,
+   "catalog_rows": 18,
+   "max_snr_attempted": 58.207362,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 2, non-finite 0, low SNR 8, association 0, PNG window 1]"
+  },
+  {
+   "frame_key": "2025W21_1B_0329_2_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 19.742501,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 2, non-finite 0, low SNR 8, association 0, PNG window 1]"
+  },
+  {
+   "frame_key": "2025W24_1A_0215_3_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 3.800831,
+   "reason": "no attempted star reaches peak SNR 15 (max 3.8) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W24_1A_0631_2_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 6.883174,
+   "reason": "no attempted star reaches peak SNR 15 (max 6.9) [catalog 18: outside 3, near target 1, edge 6, non-finite 2, low SNR 6, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W24_1A_0631_3_D3",
+   "preset": "r_draconis",
+   "detector": 3,
+   "catalog_rows": 18,
+   "max_snr_attempted": 14.066566,
+   "reason": "no attempted star reaches peak SNR 15 (max 14.1) [catalog 18: outside 3, near target 1, edge 6, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W26_1A_0517_2_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 2.581189,
+   "reason": "no attempted star reaches peak SNR 15 (max 2.6) [catalog 18: outside 15, near target 1, edge 1, non-finite 0, low SNR 1, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W26_2A_0170_4_D2",
+   "preset": "r_draconis",
+   "detector": 2,
+   "catalog_rows": 18,
+   "max_snr_attempted": 6.804637,
+   "reason": "no attempted star reaches peak SNR 15 (max 6.8) [catalog 18: outside 12, near target 1, edge 2, non-finite 0, low SNR 3, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W27_2A_0331_1_D1",
+   "preset": "r_draconis",
+   "detector": 1,
+   "catalog_rows": 18,
+   "max_snr_attempted": 3.166533,
+   "reason": "no attempted star reaches peak SNR 15 (max 3.2) [catalog 18: outside 14, near target 1, edge 1, non-finite 0, low SNR 2, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W27_2A_0331_1_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": null,
+   "reason": "no catalog star has a complete measurement window inside the cutout [catalog 18: outside 17, near target 1, edge 0, non-finite 0, low SNR 0, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W29_2A_0288_1_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": 10.791986,
+   "reason": "no attempted star reaches peak SNR 15 (max 10.8) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W42_2A_0526_3_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": 53.18962,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 1, non-finite 0, low SNR 9, association 0, PNG window 1]"
+  },
+  {
+   "frame_key": "2025W45_2A_0458_1_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": 6.38609,
+   "reason": "no attempted star reaches peak SNR 15 (max 6.4) [catalog 18: outside 4, near target 1, edge 6, non-finite 0, low SNR 7, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W48_2A_0693_4_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 5.878318,
+   "reason": "no attempted star reaches peak SNR 15 (max 5.9) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W50_2A_0259_3_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 6.55713,
+   "reason": "no attempted star reaches peak SNR 15 (max 6.6) [catalog 18: outside 7, near target 1, edge 2, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W52_2A_0227_3_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 8.030556,
+   "reason": "no attempted star reaches peak SNR 15 (max 8.0) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W01_2A_0426_1_D3",
+   "preset": "r_draconis",
+   "detector": 3,
+   "catalog_rows": 18,
+   "max_snr_attempted": 4.673599,
+   "reason": "no attempted star reaches peak SNR 15 (max 4.7) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W01_2A_0426_1_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 7.579998,
+   "reason": "no attempted star reaches peak SNR 15 (max 7.6) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W17_2A_0255_3_D3",
+   "preset": "r_draconis",
+   "detector": 3,
+   "catalog_rows": 18,
+   "max_snr_attempted": 11.416337,
+   "reason": "no attempted star reaches peak SNR 15 (max 11.4) [catalog 18: outside 6, near target 1, edge 2, non-finite 0, low SNR 9, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W19_1A_0842_1_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 35.286049,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 1, non-finite 0, low SNR 8, association 1, PNG window 1]"
+  },
+  {
+   "frame_key": "2026W21_2A_0325_1_D3",
+   "preset": "r_draconis",
+   "detector": 3,
+   "catalog_rows": 18,
+   "max_snr_attempted": 116.221641,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 2, non-finite 0, low SNR 8, association 0, PNG window 1]"
+  },
+  {
+   "frame_key": "2026W21_2A_0325_2_D6",
+   "preset": "r_draconis",
+   "detector": 6,
+   "catalog_rows": 18,
+   "max_snr_attempted": 28.922797,
+   "reason": "native matches exist but every PNG window contains transparent (non-finite) pixels [catalog 18: outside 6, near target 1, edge 2, non-finite 0, low SNR 8, association 0, PNG window 1]"
+  },
+  {
+   "frame_key": "2026W25_2A_0661_1_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 14.346806,
+   "reason": "no attempted star reaches peak SNR 15 (max 14.3) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W26_1A_0242_2_D5",
+   "preset": "r_draconis",
+   "detector": 5,
+   "catalog_rows": 18,
+   "max_snr_attempted": 6.023867,
+   "reason": "no attempted star reaches peak SNR 15 (max 6.0) [catalog 18: outside 9, near target 1, edge 0, non-finite 0, low SNR 8, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W28_1A_0671_2_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": 7.630101,
+   "reason": "no attempted star reaches peak SNR 15 (max 7.6) [catalog 18: outside 9, near target 1, edge 0, non-finite 2, low SNR 6, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2026W29_1A_0015_3_D4",
+   "preset": "r_draconis",
+   "detector": 4,
+   "catalog_rows": 18,
+   "max_snr_attempted": 12.694752,
+   "reason": "no attempted star reaches peak SNR 15 (max 12.7) [catalog 18: outside 8, near target 1, edge 1, non-finite 1, low SNR 7, association 0, PNG window 0]"
+  },
+  {
+   "frame_key": "2025W19_1B_0116_2_D6",
+   "preset": "wise_0855",
+   "detector": 6,
+   "catalog_rows": 26,
+   "max_snr_attempted": 9.584954,
+   "reason": "no attempted star reaches peak SNR 15 (max 9.6) [catalog 26: outside 11, near target 1, edge 4, non-finite 2, low SNR 7, association 0, PNG window 0]"
+  }
+ ]
+}

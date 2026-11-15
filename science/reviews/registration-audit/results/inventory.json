@@ -1,0 +1,106 @@
+{
+ "manifest_file_entries": 188,
+ "manifest_status_counts": {
+  "failed": 5,
+  "downloaded": 183
+ },
+ "unique_raw_cutouts": 183,
+ "unique_raw_sha256": 183,
+ "duplicate_raw_sha256": 0,
+ "unique_exposures_obsid": 109,
+ "raw_cutouts_per_target": {
+  "barnards_star": 34,
+  "epsilon_indi_b": 44,
+  "r_draconis": 36,
+  "rw_aurigae": 35,
+  "wise_0855": 34
+ },
+ "raw_cutouts_per_detector": {
+  "D1": 30,
+  "D2": 32,
+  "D3": 30,
+  "D4": 30,
+  "D5": 31,
+  "D6": 30
+ },
+ "exposures_with_n_detector_cutouts": {
+  "1": 35,
+  "2": 74
+ },
+ "product_records": 189,
+ "product_records_frames_sets": 183,
+ "product_records_case_copies": 6,
+ "case_copies": [
+  {
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "frame_key": "2025W35_1A_0008_1_D3",
+   "same_raw_as_frames_record": true
+  },
+  {
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "frame_key": "2026W12_1A_0610_2_D3",
+   "same_raw_as_frames_record": true
+  },
+  {
+   "preset": "barnards_star",
+   "set": "case-moving_neighbor",
+   "frame_key": "2026W34_1A_0431_1_D3",
+   "same_raw_as_frames_record": true
+  },
+  {
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D3",
+   "same_raw_as_frames_record": true
+  },
+  {
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "frame_key": "2026W18_1A_0516_1_D6",
+   "same_raw_as_frames_record": true
+  },
+  {
+   "preset": "epsilon_indi_b",
+   "set": "case-fair_comparison",
+   "frame_key": "2026W39_2A_0597_4_D3",
+   "same_raw_as_frames_record": true
+  }
+ ],
+ "every_raw_cutout_has_one_frames_record": true,
+ "note": "Case records are re-renders (different display stretch) of raw cutouts that also have a frames record; they are not independent observations. D1-D3 and D4-D6 cutouts of one exposure are simultaneous views through different detectors (separate WCS), so they are distinct frames but not distinct epochs.",
+ "frames_without_independent_star_check_legacy": [
+  "2026W18_1A_0516_1_D6",
+  "2025W21_1B_0329_2_D3",
+  "2025W21_1B_0329_2_D6",
+  "2025W24_1A_0215_3_D5",
+  "2025W24_1A_0631_2_D6",
+  "2025W24_1A_0631_3_D3",
+  "2025W26_1A_0517_2_D5",
+  "2025W26_2A_0170_4_D2",
+  "2025W27_2A_0331_1_D1",
+  "2025W27_2A_0331_1_D4",
+  "2025W29_2A_0288_1_D4",
+  "2025W42_2A_0526_3_D4",
+  "2025W45_2A_0458_1_D4",
+  "2025W48_2A_0693_4_D5",
+  "2025W50_2A_0259_3_D5",
+  "2025W52_2A_0227_3_D6",
+  "2026W01_2A_0426_1_D3",
+  "2026W01_2A_0426_1_D6",
+  "2026W17_2A_0255_3_D3",
+  "2026W19_1A_0842_1_D6",
+  "2026W21_2A_0325_1_D3",
+  "2026W21_2A_0325_2_D6",
+  "2026W25_2A_0661_1_D5",
+  "2026W26_1A_0242_2_D5",
+  "2026W28_1A_0671_2_D4",
+  "2026W29_1A_0015_3_D4",
+  "2025W19_1B_0116_2_D6"
+ ],
+ "frames_validator_verdicts": {
+  "PASS": 128,
+  "UNKNOWN": 55
+ }
+}
