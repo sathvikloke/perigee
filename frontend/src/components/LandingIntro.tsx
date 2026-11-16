@@ -69,7 +69,6 @@ export function LandingIntro({ onReveal, onFinish }: { onReveal: () => void; onF
       <img className="intro-rocket-body" ref={art} src="/illustrations/perigee-rocket-cartoon.webp" alt="" width={1254} height={1254}
         fetchPriority="high" onLoad={checkArtwork} onError={skip} />
     </div>
-    <p className="intro-art-label">AI illustration</p>
     <button type="button" className="intro-skip" autoFocus onClick={skip}>Skip intro <span aria-hidden="true">↗</span></button>
   </dialog>;
 }
