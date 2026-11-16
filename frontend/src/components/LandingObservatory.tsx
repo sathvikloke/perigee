@@ -50,7 +50,7 @@ export function LandingObservatory({ active = true, animateEntrance = true, onRe
             onLoad={()=>setReady(true)} onError={()=>{setFailed(true);setReady(false);}} />}
         </div>
       </div>
-      {failed && <figcaption>Space telescope illustration unavailable</figcaption>}
+      <figcaption className={failed ? undefined : "artwork-watermark"}>{failed ? "Space telescope illustration unavailable" : "AI generated"}</figcaption>
     </figure>
     <div className="landing-motion-controls">
       {!reduced && <button type="button" className="landing-replay"
