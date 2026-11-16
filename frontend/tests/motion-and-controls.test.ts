@@ -49,9 +49,12 @@ describe("case comparison under reduced motion", () => {
     const html = renderToStaticMarkup(
       createElement(CaseBench, { caseContent, framesByRef, otherRef: "B", onOtherRefChange: () => {} }),
     );
-    expect(html).toMatch(/<button[^>]*class="quiet blink-toggle"[^>]*aria-pressed="false"[^>]*>Play comparison<\/button>/);
+    const playButton = html.match(/<button\b[^>]*class="[^"]*\bblink-toggle\b[^"]*"[^>]*>[\s\S]*?<\/button>/)?.[0];
+    expect(playButton).toBeDefined();
+    expect(playButton).toContain('aria-pressed="false"');
+    expect(playButton?.replace(/<[^>]*>/g, "").trim()).toBe("Play comparison");
     expect(html).not.toContain("Pause comparison");
-    expect(html).not.toMatch(/class="plates blinking"/);
+    expect(html).not.toMatch(/class="[^"]*\bplates\b[^"]*\bblinking\b[^"]*"/);
   });
 
   it("keeps the phone A/B choice and blink in one control row, in reading order", async () => {

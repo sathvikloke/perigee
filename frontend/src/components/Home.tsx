@@ -25,6 +25,7 @@ import { introEligible } from "../lib/landingIntroMotion";
 import { useLandingContentMotion } from "../lib/useLandingContentMotion";
 import { createHeroArrivalMotion } from "../lib/heroArrivalMotion";
 import { downloadEvidence } from "./Notebook";
+import { FeaturedInvestigation } from "./FeaturedInvestigation";
 
 const initialHomeVisit = typeof window !== "undefined" && introEligible(window.location.search, window.location.hash);
 let introSeen = false;
@@ -62,6 +63,11 @@ export function Home(props: {
     window.scrollTo({ top: 0, behavior: "instant" });
     setHeroRevealed(false); setArrival(false); setIntroKey((key) => key + 1); setIntroActive(true);
   };
+  const previewInvestigation = () => {
+    const heading = document.getElementById("presets-h");
+    heading?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    heading?.focus({ preventScroll: true });
+  };
   return (
     <div className="home" data-hero-revealed={heroRevealed} data-hero-arrival={arrival}>
       {introActive && <LandingIntro key={introKey} onReveal={revealHero} onFinish={finishIntro} />}
@@ -70,7 +76,7 @@ export function Home(props: {
         <div className="hero-copy" ref={heroCopy}>
           <h1 id="hero-title" tabIndex={-1}>A closer look at<br /><span>a changing sky</span></h1>
           <p className="hero-description">Compare NASA’s SPHEREx infrared images and check what changed. Keep your explanation with the observations and sources behind it.</p>
-          <button className="primary hero-cta" type="button" onClick={() => props.onOpenPreset("barnards_star")}>Start investigating <span className="hero-cta-arrow" aria-hidden="true">↗</span></button>
+          <button className="primary hero-cta" type="button" onClick={previewInvestigation}>Try the comparison <span className="hero-cta-arrow" aria-hidden="true">↓</span></button>
           {props.api.mode === "fixture" && <p className="hero-source">Development fixture. Not NASA observations.</p>}
         </div>
       </section>
@@ -78,14 +84,16 @@ export function Home(props: {
       <div className="home-content" ref={content}>
         <section className="investigations-section" id="investigations" aria-labelledby="presets-h">
           <div className="section-head editorial-heading">
-            <div><p className="section-label">Your first investigation</p><h2 id="presets-h">Choose an investigation</h2></div>
-            <p>Start with a guided question and real observations you can inspect for yourself.</p>
+            <div><p className="section-label">Your first investigation</p><h2 id="presets-h" tabIndex={-1}>See what changes</h2></div>
+            <p>Start with a comparison you can play right here. Then follow the evidence.</p>
           </div>
           {state.status === "loading" && <p className="status" role="status">Loading targets…</p>}
           {state.status === "error" && <ErrorBlock title="The target list could not be loaded." error={state.error} onRetry={retry} onUseFixture={props.api.mode === "api" ? props.onUseFixture : undefined} />}
           {state.status === "ready" && (ready.length === 0 ? <p className="status">No targets are published yet.</p> : <>
-            <ul className="investigation-grid">
-              {guided.map((p) => <PresetItem key={p.id} api={props.api} preset={p} onOpen={() => props.onOpenPreset(p.id)} />)}
+            {guided.some((p) => p.id === "barnards_star") && <FeaturedInvestigation api={props.api} onOpen={() => props.onOpenPreset("barnards_star")} />}
+            <h3 className="more-investigations">Try another question</h3>
+            <ul className="investigation-grid investigation-alternatives">
+              {guided.filter((p) => p.id !== "barnards_star").map((p) => <PresetItem key={p.id} api={props.api} preset={p} onOpen={() => props.onOpenPreset(p.id)} />)}
             </ul>
             <p className="preview-note">Processed SPHEREx previews. Striped pixels have no usable value; inspect quality flags inside each investigation.</p>
             <div className="open-targets-heading"><h3>Keep exploring</h3><p>Choose a field and follow your own question.</p></div>
