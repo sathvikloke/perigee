@@ -100,8 +100,11 @@ def load_settings() -> Settings:
         token_secret_source=source,
         token_ttl_s=max(60, _int_env("PERIGEE_TOKEN_TTL_S", 6 * 3600)),
         upstream_connect_timeout_s=_float_env("PERIGEE_UPSTREAM_CONNECT_TIMEOUT_S", 5.0),
-        upstream_read_timeout_s=_float_env("PERIGEE_UPSTREAM_READ_TIMEOUT_S", 20.0),
-        search_budget_s=_float_env("PERIGEE_SEARCH_BUDGET_S", 25.0),
+        # Valid SIA responses can take over 20 seconds before their first byte.
+        # Keep reads inside the search budget, and the budget inside the hosted
+        # function's 60-second limit. The browser allows 60 seconds for search.
+        upstream_read_timeout_s=_float_env("PERIGEE_UPSTREAM_READ_TIMEOUT_S", 40.0),
+        search_budget_s=_float_env("PERIGEE_SEARCH_BUDGET_S", 50.0),
         frame_fetch_max_bytes=_int_env("PERIGEE_FRAME_MAX_BYTES", 24 * 1024 * 1024),
         frame_budget_s=_float_env("PERIGEE_FRAME_BUDGET_S", 40.0),
         is_production=production,

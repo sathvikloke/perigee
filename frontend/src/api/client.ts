@@ -25,7 +25,8 @@ export const API_PREFIX = "/api/v1";
 export const FRAME_CONCURRENCY = 2;
 
 /** Browser-side wait for /search; the UI quotes it while a search is slow. */
-export const SEARCH_TIMEOUT_MS = 45_000;
+// Allow the backend's bounded 50-second archive search to return its result.
+export const SEARCH_TIMEOUT_MS = 60_000;
 export const RESOLVE_TIMEOUT_MS = 15_000;
 const FRAME_TIMEOUT_MS = 90_000;
 const DEFAULT_TIMEOUT_MS = 20_000;
