@@ -260,3 +260,9 @@ The landing canvas contains decorative white points, not a sky map. Its center s
 ### Landing spacecraft refinement — 15 November 2026
 
 A reference-informed AI illustration replaces the rejected procedural satellite. It is visibly labeled, served locally as a 285 KB WebP, and uses a fixed view with a 2.8-second approach and subtle 14-second drift. Web Animations drives transforms; there is no Three.js dependency or implied interactive 3D model. The primary action is available throughout. One control pauses both spacecraft and stars, reduced motion shows static artwork, and observers stop motion offscreen and while the document is hidden. See [asset provenance](qa/landing-motion/ASSET.md) and [verification](qa/landing-motion/VERIFICATION.md).
+
+### Comparison before writing — 15 November 2026
+
+The hero’s primary action leads to a featured Barnard’s Star comparison. Its authored A/C images share one fixed image plane, with user-controlled playback, direct date selection and a stationary ring at the earlier catalog-predicted position. Wavelengths, saturation context and hatching explanations remain beside the images. Two smaller investigations follow the featured case, giving the page a clearer visual hierarchy.
+
+Guided investigations use one reading order: compare the observations, review the active check, then write in the notebook. Desktop image wells are bounded within an 848px comparison area; the notebook uses three aligned fields on wide screens and a single column on phones. Scientific pixels and markers keep their existing geometry. Free exploration retains its previous workspace.

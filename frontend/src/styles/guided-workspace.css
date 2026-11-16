@@ -1,0 +1,154 @@
+/* Guided investigations follow the learner's task: compare, check, then record.
+   Keep the sky grid and its overlays untouched; only their containing layout changes. */
+.guided-heading,
+.workspace.guided-workspace {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.workspace.guided-workspace {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+}
+
+.guided-workspace .guided-comparison {
+  padding: 24px;
+}
+
+.guided-workspace .comparison-focus {
+  max-width: 848px;
+  margin-inline: auto;
+}
+
+.guided-workspace .comparison-plates {
+  gap: 16px;
+}
+
+.guided-workspace .blink-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding-inline: 20px;
+  border-color: var(--blue);
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.guided-workspace .blink-toggle:hover:not(:disabled) {
+  background: var(--blue-deep);
+  border-color: var(--blue-deep);
+}
+
+.comparison-play-icon {
+  flex: 0 0 auto;
+}
+
+.guided-workspace .case-steps {
+  margin-top: 0;
+  padding: 24px;
+}
+
+.guided-workspace .case-steps-heading,
+.guided-workspace .check-route,
+.guided-workspace .active-check,
+.guided-workspace .check-help,
+.guided-workspace .check-actions,
+.guided-workspace .check-progress-note,
+.guided-workspace .check-overview {
+  max-width: 848px;
+  margin-inline: auto;
+}
+
+.guided-workspace .guided-check .active-check {
+  max-width: 848px;
+}
+
+.guided-workspace .guided-check .check-prompt {
+  max-width: 66ch;
+}
+
+.guided-workspace .notebook-jump {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  min-height: 44px;
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.guided-workspace .return-to-images {
+  margin-bottom: 12px;
+}
+
+.guided-workspace .notebook {
+  margin-top: 0;
+}
+
+.guided-workspace .notebook-heading,
+.guided-workspace .notebook-body {
+  padding: 24px;
+}
+
+.guided-workspace .investigation-extras {
+  grid-column: 1;
+}
+
+@media screen and (min-width: 1000px) {
+  /* Three related prompts share a baseline once the notebook has its own row. */
+  .guided-workspace .notebook-editor {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px 24px;
+  }
+
+  .guided-workspace .notebook-editor > .field {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    gap: 8px;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .guided-workspace .notebook-editor > .field > label { grid-row: 1; }
+  .guided-workspace .notebook-editor > .field > .field-hint { grid-row: 2; margin: 0; }
+  .guided-workspace .notebook-editor > .field > textarea { grid-row: 3; min-height: 160px; }
+  .guided-workspace .notebook-editor > .field > .count { grid-row: 4; }
+  .guided-workspace .notebook-editor > .field > .claim-guidance { grid-row: 5; }
+
+  .guided-workspace .notebook-editor > .notebook-tip {
+    grid-column: 1 / -1;
+    margin-block: 16px 24px;
+  }
+
+  .guided-workspace .notebook .primary,
+  .guided-workspace .notebook .reference-action {
+    width: auto;
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .workspace.guided-workspace { gap: 32px; }
+  .guided-workspace .guided-comparison { padding: 12px; }
+  .guided-workspace .case-steps { padding: 20px 16px; }
+  .guided-workspace .notebook-heading,
+  .guided-workspace .notebook-body { padding: 20px; }
+  .guided-workspace .blink-toggle { padding-inline: 12px; }
+}
+
+@media print {
+  .workspace.guided-workspace { display: block; }
+  .guided-workspace .notebook-jump { display: none; }
+  .guided-workspace .notebook { margin-top: 18px; }
+}

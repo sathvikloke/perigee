@@ -11,6 +11,7 @@ import { FrameViewer, type FrameSlot } from "./FrameViewer";
 import { Notebook, type RequiredPairRecovery } from "./Notebook";
 import { useContentCue } from "../lib/contentMotion";
 import "../styles/content-motion.css";
+import "../styles/guided-workspace.css";
 import { InvestigationSwitcher, PageHeading } from "./PageHeading";
 
 // Short orientation for the working view. The complete authored opening is
@@ -370,7 +371,7 @@ function PresetLoaded(props: {
 
   return (
     <>
-      <div className="content-page-arrival" ref={pageArrival}>
+      <div className={`content-page-arrival${hasCase ? " guided-heading" : ""}`} ref={pageArrival}>
       <PageHeading
         eyebrow="SPHEREx investigation"
         eyebrowDetail={caseContent ? preset?.display_name ?? presetId : "Free exploration"}
@@ -385,7 +386,7 @@ function PresetLoaded(props: {
         />}
       />
       </div>
-      <div className="workspace investigation-workspace">
+      <div className={`workspace investigation-workspace${hasCase ? " guided-workspace" : ""}`}>
         <section className="bench" id="observations" tabIndex={-1} aria-label="Observation comparison">
           {hasCase && <h2 className="visually-hidden">Compare observations</h2>}
           {!hasCase && <div className="target-line">

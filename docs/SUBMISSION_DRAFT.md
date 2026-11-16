@@ -8,15 +8,15 @@ Perigee: Investigating the Infrared Sky
 
 ## Project summary
 
-Perigee turns an object name or sky position into a sequence of NASA SPHEREx images anyone can explore in a browser. A student sees Barnard's Star shift against neighboring stars. Another bright dot appears to jump, but our detector-coordinate check explains its shift without a moving celestial source. Perigee helps the learner decide which evidence supports each interpretation. Three guided investigations place dates, wavelengths and pixel-quality checks beside the comparison. The learner saves an explanation linked to the selected observations and exact archive sources, so a teacher can inspect the reasoning. We tested the viewer across all five challenge target fields and retained reproducible processing checks. Our contribution preserves the context that determines what a comparison can support, together with the learner's own conclusion.
+Perigee is a browser app where students investigate apparent changes in NASA SPHEREx images. A learner sees Barnard's Star shift against surrounding stars, then encounters a jumping dot in the WISE 0855 field. The second feature stays at one detector pixel as the telescope's pointing changes. Three guided investigations ask learners to check dates, wavelengths and pixel quality before recording their own explanation and comparing it with a reference. Each saved evidence card keeps that reasoning beside the selected observations and exact archive sources, so a teacher can examine how the conclusion was reached. Public object-name and coordinate search extend exploration beyond five prepared target fields. We checked the images and processing against the source FITS files and retained reproducible controls. Perigee's purpose is to make scientific reasoning something a learner can practice and someone else can inspect.
 
 ## Detailed project description
 
-### A public sky viewer with a question to investigate
+### A sky viewer for investigating apparent change
+
+A learner can open Barnard's Star, press Play comparison and watch the bright glow shift against the surrounding stars. In the WISE 0855 field, another bright feature appears to jump. That feature stays at one detector pixel as the telescope's pointing changes. The two comparisons call for different explanations. Perigee puts dates, wavelengths and quality checks beside the images and asks the learner to record what they noticed, what supports their explanation and what remains uncertain. A teacher can inspect the saved reasoning with the observations that informed it.
 
 Perigee answers the Planet X and SPHEREx challenge with a browser viewer for SPHEREx observations over time. Enter an object name or sky coordinates, retrieve the available observations from NASA/IPAC IRSA, and play or inspect the images on a common sky grid. Search accepts decimal and sexagesimal coordinates. Five prepared target fields provide an immediate starting point, and three guided investigations help a beginner decide what an apparent change means.
-
-Imagine a student opening Barnard's Star. They press Play comparison and see the bright glow shift against the surrounding stars. In the WISE field, another dot appears to jump, but the feature stays at one detector pixel as the telescope's pointing changes. The student needs to decide which evidence supports each interpretation. Perigee puts the dates, wavelengths and quality checks beside the images, then asks the learner to record a conclusion. A teacher can inspect the observations and the reasoning behind that decision.
 
 ### Three investigations with useful decisions
 
@@ -28,9 +28,9 @@ The WISE 0855 field teaches how to investigate a convincing apparent jump. The b
 
 ### What Perigee contributes
 
-Archive viewers and astronomy education projects already provide image comparison, quality information and guided activities. Perigee connects those observations to a learner-written explanation and preserves the context that determines what the comparison can support. In Epsilon Indi B, a shared exposure time rules out a time-change explanation. In the WISE field, detector coordinates support an alternative to a moving celestial source. Those decisions depend on information the picture alone cannot supply. The notebook asks the learner to record what they noticed, which facts support their explanation and what remains uncertain. A reference explanation appears after the learner records their own reasoning.
+Perigee connects image comparison to a learner-written explanation and preserves the context needed to check it. In Epsilon Indi B, a shared exposure time rules out a time-change explanation. In the WISE field, detector coordinates support an alternative to a moving celestial source. Those decisions depend on information the picture alone cannot supply. The learner records an explanation before opening the reference, then can compare the reasoning and revise the notes.
 
-Notes save in the browser. The completed evidence record retains the learner's words, selected frame identifiers, observation dates, wavelengths, quality results and available display parameters. Archive links, file fingerprints and processing records connect the explanation to its inputs. JSON preserves the structured evidence, while print or Save as PDF creates a readable record. A teacher or classmate can revisit the source observations and question whether the recorded conclusion follows from them.
+Notes save in the browser. The completed evidence record retains the learner's words, selected frame identifiers, observation dates, wavelengths, quality results and available display parameters. Archive links, file fingerprints and processing records connect the explanation to its inputs. JSON preserves the structured evidence, while print or Save as PDF creates a readable record. A teacher or classmate can check whether the conclusion follows from the observations without having to reconstruct which images the learner selected.
 
 ### NASA data and implementation
 
@@ -48,7 +48,7 @@ The historical source-file audit covered 189 processed records: 183 unique cutou
 
 A teacher can give a class the same pair of observations and ask students to explain what changed. Their saved records show which dates, wavelengths and quality evidence informed each answer. An astronomy club can debate the WISE feature, then use the retained control to test competing explanations. An independent learner can reopen notes, try a second case or search another object without installing software or creating an account.
 
-The intended benefit is practice in turning an observation into a defensible explanation. The three cases exercise different decisions, while public name and coordinate search extends exploration beyond the prepared examples. Investigations use reusable case definitions. A repository admission tool checks frame references, provenance, metadata and quoted numerical values before a new case is added. Authors supply the scientific interpretation and its supporting evidence. This gives the team a concrete route to expanding the reviewed activities for classrooms and astronomy clubs.
+The intended benefit is practice in turning an observation into a defensible explanation. The three cases exercise different decisions, while public name and coordinate search extends exploration beyond the prepared examples. Investigations use reusable case definitions. A repository admission tool checks frame references, provenance, metadata and quoted numerical values before a new case is added. Authors supply the scientific interpretation and its supporting evidence. These checks keep each reviewed activity tied to its source observations and supporting calculations.
 
 ### Development and image credits
 

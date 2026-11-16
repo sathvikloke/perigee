@@ -163,6 +163,7 @@ export function CaseBench(props: {
   return (
     <>
       <div className="comparison-shell guided-comparison">
+        <div className="comparison-focus">
         <div className="comparison-toolbar">
           <div className="segmented pair-control" role="group" aria-label="Choose comparison">
             {others.map((r) => {
@@ -210,11 +211,14 @@ export function CaseBench(props: {
             </div>
             <button
               type="button"
-              className="quiet blink-toggle"
+              className="primary quiet blink-toggle"
               aria-pressed={blinking}
               onClick={() => setBlinking((v) => !v)}
               disabled={!a || !b}
             >
+              <svg className="comparison-play-icon" width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
+                {blinking ? <path d="M5 3h3v12H5zM10 3h3v12h-3z" /> : <path d="M5 2.75v12.5L15 9z" />}
+              </svg>
               {blinking ? "Pause comparison" : "Play comparison"}
             </button>
           </div>
@@ -356,10 +360,11 @@ export function CaseBench(props: {
             <div><dt>Flagged pixels</dt><dd>Colored overlays mark pixels that need caution. A passed check does not prove that an object was detected.</dd></div>
           </dl>
         </details>
+        </div>
       </div>
 
-      <a className="notebook-jump" href="#notebook">Record your evidence</a>
       {props.afterShell}
+      <a className="notebook-jump" href="#notebook">Record your evidence</a>
 
       {pairFrames.length > 0 && (
         <details className="panel content-disclosure">
