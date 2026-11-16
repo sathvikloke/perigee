@@ -257,6 +257,35 @@ test("transport failures and timeouts return the error envelope", async () => {
   assert.equal(b.error.code, "UPSTREAM_TIMEOUT");
 });
 
+test("platform timeout pages keep the timeout classification without exposing their bodies", async () => {
+  for (const status of [408, 504]) {
+    for (const type of ["text/html", "text/plain", "application/json"]) {
+      const upstream = recordingFetch(() => new Response("Gateway timeout: private hosting detail", {
+        status, headers: { "content-type": type },
+      }));
+      const response = await run("POST", "/api/v1/search", {
+        deps: { fetch: upstream }, body: "{}", headers: { "x-request-id": "timeout-review" },
+      });
+      assert.equal(response.status, 504);
+      assert.equal(response.headers.get("content-type"), "application/json");
+      const body = await response.json();
+      assert.equal(body.request_id, "timeout-review");
+      assert.equal(body.error.code, "UPSTREAM_TIMEOUT");
+      assert.equal(body.error.retryable, true);
+      assert.equal(JSON.stringify(body).includes("private hosting detail"), false);
+    }
+  }
+  const original = { schema_version: 1, request_id: "archive-timeout", error: {
+    code: "UPSTREAM_TIMEOUT", message: "The NASA/IPAC archive did not answer in time.", retryable: true,
+    details: { collections_failed: ["spherex_dr1", "spherex_qr3"] },
+  } };
+  const response = await run("POST", "/api/v1/search", {
+    deps: { fetch: recordingFetch(() => jsonResponse(original, 504)) }, body: "{}",
+  });
+  assert.equal(response.status, 504);
+  assert.deepEqual(await response.json(), original);
+});
+
 test("request and upstream bodies are bounded", async () => {
   const f = recordingFetch(() => jsonResponse({}));
   const big = "x".repeat(MAX_REQUEST_BODY_BYTES + 1);
