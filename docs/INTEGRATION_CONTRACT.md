@@ -96,6 +96,8 @@ The UI distinguishes initial loading, metadata found, individual frame processin
 
 Bound work in several places. The initial search has a small result limit. Browser frame concurrency is two. Upstream calls have connect/read timeouts and a maximum response size. A request has a soft processing budget below the deployed function's hard limit. An unsuccessful retry is reported; there is no unbounded loop. Do not create a hundred automatic calls because a slider moved quickly. Debounce search submission appropriately and avoid refetching a frame already available in the current session.
 
+Live search defaults allow a 40-second upstream read within a 50-second overall search budget; DR1 and QR3 run concurrently. The browser waits up to 60 seconds, the hosted Python function is limited to 60 seconds, and Cloudflare's transport limit is 70 seconds. The previous 20-second read limit rejected valid DR1 and QR3 responses observed at about 21 seconds on 15 November 2026. Frame fetching retains its separate shorter total budget. Environment overrides must preserve the ordering of these budgets.
+
 ## Content and evidence contracts
 
 A case contains a stable ID, title, target ID, short opening question, scientific background, ordered steps, selected observation IDs, source links, a supported-conclusion guide, and limitations. Sathvik authors the content; Suhrit serves it without changing scientific meaning; Akshobya turns steps into a usable experience. Keep wording short in the interface. The long scientific explanation belongs in a collapsible explanation or source link, not a wall of text before the first image.

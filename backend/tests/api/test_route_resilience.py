@@ -394,6 +394,24 @@ def test_simultaneous_distinct_requests_do_not_cross_talk(harness):
 # --------------------------------------------------------------------------- configured limits
 
 
+def test_default_archive_timeouts_allow_slow_valid_sia_responses(monkeypatch):
+    # Real DR1/QR3 searches returned valid VOTables after 21.3/21.0 seconds.
+    # The old 20-second transport timeout discarded both before parsing.
+    for name in ("PERIGEE_UPSTREAM_READ_TIMEOUT_S", "PERIGEE_SEARCH_BUDGET_S"):
+        monkeypatch.delenv(name, raising=False)
+    _adapters.reset_services_cache()
+    try:
+        services = _adapters.resolve_services()
+        client = services.http_client_factory()
+        assert client.timeout.read == 40.0
+        assert client.timeout.read < services.settings.search_budget_s == 50.0
+        # Leave room for parsing/serialization inside the hosted function limit.
+        assert services.settings.search_budget_s < 60.0
+        asyncio.run(client.aclose())
+    finally:
+        _adapters.reset_services_cache()
+
+
 def test_limits_come_from_the_environment_and_reach_the_client(monkeypatch):
     monkeypatch.setenv("PERIGEE_FRAME_MAX_BYTES", "12345")
     monkeypatch.setenv("PERIGEE_FRAME_BUDGET_S", "7.5")
