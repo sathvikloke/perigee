@@ -35,6 +35,9 @@
 .exhaust-ember:nth-child(3) { top: 39%; width: 6px; height: 4px; animation-delay: -150ms; }
 .exhaust-ember:nth-child(4) { top: 59%; width: 7px; height: 4px; animation-delay: -290ms; }
 .intro-skip { position: absolute; z-index: 4; top: 24px; right: 28px; display: inline-flex; align-items: center; gap: 18px; min-height: 44px; border: 1px solid #50565c; background: #0d1012; color: var(--ink); border-radius: 999px; padding: 9px 18px; font-size: 14px; }
+.intro-art-label, .observatory-stage .artwork-watermark { position: absolute; z-index: 3; margin: 0; padding: 5px 8px; border-radius: 6px; background: #08090a; color: #c4c9ce; font-size: 12px; line-height: 1.4; }
+.intro-art-label { right: 24px; bottom: 24px; }
+.observatory-stage .artwork-watermark { right: 16px; bottom: 8px; }
 @keyframes exhaust-burn {
   0%,100% { transform: scaleX(.86) scaleY(.9) rotate(-1deg); }
   25% { transform: scaleX(1.16) scaleY(1.05) rotate(1deg); }
