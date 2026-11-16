@@ -329,6 +329,11 @@ async function proxy(request, pathname, rid, deps) {
     return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API is unavailable right now.", { retryable: true });
   }
   try {
+    // Hosting gateways may replace a timeout's JSON body with HTML or text.
+    // Preserve the timeout classification while keeping that body out of the API.
+    const unreadableUpstream = () => upstream.status === 504 || upstream.status === 408
+      ? envelope(rid, 504, "UPSTREAM_TIMEOUT", "The Perigee API did not answer in time.", { retryable: true })
+      : envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API returned an unexpected response.", { retryable: true });
     if (upstream.status >= 300 && upstream.status < 400) {
       await upstream.body?.cancel().catch(() => {});
       return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API answered with a redirect; it was not followed.", {
@@ -338,9 +343,7 @@ async function proxy(request, pathname, rid, deps) {
     const ctype = (upstream.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
     if (ctype !== "application/json") {
       await upstream.body?.cancel().catch(() => {});
-      return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API returned an unexpected response.", {
-        retryable: true,
-      });
+      return unreadableUpstream();
     }
     let data;
     try {
@@ -358,9 +361,7 @@ async function proxy(request, pathname, rid, deps) {
       JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(data));
     } catch {
       // Labelled JSON but unusable: never pass it on as a success or as an upstream error body.
-      return envelope(rid, 502, "UPSTREAM_UNAVAILABLE", "The Perigee API returned an unexpected response.", {
-        retryable: true,
-      });
+      return unreadableUpstream();
     }
     const out = new Headers({ "x-content-type-options": "nosniff" });
     for (const h of UPSTREAM_PASS_HEADERS) {

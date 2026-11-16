@@ -58,6 +58,15 @@ interface Shown {
 
 const describe = (q: ValidQuery) => `RA ${q.ra_deg}°, Dec ${q.dec_deg}°, ${q.fov_arcmin}′ field`;
 
+/** A failed live search can be retried without replacing the current results or notebook. */
+export function SearchFailureRecovery(props: { error: unknown; onRetry: () => void; onUseFixture?: () => void }) {
+  return <>
+    <ErrorBlock title={searchFailureTitle(errorInfo(props.error).code)} error={props.error}
+      onRetry={props.onRetry} onUseFixture={props.onUseFixture} />
+    <p className="notice">You can also explore the prepared cases: <a href="/#investigations">Open prepared NASA investigations</a>.</p>
+  </>;
+}
+
 export function QueryInvestigation(props: {
   api: PerigeeApi;
   initial: { ra?: string; dec?: string; fov?: string; limit?: string; caseId?: string };
@@ -510,8 +519,7 @@ export function QueryInvestigation(props: {
           </p>
 
           {phase.kind === "failed" && (
-            <ErrorBlock
-              title={searchFailureTitle(errorInfo(phase.error).code)}
+            <SearchFailureRecovery
               error={phase.error}
               onRetry={() => startSearch(phase.query)}
               onUseFixture={api.mode === "api" ? props.onUseFixture : undefined}

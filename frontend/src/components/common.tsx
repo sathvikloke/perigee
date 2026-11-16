@@ -44,7 +44,7 @@ export function ErrorBlock(props: {
             Try again
           </button>
         )}
-        {props.onUseFixture && (
+        {import.meta.env.DEV && props.onUseFixture && (
           <button type="button" onClick={props.onUseFixture}>
             Use development fixture (not NASA data)
           </button>
