@@ -6,9 +6,9 @@
   ],
   "typeface": "Avenir Next",
   "artifact_page": "page_c2bdc1167fb481918cc92fabeb2bfc58",
-  "pdf_sha256": "3c1158f554e0b812a9a42cfb3db9cf00f33a76d5ed16cc96280049bb86892ab3",
+  "pdf_sha256": "4bd64541b47a206c12dee2fd8ead95a86369ce5f7772c38acf7764c0fa37ece3",
   "native_pdf_export": "Unavailable for local Avenir font; public PDF assembled from reviewed live slide renders. Spaces text remains editable.",
-  "render_review": "All seven renders independently inspected. Corrected source-context wording and evidence-card screenshot crops. No clipping or overlap observed. Slide 6 shows genuine completed-card excerpts; body prose stays readable without speaker notes.",
-  "artifact_state_version": 47,
-  "artifact_ref": "artifact_external_4748cb45-3498-4455-a53d-be2d1e4a09d1"
+  "render_review": "All seven refreshed slides inspected independently. No material clipping or overlap. Paired-case story, mapped-pixel control, bounded alignment screen, export context and case-authoring path checked.",
+  "artifact_ref": "artifact_external_b411cf36-8a8b-416a-acd9-8ad5742cae52",
+  "state_version": 48
 }

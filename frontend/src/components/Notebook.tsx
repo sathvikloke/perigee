@@ -7,9 +7,11 @@ import {
   TEXT_MAX,
   printedLimitations,
   exportFilename,
+  fillFrameRendering,
   serializeEvidenceCard,
   updateEvidenceText,
   withCaseContext,
+  withReferenceEvidence,
   type EvidenceCard,
 } from "../evidence/card";
 import { releaseLabel } from "../lib/compare";
@@ -97,7 +99,7 @@ export function Notebook(props: {
   const requestedReference = useRef(false);
   const notebookArrival = useContentCue<HTMLDivElement>("notebook", card.id);
   // Export and print carry the case's own limitations, verbatim, with the frames'.
-  const out = withCaseContext(props.exportCard ?? card, caseContent);
+  const out = withReferenceEvidence(withCaseContext(fillFrameRendering(props.exportCard ?? card, props.previewFrames ?? []), caseContent), caseContent);
   const limitations = printedLimitations(out);
   const pairRefs = new Set(out.frames.filter((f) => f.ref).map((f) => f.ref));
   const saved = props.saveState.kind === "saved" || props.saveState.kind === "restored";
@@ -116,8 +118,9 @@ export function Notebook(props: {
     previewRef.current?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     previewRef.current?.focus({ preventScroll: true });
   }, [previewVisible]);
-  const printEvidence = () => { props.onBeforePrint?.(); window.print(); };
-  const download = () => { downloadEvidence(out); setExportStatus("Evidence JSON downloaded"); };
+  const retainSnapshot = () => { if (out !== card) props.onChange(out); };
+  const printEvidence = () => { retainSnapshot(); props.onBeforePrint?.(); window.print(); };
+  const download = () => { retainSnapshot(); downloadEvidence(out); setExportStatus("Evidence JSON downloaded"); };
   const editNotes = () => {
     setPreviewOpen(false);
     window.requestAnimationFrame(() => { refs.current.observations?.focus(); });
@@ -155,12 +158,11 @@ export function Notebook(props: {
     if (caseContent) {
       if (!completed) return;
       requestedReference.current = true;
-      props.onChange({ ...out, reference_shown: true, updated_at_utc: new Date().toISOString() });
+      props.onChange(withReferenceEvidence({ ...out, reference_shown: true, updated_at_utc: new Date().toISOString() }, caseContent));
       if (showReference) { referenceRef.current?.scrollIntoView({ block: "start" }); referenceRef.current?.focus({ preventScroll: true }); }
       setExportStatus(null);
     } else {
-      downloadEvidence(out);
-      setExportStatus("Evidence JSON downloaded");
+      download();
     }
   };
 
@@ -261,7 +263,7 @@ export function Notebook(props: {
                   onChange={(e) => {
                     e.target.setCustomValidity("");
                     setExportStatus(null);
-                    props.onChange(updateEvidenceText(card, f.key, e.target.value));
+                    props.onChange(updateEvidenceText(out, f.key, e.target.value));
                   }}
                 />
                 <p className="print-note">{card[f.key]}</p>
@@ -304,7 +306,7 @@ export function Notebook(props: {
           )}
           {canExport && !previewVisible && <div className="notebook-preview-entry">
             <p>Your notes and selected observations are ready to view together.</p>
-            <button type="button" className="primary" onClick={() => setPreviewOpen(true)}>Preview your evidence card</button>
+            <button type="button" className="primary" onClick={() => { retainSnapshot(); setPreviewOpen(true); }}>Preview your evidence card</button>
           </div>}
           {previewVisible && <EvidencePreview id={id} card={out} frames={props.previewFrames} previewRef={previewRef}
             onEdit={editNotes} onPrint={printEvidence} onDownload={download} status={status} />}
@@ -319,9 +321,7 @@ export function Notebook(props: {
             >
               Print / save PDF
             </button>
-            {caseContent && <button type="button" disabled={!canExport} aria-describedby={!canExport ? `${id}-export-hint` : undefined} onClick={() => {
-              downloadEvidence(out); setExportStatus("Evidence JSON downloaded");
-            }}>Download evidence JSON</button>}
+            {caseContent && <button type="button" disabled={!canExport} aria-describedby={!canExport ? `${id}-export-hint` : undefined} onClick={download}>Download evidence JSON</button>}
             <span role="status">{status}</span>
           </div>}
         </form>

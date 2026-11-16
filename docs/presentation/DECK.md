@@ -22,11 +22,11 @@ Enter an object name or sky position. Explore a sequence of SPHEREx observations
 
 The learner’s question
 
-A student sees a star shift between two images. Is it motion, a different infrared wavelength, or an unreliable pixel? Dates and quality information help the student test that first impression.
+Barnard’s Star’s glow shifts against neighboring stars. Another dot seems to jump but stays on one detector pixel. The student checks the evidence before deciding what each apparent change supports.
 
 Our contribution
 
-A public time-sequence viewer, three guided investigations and a portable evidence notebook. The learner’s explanation stays attached to the observations and exact archive sources that support it.
+A public time-sequence viewer and three guided investigations. The learner saves a conclusion with the dates, quality checks and source records that made the interpretation possible.
 
 Team Perigee. Planet X and SPHEREx challenge.
 
@@ -78,7 +78,7 @@ Same exposure, 29 Apr 2026
 
 Epsilon Indi B: Choose a fair comparison
 
-A five-month pair explores time at similar wavelengths. The pictured pair shows 2.3232 and 4.9399 µm at the same moment. The learner separates wavelength from time and checks display contrast before comparing gray levels.
+A five-month pair explores time at similar wavelengths. The pictured pair shares one exposure at 2.3232 and 4.9399 µm, ruling out change over time. Wavelength, detector and display scale all differ, so this pair does not isolate a wavelength effect.
 
 7 Nov 2025 / 10 Nov 2025
 
@@ -140,9 +140,9 @@ NASA Space Apps 2026. Planet X and SPHEREx.
 
 5 / 7
 
-5.36″ observed. 5.38″ predicted.
+5.36″ mapped. 5.38″ from stars.
 
-The shifts above are in arcseconds. The feature stays at detector pixel (1709, 1364). Three usable stars predict almost the same apparent sky shift for that fixed pixel as the pointing changes. Their own sky positions agree within 0.76″.
+Both appearances occupy detector pixel (1709, 1364). The two sky-coordinate transforms map that pixel 5.36 arcseconds apart. Motion of three stars across the detector predicts 5.38 arcseconds. Their sky positions agree within 0.76 arcseconds.
 
 Adverse mission flags support the check. The feature’s physical cause remains unknown.
 
@@ -152,7 +152,7 @@ The historical processing audit includes six case re-renders. A separate code pa
 
 128 PASS. 55 UNKNOWN. 0 FAIL.
 
-Independent Gaia field-star alignment checks cover the 183 unique cutouts. UNKNOWN means too few usable stars. Alignment verdicts do not certify source identity.
+Gaia star checks screen 183 cutouts for substantial alignment errors. UNKNOWN lacks enough usable stars. PASS meets this screen, without establishing subpixel precision or a general error rate.
 
 Control test: all nine deliberate 1-, 2- and 5-native-pixel shifts on three real-frame fixtures were rejected. Methods and inputs are retained.
 
@@ -166,15 +166,15 @@ NASA Space Apps 2026. Planet X and SPHEREx.
 
 6 / 7
 
-A learner-authored result
+Context changes the interpretation
 
-The student writes an observation, an explanation and remaining uncertainty. A completed investigation produces a record someone else can inspect and question.
+Epsilon’s shared exposure time rules out change over time. WISE’s detector coordinates explain an apparent jump. The learner records which facts support their conclusion.
 
 The exact observations remain attached
 
-The export retains frame IDs, dates, wavelengths, quality results, display settings and archive URLs. File fingerprints and processing details trace the images to their inputs.
+The record keeps the learner’s words with frame IDs, dates, wavelengths, quality results and display context. Archive links and file fingerprints connect the explanation to its source observations.
 
-Existing viewers already compare images. Perigee connects that activity to a short investigation and a portable record of the learner’s reasoning.
+A teacher can inspect the conclusion, the selected observations and the checks that shaped the learner’s interpretation.
 
 COMPLETED EVIDENCE CARD
 
@@ -198,9 +198,9 @@ A teacher can inspect the reasoning
 
 Give a class the same image pair, then compare their explanations. Each saved record shows which dates, wavelengths and quality evidence shaped the answer.
 
-A new question gives a reason to return
+More reviewed investigations
 
-Try another investigation, reopen saved work or search a new object. Astronomy clubs can debate the WISE feature and inspect the retained control together.
+Reusable case definitions support new activities. A repository tool checks frame references, metadata and quoted values. Authors supply the scientific interpretation and its evidence.
 
 OPEN THE PROJECT
 

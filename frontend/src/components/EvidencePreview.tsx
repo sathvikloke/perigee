@@ -1,22 +1,14 @@
 import type { Ref } from "react";
 import type { FrameRecord } from "../api/types";
 import { resolveAssetSrc } from "../api/client";
-import type { EvidenceCard, EvidenceFrame } from "../evidence/card";
+import { evidenceFrameMatchesRecord, type EvidenceCard, type EvidenceFrame } from "../evidence/card";
 import { formatDateShort, formatMicrons, QUALITY_LABEL } from "../lib/format";
 import { useContentCue } from "../lib/contentMotion";
 import "../styles/evidence-preview.css";
 
 /** Only show a loaded product that represents the observation being exported. */
 export function evidencePreviewFrame(frame: EvidenceFrame, records: readonly FrameRecord[]): FrameRecord | undefined {
-  return records.find((record) => record.frame_key === frame.frame_key &&
-    record.frame_id === frame.frame_id && record.collection_id === frame.collection_id &&
-    record.source_url === frame.source_url &&
-    (record.display_scale?.mode ?? null) === frame.display_scale_mode &&
-    (!frame.processing?.file_sha256 || record.provenance?.file_sha256 === frame.processing.file_sha256) &&
-    (!frame.processing?.processing_version || record.provenance?.processing_version === frame.processing.processing_version) &&
-    (!frame.processing?.pipeline_version || record.provenance?.pipeline_version === frame.processing.pipeline_version) &&
-    (!frame.processing?.registration_method || record.registration?.method === frame.processing.registration_method) &&
-    (!frame.processing?.display_scale_method || record.display_scale?.method === frame.processing.display_scale_method));
+  return records.find((record) => evidenceFrameMatchesRecord(frame, record));
 }
 
 export function EvidencePreview({ card, frames = [], previewRef, onEdit, onPrint, onDownload, status, id }: {
@@ -68,6 +60,13 @@ export function EvidencePreview({ card, frames = [], previewRef, onEdit, onPrint
         <p><strong>{frame.ref ? `Image ${frame.ref}` : formatDateShort(frame.observed_at_utc)}</strong></p>
         <p>Observation ID: <span className="mono">{frame.observation_id}</span></p>
         <p>Display contrast: {frame.display_scale_mode === "shared" ? "shared-scale product" : frame.display_scale_mode === "per_frame" ? "set for this image" : "not recorded"}.</p>
+        {frame.rendering && <>
+          {typeof frame.rendering.display_scale?.low === "number" && typeof frame.rendering.display_scale.high === "number" && <p>Saved display range: {frame.rendering.display_scale.low} to {frame.rendering.display_scale.high}{typeof frame.rendering.display_scale.unit === "string" ? ` ${frame.rendering.display_scale.unit}` : ""}.</p>}
+          {frame.rendering.registration?.width && frame.rendering.registration.height && <p>Saved grid: {frame.rendering.registration.width} × {frame.rendering.registration.height} pixels. Full display and grid settings are included in the evidence JSON.</p>}
+          {frame.rendering.image_url && <p><a href={frame.rendering.image_url} target="_blank" rel="noreferrer">Display image</a></p>}
+          {frame.rendering.flag_image_url && <p><a href={frame.rendering.flag_image_url} target="_blank" rel="noreferrer">Flag overlay</a></p>}
+          {frame.rendering.cutout_url && <p><a href={frame.rendering.cutout_url} target="_blank" rel="noreferrer">Archive FITS cutout</a></p>}
+        </>}
         {frame.processing?.processing_version && <p>Processor: {frame.processing.processing_version}</p>}
         {frame.processing?.file_sha256 && <p>Source SHA-256: <span className="mono">{frame.processing.file_sha256}</span></p>}
       </div>)}

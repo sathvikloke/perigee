@@ -4,41 +4,41 @@ Prepared for owner review on Sunday, 15 November 2026. Use the reviewed recordin
 
 ## The story
 
-**A student sees a star shift in NASA images. Perigee helps them test that impression and keep an explanation with its evidence.**
+**A student sees two apparent shifts and learns why they support different conclusions.**
 
-Start with a student watching a star's glow shift between two NASA images. The curiosity is immediate: did something move? The difficult part comes next. Different dates, infrared wavelengths, display settings and unreliable pixels can all affect a comparison. An image alone does not tell a beginner which explanation to trust.
+Barnard's Star's glow shifts against neighboring stars. In the WISE field, another bright dot appears to jump, but it occupies the same detector pixel as the telescope's pointing changes. Both are real SPHEREx observations. The student needs the observing context and a way to check alternative explanations before deciding what each image supports.
 
-Perigee first makes the archive accessible: an object name or sky position opens a sequence of SPHEREx observations in the browser. It then keeps the observation, the checks and the learner's reasoning together. The learner compares real SPHEREx images, checks what makes the comparison meaningful, and writes what the evidence supports along with what remains uncertain. They finish with an evidence card linked to the source observations. A teacher or astronomy-club leader can follow that reasoning instead of only seeing a right or wrong answer.
+Perigee opens a sequence of NASA SPHEREx observations from an object name or sky position. Its guided cases place the dates, wavelengths and mission quality flags beside the images. In Epsilon Indi B, a shared exposure time rules out a change over time. Wavelength, detector and display scale still differ. In the WISE field, the detector-coordinate check supports an alternative to a moving celestial source. The information has a specific job in each decision.
 
-That is the human purpose: **make participating in scientific reasoning approachable, with a result someone else can inspect.** Public access to data becomes an activity a curious person can actually begin. The learner has something to notice, a way to question it, and ownership of the conclusion. This is a designed benefit, not a measured classroom outcome.
+The learner writes an observation, an explanation and remaining uncertainty, then keeps that conclusion linked to the selected observations and exact archive sources. A teacher or astronomy-club leader can inspect which facts support the answer. The human purpose is to give a curious learner a concrete investigation and a conclusion they can explain.
 
-The strongest audience is students learning how evidence supports a claim, with teachers and astronomy clubs using the same short investigations. Curious independent observers can continue into other targets or the live name/coordinate search. Repeat use comes from different questions, saved notes and new observations; a retention claim is unnecessary for this hackathon.
+Students can try another case, reopen saved notes or search a new object. The reusable case definitions also provide a route for the team to add reviewed investigations. A repository tool checks frame references, metadata, quoted values and evidence links. Authors supply the scientific interpretation. This is a development tool, not an in-app teacher editor or automatic scientific approval.
 
-The contribution is the complete guided reasoning workflow and portable evidence record. It is not a claim to have invented sky blinking, archive search or astronomy education. The [comparison with existing tools](../../science/reviews/contribution/README.md) defines the narrower contribution.
+The [comparison with existing tools](../../science/reviews/contribution/README.md) defines the contribution: the learner's reasoning stays connected to the context needed to assess it. The evidence record links back to sources and retained processing details. It is not described as a self-contained rendering recipe.
 
 The [winner-video review](WINNER_VIDEO_RESEARCH.md) now includes actual video evidence from three 2025 global winners: timed visual samples from Henry's Farm Adventures, a transcript and two observed states from PureFlow, and a transcript from Resonant Exoplanets. These are separate from the earlier 50-project website study. The useful lesson is to make the audience, obstacle, action and result easy to follow. For Perigee, the result is a learner's explanation that another person can inspect. These observations do not establish why the judges chose those winners or a formula that guarantees an award.
 
 ## The official short video
 
-Use **one coherent Barnard's Star journey**, with the moving glow as the hook and the evidence card as the payoff. Do not spend the first seconds on a logo animation or tour every feature. A separate longer local presentation can show the WISE quality trap and live search.
+Use **the paired Barnard and WISE story**: two apparent shifts, different supported explanations. Follow it with the public search and a completed evidence record. The video should make the learner's decision clear before showing the result they can share.
 
 The [submission guide](https://www.spaceappschallenge.org/resources/project-submission-guide/) limits the Project Demo to **a video of 30 seconds or less, or a deck of at most seven slides including the introduction**. Export this video at **29 seconds**, leaving a margin for the editor's duration rounding. The guide says most evaluation is based on the written project submission, so the video opens the story and the project page supplies the detail.
 
 ### Voiceover
 
-55 words. Rehearse conversationally against the 29-second timeline. [Timed SRT captions](perigee-29s-captions.srt) are ready to import and adjust to the actual reading.
+51 words. Rehearse against the 29-second timeline. [Timed SRT captions](perigee-29s-captions.srt) are ready to import and adjust to the actual reading.
 
-> A student sees a star shift. What would convince them?
+> A student sees two apparent shifts.
 >
-> Perigee opens NASA SPHEREx images by object name or sky position.
+> Barnard's Star shifts against neighboring stars. This dot stays on one detector pixel.
 >
-> Play the observations. Check the dates, wavelengths and unreliable pixels.
+> Perigee opens NASA SPHEREx images by name or sky position.
 >
-> Then write an explanation and keep the exact sources with it.
+> Check dates, wavelengths and quality before deciding what changed.
 >
-> The student has a conclusion to defend. Their teacher can follow the evidence.
+> Save a conclusion with its sources, so a teacher can follow your reasoning.
 
-Pronounce SPHEREx approximately "sphere-ex." Let the opening question land, then emphasize **student**, **check** and **evidence**. Use an interested, direct delivery. The recorded reading determines whether the script fits; the word count is only a guide.
+Pronounce SPHEREx approximately "sphere-ex." Let the two cases play long enough to see the apparent shifts. Emphasize **check** and **sources**. Use an interested, direct delivery. The recorded reading determines whether the script fits.
 
 The same words work as a caption-only video. The guide excludes likenesses of under-18s, including audio: use an adult narrator or captions if the proposed narrator is under 18. A screen recording needs no face camera. Credit synthetic narration if used.
 
@@ -46,13 +46,13 @@ The same words work as a caption-only video. The guide excludes likenesses of un
 
 | Time | Actual footage | Story beat |
 |---|---|---|
-| 0:00–0:04.5 | Barnard's Star. Click **Play comparison** on the one-year pair. Show two real alternations with dates visible. Small title: **Perigee. Planet X and SPHEREx.** | "A student sees a star shift. What would convince them?" The observation creates the question. |
-| 0:04.5–0:10 | A readable cut to the object-name search and its returned sequence. Use previously recorded successful footage. Return to Barnard's guided case. | "Perigee opens NASA SPHEREx images by object name or sky position." Establish the challenge functionality and NASA source. |
-| 0:10–0:15 | Pause Barnard's comparison. Show the dates and nearly matched wavelengths, then switch on **Show flagged pixels**. Preserve the saturation warning. | "Play the observations. Check the dates, wavelengths and unreliable pixels." Show how a first impression becomes a test. |
-| 0:15–0:21 | Show the completed notebook, then the real exported evidence with a readable observation ID and archive link. | "Then write an explanation and keep the exact sources with it." The learner produces an inspectable result. |
-| 0:21–0:29 | Hold the export's conclusion and source row. End with **Perigee. A conclusion you can explain.** and the public app URL. Include **Team Perigee. Planet X and SPHEREx.** and **NASA/IPAC IRSA. SPHEREx.** credits. | "The student has a conclusion to defend. Their teacher can follow the evidence." End on the human benefit. |
+| 0:00–0:03.5 | Begin Barnard's Star's one-year comparison. Keep the dates and guide visible. Small title: **Perigee. Planet X and SPHEREx.** | "A student sees two apparent shifts." Introduce the decision the student will make. |
+| 0:03.5–0:10 | Continue Barnard briefly, then cut to WISE's three-day pair. Preserve the real quality information. Show the reference's detector-coordinate explanation beside the second comparison. | "Barnard's Star shifts against neighboring stars. This dot stays on one detector pixel." Similar first impressions support different interpretations. |
+| 0:10–0:15.5 | Show an actual object-name search and its returned observation sequence. Use recorded successful footage with readable labels. | "Perigee opens NASA SPHEREx images by name or sky position." Establish the public viewer and NASA source. |
+| 0:15.5–0:20.5 | Return to the Barnard case. Pause on its dates and matched wavelengths, then enable **Show flagged pixels**. Keep the saturation warning visible. | "Check dates, wavelengths and quality before deciding what changed." Show the checks the learner uses. |
+| 0:20.5–0:29 | Show the completed Barnard notebook, then its actual evidence-card preview or PDF with a readable observation ID and archive link. Finish on the app URL. Include **Team Perigee. Planet X and SPHEREx.** and **NASA/IPAC IRSA. SPHEREx.** | "Save a conclusion with its sources, so a teacher can follow your reasoning." The record lets someone inspect the explanation. |
 
-Use a small **Condensed demonstration** caption during the edited journey. Capture actual app behavior and a completed record. Keep the sky images unchanged. An editor may crop the whole viewer for readability, but must preserve the dates, warnings and scientific image content. The search footage can be captured separately so live archive latency does not dictate the edit.
+Use a small **Condensed demonstration** caption during the edited journey. Capture actual app behavior and a completed record. Keep the scientific images unchanged. An editor may crop the whole viewer for readability, but must preserve dates, warnings and image content. Record successful search footage separately so archive latency does not dictate the edit. In WISE, the 5.36-arcsecond value is the same detector pixel mapped through the two sky-coordinate transforms, not an independent image-centroid measurement.
 
 ### Notebook text for the recording
 
@@ -74,15 +74,15 @@ Use these as clearly illustrative presenter notes, not an observed student's wor
 
 1. Open a fresh private browser session at [Barnard's Star](https://perigee.lokesathvik.workers.dev/?preset=barnards_star). Preserve existing personal notes in the normal browser. Select **1 year apart — Images A + C** explicitly, because saved work can restore a different pair.
 2. Record at 1920 × 1080 or 1280 × 720, with enough browser zoom for the dates and notebook text to read comfortably. Use a fixed viewport throughout. Hide unrelated tabs and notifications. Avoid showing email, desktop files or account details.
-3. Capture 10–15 seconds of the comparison at its normal playback rate. Record an actual click, two or three alternations, and a pause. Do not speed up the scientific image animation.
+3. Capture 10–15 seconds of the Barnard comparison at its normal playback rate. Record an actual click, two or three alternations, and a pause. Capture WISE separately with its quality information and detector-coordinate reference visible. Keep the scientific image animation at its normal speed.
 4. Capture the date/wavelength check and quality-overlay click. Review all three checks through **Mark reviewed and continue**. Complete the notebook fields, then record **Compare with the reference** and its response.
-5. Export the populated evidence as PDF and JSON. Capture the PDF's conclusion and a source row at readable size. Keep the JSON as a backup artifact; a fast scroll through raw JSON is not useful video footage.
+5. Download the populated evidence JSON and print or save its readable PDF. Capture the actual evidence-card preview or PDF, showing the conclusion and one source row at readable size. Keep the JSON as a backup artifact.
 6. Record the voiceover separately, or use the provided captions. Edit the actual screen captures to the shot list. Use simple cuts and at most a gentle camera crop; the comparison supplies the meaningful motion.
 7. Add synchronized captions with a maximum of two lines. Use white text on a dark solid or translucent band with generous margins. Citron can emphasize one key phrase; avoid all-capital paragraphs. Keep captions away from dates, flags and the moving glow.
 8. Export an H.264 MP4, 1080p, 30 fps, **29 seconds total**. Check the actual file duration, including title/end frames. Watch once muted and once with audio, on a phone as well as a computer.
 9. Upload the finished file to a public, logged-out-accessible video or file link. Enter that exact link in **Link to Project Demo**. The guide accepts externally hosted media; the Space Apps form itself does not upload videos. Check the link in a private browser before submission.
 
-The curated Barnard case uses bundled processed archive observations and does not require a live IRSA request for each shot. Capture the name search separately and use a short readable excerpt of its real result in the official video. Do not depend on a live request finishing within the shot. The cartoon landing entrance is optional in the longer version. The 29-second submission should open on the actual comparison, because that is the question the learner will investigate. Retain the project's applicable AI-asset credits if the illustration appears.
+The curated Barnard and WISE cases use bundled processed archive observations and do not require a live IRSA request for each shot. Capture the name search separately and use a short readable excerpt of its real result in the official video. Do not depend on a live request finishing within the shot. The cartoon landing entrance is optional in the longer version. The 29-second submission opens on the actual comparisons that the learner investigates. Retain the project's applicable AI-asset credits if the illustration appears.
 
 ## Longer local pitch
 
@@ -102,7 +102,7 @@ Chicago's exact talk duration and Sunday slot remain unconfirmed. The following 
 
 > Perigee starts with one question and one comparison. You play the images, check their dates and wavelengths, and inspect the mission's quality flags. Here, Barnard's Star's glow shifts over about a year. Its center is saturated, so we can discuss the visible shift without claiming that we measured the star's speed.
 >
-> Another investigation shows why that distinction matters. A dot seems to jump between two WISE 0855 field images. The feature stays at the same detector pixel. Its apparent sky shift is 5.36 arcseconds, while three usable field stars predict 5.38 arcseconds for a fixed detector feature as the pointing changes. The mission also flags that pixel as unreliable. That gives us a concrete alternative explanation for the apparent jump, while its physical cause remains unknown.
+> Another investigation shows why that distinction matters. A dot seems to jump between two WISE 0855 field images. The feature stays at the same detector pixel. Mapping that detector pixel through the two sky-coordinate transforms places it 5.36 arcseconds apart. The motion of three usable stars across the detector predicts 5.38 arcseconds for a fixed detector feature as the pointing changes. The mission also flags that pixel as unreliable. That gives us a concrete alternative explanation for the apparent jump, while its physical cause remains unknown.
 
 **The payoff — the learner owns the explanation.**
 
@@ -110,11 +110,11 @@ Chicago's exact talk duration and Sunday slot remain unconfirmed. The following 
 
 **The contribution and the next step.**
 
-> Existing astronomy tools already search and compare the sky. Our contribution is bringing a short investigation and a traceable learner-authored explanation into the same workflow. There are three guided cases, five targets, and live search by object name or sky coordinates. The data processing is deterministic; no AI decides the scientific answer.
+> Existing astronomy tools already search and compare the sky. Our contribution keeps the learner's explanation attached to the context needed to assess it. A shared exposure time rules out a time-change explanation. Detector coordinates can reveal why an apparent sky shift occurred. There are three guided cases, five targets, and live search by object name or sky coordinates. The data processing is deterministic; no AI decides the scientific answer.
 >
-> We built and tested the working prototype. The next step is to use short classroom activities to see whether learners can transfer this habit to an unfamiliar comparison: check the evidence, consider alternatives, and explain a conclusion someone else can inspect.
+> The cases use reusable definitions. Our repository tool checks their frame references, numerical claims and source records. Authors supply the interpretation and evidence. That gives us a concrete route to adding reviewed activities for classrooms and astronomy clubs.
 
-For a longer confirmed slot, show Epsilon Indi B's wavelength comparison and a brief completed name search. Use extra time to explain a choice and its consequence, rather than reciting more features. For questions about validation, use the bounded results in the [submission draft](../SUBMISSION_DRAFT.md); unknown alignment checks are not passes.
+For a longer confirmed slot, show Epsilon Indi B's same-exposure comparison. Explain that wavelength, detector and display scale differ, so the pair rules out time change without isolating a wavelength effect. Include a brief completed name search. Use extra time to explain a choice and its consequence, rather than reciting more features. For questions about validation, use the bounded results in the [submission draft](../SUBMISSION_DRAFT.md); PASS screens for substantial alignment errors, while UNKNOWN lacks enough supporting stars. The verdict counts do not establish subpixel astrometric precision or a general error rate.
 
 ## Sunday schedule in Chicago time
 

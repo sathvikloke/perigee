@@ -1,5 +1,7 @@
 # Epsilon Indi B `fair_comparison` case review
 
+> **Coordinator clarification (15 November 2026):** A/C is a same-exposure comparison with different wavelengths, detectors and display scales. Its different appearance rules out elapsed time; it does not isolate wavelength as the sole cause. The revised case guide (`fair_comparison-2026-11-15b`) states this explicitly. Numerical findings below are unchanged; earlier causal wording is retained as review history. See the [later comparison controls](../overnight-controls/README.md).
+
 Reviewer: parallel worker 09, 2026-11-14. This is a review only. No processor code or products were changed. The proposed text changes are in a separate commit to `backend/content/cases/fair_comparison.json`, for Sathvik to accept or reject.
 
 **Verdict: PASS. Keep the frames; rewrite the text.** Every per-frame fact in the case matches the original FITS. The case's weakness is its ending, not its data. The current guide ends on "I can't tell" (`qa/judging/README.md`, finding 2). The images support a concrete, honest ending instead:

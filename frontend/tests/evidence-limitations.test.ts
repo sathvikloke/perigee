@@ -257,9 +257,10 @@ describe("evidence card limitations and title: v1 cards", () => {
     for (const [k, v] of Object.entries(legacy)) {
       if (k !== "frames") expect(card[k as keyof typeof card]).toEqual(v);
     }
-    const { limitations, ...frameRest } = card.frames[0]!;
+    const { limitations, rendering, ...frameRest } = card.frames[0]!;
     expect(frameRest).toEqual(legacy.frames[0]);
     expect(limitations).toBeNull();
+    expect(rendering).toBeNull();
     expect(card.title).toBeNull();
     expect(card.case_limitations).toBeNull();
     expect(card.schema_version).toBe(1);
