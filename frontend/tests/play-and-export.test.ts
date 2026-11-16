@@ -197,9 +197,18 @@ describe("evidence export shape", () => {
         display_scale_method: "asinh_percentile_0.5_99.7",
         marker_kind: "catalog_prediction",
       },
+      rendering: {
+        display_scale: c.display_scale,
+        registration: c.registration,
+        image: c.image,
+        flag_image: null,
+        image_url: null,
+        flag_image_url: null,
+        cutout_url: null,
+      },
     });
-    // No image bytes, data URLs or asset paths in the export.
-    expect(JSON.stringify(out)).not.toMatch(/data:image|\/assets\/frames/);
+    // Product references travel with the record; image bytes do not.
+    expect(JSON.stringify(out)).not.toMatch(/data:image|base64/);
   });
 
   it("never puts private notes in a coordinate or preset URL", () => {

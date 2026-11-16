@@ -1,24 +1,24 @@
 1
-00:00:00,000 --> 00:00:04,500
-A student sees a star shift.
-What would convince them?
+00:00:00,000 --> 00:00:03,500
+A student sees two
+apparent shifts.
 
 2
-00:00:04,500 --> 00:00:10,000
-Perigee opens NASA SPHEREx images
-by object name or sky position.
+00:00:03,500 --> 00:00:10,000
+Barnard's Star shifts against neighboring
+stars. This dot stays on one detector pixel.
 
 3
-00:00:10,000 --> 00:00:15,000
-Play the observations. Check the dates,
-wavelengths and unreliable pixels.
+00:00:10,000 --> 00:00:15,500
+Perigee opens NASA SPHEREx
+images by name or sky position.
 
 4
-00:00:15,000 --> 00:00:21,000
-Then write an explanation and
-keep the exact sources with it.
+00:00:15,500 --> 00:00:20,500
+Check dates, wavelengths and quality
+before deciding what changed.
 
 5
-00:00:21,000 --> 00:00:29,000
-The student has a conclusion to defend.
-Their teacher can follow the evidence.
+00:00:20,500 --> 00:00:29,000
+Save a conclusion with its sources, so
+a teacher can follow your reasoning.

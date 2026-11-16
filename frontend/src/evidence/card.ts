@@ -3,7 +3,7 @@
 // present, query coordinates, selected frame identities with
 // dates/wavelengths/quality summaries, claim, observations, uncertainty,
 // sources and application version. Stored in localStorage; exported as JSON.
-// Never stores images, raw FITS or secrets.
+// Stores product references and processing metadata, never image bytes or raw FITS.
 //
 // Additive fields (still schema_version 1; older cards lack them and are
 // normalized on load, see normalizeEvidenceCard):
@@ -16,7 +16,9 @@
 //                     API reported none, null when the frame was attached before
 //                     the field existed.
 
-import type { FrameRecord, QualityStatus, SourceLink } from "../api/types";
+import type { CaseContent, DisplayScale, FrameRecord, ImageRef, QualityStatus, Registration, SourceLink } from "../api/types";
+import { resolveAssetSrc } from "../api/client";
+import { buildReferenceEvidence, normalizeReferenceEvidence, type EvidenceReference } from "./referenceEvidence";
 
 export const EVIDENCE_SCHEMA_VERSION = 1 as const;
 export const CLAIM_MAX = 280;
@@ -48,6 +50,21 @@ export interface EvidenceFrame {
   limitations?: string[] | null;
   /** How the display image was made (from the FrameRecord). Null when not reported. */
   processing?: EvidenceProcessing;
+  /** Snapshot captured with the supplied product. Older cards keep null: source hashes do not prove an old rendering. */
+  rendering?: EvidenceRendering | null;
+}
+
+export interface EvidenceRendering {
+  display_scale: DisplayScale | null;
+  registration: Registration | null;
+  /** Original API references, retained for exact product matching. No image bytes. */
+  image: ImageRef | null;
+  flag_image: ImageRef | null;
+  /** Resolved public URLs when the browser/API origin was available at capture. */
+  image_url: string | null;
+  flag_image_url: string | null;
+  /** Only the actual URL supplied in the FrameRecord provenance. */
+  cutout_url: string | null;
 }
 
 export interface EvidenceProcessing {
@@ -88,6 +105,8 @@ export interface EvidenceCard {
   /** Steps the learner marked reviewed; not an assessment of correctness. */
   reviewed_step_ids?: string[];
   reference_shown?: boolean;
+  /** The reference actually revealed, separate from the learner's own explanation. */
+  reference_evidence?: EvidenceReference | null;
 }
 
 /**
@@ -147,6 +166,7 @@ export function createEvidenceCard(init: {
     data_origin: init.data_origin,
     reviewed_step_ids: [],
     reference_shown: false,
+    reference_evidence: null,
   };
 }
 
@@ -176,7 +196,130 @@ export function frameToEvidence(frame: FrameRecord, ref: string | null): Evidenc
       display_scale_method: typeof frame.display_scale?.method === "string" ? frame.display_scale.method : null,
       marker_kind: frame.marker?.kind ?? null,
     },
+    rendering: snapshotFrameRendering(frame),
   };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+/** API metadata is JSON. Refuse non-finite/cyclic/non-JSON values rather than changing them. */
+function jsonSnapshot<T>(value: T): T | null {
+  try {
+    const json = JSON.stringify(value, (_key, item: unknown) => {
+      if ((typeof item === "number" && !Number.isFinite(item)) || typeof item === "function" || typeof item === "bigint") throw new Error("Not JSON metadata");
+      return item;
+    });
+    return json === undefined ? null : JSON.parse(json) as T;
+  } catch { return null; }
+}
+
+function sameJson(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) return a.length === b.length && a.every((value, index) => sameJson(value, b[index]));
+  if (!isRecord(a) || !isRecord(b)) return false;
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every((key) => Object.hasOwn(b, key) && sameJson(a[key], b[key]));
+}
+
+const httpUrl = (value: unknown): string | null => typeof value === "string" && /^https?:\/\//i.test(value) ? value : null;
+
+function imageReference(value: unknown): ImageRef | null {
+  if (!isRecord(value) || typeof value.src !== "string" || !value.src || /^(?:data:|blob:|javascript:)/i.test(value.src) ||
+      typeof value.width !== "number" || !Number.isFinite(value.width) || value.width <= 0 ||
+      typeof value.height !== "number" || !Number.isFinite(value.height) || value.height <= 0 || typeof value.media_type !== "string") return null;
+  return jsonSnapshot(value as unknown as ImageRef);
+}
+
+/** Capture available fields verbatim; these references are not a self-contained FITS reproduction. */
+export function snapshotFrameRendering(frame: FrameRecord, options: { baseUrl?: string; apiBase?: string } = {}): EvidenceRendering {
+  const image = imageReference(frame.image);
+  const flag_image = imageReference(frame.flag_image);
+  const resolve = (reference: ImageRef | null): string | null => {
+    if (!reference) return null;
+    const src = resolveAssetSrc(reference.src, options.apiBase);
+    try {
+      const base = options.baseUrl ?? (typeof window !== "undefined" ? window.location.href : undefined);
+      return httpUrl(new URL(src, base).href);
+    } catch { return null; }
+  };
+  return {
+    display_scale: frame.display_scale ? jsonSnapshot(frame.display_scale) : null,
+    registration: frame.registration ? jsonSnapshot(frame.registration) : null,
+    image, flag_image,
+    image_url: resolve(image), flag_image_url: resolve(flag_image),
+    cutout_url: httpUrl(frame.provenance?.cutout_url),
+  };
+}
+
+function normalizeRendering(value: unknown): EvidenceRendering | null {
+  if (!isRecord(value)) return null;
+  const scale = isRecord(value.display_scale) && ["shared", "per_frame"].includes(value.display_scale.mode as string)
+    ? jsonSnapshot(value.display_scale as unknown as DisplayScale) : null;
+  return {
+    display_scale: scale,
+    registration: isRecord(value.registration) ? jsonSnapshot(value.registration) : null,
+    image: imageReference(value.image), flag_image: imageReference(value.flag_image),
+    image_url: httpUrl(value.image_url), flag_image_url: httpUrl(value.flag_image_url),
+    cutout_url: httpUrl(value.cutout_url),
+  };
+}
+
+/** All recorded processing identifiers must match, including a missing current value. */
+function matchesProcessing(frame: EvidenceFrame, record: FrameRecord): boolean {
+  const p = frame.processing;
+  return (!p?.file_sha256 || record.provenance?.file_sha256 === p.file_sha256) &&
+    (!p?.processing_version || record.provenance?.processing_version === p.processing_version) &&
+    (!p?.pipeline_version || record.provenance?.pipeline_version === p.pipeline_version) &&
+    (!p?.registration_method || record.registration?.method === p.registration_method) &&
+    (!p?.display_scale_method || record.display_scale?.method === p.display_scale_method) &&
+    (!p?.marker_kind || record.marker?.kind === p.marker_kind);
+}
+
+function matchesSource(frame: EvidenceFrame, record: FrameRecord): boolean {
+  return frame.frame_key === record.frame_key && frame.frame_id === record.frame_id &&
+    frame.observation_id === record.observation_id && frame.detector === record.detector &&
+    frame.collection_id === record.collection_id && frame.source_url === record.source_url &&
+    frame.observed_at_utc === record.observed_at_utc && frame.mjd === record.mjd &&
+    frame.display_scale_mode === (record.display_scale?.mode ?? null) && matchesProcessing(frame, record);
+}
+
+/** A same-source product with different numeric stretch/grid values is a different rendering. */
+export function evidenceFrameMatchesRecord(frame: EvidenceFrame, record: FrameRecord): boolean {
+  // Input-byte and processor identities cannot recover unrecorded low/high,
+  // softening or grid choices. Never present today's product as that old view.
+  if (!frame.rendering || !matchesSource(frame, record)) return false;
+  const current = snapshotFrameRendering(record);
+  const { image_url: _imageUrl, flag_image_url: _flagUrl, ...savedProduct } = frame.rendering;
+  const { image_url: _currentImageUrl, flag_image_url: _currentFlagUrl, ...currentProduct } = current;
+  return sameJson(savedProduct, currentProduct);
+}
+
+/** Resolve missing absolute URLs only for an already recorded, exactly matching product.
+ * Never backfill absent historical rendering settings from a current FrameRecord. */
+export function fillFrameRendering(card: EvidenceCard, records: readonly FrameRecord[]): EvidenceCard {
+  let changed = false;
+  const frames = card.frames.map((frame) => {
+    const rendering = frame.rendering;
+    if (!rendering || ((!rendering.image || rendering.image_url) && (!rendering.flag_image || rendering.flag_image_url))) return frame;
+    const record = records.find((candidate) => evidenceFrameMatchesRecord(frame, candidate));
+    if (!record) return frame;
+    const current = snapshotFrameRendering(record);
+    const image_url = rendering.image_url ?? current.image_url;
+    const flag_image_url = rendering.flag_image_url ?? current.flag_image_url;
+    if (image_url === rendering.image_url && flag_image_url === rendering.flag_image_url) return frame;
+    changed = true;
+    return { ...frame, rendering: { ...rendering, image_url, flag_image_url } };
+  });
+  return changed ? { ...card, frames } : card;
+}
+
+/** Freeze the first revealed reference; later content updates do not rewrite that record. */
+export function withReferenceEvidence(card: EvidenceCard, content?: CaseContent | null): EvidenceCard {
+  if (card.reference_evidence || !card.reference_shown || !content) return card;
+  const reference_evidence = buildReferenceEvidence(card, content);
+  return reference_evidence ? { ...card, reference_evidence } : card;
 }
 
 /** Adds or removes a frame, keeping the list in chronological order. */
@@ -212,7 +355,7 @@ export function attachPair(
     .map((f) => f.frame_key)
     .sort()
     .join("|");
-  if (want === have) return fillFrameLimitations(card, pair.map((p) => p.frame));
+  if (want === have) return fillFrameRendering(fillFrameLimitations(card, pair.map((p) => p.frame)), pair.map((p) => p.frame));
   const pairKeys = new Set(pair.map((p) => p.frame.frame_key));
   const extras = card.frames.filter((f) => !(f.ref && pairRefs.includes(f.ref)) && !pairKeys.has(f.frame_key));
   const frames = [...extras, ...pair.map((p) => frameToEvidence(p.frame, p.ref))].sort(
@@ -308,6 +451,7 @@ const CARD_KEY_ORDER: (keyof EvidenceCard)[] = [
   "sources",
   "reviewed_step_ids",
   "reference_shown",
+  "reference_evidence",
 ];
 
 /** Stable, human-readable JSON for export. Older cards export the new keys as null. */
@@ -399,17 +543,19 @@ export function normalizeEvidenceCard(card: EvidenceCard): EvidenceCard {
   const reviewed = Array.isArray(card.reviewed_step_ids)
     ? [...new Set(card.reviewed_step_ids.filter((s): s is string => typeof s === "string" && s.length <= 100))].slice(0, 100) : [];
   const referenceShown = card.reference_shown === true;
+  const referenceEvidence = normalizeReferenceEvidence(card.reference_evidence);
   let framesChanged = false;
   const frames = card.frames.map((f) => {
     const lims = f.limitations == null ? null : cleanLimitations(f.limitations);
-    if (f.limitations !== undefined && sameList(lims, f.limitations)) return f;
+    const rendering = normalizeRendering(f.rendering);
+    if (f.limitations !== undefined && sameList(lims, f.limitations) && sameJson(rendering, f.rendering)) return f;
     framesChanged = true;
-    return { ...f, limitations: lims };
+    return { ...f, limitations: lims, rendering };
   });
   if (card.title === title && sameList(caseLims, raw) && !framesChanged &&
-      sameList(reviewed, card.reviewed_step_ids) && referenceShown === card.reference_shown) return card;
+      sameList(reviewed, card.reviewed_step_ids) && referenceShown === card.reference_shown && sameJson(referenceEvidence, card.reference_evidence)) return card;
   return { ...card, title, case_limitations: caseLims, frames: framesChanged ? frames : card.frames,
-    reviewed_step_ids: reviewed, reference_shown: referenceShown };
+    reviewed_step_ids: reviewed, reference_shown: referenceShown, reference_evidence: referenceEvidence };
 }
 
 function sameList(a: string[] | null, b: unknown): boolean {
